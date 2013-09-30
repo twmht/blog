@@ -21,7 +21,7 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/posts/2013/09/C/">指標</a></h1>
+                    <h1 class="entry-title"><a href="/posts/2013/09/C/">struct用malloc配置記憶體空間</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2013-09-22T19:19:00">
                 日 22 九月 2013
@@ -32,7 +32,38 @@
         </address>
 <p>In <a href="/category/c.html">C</a>. </p>
 
-</footer><!-- /.post-info --><p>This is the content of my blog post.</p>                </article>
+</footer><!-- /.post-info --><p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
+        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
+        <span class="k">union</span> <span class="p">{</span>
+                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
+                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
+<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
+<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
+<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
+<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte</span>
+<span class="n">fread</span><span class="p">(</span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">mf_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="n">fin</span><span class="p">)</span>
+</pre></div>
+
+
+<p>以前一直以為指標指到的struct的size有多少，那麼malloc的空間就該有多少，但這是錯誤的觀念，
+給一個簡單的例子:</p>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">test</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">a</span><span class="p">,</span><span class="s">&quot;111111111111111111111111111111111111111&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">a</span><span class="p">);</span> <span class="c1">//剛好是111111111111111111111111111111111111111</span>
+</pre></div>
+
+
+<p>原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會給mf_data。</p>                </article>
 <p class="paginator">
     Page 1 / 1
 </p>
