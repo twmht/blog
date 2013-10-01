@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - twmht</title>
+        <title>ACM UVA-627</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -15,14 +15,19 @@
         <header id="banner" class="body">
                 <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
                 <nav><ul>
-                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/c.html">C</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/acm/uva627.html" rel="bookmark"
+           title="Permalink to ACM UVA-627">ACM UVA-627</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva627.html">ACM UVA-627</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2013-10-02T07:46:00.608406">
                 三 02 十月 2013
@@ -33,7 +38,7 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p>這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。</p>
+</footer><!-- /.post-info -->      <p>這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
 <span class="kt">bool</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
 <span class="kt">void</span> <span class="nf">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
@@ -116,53 +121,11 @@
     <span class="p">}</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</pre></div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html" rel="bookmark"
-                           title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-02T06:57:15.340040">
-                三 02 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/http://twmht.github.io">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/c.html">C</a>. </p>
-
-</footer><!-- /.post-info -->                <p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
-        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
-        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
-        <span class="k">union</span> <span class="p">{</span>
-                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
-                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
-        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
-<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
-<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
-<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
-<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<p class="paginator">
-    Page 1 / 1
-</p>
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

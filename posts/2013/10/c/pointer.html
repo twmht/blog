@@ -15,6 +15,7 @@
         <header id="banner" class="body">
                 <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
                 <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li class="active"><a href="http://twmht.github.io/blog/category/c.html">C</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
@@ -22,18 +23,18 @@
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://twmht.github.io/blog/posts/2013/09/C/" rel="bookmark"
+        <a href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html" rel="bookmark"
            title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-09-22T19:19:00">
-                日 22 九月 2013
+        <abbr class="published" title="2013-10-02T06:57:15.340040">
+                三 02 十月 2013
         </abbr>
 
         <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+                By <a class="url fn" href="http://twmht.github.io/blog/http://twmht.github.io">twmht</a>
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/c.html">C</a>. </p>
 
@@ -68,7 +69,7 @@
 </pre></div>
 
 
-<p>原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會給mf_data。</p>
+<p>原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面。</p>
     </div><!-- /.entry-content -->
 
   </article>
@@ -88,8 +89,8 @@
                         <ul>
                             <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
                         </ul>
                 </div><!-- /.social -->
         </section><!-- /#extras -->
