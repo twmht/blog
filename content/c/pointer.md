@@ -1,6 +1,5 @@
 Title:struct用malloc配置記憶體空間
-Slug: C
-Date: 2013-09-22 19:19
+Slug: pointer
 Category: C
 Author: twmht
 
@@ -33,4 +32,4 @@ Author: twmht
     p = (struct test *)malloc(500);
     strcpy(p->a,"111111111111111111111111111111111111111");
     printf("%s\n",p->a); //剛好是111111111111111111111111111111111111111
-原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會給mf_data。
+原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面。
