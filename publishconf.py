@@ -22,3 +22,4 @@ DELETE_OUTPUT_DIRECTORY = True
 
 #DISQUS_SITENAME = ""
 #GOOGLE_ANALYTICS = ""
+#AUTHOR_URL = 'http://twmht.github.io'
