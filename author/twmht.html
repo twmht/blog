@@ -22,7 +22,62 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html">ACM UVA-10986</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html">struct用malloc配置記憶體空間</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2013-10-02T09:57:02.253031">
+                三 02 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/http://twmht.github.io">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/c.html">C</a>. </p>
+
+</footer><!-- /.post-info --><p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
+        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
+        <span class="k">union</span> <span class="p">{</span>
+                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
+                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
+<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
+<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
+<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
+<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte</span>
+<span class="n">fread</span><span class="p">(</span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">mf_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="n">fin</span><span class="p">)</span>
+</pre></div>
+
+
+<p>以前一直以為指標指到的struct的size有多少，那麼malloc的空間就該有多少，但這是錯誤的觀念，
+給一個簡單的例子:</p>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">test</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">test</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">a</span><span class="p">,</span><span class="s">&quot;111111111111111111111111111111111111111&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">a</span><span class="p">);</span> <span class="c1">//剛好是111111111111111111111111111111111111111</span>
+</pre></div>
+
+
+<p>原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面，所以mf_data本身加上512個byte會有513個byte，至於為什麼只讀了512個byte呢，因為最後一個byte要加上\0表示字串結尾。</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10986">ACM UVA-10986</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2013-10-02T08:09:01.628222">
                 三 02 十月 2013
@@ -33,7 +88,7 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p>這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。</p>
+</footer><!-- /.post-info -->                <p>這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
 <span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
@@ -54,67 +109,10 @@
     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
 
 
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">o</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">o</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">;</span><span class="n">o</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">list</span><span class="p">[</span><span class="mi">20005</span><span class="p">];</span>
-            <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">[</span><span class="mi">20005</span><span class="p">];</span>
-            <span class="kt">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">20005</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-            <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d %d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">,</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-            <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>
-                <span class="kt">int</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">;</span>
-                <span class="n">Edge</span> <span class="n">uv</span><span class="p">,</span><span class="n">vu</span><span class="p">;</span>
-                <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">u</span><span class="p">,</span><span class="o">&amp;</span><span class="n">v</span><span class="p">,</span><span class="o">&amp;</span><span class="n">w</span><span class="p">);</span>
-                <span class="c1">//cost</span>
-                <span class="n">uv</span><span class="p">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
-                <span class="n">uv</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
-                <span class="n">list</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">uv</span><span class="p">);</span>
-                <span class="n">vu</span><span class="p">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
-                <span class="n">vu</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
-                <span class="n">list</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">vu</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">weight</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">PQ</span><span class="p">;</span>
-            <span class="n">weight</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="c1">//printf(&quot;%d\n&quot;,s);</span>
-            <span class="n">PQ</span><span class="p">.</span><span class="n">push</span><span class="p">((</span><span class="n">Node</span><span class="p">){</span><span class="n">s</span><span class="p">,</span><span class="n">weight</span><span class="p">[</span><span class="n">s</span><span class="p">]});</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-                <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">PQ</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">visit</span><span class="p">[</span><span class="n">a</span> <span class="o">=</span> <span class="n">PQ</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">id</span><span class="p">]){</span>
-                    <span class="n">PQ</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-                <span class="p">}</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="n">PQ</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-                <span class="n">visit</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-                <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">list</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
-                    <span class="n">Edge</span> <span class="n">b</span> <span class="o">=</span> <span class="n">list</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
-                    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visit</span><span class="p">[</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">weight</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">.</span><span class="n">w</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">[</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">]){</span>
-                        <span class="n">weight</span><span class="p">[</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
-                        <span class="n">PQ</span><span class="p">.</span><span class="n">push</span><span class="p">((</span><span class="n">Node</span><span class="p">){</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="n">weight</span><span class="p">[</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">]});</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span><span class="p">(</span><span class="n">weight</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">1e9</span><span class="p">){</span>
-                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Case #%d: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">weight</span><span class="p">[</span><span class="n">t</span><span class="p">]);</span>
-            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Case #%d: unreachable</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">o</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -146,42 +144,6 @@
         <span class="n">vector</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list</span><span class="p">[</span><span class="mi">305</span><span class="p">];</span>
         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i ...</span></pre></div>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva627.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html" rel="bookmark"
-                           title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-02T06:57:15.340040">
-                三 02 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/http://twmht.github.io">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/c.html">C</a>. </p>
-
-</footer><!-- /.post-info -->                <p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
-        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
-        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
-        <span class="k">union</span> <span class="p">{</span>
-                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
-                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
-        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
-<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
-<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
-<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
-<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

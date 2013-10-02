@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-02T08:09:01+08:00</updated><entry><title>ACM UVA-10986</title><link href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html" rel="alternate"></link><updated>2013-10-02T08:09:01+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-02:posts/2013/10/acm/uva10986.html</id><summary type="html">&lt;p&gt;這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-02T09:57:02+08:00</updated><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html" rel="alternate"></link><updated>2013-10-02T09:57:02+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-02:posts/2013/10/c/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_opcode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_cksum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;union&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt;  &lt;span class="n"&gt;mf_block&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;mf_filename&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="n"&gt;__attribute__&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;__packed__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;mf_u&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;mf_data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="n"&gt;__attribute__&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;__packed__&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;span class="c1"&gt;//告訴編譯器不做最佳化&lt;/span&gt;
+&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;myFtphdr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;//The size of myFtphdr = 6 bytes &lt;/span&gt;
+&lt;span class="c1"&gt;//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標&lt;/span&gt;
+&lt;span class="c1"&gt;//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;packet&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;//分配512個byte給mf_data,但是mf_data只有一個byte&lt;/span&gt;
+&lt;span class="n"&gt;fread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;packet&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;mf_data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以前一直以為指標指到的struct的size有多少，那麼malloc的空間就該有多少，但這是錯誤的觀念，
+給一個簡單的例子:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;strcpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;111111111111111111111111111111111111111&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%s&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//剛好是111111111111111111111111111111111111111&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面，所以mf_data本身加上512個byte會有513個byte，至於為什麼只讀了512個byte呢，因為最後一個byte要加上\0表示字串結尾。&lt;/p&gt;</summary></entry><entry><title>ACM UVA-10986</title><link href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html" rel="alternate"></link><updated>2013-10-02T08:09:01+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-02:posts/2013/10/acm/uva10986.html</id><summary type="html">&lt;p&gt;這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -158,35 +189,4 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2013/10/c/pointer.html" rel="alternate"></link><updated>2013-10-02T06:57:15+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-02:posts/2013/10/c/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_opcode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_cksum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;union&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-                &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt;  &lt;span class="n"&gt;mf_block&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;mf_filename&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="n"&gt;__attribute__&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;__packed__&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;mf_u&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;mf_data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="n"&gt;__attribute__&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;__packed__&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;&lt;span class="c1"&gt;//告訴編譯器不做最佳化&lt;/span&gt;
-&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;myFtphdr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;//The size of myFtphdr = 6 bytes &lt;/span&gt;
-&lt;span class="c1"&gt;//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標&lt;/span&gt;
-&lt;span class="c1"&gt;//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?&lt;/span&gt;
-&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;packet&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="c1"&gt;//分配512個byte給mf_data,但是mf_data只有一個byte&lt;/span&gt;
-&lt;span class="n"&gt;fread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;packet&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;mf_data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;以前一直以為指標指到的struct的size有多少，那麼malloc的空間就該有多少，但這是錯誤的觀念，
-給一個簡單的例子:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;strcpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;111111111111111111111111111111111111111&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%s&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//剛好是111111111111111111111111111111111111111&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面。&lt;/p&gt;</summary></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</summary></entry></feed>
