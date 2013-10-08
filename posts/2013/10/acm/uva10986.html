@@ -17,6 +17,7 @@
                 <nav><ul>
                     <li class="active"><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/c.html">C</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
@@ -29,8 +30,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-02T08:09:01.628222">
-                三 02 十月 2013
+        <abbr class="published" title="2013-10-08T22:34:38.577131">
+                二 08 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -43,7 +44,7 @@
 <span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dis</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
         <span class="k">return</span> <span class="n">dis</span><span class="o">&gt;</span><span class="n">n</span><span class="p">.</span><span class="n">dis</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -63,7 +64,7 @@
         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">o</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">o</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">;</span><span class="n">o</span><span class="o">++</span><span class="p">){</span>
             <span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">list</span><span class="p">[</span><span class="mi">20005</span><span class="p">];</span>
             <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">weight</span><span class="p">[</span><span class="mi">20005</span><span class="p">];</span>
-            <span class="kt">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">20005</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+            <span class="n">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">20005</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
             <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">t</span><span class="p">;</span>
             <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d %d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">,</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
             <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-08T23:24:14+08:00</updated><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html" rel="alternate"></link><updated>2013-10-08T23:24:14+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-08:posts/2013/10/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;alsamixer
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者是&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;gnome-alsamixer
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;來調整麥克風的聲音。
+如果再不行的話，就使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;gstreamer-properties
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;調整input或者是output。&lt;/p&gt;</summary></entry></feed>

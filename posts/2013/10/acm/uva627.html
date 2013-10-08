@@ -17,6 +17,7 @@
                 <nav><ul>
                     <li class="active"><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/c.html">C</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
@@ -29,8 +30,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-02T07:46:00.608406">
-                三 02 十月 2013
+        <abbr class="published" title="2013-10-08T22:34:38.577131">
+                二 08 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -40,8 +41,8 @@
 
 </footer><!-- /.post-info -->      <p>這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">bool</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="n">bool</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
@@ -67,7 +68,7 @@
             <span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="n">dest</span><span class="p">;</span>
             <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">start</span><span class="p">,</span><span class="o">&amp;</span><span class="n">dest</span><span class="p">);</span>
             <span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="mi">305</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-            <span class="kt">bool</span> <span class="n">find</span> <span class="o">=</span> <span class="n">bfs</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">dest</span><span class="p">,</span><span class="n">list</span><span class="p">);</span>
+            <span class="n">bool</span> <span class="n">find</span> <span class="o">=</span> <span class="n">bfs</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">dest</span><span class="p">,</span><span class="n">list</span><span class="p">);</span>
             <span class="k">if</span><span class="p">(</span><span class="n">find</span><span class="p">){</span>
                 <span class="n">print_path</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">dest</span><span class="p">);</span>
             <span class="p">}</span>
@@ -80,10 +81,10 @@
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kt">bool</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="k">const</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="k">const</span> <span class="kt">int</span> <span class="n">dest</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span> <span class="n">list</span><span class="p">){</span>
+<span class="n">bool</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="k">const</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="k">const</span> <span class="kt">int</span> <span class="n">dest</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span> <span class="n">list</span><span class="p">){</span>
     <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
     <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
-    <span class="kt">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">305</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">305</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
     <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
         <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
         <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
@@ -103,7 +104,7 @@
     <span class="p">}</span>
     <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="kt">void</span> <span class="nf">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">dest</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">dest</span><span class="p">){</span>
     <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">dest</span><span class="p">;</span>
     <span class="c1">//printf(&quot;a = %d\n&quot;,a);</span>
     <span class="c1">//printf(&quot;p = %d\n&quot;,parent[a]);</span>
