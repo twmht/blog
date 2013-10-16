@@ -1,6 +1,6 @@
 Title:struct用malloc配置記憶體空間
 Slug: pointer
-Category: C
+Category: C/C++
 Author: twmht
 
 一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?

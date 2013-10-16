@@ -18,9 +18,10 @@ TRANSLATION_FEED_ATOM = None
 
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),
-          ('Python.org', 'http://python.org/'),
+          ('pygments', 'http://pygments.org/docs/lexers/'),
           ('Jinja2', 'http://jinja.pocoo.org/'),
-          ('Author', 'http://twmht.github.io'),)
+          ('Author', 'http://twmht.github.io'),
+          ('Luckycat','http://luckycat.kshs.kh.edu.tw/'))
 
 # Social widget
 SOCIAL = (('Github', 'https://github.com/twmht'),
