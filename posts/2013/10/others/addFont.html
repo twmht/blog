@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記</title>
+        <title>如何在ubuntu中加入新的字型</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -17,26 +17,56 @@
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
-<h1>Archives for 技術筆記</h1>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html" rel="bookmark"
+           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
+    </header>
 
-<dl>
-    <dt>三 16 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html">如何在ubuntu中加入新的字型</a></dd>
-    <dt>一 14 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html">定義Comparator</a></dd>
-    <dt>一 14 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html">struct用malloc配置記憶體空間</a></dd>
-    <dt>二 08 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html">解決ubuntu上面麥克風沒聲音的問題</a></dd>
-    <dt>二 08 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html">ACM UVA-10986</a></dd>
-    <dt>二 08 十月 2013</dt>
-    <dd><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva627.html">ACM UVA-627</a></dd>
-</dl>
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-16T22:56:30.752662">
+                三 16 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->      <p>在ubuntu上面使用字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+<ul>
+<li>
+<p>使用gnome-font-viewer </p>
+<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
+</pre></div>
+
+
+</li>
+<li>
+<p>直接在myfont.ttf上面點兩下直接安裝。</p>
+</li>
+<li>
+<p>適合一次安裝大量字型檔</p>
+<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype
+sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf <span class="c">#可能不需要</span>
+<span class="nb">fc</span>-cache
+</pre></div>
+
+
+</li>
+</ul>
+<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
 </section>
         <section id="extras" class="body">
                 <div class="blogroll">
