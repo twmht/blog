@@ -31,7 +31,7 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-17T19:52:22.875789">
+        <abbr class="published" title="2013-10-17T20:19:26.097618">
                 四 17 十月 2013
         </abbr>
 
@@ -40,9 +40,7 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
 
-</footer><!-- /.post-info -->      <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
-<p>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</p>
-<h2>Single Threaded Execution Pattern</h2>
+</footer><!-- /.post-info -->      <h2>Single Threaded Execution Pattern</h2>
 <p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
 <p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
 <p>Gate.java</p>
