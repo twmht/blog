@@ -2,7 +2,7 @@ Title: 如何在ubuntu中加入新的字型
 Slug: addFont
 Category: Others
 Author: twmht
-在ubuntu上面使用字型的話，有三種方式，假設現在要安裝myfont.ttf。
+在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。
 
 * 使用gnome-font-viewer 
 
@@ -14,7 +14,7 @@ Author: twmht
 * 適合一次安裝大量字型檔
 
         :::bash
-        cd /usr/local/share/fonts/truetype
+        cd /usr/local/share/fonts/truetype #如果是open type font(otf)的話，資料夾名稱是opentype
         sudo mkdir myfonts && cd myfonts
         cp /path/to/fonts/*.ttf ./
         sudo chown root *.ttf #可能不需要

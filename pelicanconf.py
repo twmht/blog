@@ -21,7 +21,8 @@ LINKS =  (('Pelican', 'http://getpelican.com/'),
           ('pygments', 'http://pygments.org/docs/lexers/'),
           ('Jinja2', 'http://jinja.pocoo.org/'),
           ('Author', 'http://twmht.github.io'),
-          ('Luckycat','http://luckycat.kshs.kh.edu.tw/'))
+          ('Luckycat','http://luckycat.kshs.kh.edu.tw/'),
+          ('Markdown','http://warpedvisions.org/projects/markdown-cheat-sheet.md'))
 
 # Social widget
 SOCIAL = (('Github', 'https://github.com/twmht'),
