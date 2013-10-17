@@ -3,10 +3,6 @@ Slug: single-thread-execution
 Category: Multithread
 Author: twmht
 
-講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。
-
-不管是concurrent或者是parallel，都要考慮到thread-safe的問題。
-
 ##Single Threaded Execution Pattern
 是指我們的方法限定一次只能由一個執行緒所執行。 
 
