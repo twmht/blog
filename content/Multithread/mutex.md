@@ -70,7 +70,7 @@ ok，現在來設計一個simple mutex，建立Mutex.java
 但是這樣設計並不好，雖然在Gate類別運作良好，但假設有某個執行緒連續呼叫兩次lock，則會變成在還沒釋放鎖定之前就把自己關到wait set中。
 另外，即使是沒有獲得鎖定的執行緒，也可以呼叫unlock方法，邏輯上會變得很奇怪。
 
-以下是一個改良過後的Mutex.java。利用locks紀錄目前的lock數量，當然lock數量只會有一個，並且紀錄一個owner來紀錄誰呼叫了這個lock。
+以下是一個改良過後的Mutex.java。利用locks紀錄目前的lock數量，並且紀錄一個owner來紀錄誰呼叫了這個lock。
 
     :::java
     public final class Mutex {
