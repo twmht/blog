@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-14T21:15:53+08:00</updated><entry><title>定義Comparator</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html" rel="alternate"></link><updated>2013-10-14T21:15:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-14:posts/2013/10/cc/compator.html</id><summary type="html">&lt;p&gt;常見有三種定義方式。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-18T19:53:57+08:00</updated><entry><title>定義Comparator</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html" rel="alternate"></link><updated>2013-10-18T19:53:57+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-18:posts/2013/10/cc/compator.html</id><summary type="html">&lt;p&gt;常見有三種定義方式。&lt;/p&gt;
 &lt;h1&gt;1. Define operator&amp;lt;()&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Edge&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -9,7 +9,7 @@
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;weight&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;printOut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Edge&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;printOut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Edge&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weight&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Edge&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -23,7 +23,7 @@
 
 
 &lt;h1&gt;2. Define a custom comparison function&lt;/h1&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;cmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -42,7 +42,7 @@
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;priority_queue&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pq&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html" rel="alternate"></link><updated>2013-10-14T20:11:52+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-14:posts/2013/10/cc/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html" rel="alternate"></link><updated>2013-10-18T19:53:57+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-18:posts/2013/10/cc/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_opcode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_cksum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;

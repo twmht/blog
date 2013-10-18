@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Multithread</title>
+        <title>Mutex</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -21,10 +21,15 @@
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html" rel="bookmark"
+           title="Permalink to Mutex">Mutex</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html">Mutex</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2013-10-18T22:02:39.505188">
                 五 18 十月 2013
@@ -35,7 +40,7 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
 
-</footer><!-- /.post-info --><p>如果可以不要用syncronized來做到thread-safe，那麼可以考慮使用mutex。</p>
+</footer><!-- /.post-info -->      <p>如果可以不要用syncronized來做到thread-safe，那麼可以考慮使用mutex。</p>
 <p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
 <div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
@@ -129,131 +134,11 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html" rel="bookmark"
-                           title="Permalink to DeadLock">DeadLock</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T21:14:50.360002">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
-<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
-現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
-<p>以下是會產生deadlock的程式。</p>
-<p>建立shared resource，如下的Tool.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
 </pre></div>
+    </div><!-- /.entry-content -->
 
-
-<p>Main ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html" rel="bookmark"
-                           title="Permalink to Introduction to Multithread">Introduction to Multithread</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T21:11:26.377768">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
-<h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
-<p>一般來說，在java中可以透過兩種方式建立thread。</p>
-<ul>
-<li>
-<p>繼承Thread類別，建立PrintThread.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
-                           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <h2>Single Threaded Execution Pattern</h2>
-<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
-<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
-<p>Gate.java</p>
-<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<p class="paginator">
-    Page 1 / 1
-</p>
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

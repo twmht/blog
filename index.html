@@ -24,10 +24,10 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html">Introduction to Multithread</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html">Mutex</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-17T21:09:24.620165">
-                四 17 十月 2013
+        <abbr class="published" title="2013-10-18T22:02:39.505188">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -35,7 +35,164 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
 
-</footer><!-- /.post-info --><p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
+</footer><!-- /.post-info --><p>如果可以不要用syncronized來做到thread-safe，那麼可以考慮使用mutex。</p>
+<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
+        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+            <span class="n">check</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">mutex</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">counter</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">address</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">mutex</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">name</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="n">address</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;***** BROKEN ***** &quot;</span> <span class="o">+</span> <span class="n">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>問題是，Mutex這個類別要如何設計?
+    我們設計一個lock方法，並且在其中設定一個busy欄位，表示目前是不是已經釋放鎖定了。同時也設定一個unlock方法，釋放鎖定。</p>
+<p>ok，現在來設計一個simple mutex，建立Mutex.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Mutex</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">busy</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="c1">//必須設定成syncronized,因為busy是一個shared resource</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">lock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">busy</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">//當還沒拿到鎖定的時候，先進入wait set</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">busy</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">unlock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">busy</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="c1">//叫醒其它在wait set中的執行緒。</span>
+        <span class="n">notifyAll</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>但是這樣設計並不好，雖然在Gate類別運作良好，但假設有某個執行緒連續呼叫兩次lock，則會變成在還沒釋放鎖定之前就把自己關到wait set中。
+另外，即使是沒有獲得鎖定的執行緒，也可以呼叫unlock方法，邏輯上會變得很奇怪。</p>
+<p>以下是一個改良過後的Mutex.java。利用locks紀錄目前的lock數量，當然lock數量只會有一個，並且紀錄一個owner來紀錄誰呼叫了這個lock。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Mutex</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">locks</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Thread</span> <span class="n">owner</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">lock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">me</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">locks</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">me</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">//若被叫醒回來發現lock大於0的話，則再回去wait set。</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">// locks == 0 || owner == me</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="n">me</span><span class="o">;</span>
+        <span class="n">locks</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">unlock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">me</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">locks</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">me</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// locks &gt; 0 &amp;&amp; owner == me</span>
+        <span class="n">locks</span><span class="o">--;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">locks</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">owner</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">notifyAll</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html" rel="bookmark"
+                           title="Permalink to DeadLock">DeadLock</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-18T21:14:50.360002">
+                五 18 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
+<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
+現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
+<p>以下是會產生deadlock的程式。</p>
+<p>建立shared resource，如下的Tool.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html" rel="bookmark"
+                           title="Permalink to Introduction to Multithread">Introduction to Multithread</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-18T21:11:26.377768">
+                五 18 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
 <h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
 <p>一般來說，在java中可以透過兩種方式建立thread。</p>
 <ul>
@@ -56,216 +213,8 @@
 
 
 <p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">new</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-        <span class="k">new</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="s">&quot;Nice!&quot;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>實作Runnable界面,建立Printer.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Printer</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Printer</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Printer</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)).</span><span class="na">start</span><span class="o">();</span>
-        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Printer</span><span class="o">(</span><span class="s">&quot;Nice!&quot;</span><span class="o">)).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-</li>
-</ul>
-<h3>接下來要來介紹synchronized方法。</h3>
-<p>建立Bank.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Bank</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">money</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Bank</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">money</span> <span class="o">=</span> <span class="n">money</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">money</span> <span class="o">+=</span> <span class="n">m</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">boolean</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">money</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">money</span> <span class="o">-=</span> <span class="n">m</span><span class="o">;</span>
-            <span class="n">check</span><span class="o">();</span>
-            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">money</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;可用餘額為負數 ! money = &quot;</span> <span class="o">+</span> <span class="n">money</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>ClientThread.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Bank</span> <span class="n">bank</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">ClientThread</span><span class="o">(</span><span class="n">Bank</span> <span class="n">bank</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">bank</span> <span class="o">=</span> <span class="n">bank</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-            <span class="kt">boolean</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">bank</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">ok</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">bank</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Bank</span> <span class="n">bank</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bank</span><span class="o">(</span><span class="s">&quot;A Good Bank&quot;</span><span class="o">,</span> <span class="mi">1000</span><span class="o">);</span>
-        <span class="k">new</span> <span class="nf">ClientThread</span><span class="o">(</span><span class="n">bank</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-        <span class="k">new</span> <span class="nf">ClientThread</span><span class="o">(</span><span class="n">bank</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>當一個執行緒在執行Bank實體的deposit方法時，表示它已經取得鎖定，其它執行緒就不能執行同一個實體的deposit方法或withdraw方法，必須排隊取得鎖定。
-換句話說，一個實體只會有一個鎖定。而且，只有取得鎖定的執行緒才能夠執行synchronized方法。</p>
-<p>如果不想要讓整個方法都被synchronized保護，則可以用部份保護的方式。</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
-    <span class="c1">//something</span>
-    <span class="kd">synchronized</span><span class="o">(</span><span class="n">variable</span><span class="o">){</span>
-
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>假設現在有一個加上synchronized的方法</p>
-<div class="highlight"><pre><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
-    <span class="c1">//something</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>它等價於</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
-    <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">){</span>
-
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>相當於取得this的鎖定。</p>
-<p>另一方面，synchronized類別方法又有不同</p>
-<div class="highlight"><pre><span class="kd">class</span> <span class="nc">something</span><span class="o">{</span>
-    <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
-        <span class="c1">//something</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>其等價於</p>
-<div class="highlight"><pre><span class="kd">class</span> <span class="nc">something</span><span class="o">{</span>
-    <span class="n">start</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">(){</span>
-        <span class="kd">synchronized</span><span class="o">(</span><span class="n">something</span><span class="o">.</span><span class="na">class</span><span class="o">){</span>
-            <span class="c1">//something</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>注意到了嗎?取得的是something這個類別的鎖定。</p>
-<h3>最後介紹wait set的觀念</h3>
-<p><em>每個實體都會有一個wait set</em>，wait set是一個在執行該實體的wait方法時，動作所停止的執行緒的集合。
-一執行wait方法時，該執行緒便會暫時停止動作，進入wait set這個集合，除非發生下列其中一種情形，否則該thread會永遠被留在wait set裡。</p>
-<ul>
-<li>有其他執行緒呼叫notify方法，可以從wait set中叫醒一個執行緒出來，不能保證是哪一個。</li>
-<li>有其他執行緒呼叫notifyAll方法，叫醒所有正在wait set中的執行緒。</li>
-<li>有其他執行去呼叫Interrupt方法</li>
-<li>wait方法已到期</li>
-</ul>
-<p>要執行wait或notify方法，<em>執行緒必須先取得鎖定</em>，進入wait set後，才會釋放鎖定。</p>
-<p>一般來說，會設計成這樣。</p>
-<div class="highlight"><pre><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(){</span>
-    <span class="c1">//something</span>
-    <span class="n">wait</span><span class="o">();</span> <span class="c1">//或是this.wait()</span>
-    <span class="c1">//something</span>
-<span class="o">}</span>
-<span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(){</span>
-    <span class="c1">//something</span>
-    <span class="n">notify</span><span class="o">();</span> <span class="c1">//或是this.notify()</span>
-    <span class="c1">//something</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>被叫醒後的執行緒，要繼續排隊取得鎖定，之後會執行wait()後的敘述。</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
-                           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-17T20:19:26.097618">
-                四 17 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <h2>Single Threaded Execution Pattern</h2>
-<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
-<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
-<p>Gate.java</p>
-<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
+<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
@@ -277,8 +226,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-17T00:00:02.902974">
-                四 17 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -323,8 +272,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-14T21:15:53.339356">
-                一 14 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -342,7 +291,7 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
         <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
-<span class="kt">void</span> <span class="n">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
+<span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
@@ -362,8 +311,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-14T20:11:52.251628">
-                一 14 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -392,14 +341,46 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
+                           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <h2>Single Threaded Execution Pattern</h2>
+<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
+<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
+<p>Gate.java</p>
+<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html" rel="bookmark"
                            title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-08T23:24:14.015846">
-                二 08 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -437,8 +418,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-08T22:34:38.577131">
-                二 08 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -451,7 +432,7 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 <span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dis</span><span class="p">;</span>
-    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
         <span class="k">return</span> <span class="n">dis</span><span class="o">&gt;</span><span class="n">n</span><span class="p">.</span><span class="n">dis</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -480,8 +461,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-08T22:34:38.577131">
-                二 08 十月 2013
+        <abbr class="published" title="2013-10-18T19:53:57.938483">
+                五 18 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -491,8 +472,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
 </footer><!-- /.post-info -->                <p>這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="n">bool</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
-<span class="kt">void</span> <span class="n">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
