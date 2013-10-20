@@ -3,9 +3,9 @@ Slug: mutex
 Category: Multithread
 Author: twmht
 
-如果可以不要用syncronized來做到thread-safe，那麼可以考慮使用mutex。
+如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。
 
-現在來修改在[Single Threaded Execution Pattern](http://twmht.github.io/blog/posts/2013/10/multithread/Introduction.html)所用到的Gate類別。
+現在來修改在[Single Threaded Execution Pattern](http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html)所用到的Gate類別。
 
     :::java
     public class Gate {

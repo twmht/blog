@@ -175,7 +175,7 @@ Main.java
 
 * 有其他執行緒呼叫notify方法，可以從wait set中叫醒一個執行緒出來，不能保證是哪一個。
 * 有其他執行緒呼叫notifyAll方法，叫醒所有正在wait set中的執行緒。
-* 有其他執行緒呼叫Interrupt方法
+* 有其他執行緒呼叫Interrupt方法，<font color=red>Interrupt是針對執行緒實體呼叫，並且會丟出InterruptException。</font>
 * wait方法已到期
 
 要執行wait或notify方法，*執行緒必須先取得鎖定*，進入wait set後，才會釋放鎖定。
