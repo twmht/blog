@@ -24,10 +24,87 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/multithread/balking.html">Balking Pattern</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11997.html">ACM UVA-11997</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-20T20:14:41.247439">
-                日 20 十月 2013
+        <abbr class="published" title="2013-10-24T11:55:14.955190">
+                四 24 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info --><p>這題是給k個大小為k的array，每個array挑一個數字再總和，求k個最小的總和。</p>
+<p>由於題目總共會有k的k次方種總和，所以用暴力解的話一定會TLE。</p>
+<p>我們可以推出在k列中的任意兩列一定對答案有貢獻，例如任意兩列選兩個數字出來總和也一定是最小，所以我們可以逐列求出答案出來，首先要先將每一列排序，假設前兩列為A跟B，那我們可以先將a1+b1,a2+b1,a3+b1...ak+b1放到min heap裡面，a1+b1一定是最小的，所以先pop出來，這時候我們可以將a1+b2放到heap中，<font color = red>因為如果我們放的是其他組合的話，在heap裡面一定會有數字是更小的(例如我們放a2+b2，但是heap裡面的a2+b1是更小的)</font>，而a2+b2 = (a1+b1)+b2-b1，a1+b1是本來pop出來的值，有一個規律是每次變更的都會是b的index，pop k次之後，就可以求出這兩行裡面的k個最小值，照這樣的作法逐行求取k個最小的值。</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+
+<span class="k">struct</span> <span class="n">element</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">,</span><span class="n">index</span><span class="p">;</span>
+    <span class="n">element</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">element</span> <span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">&gt;</span><span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">merge</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">800</span><span class="p">][</span><span class="mi">800</span><span class="p">];</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">sort</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">k</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">//priority_queue&lt;element&gt; pq;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="c1">//逐行找k個最小的</span>
+            <span class="n">merge</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">merge</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">){</span>
+    <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span> <span class="n">pq</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">));</span>
+    <span class="c1">//pop k次之後，&quot;目前&quot;的k個最小的也決定好了</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">element</span> <span class="n">e</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+        <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="p">;</span>
+        <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/producer-consumer.html" rel="bookmark"
+                           title="Permalink to Producer-Consumer Pattern">Producer-Consumer Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T10:14:31.289591">
+                四 24 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -35,192 +112,81 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
 
-</footer><!-- /.post-info --><p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
-<p>換句話說，不一定要執行。</p>
-<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
-<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
-<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
-<p>表示資料的類別，Data.java</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
+</footer><!-- /.post-info -->                <p>Producer-Consumer Pattern是架構在之前的Guarded Suspension Pattern上，例如Producer就是Client，負責發出request，而Consumer就是Server，負責接收request。
+<font color=red>而重要的的地方在於存放Data的資料結構在Producer-Consumer Pattern會有Capacity的限制</font>，如果Capacity是無限大的話，若是Producer速度很快，但是Consumer速度很慢，則Data會不斷地產生出來，那麼記憶體就會很快耗盡。</p>
+<p>以下舉一個廚師（Producer）跟客人（Consumer)的例子，廚師會不停地做蛋糕放到桌上（Table)，而客人會不停地拿蛋糕起來吃。桌子最多可以放三個蛋糕，若滿了，廚師就要等，若空了，客人就要等，Capacity大小可以調整兩邊的速度。</p>
+<p>廚師，MakerThread.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MakerThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Random</span> <span class="n">random</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Table</span> <span class="n">table</span><span class="o">;</span>
+    <span class="kd">private ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/producer-consumer.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/atoi_itoa.html" rel="bookmark"
+                           title="Permalink to atoi及itoa的實作">atoi及itoa的實作</a></h1>
+                </header>
 
-    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">,</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">changed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T10:09:33.735213">
+                四 24 十月 2013
+        </abbr>
 
-    <span class="c1">// 修改資料內容</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">change</span><span class="o">(</span><span class="n">String</span> <span class="n">newContent</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="n">newContent</span><span class="o">;</span>
-        <span class="n">changed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
 
-    <span class="c1">// 若資料有修改，就儲存到檔案裡</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">changed</span><span class="o">)</span> <span class="o">{</span>
-            <span class="c1">//如果已經儲存過了，直接離開</span>
-            <span class="k">return</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="n">doSave</span><span class="o">();</span>
-        <span class="n">changed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="o">}</span>
+</footer><!-- /.post-info -->                <p>很簡單但面試似乎很常問，先紀錄一下。</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="kt">int</span> <span class="n">atoi</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">itoa</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">reverse</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">;</span>
+    <span class="c1">//string to integer</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+    <span class="c1">//integer to string</span>
+    <span class="n">itoa</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
+    <span class="c1">//12345</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/atoi_itoa.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
-    <span class="c1">// 實際將資料儲存到檔案裡用的方法</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doSave</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; calls doSave, content = &quot;</span> <span class="o">+</span> <span class="n">content</span><span class="o">);</span>
-        <span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
-        <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
-        <span class="n">writer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/gif.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-22T20:37:32.532470">
+                二 22 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
+<p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
+<div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
+convert -delay 100 -loop 0 gif/* output.gif
 </pre></div>
-
-
-<p>用來定期儲存資料的ServerThread類別，ServerThread.java</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SaverThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Data</span> <span class="n">data</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">SaverThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Data</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">data</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>            <span class="c1">// 儲存資料</span>
-                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>     <span class="c1">// 休息約1秒</span>
-            <span class="o">}</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>用來修改以及儲存資料的ChangerThread類別,ChangerThread.java</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChangerThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">Data</span> <span class="n">data</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="nf">ChangerThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Data</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="kc">true</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-                <span class="n">data</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>             <span class="c1">// 修改資料</span>
-                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">));</span> <span class="c1">// 模擬去做別的事</span>
-                <span class="n">data</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>                        <span class="c1">// 明確地要求存檔</span>
-            <span class="o">}</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Data</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Data</span><span class="o">(</span><span class="s">&quot;data.txt&quot;</span><span class="o">,</span> <span class="s">&quot;(empty)&quot;</span><span class="o">);</span>
-        <span class="k">new</span> <span class="nf">ChangerThread</span><span class="o">(</span><span class="s">&quot;ChangerThread&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-        <span class="k">new</span> <span class="nf">SaverThread</span><span class="o">(</span><span class="s">&quot;SaverThread&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<h3>gardede timed的實作</h3>
-<p>除了balk離開或者是等待條件成立為止(Guarded Suspension Pattern)，還有一種折衷的作法，也就是等待一段的時間，如果條件還是不成立，就balk離開。</p>
-<p>將timeout視為取消的一種，TimeoutException.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeoutException</span> <span class="kd">extends</span> <span class="n">InterruptedException</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="nf">TimeoutException</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>具有Timeout的host類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">timeout</span><span class="o">;</span> <span class="c1">// timeout值</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">ready</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// 如果可以執行方法的話則為true</span>
-
-    <span class="kd">public</span> <span class="nf">Host</span><span class="o">(</span><span class="kt">long</span> <span class="n">timeout</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">timeout</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="c1">// 更改狀態</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">setExecutable</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">on</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ready</span> <span class="o">=</span> <span class="n">on</span><span class="o">;</span>
-        <span class="n">notifyAll</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">// 評斷狀態後執行之</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span><span class="o">,</span> <span class="n">TimeoutException</span> <span class="o">{</span>
-        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> <span class="c1">// 開始時刻</span>
-        <span class="k">while</span> <span class="o">(!</span><span class="n">ready</span><span class="o">)</span> <span class="o">{</span>
-            <span class="kt">long</span> <span class="n">now</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> <span class="c1">// 現在時刻</span>
-            <span class="kt">long</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">timeout</span> <span class="o">-</span> <span class="o">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">start</span><span class="o">);</span> <span class="c1">// 剩下的等待時間</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">rest</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-                <span class="c1">//等待時間已經到了，表示timeout</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="nf">TimeoutException</span><span class="o">(</span><span class="s">&quot;now - start = &quot;</span> <span class="o">+</span> <span class="o">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;, timeout = &quot;</span> <span class="o">+</span> <span class="n">timeout</span><span class="o">);</span>
-            <span class="o">}</span>
-            <span class="c1">//在wait set中等待rest時間之後，回來取得鎖定。</span>
-            <span class="n">wait</span><span class="o">(</span><span class="n">rest</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">doExecute</span><span class="o">();</span>
-    <span class="o">}</span>
-
-    <span class="c1">// 實際的處理動作</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doExecute</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; calls doExecute&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//timeout設定為10秒</span>
-        <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;execute BEGIN&quot;</span><span class="o">);</span>
-            <span class="n">host</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">TimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>因為故意都沒有改變ready的狀態，所以一定會發生timeout。</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/gif.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -230,8 +196,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-20T17:45:20.986559">
-                日 20 十月 2013
+        <abbr class="published" title="2013-10-21T21:07:17.541411">
+                一 21 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -267,50 +233,14 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html" rel="bookmark"
-                           title="Permalink to Mutex">Mutex</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-20T15:47:25.491111">
-                日 20 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。</p>
-<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
-        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
-            <span class="n">check</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">finally ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/guarded-suspension.html" rel="bookmark"
                            title="Permalink to Guarded Suspension Pattern">Guarded Suspension Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-20T15:09:22.568780">
-                日 20 十月 2013
+        <abbr class="published" title="2013-10-21T21:07:17.541411">
+                一 21 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -345,14 +275,87 @@
 
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html" rel="bookmark"
+                           title="Permalink to Mutex">Mutex</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-21T21:07:17.541411">
+                一 21 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。</p>
+<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
+        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+            <span class="n">check</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/balking.html" rel="bookmark"
+                           title="Permalink to Balking Pattern">Balking Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-21T21:07:17.537411">
+                一 21 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
+<p>換句話說，不一定要執行。</p>
+<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
+<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
+<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
+<p>表示資料的類別，Data.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
+
+    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/balking.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html" rel="bookmark"
                            title="Permalink to DeadLock">DeadLock</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-18T21:14:50.360002">
-                五 18 十月 2013
+        <abbr class="published" title="2013-10-21T21:07:17.537411">
+                一 21 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -384,135 +387,14 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
-<ul>
-<li>
-<p>使用gnome-font-viewer </p>
-<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
-</pre></div>
-
-
-</li>
-<li>
-<p>直接在myfont.ttf上面點兩下直接安裝。</p>
-</li>
-<li>
-<p>適合一次安裝大量字型檔</p>
-<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
-sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf <span class="c">#可能不需要</span>
-<span class="nb">fc</span>-cache
-</pre></div>
-
-
-</li>
-</ul>
-<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html" rel="bookmark"
-                           title="Permalink to 定義Comparator">定義Comparator</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>常見有三種定義方式。</p>
-<h1>1. Define operator&lt;()</h1>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html" rel="bookmark"
-                           title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
-        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
-        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
-        <span class="k">union</span> <span class="p">{</span>
-                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
-                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
-        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
-<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
-<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
-<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
-<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
                            title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
+        <abbr class="published" title="2013-10-17T20:19:26.097618">
+                四 17 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -532,45 +414,6 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
     <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html" rel="bookmark"
-                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
-</pre></div>
-
-
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
-</pre></div>
-
-
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
-</pre></div>
-
-
-<p>調整input或者是output。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

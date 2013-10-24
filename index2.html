@@ -26,14 +26,174 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-17T00:00:02.902974">
+                四 17 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+<ul>
+<li>
+<p>使用gnome-font-viewer </p>
+<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
+</pre></div>
+
+
+</li>
+<li>
+<p>直接在myfont.ttf上面點兩下直接安裝。</p>
+</li>
+<li>
+<p>適合一次安裝大量字型檔</p>
+<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
+sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf <span class="c">#可能不需要</span>
+<span class="nb">fc</span>-cache
+</pre></div>
+
+
+</li>
+</ul>
+<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html" rel="bookmark"
+                           title="Permalink to 定義Comparator">定義Comparator</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-14T21:15:53.339356">
+                一 14 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>常見有三種定義方式。</p>
+<h1>1. Define operator&lt;()</h1>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html" rel="bookmark"
+                           title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-14T20:11:52.251628">
+                一 14 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?</p>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">myFtphdr</span> <span class="p">{</span>
+        <span class="kt">short</span> <span class="n">mf_opcode</span><span class="p">;</span>
+        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">mf_cksum</span><span class="p">;</span>
+        <span class="k">union</span> <span class="p">{</span>
+                <span class="kt">unsigned</span> <span class="kt">short</span>  <span class="n">mf_block</span><span class="p">;</span>
+                <span class="kt">char</span> <span class="n">mf_filename</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">mf_u</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">mf_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span><span class="n">__attribute__</span> <span class="p">((</span><span class="n">__packed__</span><span class="p">));</span><span class="c1">//告訴編譯器不做最佳化</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">myFtphdr</span><span class="p">))</span> <span class="c1">//The size of myFtphdr = 6 bytes </span>
+<span class="c1">//現在配置一個512+6 = 518的記憶體空間給指向myFtphdr的指標</span>
+<span class="c1">//但是myFtphdr不是只有六個byte,那剩下的512個byte到哪裡去了?</span>
+<span class="k">struct</span> <span class="n">myFtphdr</span> <span class="o">*</span><span class="n">packet</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">myFtphdr</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">512</span><span class="o">+</span><span class="mi">6</span><span class="p">);</span>
+<span class="c1">//分配512個byte給mf_data,但是mf_data只有一個byte ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html" rel="bookmark"
+                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-08T23:24:14.015846">
+                二 08 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用</p>
+<div class="highlight"><pre>alsamixer
+</pre></div>
+
+
+<p>或者是</p>
+<div class="highlight"><pre>gnome-alsamixer
+</pre></div>
+
+
+<p>來調整麥克風的聲音。
+如果再不行的話，就使用</p>
+<div class="highlight"><pre>gstreamer-properties
+</pre></div>
+
+
+<p>調整input或者是output。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10986.html" rel="bookmark"
                            title="Permalink to ACM UVA-10986">ACM UVA-10986</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
+        <abbr class="published" title="2013-10-08T22:34:38.577131">
+                二 08 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -46,7 +206,7 @@
 <span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dis</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
         <span class="k">return</span> <span class="n">dis</span><span class="o">&gt;</span><span class="n">n</span><span class="p">.</span><span class="n">dis</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -75,8 +235,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-18T19:53:57.938483">
-                五 18 十月 2013
+        <abbr class="published" title="2013-10-08T22:34:38.577131">
+                二 08 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -86,8 +246,8 @@
 
 </footer><!-- /.post-info -->                <p>這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">bool</span> <span class="nf">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="n">bool</span> <span class="n">bfs</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">print_path</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="p">,</span><span class="kt">int</span><span class="p">);</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
