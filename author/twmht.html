@@ -24,7 +24,244 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11997.html">ACM UVA-11997</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/cc/class.html">C++的Class中的一些重點整理</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T22:24:54.300231">
+                四 24 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info --><p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
+<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
+<ul>
+<li>friend function:
+簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
+<li>const function:
+在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
+</ul>
+<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
+<ul>
+<li>private: 只有自己或者是friend class看得到。</li>
+<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
+<li>public: 任何可以看到這個class的地方都可以使用。</li>
+</ul>
+<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
+以下這個例子我覺得很好，應該是說當物件內部有動態配置的時候，可以一起把動態配置的記憶體回收掉，我想應該是這個物件被回收的的時候，不會一起把內部動態配置的member data一起free掉的原因，可以看<a href="http://stackoverflow.com/questions/11288358/does-dynamically-allocated-memory-for-data-members-of-a-c-class-frees-when-cla">這裡</a>。</p>
+<div class="highlight"><pre><span class="c1">// example on constructors and destructors rect area: 12</span>
+<span class="cp">#include &lt;iostream.h&gt; rectb area: 30</span>
+<span class="k">class</span> <span class="nc">CRectangle</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="o">*</span><span class="n">height</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="c1">//overloading</span>
+<span class="n">CRectangle</span> <span class="p">();</span>
+<span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="o">~</span><span class="n">CRectangle</span> <span class="p">();</span>
+<span class="c1">//實作內容定義在class以內的有機會被編譯器視為inline function，編譯器會自己作判斷</span>
+<span class="c1">//inline function會直接將程式碼展開來，與macro非常類似</span>
+<span class="c1">//程式碼很短，只有return statement，用inline較有效率</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">width</span> <span class="o">*</span> <span class="o">*</span><span class="n">height</span><span class="p">);}</span>
+<span class="p">};</span>
+<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CRectangle</span><span class="o">::~</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
+<span class="k">delete</span> <span class="n">width</span><span class="p">;</span>
+<span class="k">delete</span> <span class="n">height</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="c1">//若不傳參數，則不需要括弧，java則需要</span>
+<span class="n">CRectangle</span> <span class="n">rect</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">rectb</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">rectc</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rect area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rectb area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rectb</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>實際上,當我們定義一個 class 而沒有定義建構子的時候,編譯器會自動假設兩
+個重載的建構子 (預設建構子"default constructor" 和複製建構子"copy
+constructor")，又與java類似，只是在java中我沒聽過copy constructor。</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CExample</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="c1">//沒有定義建構子</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">multiply</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">=</span><span class="n">m</span><span class="p">;</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>因此defalut constructor以及copy constructor會被自動定義，copy constructor是一個只有一個參數的建構子,該參數是這個 class 的一個物件,這個函數的功能是將被傳入的物件(object)的所有<font color=red>非靜態</font> (non-static)成員變數的值都複製給自身這個 object。</p>
+<div class="highlight"><pre><span class="c1">//default constructor</span>
+<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+<span class="c1">//copy constructor</span>
+<span class="c1">//一定要pass by reference，否則會導致遞迴呼叫copy constructor而形成無窮迴圈。</span>
+<span class="c1">//若是有用到指標，則copy constructor預設只會複製指標的address，所以一定要視情況改寫</span>
+<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">(</span><span class="k">const</span> <span class="n">CExample</span><span class="o">&amp;</span> <span class="n">rv</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">a</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+<span class="n">b</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+<span class="n">c</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>為什麼copy constructor一定要pass by reference?，這個問題我大一的時候有想過，去問了ptt的版友之後終於恍然大悟。
+問題點出在<font color=red>pass by value</font>的時候並不是直接用等號來作assignment，而是會先呼叫copy constructor。</p>
+<p>假設有一個function foo長這樣</p>
+<div class="highlight"><pre><span class="c1">//pass by reference</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">Bar</span> <span class="n">bar</span><span class="p">)</span>
+</pre></div>
+
+
+<p>當有人要呼叫foo()</p>
+<div class="highlight"><pre><span class="n">Bar</span> <span class="n">mybar</span><span class="p">;</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">mybar</span><span class="p">)</span>
+</pre></div>
+
+
+<p>進入 foo 之前, 因為是 pass by value, 所以要生成一個 myBar 的 copy. 要怎樣生成呢? compiler 會利用 copy constructor 生成一個 myBar 的複製品, 然後供 foo() 裡面使用。</p>
+<p>要是Bar這個class的copy constructor 是 pass-by-value 的話, 比如</p>
+<div class="highlight"><pre><span class="n">Bar</span> <span class="n">myBar</span><span class="p">;</span>
+<span class="n">Bar</span> <span class="n">barCopy</span><span class="p">(</span><span class="n">myBar</span><span class="p">);</span>
+</pre></div>
+
+
+<p>生成 barCopy 的時候, 因為 myBar 是 pass by value, 所以 compiler
+要生成一個 myBar 的複製品 (假設叫 tmpBarA) 才傳進去生成 barCopy.</p>
+<p>但生成 tmpBarA, 也是利用 copy ctor, 即是 compiler 是在做
+Bar tmpBarA(myBar);
+由於是 pass-by-val, 那麼要生成 tmpBarA, 其實傳進去的是 myBar 的一個
+複製品 (tmpBarB).</p>
+<p>要生成 tmpBarB......(遞迴呼叫，無窮迴圈)，<font color=red>而如果是copy by reference，則不會呼叫copy constructor。</font></p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10034.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10034">ACM UVA-10034</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T19:28:47.180424">
+                四 24 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p>這題是典型的Minimum Spanning Tree，我用Prims Algorithm。</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="cp">#define dis(p1,p2) sqrt(((p1.x-p2.x)*(p1.x-p2.x))+((p1.y-p2.y)*(p1.y-p2.y)))</span>
+<span class="k">struct</span> <span class="n">point</span><span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">point</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span><span class="kt">double</span> <span class="n">b</span><span class="p">,</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="kt">double ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10034.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/sort.html" rel="bookmark"
+                           title="Permalink to sorting">sorting</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T17:47:26.508970">
+                四 24 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。</p>
+<ul>
+<li>
+<p>Bubble sort，把目前在最左邊的值一直往右邊推。</p>
+<div class="highlight"><pre><span class="cp">#define SWAP(x,y) int t;t = x;x = y;y = t;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">bool ...</span></pre></div></li></ul>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/sort.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10305.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10305">ACM UVA-10305</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-24T14:35:46.277771">
+                四 24 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p>單純的topological sort。</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)){</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">G</span><span class="p">[</span><span class="mi">105</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">ref</span><span class="p">[</span><span class="mi">105</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">;</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+            <span class="n">G</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+            <span class="n">ref</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//topological ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10305.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11997.html" rel="bookmark"
+                           title="Permalink to ACM UVA-11997">ACM UVA-11997</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2013-10-24T11:55:14.955190">
                 四 24 十月 2013
@@ -35,65 +272,16 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p>這題是給k個大小為k的array，每個array挑一個數字再總和，求k個最小的總和。</p>
+</footer><!-- /.post-info -->                <p>這題是給k個大小為k的array，每個array挑一個數字再總和，求k個最小的總和。</p>
 <p>由於題目總共會有k的k次方種總和，所以用暴力解的話一定會TLE。</p>
 <p>我們可以推出在k列中的任意兩列一定對答案有貢獻，例如任意兩列選兩個數字出來總和也一定是最小，所以我們可以逐列求出答案出來，首先要先將每一列排序，假設前兩列為A跟B，那我們可以先將a1+b1,a2+b1,a3+b1...ak+b1放到min heap裡面，a1+b1一定是最小的，所以先pop出來，這時候我們可以將a1+b2放到heap中，<font color = red>因為如果我們放的是其他組合的話，在heap裡面一定會有數字是更小的(例如我們放a2+b2，但是heap裡面的a2+b1是更小的)</font>，而a2+b2 = (a1+b1)+b2-b1，a1+b1是本來pop出來的值，有一個規律是每次變更的都會是b的index，pop k次之後，就可以求出這兩行裡面的k個最小值，照這樣的作法逐行求取k個最小的值。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
 
 <span class="k">struct</span> <span class="n">element</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">sum</span><span class="p">,</span><span class="n">index</span><span class="p">;</span>
-    <span class="n">element</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
-        <span class="n">sum</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">element</span> <span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">sum</span><span class="o">&gt;</span><span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
-<span class="kt">void</span> <span class="n">merge</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">800</span><span class="p">][</span><span class="mi">800</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
-            <span class="p">}</span>
-            <span class="n">sort</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">k</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="c1">//priority_queue&lt;element&gt; pq;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="c1">//逐行找k個最小的</span>
-            <span class="n">merge</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="n">merge</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">b</span><span class="p">){</span>
-    <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span> <span class="n">pq</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">));</span>
-    <span class="c1">//pop k次之後，&quot;目前&quot;的k個最小的也決定好了</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">element</span> <span class="n">e</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-        <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="p">;</span>
-        <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">sum</span><span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">e</span><span class="p">.</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">,</span><span class="n">index ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva11997.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -270,150 +458,6 @@ convert -delay 100 -loop 0 gif/* output.gif
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
 <span class="kd">public ...</span></pre></div>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/guarded-suspension.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html" rel="bookmark"
-                           title="Permalink to Mutex">Mutex</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-21T21:07:17.541411">
-                一 21 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。</p>
-<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
-        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
-            <span class="n">check</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">finally ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/mutex.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/balking.html" rel="bookmark"
-                           title="Permalink to Balking Pattern">Balking Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-21T21:07:17.537411">
-                一 21 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
-<p>換句話說，不一定要執行。</p>
-<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
-<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
-<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
-<p>表示資料的類別，Data.java</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
-
-    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/balking.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html" rel="bookmark"
-                           title="Permalink to DeadLock">DeadLock</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-21T21:07:17.537411">
-                一 21 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
-<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
-現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
-<p>以下是會產生deadlock的程式。</p>
-<p>建立shared resource，如下的Tool.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/deadlock.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
-                           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-17T20:19:26.097618">
-                四 17 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <h2>Single Threaded Execution Pattern</h2>
-<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
-<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
-<p>Gate.java</p>
-<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
