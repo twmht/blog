@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>用macro的技巧</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -16,16 +16,45 @@
                 <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (23)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html" rel="bookmark"
+           title="Permalink to 用macro的技巧">用macro的技巧</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-26T20:59:26.908120">
+                六 26 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->      <p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
+<span class="c1">//也可以這樣</span>
+<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
+<span class="c1">//s: aaa</span>
+<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//a is 5</span>
+<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
