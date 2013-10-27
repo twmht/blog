@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-26T20:59:26+08:00</updated><entry><title>用macro的技巧</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html" rel="alternate"></link><updated>2013-10-26T20:59:26+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-26:posts/2013/10/cc/macro.html</id><summary type="html">&lt;p&gt;在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-27T22:54:41+08:00</updated><entry><title>用macro的技巧</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html" rel="alternate"></link><updated>2013-10-27T22:54:41+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-27:posts/2013/10/cc/macro.html</id><summary type="html">&lt;p&gt;關於macro的介紹，有一個還不錯的&lt;a href="http://www.cprogramming.com/tutorial/cpreprocessor.html"&gt;網站&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define print_var(var)  printf(&amp;quot;%s: %s\n&amp;quot;, #var, var)&lt;/span&gt;
 &lt;span class="c1"&gt;//也可以這樣&lt;/span&gt;
 &lt;span class="cp"&gt;#define PRINT_TOKEN(token) printf(#token &amp;quot; is %d&amp;quot;, token)&lt;/span&gt;
@@ -9,6 +10,76 @@
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="c1"&gt;//a is 5&lt;/span&gt;
 &lt;span class="n"&gt;PRINT_TOKEN&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果想要一次印出多個變數，可以這樣做。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define print_var(var)     do {         printf(&amp;quot;%s: %s\n&amp;quot;, #var, var);     } while (0)&lt;/span&gt;
+&lt;span class="cp"&gt;#define print_three_var(var) do { \&lt;/span&gt;
+&lt;span class="cp"&gt;         print_var(var); \&lt;/span&gt;
+&lt;span class="cp"&gt;         print_var(var##2); \&lt;/span&gt;
+&lt;span class="cp"&gt;         print_var(var##3); \&lt;/span&gt;
+&lt;span class="cp"&gt;     } while (0)&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;s3&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;print_three_var&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;//印出s: 10&lt;/span&gt;
+&lt;span class="c1"&gt;//    s2: 20&lt;/span&gt;
+&lt;span class="c1"&gt;//    s3 :30&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;也可以印出struct裡面的變數。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define BUILD_FIELD(field) my_struct.inner_struct.union_a.##field&lt;/span&gt;
+&lt;span class="c1"&gt;//會被展開成&lt;/span&gt;
+&lt;span class="n"&gt;my_struct&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;inner_struct&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;union_a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;field1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用macro會有一些陷阱&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define MULT(x, y) x * y&lt;/span&gt;
+&lt;span class="cp"&gt;#define ADD_FIVE(a) (a) + 5&lt;/span&gt;
+&lt;span class="n"&gt;MULT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//會被展開成1+1*2+2，結果不對。&lt;/span&gt;
+&lt;span class="n"&gt;ADD_FIVE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="c1"&gt;//會被展開成(3)+5*3，結果不對。&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上述的結果有誤，可以改成&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define MULT(x,y) (x)*(y)&lt;/span&gt;
+&lt;span class="cp"&gt;#define ADD_FIVE(a) ((a) + 5)&lt;/span&gt;
+&lt;span class="n"&gt;MULT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//會被展開成(1+1)*(2+2)，結果正確。&lt;/span&gt;
+&lt;span class="n"&gt;ADD_FIVE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="c1"&gt;//會被展開成((3)+5)*3，結果正確。&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;經驗法則是最好每個element都把它包起來。&lt;/p&gt;
+&lt;p&gt;一個SWAP的trick。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//可以試著驗證看看&lt;/span&gt;
+&lt;span class="cp"&gt;#define SWAP(a, b)  do {a ^= b; b ^= a; a ^= b; } while(0)&lt;/span&gt;&lt;span class="c1"&gt;//最好把它包起來，不然的話會很容易不小心把後兩句給排除掉。加上do while是為了有分號。&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;SWAP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="n"&gt;SWAP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意不要搭配side-effect服用，像這樣。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define MAX(a, b) ((a) &amp;lt; (b) ? (b) : (a))&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;//因為macro是直接展開，並不是x++,y++做完之後才展開。&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MAX&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;//所以會變成int z = (x++ &amp;lt; y++ ? y++ : x++)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果不想寫多行的話要怎麼做?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//用一個slash表示接到下一行&lt;/span&gt;
+&lt;span class="cp"&gt;#define SWAP(a, b)  {                   \&lt;/span&gt;
+&lt;span class="cp"&gt;                    a ^= b;         \&lt;/span&gt;
+&lt;span class="cp"&gt;                    b ^= a;         \ &lt;/span&gt;
+                    &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;^=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         \
+                &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>stack實作</title><link href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html" rel="alternate"></link><updated>2013-10-25T20:30:39+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-25:posts/2013/10/cc/stack.html</id><summary type="html">&lt;p&gt;加入template的實作。
 Stack.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
