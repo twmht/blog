@@ -26,6 +26,123 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html" rel="bookmark"
+                           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-17T20:19:26.097618">
+                四 17 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <h2>Single Threaded Execution Pattern</h2>
+<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
+<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
+<p>Gate.java</p>
+<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-17T00:00:02.902974">
+                四 17 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+<ul>
+<li>
+<p>使用gnome-font-viewer </p>
+<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
+</pre></div>
+
+
+</li>
+<li>
+<p>直接在myfont.ttf上面點兩下直接安裝。</p>
+</li>
+<li>
+<p>適合一次安裝大量字型檔</p>
+<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
+sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf <span class="c">#可能不需要</span>
+<span class="nb">fc</span>-cache
+</pre></div>
+
+
+</li>
+</ul>
+<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html" rel="bookmark"
+                           title="Permalink to 定義Comparator">定義Comparator</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-14T21:15:53.339356">
+                一 14 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>常見有三種定義方式。</p>
+<h1>1. Define operator&lt;()</h1>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/compator.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/pointer.html" rel="bookmark"
                            title="Permalink to struct用malloc配置記憶體空間">struct用malloc配置記憶體空間</a></h1>
                 </header>

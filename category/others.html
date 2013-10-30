@@ -24,7 +24,135 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/others/gif.html">如何在ubuntu中製作gif檔</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/others/lamp.html">如何在ubuntu中安裝LAMP</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2013-10-29T12:32:22.393530">
+                二 29 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info --><div class="highlight"><pre><span class="c">#install apache</span>
+sudo apt-get install apache2
+
+<span class="c">#install php</span>
+sudo apt-get install libapache2-mod-php5 php5
+sudo /etc/init.d/apache2 restart
+<span class="c">#install mysql</span>
+sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+<span class="c">#test mysql</span>
+mysql -u root -p
+<span class="c">#install phpmyadmin(not necessary)</span>
+<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
+<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
+sudo apt-get install phpmyadmin
+</pre></div>
+
+
+<p>如果 <code>http://localhost/phpmyadmin</code> 不能開的話，可以這樣做。</p>
+<div class="highlight"><pre><span class="c">#打開/etc/apache2/apache2.conf，在最後面加上以下的code</span>
+Include /etc/phpmyadmin/apache.conf
+<span class="c">#或者也可以用下面這個方法</span>
+sudo ln -s /usr/share/phpmyadmin /var/www
+</pre></div>
+
+
+<h3>Enable userdir Apache module</h3>
+<div class="highlight"><pre>sudo a2enmod userdir
+vim /etc/apache2/mods-enabled/userdir.conf
+<span class="c">#找到下面這段，改成這樣。</span>
+&lt;IfModule mod_userdir.c&gt;
+        UserDir public_html
+        UserDir disabled root
+
+        &lt;Directory /home/*/public_html&gt;
+        AllowOverride All
+        Options MultiViews Indexes SymLinksIfOwnerMatch
+        &lt;Limit GET POST OPTIONS&gt;
+                Order allow,deny
+                Allow from all
+        &lt;/Limit&gt;
+        &lt;LimitExcept GET POST OPTIONS&gt;
+                Order deny,allow
+                Deny from all
+        &lt;/LimitExcept&gt;
+        &lt;/Directory&gt;
+&lt;/IfModule&gt;
+</pre></div>
+
+
+<p>接著修改php的設定。</p>
+<div class="highlight"><pre>vim /etc/apache2/mods-available/php5.conf
+#找到下面這段，改成這樣
+<span class="nt">&lt;IfModule</span> <span class="err">mod_php5.c</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;FilesMatch</span> <span class="err">&quot;\.ph(p3?|tml)$&quot;</span><span class="nt">&gt;</span>
+    SetHandler application/x-httpd-php
+    <span class="nt">&lt;/FilesMatch&gt;</span>
+    <span class="nt">&lt;FilesMatch</span> <span class="err">&quot;\.phps$&quot;</span><span class="nt">&gt;</span>
+    SetHandler application/x-httpd-php-source
+    <span class="nt">&lt;/FilesMatch&gt;</span>
+    # To re-enable php in user directories comment the following lines
+    # (from <span class="nt">&lt;IfModule</span> <span class="err">...</span><span class="nt">&gt;</span> to <span class="nt">&lt;/IfModule&gt;</span>.) Do NOT set it to On as it
+    # prevents .htaccess files from disabling it.
+    #<span class="nt">&lt;IfModule</span> <span class="err">mod_userdir.c</span><span class="nt">&gt;</span>
+    #    <span class="nt">&lt;Directory</span> <span class="err">/home/*/public_html</span><span class="nt">&gt;</span>
+    #        php_admin_value engine Off
+    #    <span class="nt">&lt;/Directory&gt;</span>
+    #<span class="nt">&lt;/IfModule&gt;</span>
+<span class="nt">&lt;/IfModule&gt;</span>
+</pre></div>
+
+
+<p>最後別忘記重新啟動apache。</p>
+<div class="highlight"><pre>service apache2 restart
+<span class="c">#之後就可以在家目錄建立public_html</span>
+mkdir /home/<span class="nv">$USER</span>/public_html
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html" rel="bookmark"
+                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-29T12:29:40.122093">
+                二 29 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</pre></div>
+
+
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+</pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/gif.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2013-10-22T20:37:32.532470">
                 二 22 十月 2013
@@ -35,16 +163,14 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info --><p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
+</footer><!-- /.post-info -->                <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
 <p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
 <div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
 convert -delay 100 -loop 0 gif/* output.gif
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/gif.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

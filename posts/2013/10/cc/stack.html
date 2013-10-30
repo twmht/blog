@@ -31,8 +31,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-25T20:30:39.245963">
-                五 25 十月 2013
+        <abbr class="published" title="2013-10-30T14:58:43.578961">
+                三 30 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -100,6 +100,100 @@ Stack.h</p>
         <span class="kt">int</span> <span class="n">capacity</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
         <span class="n">T</span> <span class="o">*</span><span class="n">array</span><span class="p">;</span>
+
+<span class="p">};</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p>用LinkedList實作，以畫圖來看的話，第一個element就是top，這樣較為簡潔。</p>
+<p>這個例子還有加入friend class。</p>
+<div class="highlight"><pre><span class="cp">#ifndef STACK_H</span>
+<span class="cp">#define STACK_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+
+<span class="c1">//先宣告Stack的prototype，因為Stack的定義較Node為後，而Node又要先用到Stack。要注意加上template。</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="c1">//這個表示Stack是Node的friend，所以Stack可以直接存取Node的private data。</span>
+        <span class="k">friend</span> <span class="k">class</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">T</span> <span class="n">element</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+    <span class="n">Stack</span><span class="p">(){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">Stack</span><span class="p">(</span><span class="k">const</span> <span class="n">Stack</span> <span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">other</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="c1">//copy top element</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">add</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+            <span class="n">add</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+            <span class="n">add</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span>
+            <span class="c1">//copy next element until the end of list</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+                <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+                <span class="n">newNode</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+                <span class="n">add</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+                <span class="n">add</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">~</span><span class="n">Stack</span><span class="p">(){</span>
+        <span class="k">while</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">){</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="n">s</span><span class="p">){</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">pop</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">top</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//注意，因為copy constructor會呼叫empty，而引數又是constant，所以把empty()設成const function</span>
+    <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="c1">//top of the element</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
 
 <span class="p">};</span>
 <span class="cp">#endif</span>

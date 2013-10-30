@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>如何備份mysql database</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -18,14 +18,40 @@
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (27)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html" rel="bookmark"
+           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-29T12:29:40.122093">
+                二 29 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->      <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</pre></div>
+
+
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

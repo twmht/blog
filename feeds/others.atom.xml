@@ -1,5 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-22T20:37:32+08:00</updated><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2013/10/others/gif.html" rel="alternate"></link><updated>2013-10-22T20:37:32+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-22:posts/2013/10/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2013-10-29T12:32:22+08:00</updated><entry><title>如何在ubuntu中安裝LAMP</title><link href="http://twmht.github.io/blog/posts/2013/10/others/lamp.html" rel="alternate"></link><updated>2013-10-29T12:32:22+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-29:posts/2013/10/others/lamp.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#install apache&lt;/span&gt;
+sudo apt-get install apache2
+
+&lt;span class="c"&gt;#install php&lt;/span&gt;
+sudo apt-get install libapache2-mod-php5 php5
+sudo /etc/init.d/apache2 restart
+&lt;span class="c"&gt;#install mysql&lt;/span&gt;
+sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+&lt;span class="c"&gt;#test mysql&lt;/span&gt;
+mysql -u root -p
+&lt;span class="c"&gt;#install phpmyadmin(not necessary)&lt;/span&gt;
+&lt;span class="c"&gt;#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。&lt;/span&gt;
+&lt;span class="c"&gt;#最後會問你進入phpmyadmin的密碼。&lt;/span&gt;
+sudo apt-get install phpmyadmin
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果 &lt;code&gt;http://localhost/phpmyadmin&lt;/code&gt; 不能開的話，可以這樣做。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#打開/etc/apache2/apache2.conf，在最後面加上以下的code&lt;/span&gt;
+Include /etc/phpmyadmin/apache.conf
+&lt;span class="c"&gt;#或者也可以用下面這個方法&lt;/span&gt;
+sudo ln -s /usr/share/phpmyadmin /var/www
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Enable userdir Apache module&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo a2enmod userdir
+vim /etc/apache2/mods-enabled/userdir.conf
+&lt;span class="c"&gt;#找到下面這段，改成這樣。&lt;/span&gt;
+&amp;lt;IfModule mod_userdir.c&amp;gt;
+        UserDir public_html
+        UserDir disabled root
+
+        &amp;lt;Directory /home/*/public_html&amp;gt;
+        AllowOverride All
+        Options MultiViews Indexes SymLinksIfOwnerMatch
+        &amp;lt;Limit GET POST OPTIONS&amp;gt;
+                Order allow,deny
+                Allow from all
+        &amp;lt;/Limit&amp;gt;
+        &amp;lt;LimitExcept GET POST OPTIONS&amp;gt;
+                Order deny,allow
+                Deny from all
+        &amp;lt;/LimitExcept&amp;gt;
+        &amp;lt;/Directory&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著修改php的設定。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;vim /etc/apache2/mods-available/php5.conf
+#找到下面這段，改成這樣
+&lt;span class="nt"&gt;&amp;lt;IfModule&lt;/span&gt; &lt;span class="err"&gt;mod_php5.c&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;FilesMatch&lt;/span&gt; &lt;span class="err"&gt;&amp;quot;\.ph(p3?|tml)$&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    SetHandler application/x-httpd-php
+    &lt;span class="nt"&gt;&amp;lt;/FilesMatch&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;FilesMatch&lt;/span&gt; &lt;span class="err"&gt;&amp;quot;\.phps$&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    SetHandler application/x-httpd-php-source
+    &lt;span class="nt"&gt;&amp;lt;/FilesMatch&amp;gt;&lt;/span&gt;
+    # To re-enable php in user directories comment the following lines
+    # (from &lt;span class="nt"&gt;&amp;lt;IfModule&lt;/span&gt; &lt;span class="err"&gt;...&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt; to &lt;span class="nt"&gt;&amp;lt;/IfModule&amp;gt;&lt;/span&gt;.) Do NOT set it to On as it
+    # prevents .htaccess files from disabling it.
+    #&lt;span class="nt"&gt;&amp;lt;IfModule&lt;/span&gt; &lt;span class="err"&gt;mod_userdir.c&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    #    &lt;span class="nt"&gt;&amp;lt;Directory&lt;/span&gt; &lt;span class="err"&gt;/home/*/public_html&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    #        php_admin_value engine Off
+    #    &lt;span class="nt"&gt;&amp;lt;/Directory&amp;gt;&lt;/span&gt;
+    #&lt;span class="nt"&gt;&amp;lt;/IfModule&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/IfModule&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;最後別忘記重新啟動apache。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;service apache2 restart
+&lt;span class="c"&gt;#之後就可以在家目錄建立public_html&lt;/span&gt;
+mkdir /home/&lt;span class="nv"&gt;$USER&lt;/span&gt;/public_html
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html" rel="alternate"></link><updated>2013-10-29T12:29:40+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-29:posts/2013/10/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;到新的環境中如何重新載入library.sql呢？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysql -u root -p &amp;lt; library.sql
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2013/10/others/gif.html" rel="alternate"></link><updated>2013-10-22T20:37:32+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2013-10-22:posts/2013/10/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#delay的值*10ms為delay的秒數，loop為0表示infinite loop&lt;/span&gt;
 convert -delay 100 -loop 0 gif/* output.gif

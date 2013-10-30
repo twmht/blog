@@ -24,10 +24,10 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html">用macro的技巧</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html">stack實作</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-27T22:54:41.566917">
-                日 27 十月 2013
+        <abbr class="published" title="2013-10-30T14:58:43.578961">
+                三 30 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -35,112 +35,7 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
 
-</footer><!-- /.post-info --><p>關於macro的介紹，有一個還不錯的<a href="http://www.cprogramming.com/tutorial/cpreprocessor.html">網站</a>。</p>
-<p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
-<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
-<span class="c1">//也可以這樣</span>
-<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
-<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
-<span class="c1">//s: aaa</span>
-<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="c1">//a is 5</span>
-<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</pre></div>
-
-
-<p>如果想要一次印出多個變數，可以這樣做。</p>
-<div class="highlight"><pre><span class="cp">#define print_var(var)     do {         printf(&quot;%s: %s\n&quot;, #var, var);     } while (0)</span>
-<span class="cp">#define print_three_var(var) do { \</span>
-<span class="cp">         print_var(var); \</span>
-<span class="cp">         print_var(var##2); \</span>
-<span class="cp">         print_var(var##3); \</span>
-<span class="cp">     } while (0)</span>
-<span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">s2</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">s3</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
-<span class="n">print_three_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-<span class="c1">//印出s: 10</span>
-<span class="c1">//    s2: 20</span>
-<span class="c1">//    s3 :30</span>
-</pre></div>
-
-
-<p>也可以印出struct裡面的變數。</p>
-<div class="highlight"><pre><span class="cp">#define BUILD_FIELD(field) my_struct.inner_struct.union_a.##field</span>
-<span class="c1">//會被展開成</span>
-<span class="n">my_struct</span><span class="p">.</span><span class="n">inner_struct</span><span class="p">.</span><span class="n">union_a</span><span class="p">.</span><span class="n">field1</span>
-</pre></div>
-
-
-<p>使用macro會有一些陷阱</p>
-<div class="highlight"><pre><span class="cp">#define MULT(x, y) x * y</span>
-<span class="cp">#define ADD_FIVE(a) (a) + 5</span>
-<span class="n">MULT</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//會被展開成1+1*2+2，結果不對。</span>
-<span class="n">ADD_FIVE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span> <span class="c1">//會被展開成(3)+5*3，結果不對。</span>
-</pre></div>
-
-
-<p>上述的結果有誤，可以改成</p>
-<div class="highlight"><pre><span class="cp">#define MULT(x,y) (x)*(y)</span>
-<span class="cp">#define ADD_FIVE(a) ((a) + 5)</span>
-<span class="n">MULT</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//會被展開成(1+1)*(2+2)，結果正確。</span>
-<span class="n">ADD_FIVE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span> <span class="c1">//會被展開成((3)+5)*3，結果正確。</span>
-</pre></div>
-
-
-<p>經驗法則是最好每個element都把它包起來。</p>
-<p>一個SWAP的trick。</p>
-<div class="highlight"><pre><span class="c1">//可以試著驗證看看</span>
-<span class="cp">#define SWAP(a, b)  do {a ^= b; b ^= a; a ^= b; } while(0)</span><span class="c1">//最好把它包起來，不然的話會很容易不小心把後兩句給排除掉。加上do while是為了有分號。</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">SWAP</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
-<span class="k">else</span>
-    <span class="n">SWAP</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
-</pre></div>
-
-
-<p>注意不要搭配side-effect服用，像這樣。</p>
-<div class="highlight"><pre><span class="cp">#define MAX(a, b) ((a) &lt; (b) ? (b) : (a))</span>
-<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="c1">//因為macro是直接展開，並不是x++,y++做完之後才展開。</span>
-<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="n">x</span><span class="o">++</span><span class="p">,</span> <span class="n">y</span><span class="o">++</span><span class="p">);</span>
-<span class="c1">//所以會變成int z = (x++ &lt; y++ ? y++ : x++)</span>
-</pre></div>
-
-
-<p>如果不想寫多行的話要怎麼做?</p>
-<div class="highlight"><pre><span class="c1">//用一個slash表示接到下一行</span>
-<span class="cp">#define SWAP(a, b)  {                   \</span>
-<span class="cp">                    a ^= b;         \</span>
-<span class="cp">                    b ^= a;         \ </span>
-                    <span class="n">a</span> <span class="o">^=</span> <span class="n">b</span><span class="p">;</span>         \
-                <span class="p">}</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html" rel="bookmark"
-                           title="Permalink to stack實作">stack實作</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-25T20:30:39.245963">
-                五 25 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>加入template的實作。
+</footer><!-- /.post-info --><p>加入template的實作。
 Stack.h</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
 <span class="cp">#ifndef STACK_H</span>
@@ -159,8 +54,226 @@ Stack.h</p>
     <span class="n">Stack</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html">read more</a>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">Stack</span><span class="p">(</span><span class="k">const</span> <span class="n">Stack</span> <span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">capacity</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">,</span><span class="n">other</span><span class="p">.</span><span class="n">array</span><span class="p">,</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="o">~</span><span class="n">Stack</span><span class="p">(){</span><span class="k">delete</span> <span class="p">[]</span> <span class="n">array</span><span class="p">;}</span>
+
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="n">s</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">size</span><span class="o">&lt;</span><span class="n">capacity</span><span class="p">){</span>
+            <span class="n">array</span><span class="p">[</span><span class="n">size</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack full</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">pop</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">top</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">[</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">empty</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">capacity</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+        <span class="n">T</span> <span class="o">*</span><span class="n">array</span><span class="p">;</span>
+
+<span class="p">};</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p>用LinkedList實作，以畫圖來看的話，第一個element就是top，這樣較為簡潔。</p>
+<p>這個例子還有加入friend class。</p>
+<div class="highlight"><pre><span class="cp">#ifndef STACK_H</span>
+<span class="cp">#define STACK_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+
+<span class="c1">//先宣告Stack的prototype，因為Stack的定義較Node為後，而Node又要先用到Stack。要注意加上template。</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="c1">//這個表示Stack是Node的friend，所以Stack可以直接存取Node的private data。</span>
+        <span class="k">friend</span> <span class="k">class</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">T</span> <span class="n">element</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+    <span class="n">Stack</span><span class="p">(){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">Stack</span><span class="p">(</span><span class="k">const</span> <span class="n">Stack</span> <span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">other</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="c1">//copy top element</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">add</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+            <span class="n">add</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+            <span class="n">add</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">add</span><span class="p">;</span>
+            <span class="c1">//copy next element until the end of list</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+                <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+                <span class="n">newNode</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+                <span class="n">add</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+                <span class="n">add</span> <span class="o">=</span> <span class="n">newNode</span><span class="p">;</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">~</span><span class="n">Stack</span><span class="p">(){</span>
+        <span class="k">while</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">){</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">T</span> <span class="n">s</span><span class="p">){</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">pop</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">temp</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">delete</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">top</span> <span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;Error: stack empty</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">//注意，因為copy constructor會呼叫empty，而引數又是constant，所以把empty()設成const function</span>
+    <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="c1">//top of the element</span>
+        <span class="n">Node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
+
+<span class="p">};</span>
+<span class="cp">#endif</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/queue.html" rel="bookmark"
+                           title="Permalink to queue實作">queue實作</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-30T14:58:03.418131">
+                三 30 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>用Array實作queue。</p>
+<div class="highlight"><pre><span class="cp">#ifndef QUEUE_H</span>
+<span class="cp">#define QUEUE_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Queue</span><span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+    <span class="n">Queue</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/queue.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html" rel="bookmark"
+                           title="Permalink to 用macro的技巧">用macro的技巧</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-27T22:54:41.566917">
+                日 27 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>關於macro的介紹，有一個還不錯的<a href="http://www.cprogramming.com/tutorial/cpreprocessor.html">網站</a>。</p>
+<p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
+<span class="c1">//也可以這樣</span>
+<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
+<span class="c1">//s: aaa</span>
+<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//a is 5</span>
+<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果想要一次印出多個變數，可以這樣做。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)     do {         printf(&quot;%s: %s\n&quot;, #var ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
