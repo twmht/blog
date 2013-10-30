@@ -89,3 +89,34 @@ Author: twmht
                         a ^= b;         \
                     } 
 
+其它還有，
+
+    :::C
+    #ifndef __cplusplus
+    //這個指令將"中斷編譯"過程並返回一個參數中定義的出錯資訊
+    #error A C++ compiler is required
+    #endif
+
+若是想要取消macro呢?
+
+    :::C
+    #define MAX_WIDTH 100
+    char str1[MAX_WIDTH];
+    #undef MAX_WIDTH
+    #define MAX_WIDTH 200
+    char str2[MAX_WIDTH];
+
+一個較為複雜的例子，
+
+    :::C
+    #if MAX_WIDTH>200
+    #undef MAX_WIDTH
+    #define MAX_WIDTH 200
+    #elif MAX_WIDTH<50
+    #undef MAX_WIDTH
+    #define MAX_WIDTH 50
+    #else
+    #undef MAX_WIDTH
+    #define MAX_WIDTH 100
+    #endif
+    char str[MAX_WIDTH];

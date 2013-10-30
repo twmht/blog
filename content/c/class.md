@@ -14,7 +14,7 @@ Author: twmht
 
 以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。
 
-* private: 只有自己或者是friend class看得到。
+* private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。
 * protected: 只有自己，friend class或者子類別才可以看得到。
 * public: 任何可以看到這個class的地方都可以使用。
 
@@ -118,3 +118,212 @@ Bar tmpBarA(myBar);
 複製品 (tmpBarB).
 
 要生成 tmpBarB......(遞迴呼叫，無窮迴圈)，<font color=red>而如果是copy by reference，則不會呼叫copy constructor。</font>
+
+###繼承###
+
+繼承的語法如下。
+
+    :::cpp-objdump
+    //public表示子類別繼承過來的最低的權限
+    //例如如果把public改成protected，如果父類別有一個public member，則在子類別子類別會自動被改成protected
+    class derived_class_name: public base_class_name;
+
+例如
+
+    :::cpp-objdump
+    class daughter: protected mother;
+
+protected 將使得 daughter 從 mother 處繼承的成員其最低訪問限制為 protected。也就是說, 原來mother中的所有public成員到daughter中將會成為protected 成員。 最常用的繼承限制除了 public 外就是 private ,
+<font color=red>它被用來將父類別完全封裝起來</font> , 因為在這種情況下,除了子類別自身外,其它任何的繼承子類別的子類別(孫子)都不能訪問那些從父類別(爺爺)繼承而來的成員。不過大多數情況下繼承都是使用 public。
+
+子類別從父類別繼承了public及protected成員，但以下三個例外。
+    
+* 建構子 Constructor 和解構子 destructor
+* operator=() 成員
+* friends
+
+雖然父類別的建構子和解構子沒有被繼承,但是當一個子類別的 object 被生成或銷毀的時候,其父類別的預設建構子 (即,沒有任何參數的建構子)和解構子總是被自動調用的。
+
+如果父類別沒有預設建構子,或你希望當子類別生成新的 object 時,父類別的某個重載的建構子被調用,你需要在子類別的每一個建構子的定義中指定它:
+
+    :::cpp-objdump
+    class mother {
+    public:
+    mother ()
+    { cout << "mother: no parameters\n"; }
+    mother (int a)
+    { cout << "mother: int parameter\n"; }
+    }
+    class daughter : public mother {
+    public:
+    daughter (int a)
+    //daughter建構子會自動呼叫mother()
+    { cout << "daughter: int parameter\n\n"; }
+    };
+    class son : public mother {
+    public:
+    //son建構子會呼叫mother(a)
+    son (int a) : mother (a)
+    { cout << "son: int parameter\n\n"; }
+    };
+    int main () {
+    daughter cynthia (1);
+    son daniel(1);
+    return 0;
+    }
+
+###多型###
+
+多型的好處就是一個interface可以操控不同的物件，要達成多型的手段就是繼承，讓父類別的指標可以指到子類別的物件。
+
+而一般來說，如果沒有用到virtual function，則父類別的指標只能夠呼叫那些被子類別所繼承的方法。
+
+例如，
+
+    :::cpp-objdump
+    class CPolygon {
+    protected:
+    int width, height;
+    public:
+    void set_values (int a, int b) {
+    width=a; height=b;
+    }
+    };
+    class CRectangle: public CPolygon {
+    public:
+    int area (void) {
+    return (width * height);
+    }
+    };
+    class CTriangle: public CPolygon {
+    public:
+    int area (void) {
+    return (width * height / 2);
+    }
+    };
+
+    int main () {
+    CRectangle rect;
+    CTriangle trgl;
+    //父類別指向子類別
+    CPolygon * ppoly1 = &rect;
+    CPolygon * ppoly2 = &trgl;
+    //但只能夠呼叫父類別自己有定義的
+    ppoly1->set_values (4,5);
+    ppoly2->set_values (4,5);
+    //例如父類別沒定義area()，就不能呼叫
+    cout << rect.area() << endl;
+    cout << trgl.area() << endl;
+    return 0;
+    }
+
+如果要讓父類別呼叫area，要怎麼做呢？方法就是在父類別中定義virtual function。
+
+    :::cpp-objdump
+    class CPolygon {
+    protected:
+    int width, height;
+    public:
+    void set_values (int a, int b)
+    {
+    width=a;
+    height=b;
+    }
+    virtual int area (void) { return (0); }
+    };
+
+    class CRectangle: public CPolygon {
+    public:
+    int area (void) { return (width * height); }
+    };
+    class CTriangle: public CPolygon {
+    public:
+    int area (void) {
+    return (width * height / 2);
+    }
+    };
+    int main () {
+    CRectangle rect;
+    CTriangle trgl;
+    CPolygon poly;
+    CPolygon * ppoly1 = &rect;
+    CPolygon * ppoly2 = &trgl;
+    CPolygon * ppoly3 = &poly;
+    ppoly1->set_values (4,5);
+    ppoly2->set_values (4,5);
+    ppoly3->set_values (4,5);
+    //呼叫的是rect的area()
+    cout << ppoly1->area() << endl;
+    //呼叫的是trgl的area()
+    cout << ppoly2->area() << endl;
+    //呼叫的是poly的area()
+    cout << ppoly3->area() << endl;
+    return 0;
+    }
+
+因此,關鍵字 virtual 的作用就是在當使用父類別的指標的時候,使子類別中與父類別同名的成員在適當的時候被調用,如前面例子中所示。
+
+這個又叫做dynamic binding。在執行階段決定要執行哪個實體的方法。
+
+<font color=red>其實這邊跟java稍微不同，因為在java裡面只要子類別有覆寫父類別的方法的話，就會自動去呼叫子類別自己所定義的方法，不用再特別去寫virtual關鍵字。</font> 
+
+如果我們的子類別覆寫了父類別的virtual function，但是名字卻打錯了，這樣就還是只會呼叫父類別的方法。
+要怎麼避免呢？答案就是採用pure virtual function，若子類別沒有正確override，則編譯失敗。
+<font color=red>在java中，則是用abstract function來做到，所有包含abstract function的class又稱為interface。 </font>
+例如，
+
+    :::cpp-objdump
+    // abstract class CPolygon
+    class CPolygon {
+    protected:
+    int width, height;
+    public:
+    void set_values (int a, int b) {
+    width=a;
+    height=b;
+    }
+    virtual int area (void) =0;
+    };
+
+抽象父類別的最大不同是它不能夠有實例(物件),但我們可以定義指向它的指標。<font color=red>(這跟java的interface很像)</font>
+
+以下是一個多型的完整的例子，
+
+    :::cpp-objdump
+    class CPolygon {
+    protected:
+    int width, height;
+    public:
+    void set_values (int a, int b) {
+    width=a;
+    height=b;
+    }
+    virtual int area (void) =0;
+    //我們可以寫一個 CPolygon 的成員函數,使得它可以將函數
+    //area()的結果列印到螢幕上,而不必考慮具體是為哪一個子類別。
+    //加上了printarea，記住,this 代表正在被程式執行的這一個物件的指標。
+    void printarea (void) {
+    cout << this->area() << endl;
+    }
+    };
+    class CRectangle: public CPolygon {
+    public:
+    int area (void) { return (width * height); }
+    };
+    class CTriangle: public CPolygon {
+    public:
+    int area (void) {
+    return (width * height / 2);
+    }
+    };
+    int main () {
+    CRectangle rect;
+    CTriangle trgl;
+    CPolygon * ppoly1 = &rect;
+    CPolygon * ppoly2 = &trgl;
+    ppoly1->set_values (4,5);
+    ppoly2->set_values (4,5);
+    ppoly1->printarea();
+    ppoly2->printarea();
+    return 0;
+    }

@@ -83,3 +83,36 @@ Author: twmht
             return 0;
         }
 
+* Quick Sort，先隨便選一個pivot，小於pivot的放左邊的，大於pivot的放右邊，接著左邊跟右邊又是同樣的子問題，遞迴即可。
+
+        :::C
+        void quicksort(int * array,int left,int right){
+            if(left >= right)
+                return;
+            int pivot = array[left];
+            int i = left+1;
+            int j = right;
+            while(true){
+                while(i <= right){
+                    if(array[i]>pivot)
+                        break;
+                    i++;
+                }
+                while(j>left){
+                    if(array[j]<pivot)
+                        break;
+                    j--;
+                }
+                //現在i的右邊都大於pivot了
+                if(i > j)
+                    break;
+                //大於pivot的放到右邊，小於pivot的放在左邊
+                SWAP(array[i],array[j]);
+            }
+            SWAP(array[left],array[j]);
+            //排左邊
+            quicksort(array,left,j-1);
+            //排右邊
+            quicksort(array,j+1,right);
+        }
+
