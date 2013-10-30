@@ -31,8 +31,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-27T22:54:41.566917">
-                日 27 十月 2013
+        <abbr class="published" title="2013-10-30T21:38:02.433330">
+                三 30 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -121,6 +121,38 @@
 <span class="cp">                    b ^= a;         \ </span>
                     <span class="n">a</span> <span class="o">^=</span> <span class="n">b</span><span class="p">;</span>         \
                 <span class="p">}</span>
+</pre></div>
+
+
+<p>其它還有，</p>
+<div class="highlight"><pre><span class="cp">#ifndef __cplusplus</span>
+<span class="c1">//這個指令將&quot;中斷編譯&quot;過程並返回一個參數中定義的出錯資訊</span>
+<span class="cp">#error A C++ compiler is required</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p>若是想要取消macro呢?</p>
+<div class="highlight"><pre><span class="cp">#define MAX_WIDTH 100</span>
+<span class="kt">char</span> <span class="n">str1</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 200</span>
+<span class="kt">char</span> <span class="n">str2</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
+</pre></div>
+
+
+<p>一個較為複雜的例子，</p>
+<div class="highlight"><pre><span class="cp">#if MAX_WIDTH&gt;200</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 200</span>
+<span class="cp">#elif MAX_WIDTH&lt;50</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 50</span>
+<span class="cp">#else</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 100</span>
+<span class="cp">#endif</span>
+<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
 </pre></div>
     </div><!-- /.entry-content -->
 

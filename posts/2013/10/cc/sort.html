@@ -31,8 +31,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-24T17:47:26.508970">
-                四 24 十月 2013
+        <abbr class="published" title="2013-10-30T15:13:31.492727">
+                三 30 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -121,6 +121,41 @@
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Quick Sort，先隨便選一個pivot，小於pivot的放左邊的，大於pivot的放右邊，接著左邊跟右邊又是同樣的子問題，遞迴即可。</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">quicksort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">array</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">pivot</span><span class="p">)</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="n">left</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">pivot</span><span class="p">)</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//現在i的右邊都大於pivot了</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="c1">//大於pivot的放到右邊，小於pivot的放在左邊</span>
+        <span class="n">SWAP</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="c1">//排左邊</span>
+    <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">//排右邊</span>
+    <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">right</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
