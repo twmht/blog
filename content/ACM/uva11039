@@ -1,0 +1,49 @@
+Title:ACM UVA-11039
+Slug: uva11039
+Category: ACM
+Author: twmht
+
+[sorting](http://luckycat.kshs.kh.edu.tw/homework/q11039.htm)
+
+    :::C
+    int main(int argc, char const* argv[])
+    {
+        int p;
+        //just sorting and scan the list
+        while(scanf("%d",&p) != EOF){
+            for(int i = 0;i<p;i++){
+                multimap<int,char> ans;
+                int n;
+                scanf("%d",&n);
+                for(int j =0;j<n;j++ ){
+                    int f;
+                    scanf("%d",&f);
+                    if(f>0)
+                        ans.insert(pair<int,char>(f,1));
+                    else 
+                        ans.insert(pair<int,char>(-1*f,-1));
+
+                }
+                int count = 0;
+                int sign;
+                multimap<int,char>::iterator it = ans.begin();
+                if(it->second == 1 ) {
+                    sign = -1;
+                    count++;
+                }
+                else{
+                    sign = 1;
+                    count++;
+                }
+                it++;
+                for(;it != ans.end();it++){
+                    if(it->second == sign){
+                        sign = -sign;
+                        count++;
+                    }
+                }
+                printf("%d\n",count);
+            }
+        }
+        return 0;
+    }
