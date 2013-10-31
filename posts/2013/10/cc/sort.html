@@ -31,8 +31,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-30T15:13:31.492727">
-                三 30 十月 2013
+        <abbr class="published" title="2013-10-31T23:16:54.647028">
+                四 31 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -162,6 +162,66 @@
 
 </li>
 </ul>
+<p>Heap sort。採用min_heap。</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">build_min_heap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">heap_sort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">input</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">22</span><span class="p">};</span>
+    <span class="n">build_min_heap</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">puts</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">sorted</span><span class="p">[</span><span class="mi">13</span><span class="p">];</span>
+    <span class="n">heap_sort</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="n">sorted</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">sorted</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">build_min_heap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="kt">int</span> <span class="n">range</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">&lt;</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">]){</span>
+                <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">]);</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">heap_sort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="kt">int</span> <span class="n">range</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">sorted</span><span class="p">,</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">range</span><span class="p">]);</span>
+    <span class="n">sorted</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">range</span><span class="p">];</span>
+    <span class="n">range</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">range</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="c1">//調整heap</span>
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span>
+                <span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">next</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">]);</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+    <span class="n">heap_sort</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="n">range</span><span class="p">,</span><span class="n">sorted</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
     </div><!-- /.entry-content -->
 
   </article>
