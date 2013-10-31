@@ -116,3 +116,64 @@ Author: twmht
             quicksort(array,j+1,right);
         }
 
+Heap sort。採用min_heap。
+
+    :::cpp-objdump
+    void build_min_heap(int *,int);
+    void heap_sort(int *,int,int *,int);
+    int main(int argc, char const* argv[])
+    {
+        int input[13] = {0,15,15,30,26,20,29,35,10,40,27,28,22};
+        build_min_heap(input,12);
+        printf("%d",input[1]);
+        for(int i = 2;i <= 12;i++)
+            printf(" %d",input[i]);
+        puts("");
+        int sorted[13];
+        heap_sort(input,12,sorted,0);
+        printf("%d",sorted[0]);
+        for(int i = 1;i <= 11;i++)
+            printf(" %d",sorted[i]);
+
+        return 0;
+    }
+    void build_min_heap(int *input,int range){
+        for(int i = 2;i <= range;i++){
+            int left = i;
+            while(left>1){
+                if(input[left]<input[left/2]){
+                    SWAP(input[left],input[left/2]);
+                    left = left/2;
+                }
+                else
+                    break;
+            }
+        }
+    }
+    void heap_sort(int *input,int range,int *sorted,int i){
+        SWAP(input[1],input[range]);
+        sorted[i++] = input[range];
+        range--;
+        if(range == 0)
+            return;
+        //調整heap
+        int left = 1;
+        while(left*2 <= range){
+            if(left*2+1 <= range){
+                int value = min(input[left*2+1],input[left*2]);
+                int next;
+                if(value == input[left*2+1]){
+                    next = left*2+1;
+                }else{
+                    next = left*2;
+                }
+                SWAP(input[next],input[left]);
+                left = next;
+            }else{
+                SWAP(input[left],input[left*2]);
+                left = left*2;
+            }
+
+        }
+        heap_sort(input,range,sorted,i);
+    }
