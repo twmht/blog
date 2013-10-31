@@ -26,6 +26,142 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10407.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10407">ACM UVA-10407</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T14:06:29.406335">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm">gcd</a>
+    :::C
+    int gcd(int a,int b){
+        return b == 0?a:gcd(b,a%b);</p>
+<div class="highlight"><pre><span class="p">}</span>
+<span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span> <span class="n">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span>0<span class="p">]</span> !<span class="p">=</span> <span class="s">&#39;0&#39;</span><span class="p">){</span>
+        <span class="n">istringstream</span> <span class="n">stream</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+        <span class="n">int</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">;</span>
+        <span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+        <span class="n">int</span> <span class="n">a</span> <span class="p">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> !<span class="p">=</span> 0 ...</pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10407.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10325.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10325">ACM UVA-10325</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T14:04:42.516079">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10325.htm">題目</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">M</span><span class="p">[</span><span class="mi">15</span><span class="p">];</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">nn</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">gcd</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span> <span class="p">){</span>
+    <span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">lcm</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10325.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10323.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10323">ACM UVA-10323</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T14:03:07.858084">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10323.htm">題目</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">factorial</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span>
+    <span class="n">factorial</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">13</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">factorial</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">factorial</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">n</span>  <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">13</span><span class="p">){</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%llu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">factorial</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10323.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10299.html" rel="bookmark"
+                           title="Permalink to ACM UVA-10299">ACM UVA-10299</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T14:01:01.319421">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10299.htm">質數題</a></p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="cp">#define max 100000</span>
+<span class="n">bool</span> <span class="n">is_prime</span><span class="p">[</span><span class="n">max</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">prime</span><span class="p">[</span><span class="mi">50000</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">is_prime</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">prime</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span><span class="n">j ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10299.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10268.html" rel="bookmark"
                            title="Permalink to ACM UVA-10268">ACM UVA-10268</a></h1>
                 </header>
@@ -251,140 +387,10 @@
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10106.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10104.html" rel="bookmark"
-                           title="Permalink to ACM UVA-10104">ACM UVA-10104</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T13:42:26.931304">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10104.htm">題目</a></p>
-<p>用gcd解。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">void</span> <span class="n">gcd</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span><span class="kt">long</span>  <span class="kt">long</span> <span class="n">b</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">j</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">long</span> <span class="kt">long ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10104.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva294.html" rel="bookmark"
-                           title="Permalink to ACM UVA-294">ACM UVA-294</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T13:11:13.965569">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p>這題是給定一個範圍的數字，假設是1到100，要找出哪一個數字有最多的除數。</p>
-<p>這題就相當於做質因數分解，假設有個數字N = 2^2 X 3^2 X 7，那它的除數個數就相當於(2+1)*(2+1)(1+1)。</p>
-<p>首先是質數篩，一個合數N必定有小於等於sqrt(N)的質因數，所以我們要先算出小於等於N以下的質數有幾個。</p>
-<div class="highlight"><pre><span class="n">bool</span> <span class="n">is_prime</span><span class="p">[</span><span class="mi">31631</span><span class="p">];</span>
-<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">prime</span><span class="p">[</span><span class="mi">16000</span><span class="p">];</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">31630</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="k">if ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva294.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11069.html" rel="bookmark"
-                           title="Permalink to ACM UVA-11069">ACM UVA-11069</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T12:53:04.584937">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p>這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。</p>
-<p>所以關係式應為f[n] = f[n-2]+f[n-3]</p>
-<p>其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
-f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva11069.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva624.html" rel="bookmark"
-                           title="Permalink to ACM UVA-624">ACM UVA-624</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T12:08:47.592293">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p>典型的0/1背包問題。</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">2000</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">put</span><span class="p">[</span><span class="mi">25</span><span class="p">][</span><span class="mi">2000</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cd</span><span class="p">;</span>
-        <span class="n">memset</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">dp</span><span class="p">));</span>
-        <span class="n">memset</span><span class="p">(</span><span class="n">put</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">put</span><span class="p">));</span>
-        <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">m</span><span class="o">--</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">l</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">l</span><span class="p">);</span>
-            <span class="n">cd</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva624.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/author/twmht3.html">&laquo;</a>
-    Page 4 / 7
+    Page 4 / 8
         <a href="http://twmht.github.io/blog/author/twmht5.html">&raquo;</a>
 </p>
             </section><!-- /#content -->
