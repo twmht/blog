@@ -24,322 +24,56 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/cc/class.html">C++的Class中的一些重點整理</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva369.html">ACM UVA-369</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-30T21:39:26.619263">
-                三 30 十月 2013
+        <abbr class="published" title="2013-10-31T15:23:00.355977">
+                四 31 十月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
-<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
-<ul>
-<li>friend function:
-簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
-<li>const function:
-在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
-</ul>
-<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
-<ul>
-<li>private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。</li>
-<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
-<li>public: 任何可以看到這個class的地方都可以使用。</li>
-</ul>
-<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
-以下這個例子我覺得很好，應該是說當物件內部有動態配置的時候，可以一起把動態配置的記憶體回收掉，我想應該是這個物件被回收的的時候，不會一起把內部動態配置的member data一起free掉的原因，可以看<a href="http://stackoverflow.com/questions/11288358/does-dynamically-allocated-memory-for-data-members-of-a-c-class-frees-when-cla">這裡</a>。</p>
-<div class="highlight"><pre><span class="c1">// example on constructors and destructors rect area: 12</span>
-<span class="cp">#include &lt;iostream.h&gt; rectb area: 30</span>
-<span class="k">class</span> <span class="nc">CRectangle</span> <span class="p">{</span>
-<span class="kt">int</span> <span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="o">*</span><span class="n">height</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="c1">//overloading</span>
-<span class="n">CRectangle</span> <span class="p">();</span>
-<span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
-<span class="o">~</span><span class="n">CRectangle</span> <span class="p">();</span>
-<span class="c1">//實作內容定義在class以內的有機會被編譯器視為inline function，編譯器會自己作判斷</span>
-<span class="c1">//inline function會直接將程式碼展開來，與macro非常類似</span>
-<span class="c1">//程式碼很短，只有return statement，用inline較有效率</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">width</span> <span class="o">*</span> <span class="o">*</span><span class="n">height</span><span class="p">);}</span>
-<span class="p">};</span>
-<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
-<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
-<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
-<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
-<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
-<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">CRectangle</span><span class="o">::~</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
-<span class="k">delete</span> <span class="n">width</span><span class="p">;</span>
-<span class="k">delete</span> <span class="n">height</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
-<span class="c1">//若不傳參數，則不需要括弧，java則需要</span>
-<span class="n">CRectangle</span> <span class="n">rect</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">rectb</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">rectc</span><span class="p">;</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rect area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rectb area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rectb</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+</footer><!-- /.post-info --><p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11369.htm">組合數+dp</a></p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">combi</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">**</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 
-
-<p>實際上,當我們定義一個 class 而沒有定義建構子的時候,編譯器會自動假設兩
-個重載的建構子 (預設建構子"default constructor" 和複製建構子"copy
-constructor")，又與java類似，只是在java中我沒聽過copy constructor。</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">CExample</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="c1">//沒有定義建構子</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span>
-<span class="kt">void</span> <span class="n">multiply</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">=</span><span class="n">m</span><span class="p">;</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span> <span class="p">};</span>
-<span class="p">};</span>
-</pre></div>
-
-
-<p>因此defalut constructor以及copy constructor會被自動定義，copy constructor是一個只有一個參數的建構子,該參數是這個 class 的一個物件,這個函數的功能是將被傳入的物件(object)的所有<font color=red>非靜態</font> (non-static)成員變數的值都複製給自身這個 object。</p>
-<div class="highlight"><pre><span class="c1">//default constructor</span>
-<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
-<span class="c1">//copy constructor</span>
-<span class="c1">//一定要pass by reference，否則會導致遞迴呼叫copy constructor而形成無窮迴圈。</span>
-<span class="c1">//若是有用到指標，則copy constructor預設只會複製指標的address，所以一定要視情況改寫</span>
-<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">(</span><span class="k">const</span> <span class="n">CExample</span><span class="o">&amp;</span> <span class="n">rv</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">a</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
-<span class="n">b</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
-<span class="n">c</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">c</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>為什麼copy constructor一定要pass by reference?，這個問題我大一的時候有想過，去問了ptt的版友之後終於恍然大悟。
-問題點出在<font color=red>pass by value</font>的時候並不是直接用等號來作assignment，而是會先呼叫copy constructor。</p>
-<p>假設有一個function foo長這樣</p>
-<div class="highlight"><pre><span class="c1">//pass by reference</span>
-<span class="n">foo</span><span class="p">(</span><span class="n">Bar</span> <span class="n">bar</span><span class="p">)</span>
-</pre></div>
-
-
-<p>當有人要呼叫foo()</p>
-<div class="highlight"><pre><span class="n">Bar</span> <span class="n">mybar</span><span class="p">;</span>
-<span class="n">foo</span><span class="p">(</span><span class="n">mybar</span><span class="p">)</span>
-</pre></div>
-
-
-<p>進入 foo 之前, 因為是 pass by value, 所以要生成一個 myBar 的 copy. 要怎樣生成呢? compiler 會利用 copy constructor 生成一個 myBar 的複製品, 然後供 foo() 裡面使用。</p>
-<p>要是Bar這個class的copy constructor 是 pass-by-value 的話, 比如</p>
-<div class="highlight"><pre><span class="n">Bar</span> <span class="n">myBar</span><span class="p">;</span>
-<span class="n">Bar</span> <span class="n">barCopy</span><span class="p">(</span><span class="n">myBar</span><span class="p">);</span>
-</pre></div>
-
-
-<p>生成 barCopy 的時候, 因為 myBar 是 pass by value, 所以 compiler
-要生成一個 myBar 的複製品 (假設叫 tmpBarA) 才傳進去生成 barCopy.</p>
-<p>但生成 tmpBarA, 也是利用 copy ctor, 即是 compiler 是在做
-Bar tmpBarA(myBar);
-由於是 pass-by-val, 那麼要生成 tmpBarA, 其實傳進去的是 myBar 的一個
-複製品 (tmpBarB).</p>
-<p>要生成 tmpBarB......(遞迴呼叫，無窮迴圈)，<font color=red>而如果是copy by reference，則不會呼叫copy constructor。</font></p>
-<h3>繼承</h3>
-<p>繼承的語法如下。</p>
-<div class="highlight"><pre><span class="c1">//public表示子類別繼承過來的最低的權限</span>
-<span class="c1">//例如如果把public改成protected，如果父類別有一個public member，則在子類別子類別會自動被改成protected</span>
-<span class="k">class</span> <span class="nc">derived_class_name</span><span class="o">:</span> <span class="k">public</span> <span class="n">base_class_name</span><span class="p">;</span>
-</pre></div>
-
-
-<p>例如</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">daughter</span><span class="o">:</span> <span class="k">protected</span> <span class="n">mother</span><span class="p">;</span>
-</pre></div>
-
-
-<p>protected 將使得 daughter 從 mother 處繼承的成員其最低訪問限制為 protected。也就是說, 原來mother中的所有public成員到daughter中將會成為protected 成員。 最常用的繼承限制除了 public 外就是 private ,
-<font color=red>它被用來將父類別完全封裝起來</font> , 因為在這種情況下,除了子類別自身外,其它任何的繼承子類別的子類別(孫子)都不能訪問那些從父類別(爺爺)繼承而來的成員。不過大多數情況下繼承都是使用 public。</p>
-<p>子類別從父類別繼承了public及protected成員，但以下三個例外。</p>
-<ul>
-<li>建構子 Constructor 和解構子 destructor</li>
-<li>operator=() 成員</li>
-<li>friends</li>
-</ul>
-<p>雖然父類別的建構子和解構子沒有被繼承,但是當一個子類別的 object 被生成或銷毀的時候,其父類別的預設建構子 (即,沒有任何參數的建構子)和解構子總是被自動調用的。</p>
-<p>如果父類別沒有預設建構子,或你希望當子類別生成新的 object 時,父類別的某個重載的建構子被調用,你需要在子類別的每一個建構子的定義中指定它:</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">mother</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="n">mother</span> <span class="p">()</span>
-<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mother: no parameters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
-<span class="n">mother</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
-<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mother: int parameter</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">class</span> <span class="nc">daughter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">mother</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="n">daughter</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
-<span class="c1">//daughter建構子會自動呼叫mother()</span>
-<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;daughter: int parameter</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">son</span> <span class="o">:</span> <span class="k">public</span> <span class="n">mother</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="c1">//son建構子會呼叫mother(a)</span>
-<span class="n">son</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">mother</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;son: int parameter</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
-<span class="n">daughter</span> <span class="n">cynthia</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">son</span> <span class="n">daniel</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3>多型</h3>
-<p>多型的好處就是一個interface可以操控不同的物件，要達成多型的手段就是繼承，讓父類別的指標可以指到子類別的物件。</p>
-<p>而一般來說，如果沒有用到virtual function，則父類別的指標只能夠呼叫那些被子類別所繼承的方法。</p>
-<p>例如，</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
-<span class="k">protected</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">void</span> <span class="n">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span> <span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
-<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
-<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
-<span class="c1">//父類別指向子類別</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
-<span class="c1">//但只能夠呼叫父類別自己有定義的</span>
-<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="c1">//例如父類別沒定義area()，就不能呼叫</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">trgl</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>如果要讓父類別呼叫area，要怎麼做呢？方法就是在父類別中定義virtual function。</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
-<span class="k">protected</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">void</span> <span class="n">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
-<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">virtual</span> <span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
-<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
-<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="n">poly</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly3</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">poly</span><span class="p">;</span>
-<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="n">ppoly3</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="c1">//呼叫的是rect的area()</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="c1">//呼叫的是trgl的area()</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="c1">//呼叫的是poly的area()</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly3</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">**</span><span class="n">table</span><span class="p">;</span>
+    <span class="n">table</span><span class="o">=</span><span class="n">new</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="o">*</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>   <span class="c1">//0到100 </span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">101</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">new</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>  <span class="c1">//0到i+1 </span>
+    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
 
-<p>因此,關鍵字 virtual 的作用就是在當使用父類別的指標的時候,使子類別中與父類別同名的成員在適當的時候被調用,如前面例子中所示。</p>
-<p>這個又叫做dynamic binding。在執行階段決定要執行哪個實體的方法。</p>
-<p><font color=red>其實這邊跟java稍微不同，因為在java裡面只要子類別有覆寫父類別的方法的話，就會自動去呼叫子類別自己所定義的方法，不用再特別去寫virtual關鍵字。</font> </p>
-<p>如果我們的子類別覆寫了父類別的virtual function，但是名字卻打錯了，這樣就還是只會呼叫父類別的方法。
-要怎麼避免呢？答案就是採用pure virtual function，若子類別沒有正確override，則編譯失敗。
-<font color=red>在java中，則是用abstract function來做到，所有包含abstract function的class又稱為interface。 </font>
-例如，</p>
-<div class="highlight"><pre><span class="c1">// abstract class CPolygon</span>
-<span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
-<span class="k">protected</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">void</span> <span class="n">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
-<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">virtual</span> <span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
+    <span class="n">combi</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
 
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
 
-<p>抽象父類別的最大不同是它不能夠有實例(物件),但我們可以定義指向它的指標。<font color=red>(這跟java的interface很像)</font></p>
-<p>以下是一個多型的完整的例子，</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
-<span class="k">protected</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">void</span> <span class="n">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
-<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">))</span>
+
+    <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span><span class="n">m</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+         <span class="k">break</span><span class="p">;</span>
+         <span class="k">else</span>
+         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d things taken %d at a time is %u exactly.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">table</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="c1">//system(&quot;pause&quot;); </span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">virtual</span> <span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-<span class="c1">//我們可以寫一個 CPolygon 的成員函數,使得它可以將函數</span>
-<span class="c1">//area()的結果列印到螢幕上,而不必考慮具體是為哪一個子類別。</span>
-<span class="c1">//加上了printarea，記住,this 代表正在被程式執行的這一個物件的指標。</span>
-<span class="kt">void</span> <span class="n">printarea</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
-<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
-<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
-<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
-<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
-<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">printarea</span><span class="p">();</span>
-<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">printarea</span><span class="p">();</span>
-<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">combi</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">**</span> <span class="n">table</span><span class="p">)</span>
+
+<span class="p">{</span>
+
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">m</span><span class="o">&lt;=</span><span class="mi">100</span><span class="p">;</span><span class="n">m</span><span class="o">++</span><span class="p">)</span>
+         <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">n</span><span class="o">&lt;=</span><span class="mi">100</span><span class="p">;</span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+         <span class="n">table</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">=</span><span class="n">table</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="p">]</span><span class="o">+</span><span class="n">table</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>  <span class="c1">//n&gt;=1;m&gt;=1</span>
+
 <span class="p">}</span>
 </pre></div>                </article>
             </aside><!-- /#featured -->
@@ -350,233 +84,14 @@ Bar tmpBarA(myBar);
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html" rel="bookmark"
-                           title="Permalink to 用macro的技巧">用macro的技巧</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11059.html" rel="bookmark"
+                           title="Permalink to ACM UVA-11059">ACM UVA-11059</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-30T21:38:02.433330">
-                三 30 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>關於macro的介紹，有一個還不錯的<a href="http://www.cprogramming.com/tutorial/cpreprocessor.html">網站</a>。</p>
-<p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
-<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
-<span class="c1">//也可以這樣</span>
-<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
-<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
-<span class="c1">//s: aaa</span>
-<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="c1">//a is 5</span>
-<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</pre></div>
-
-
-<p>如果想要一次印出多個變數，可以這樣做。</p>
-<div class="highlight"><pre><span class="cp">#define print_var(var)     do {         printf(&quot;%s: %s\n&quot;, #var ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/macro.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/sort.html" rel="bookmark"
-                           title="Permalink to sorting">sorting</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-30T15:13:31.492727">
-                三 30 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。</p>
-<ul>
-<li>
-<p>Bubble sort，把目前在最左邊的值一直往右邊推。</p>
-<div class="highlight"><pre><span class="cp">#define SWAP(x,y) int t;t = x;x = y;y = t;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">bool ...</span></pre></div></li></ul>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/sort.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html" rel="bookmark"
-                           title="Permalink to stack實作">stack實作</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-30T14:58:43.578961">
-                三 30 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>加入template的實作。
-Stack.h</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="cp">#ifndef STACK_H</span>
-<span class="cp">#define STACK_H</span>
-<span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="cp">#include &lt;stdlib.h&gt;</span>
-<span class="cp">#include &lt;string.h&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-    <span class="n">Stack</span><span class="p">(){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">Stack</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/stack.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/cc/queue.html" rel="bookmark"
-                           title="Permalink to queue實作">queue實作</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-30T14:58:03.418131">
-                三 30 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p>用Array實作queue。</p>
-<div class="highlight"><pre><span class="cp">#ifndef QUEUE_H</span>
-<span class="cp">#define QUEUE_H</span>
-<span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="cp">#include &lt;stdlib.h&gt;</span>
-<span class="cp">#include &lt;string.h&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Queue</span><span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-    <span class="n">Queue</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">Queue</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/cc/queue.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/lamp.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-29T12:32:22.393530">
-                二 29 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <div class="highlight"><pre><span class="c">#install apache</span>
-sudo apt-get install apache2
-
-<span class="c">#install php</span>
-sudo apt-get install libapache2-mod-php5 php5
-sudo /etc/init.d/apache2 restart
-<span class="c">#install mysql</span>
-sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
-<span class="c">#test mysql</span>
-mysql -u root -p
-<span class="c">#install phpmyadmin(not necessary)</span>
-<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
-<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
-sudo apt-get install phpmyadmin
-</pre></div>
-
-
-<p>如果 <code>http://localhost/phpmyadmin ...</code></p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/lamp.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html" rel="bookmark"
-                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-29T12:29:40.122093">
-                二 29 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
-<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
-</pre></div>
-
-
-<p>到新的環境中如何重新載入library.sql呢？</p>
-<div class="highlight"><pre>mysql -u root -p &lt; library.sql
-</pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva355.html" rel="bookmark"
-                           title="Permalink to ACM UVA-355">ACM UVA-355</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-27T20:58:26.049878">
-                日 27 十月 2013
+        <abbr class="published" title="2013-10-31T15:20:56.545419">
+                四 31 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -584,32 +99,76 @@ sudo apt-get install phpmyadmin
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info -->                <p>這題是給定一個n進位的數字，轉換成一個m進位的數字。
-我是先轉成十進位，之後轉成m進位。
-比較注意的是要用到unsigned long long來存十進位的數字。</p>
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm">max product</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">round</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Max</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">)</span>
+
+    <span class="p">{</span>      
+          <span class="n">round</span><span class="o">++</span><span class="p">;</span> 
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+          <span class="p">{</span>
+                  <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">data</span><span class="p">;</span>
+                  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+          <span class="p">{</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva11059.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva993.html" rel="bookmark"
+                           title="Permalink to ACM UVA-993">ACM UVA-993</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T15:15:30.470567">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q993.htm">greedy</a></p>
 <div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
-    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">,</span><span class="sc">&#39;C&#39;</span><span class="p">,</span><span class="sc">&#39;D&#39;</span><span class="p">,</span><span class="sc">&#39;E&#39;</span><span class="p">,</span><span class="sc">&#39;F&#39;</span><span class="p">};</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d %s&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="c1">//printf(&quot;%d\n&quot;,sizeof(sum));</span>
-        <span class="n">bool</span> <span class="n">find ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva355.html">read more</a>
+    <span class="kt">int</span> <span class="n">q</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">)){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+            <span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">;</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%lld&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">){</span>
+                <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva993.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva216.html" rel="bookmark"
-                           title="Permalink to ACM UVA-216">ACM UVA-216</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva541.html" rel="bookmark"
+                           title="Permalink to ACM UVA-541">ACM UVA-541</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-26T22:25:03.139366">
-                六 26 十月 2013
+        <abbr class="published" title="2013-10-31T15:10:54.040602">
+                四 31 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -617,34 +176,38 @@ sudo apt-get install phpmyadmin
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info -->                <p>本來以為這題是MST，但是題目要求的是每個node只能有兩條branch(想成是兩個連接點），也就是用一條線串起全部的node。
-這題的input size最多只到8，所以就用暴力解，找出最佳的排列。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="k">struct</span> <span class="n">point</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
-    <span class="n">point</span><span class="p">(</span><span class="kt">int</span> <span class="n">_x</span><span class="p">,</span><span class="kt">int</span> <span class="n">_y</span><span class="p">){</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">_x</span><span class="p">;</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">_y</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="cp">#define dis(p1,p2) sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y))</span>
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q541.htm">Matrix</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">row</span><span class="p">[</span><span class="mi">105</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">col</span><span class="p">[</span><span class="mi">105</span><span class="p">];</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="kt">int ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva216.html">read more</a>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="n">getchar</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">rowe</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">cole</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">rr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">ic</span><span class="p">,</span><span class="n">ir</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">tmp</span><span class="o">--</span><span class="p">){</span>
+            <span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">);</span>
+            <span class="n">istringstream</span> <span class="n">stream</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">bit ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva541.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10034.html" rel="bookmark"
-                           title="Permalink to ACM UVA-10034">ACM UVA-10034</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva591.html" rel="bookmark"
+                           title="Permalink to ACM UVA-591">ACM UVA-591</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-24T19:28:47.180424">
-                四 24 十月 2013
+        <abbr class="published" title="2013-10-31T15:08:32.177545">
+                四 31 十月 2013
         </abbr>
 
         <address class="vcard author">
@@ -652,27 +215,209 @@ sudo apt-get install phpmyadmin
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info -->                <p>這題是典型的Minimum Spanning Tree，我用Prims Algorithm。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="cp">#define dis(p1,p2) sqrt(((p1.x-p2.x)*(p1.x-p2.x))+((p1.y-p2.y)*(p1.y-p2.y)))</span>
-<span class="k">struct</span> <span class="n">point</span><span class="p">{</span>
-    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-    <span class="n">point</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span><span class="kt">double</span> <span class="n">b</span><span class="p">,</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q591.htm">平均數</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
     <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">double ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10034.html">read more</a>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">h</span><span class="p">;</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">h</span><span class="p">);</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span><span class="o">+</span><span class="n">h</span><span class="p">;</span>
+            <span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">avg</span> <span class="o">=</span> <span class="n">sum</span><span class="o">/</span><span class="n">p</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">ans ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva591.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva583.html" rel="bookmark"
+                           title="Permalink to ACM UVA-583">ACM UVA-583</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T15:05:53.758134">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q583.htm">質數</a></p>
+<div class="highlight"><pre><span class="n">bool</span> <span class="n">prime</span><span class="p">[</span><span class="mi">65541</span><span class="p">];</span>
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">u</span><span class="p">[</span><span class="mi">33300</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">prime</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">65540</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">prime</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">65540</span><span class="p">;</span><span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="n">i</span><span class="p">){</span>
+                <span class="n">prime</span><span class="p">[</span><span class="n">j ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva583.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva530.html" rel="bookmark"
+                           title="Permalink to ACM UVA-530">ACM UVA-530</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T15:04:28.848307">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q530.htm">組合數</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">combination</span><span class="p">(){</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)){</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">){</span>
+       <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva530.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva516.html" rel="bookmark"
+                           title="Permalink to ACM UVA-516">ACM UVA-516</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T15:02:22.529592">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q516.htm">質數</a></p>
+<div class="highlight"><pre><span class="n">bool</span> <span class="n">isprime</span><span class="p">[</span><span class="mi">32769</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">prime</span><span class="p">[</span><span class="mi">32769</span><span class="p">];</span>
+<span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span>  <span class="n">ui</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">32768</span><span class="p">;</span><span class="n">i</span><span class="o">++</span> <span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isprime</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">prime</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">32768</span><span class="p">;</span><span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">isprime</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+    <span class="k">while ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva516.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva498.html" rel="bookmark"
+                           title="Permalink to ACM UVA-498">ACM UVA-498</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T15:01:25.528368">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q498.htm">多項式</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">x</span><span class="p">)){</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">xx</span><span class="p">;</span>
+        <span class="n">istringstream</span> <span class="n">stream1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">xn</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stream1</span><span class="o">&gt;&gt;</span><span class="n">xn</span><span class="p">){</span>
+            <span class="n">xx</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">xn</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cc</span><span class="p">;</span>
+        <span class="n">istringstream</span> <span class="n">stream2</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">cn</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stream2</span><span class="o">&gt;&gt;</span><span class="n">cn</span><span class="p">){</span>
+            <span class="n">cc</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">cn</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">lx</span> <span class="o">=</span> <span class="n">xx</span><span class="p">.</span><span class="n">size ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva498.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva495.html" rel="bookmark"
+                           title="Permalink to ACM UVA-495">ACM UVA-495</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T14:59:36.982037">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q495.htm">Fibonacci+dp</a></p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">ans</span><span class="p">[</span><span class="mi">5001</span><span class="p">][</span><span class="mi">3000</span><span class="p">];</span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="n">ans</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">5000</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">3000</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+            <span class="c1">//printf(&quot;hello\n&quot;);</span>
+            <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva495.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <p class="paginator">
-    Page 1 / 3
+    Page 1 / 7
         <a href="http://twmht.github.io/blog/author/twmht2.html">&raquo;</a>
 </p>
             </section><!-- /#content -->

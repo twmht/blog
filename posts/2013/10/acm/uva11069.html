@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>ACM UVA-11069</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -15,17 +15,39 @@
         <header id="banner" class="body">
                 <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
                 <nav><ul>
-                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (69)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11069.html" rel="bookmark"
+           title="Permalink to ACM UVA-11069">ACM UVA-11069</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-10-31T12:53:04.584937">
+                四 31 十月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->      <p>這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。</p>
+<p>所以關係式應為f[n] = f[n-2]+f[n-3]</p>
+<p>其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
+f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
