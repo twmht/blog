@@ -24,10 +24,10 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/others/lamp.html">如何在ubuntu中安裝LAMP</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html">如何在ubuntu中安裝LAMP</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-29T12:32:22.393530">
-                二 29 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.756556">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -85,24 +85,24 @@ vim /etc/apache2/mods-enabled/userdir.conf
 
 
 <p>接著修改php的設定。</p>
-<div class="highlight"><pre>vim /etc/apache2/mods-available/php5.conf
-#找到下面這段，改成這樣
-<span class="nt">&lt;IfModule</span> <span class="err">mod_php5.c</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;FilesMatch</span> <span class="err">&quot;\.ph(p3?|tml)$&quot;</span><span class="nt">&gt;</span>
-    SetHandler application/x-httpd-php
-    <span class="nt">&lt;/FilesMatch&gt;</span>
-    <span class="nt">&lt;FilesMatch</span> <span class="err">&quot;\.phps$&quot;</span><span class="nt">&gt;</span>
-    SetHandler application/x-httpd-php-source
-    <span class="nt">&lt;/FilesMatch&gt;</span>
-    # To re-enable php in user directories comment the following lines
-    # (from <span class="nt">&lt;IfModule</span> <span class="err">...</span><span class="nt">&gt;</span> to <span class="nt">&lt;/IfModule&gt;</span>.) Do NOT set it to On as it
-    # prevents .htaccess files from disabling it.
-    #<span class="nt">&lt;IfModule</span> <span class="err">mod_userdir.c</span><span class="nt">&gt;</span>
-    #    <span class="nt">&lt;Directory</span> <span class="err">/home/*/public_html</span><span class="nt">&gt;</span>
-    #        php_admin_value engine Off
-    #    <span class="nt">&lt;/Directory&gt;</span>
-    #<span class="nt">&lt;/IfModule&gt;</span>
-<span class="nt">&lt;/IfModule&gt;</span>
+<div class="highlight"><pre><span class="nx">vim</span> <span class="p">/</span><span class="nx">etc</span><span class="p">/</span><span class="nx">apache2</span><span class="p">/</span><span class="nx">mods</span><span class="na">-available</span><span class="p">/</span><span class="nx">php5.conf</span>
+<span class="err">#找到下面這段，改成這樣</span>
+<span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">mod_php5.c</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilesMatch</span> <span class="s2">&quot;\.ph(p3?|tml)$&quot;</span><span class="o">&gt;</span>
+    <span class="nx">SetHandler</span> <span class="nx">application</span><span class="p">/</span><span class="nx">x</span><span class="na">-httpd-php</span>
+    <span class="o">&lt;/</span><span class="nx">FilesMatch</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilesMatch</span> <span class="s2">&quot;\.phps$&quot;</span><span class="o">&gt;</span>
+    <span class="nx">SetHandler</span> <span class="nx">application</span><span class="p">/</span><span class="nx">x</span><span class="na">-httpd-php-source</span>
+    <span class="o">&lt;/</span><span class="nx">FilesMatch</span><span class="o">&gt;</span>
+    <span class="err">#</span> <span class="k">To</span> <span class="nx">re</span><span class="na">-enable</span> <span class="n">php</span> <span class="k">in</span> <span class="nb">user</span> <span class="nx">directories</span> <span class="nx">comment</span> <span class="nx">the</span> <span class="nx">following</span> <span class="nx">lines</span>
+    <span class="err">#</span> <span class="p">(</span><span class="nb">from</span> <span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">...</span><span class="o">&gt;</span> <span class="k">to</span> <span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span><span class="nx">.</span><span class="p">)</span> <span class="k">Do</span> <span class="ow">NOT</span> <span class="nb">set</span> <span class="nx">it</span> <span class="k">to</span> <span class="k">On</span> <span class="nx">as</span> <span class="nx">it</span>
+    <span class="err">#</span> <span class="nx">prevents</span> <span class="bp">.</span><span class="nx">htaccess</span> <span class="nx">files</span> <span class="nb">from</span> <span class="nx">disabling</span> <span class="nx">it.</span>
+    <span class="err">#</span><span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">mod_userdir.c</span><span class="o">&gt;</span>
+    <span class="err">#</span>    <span class="o">&lt;</span><span class="nx">Directory</span> <span class="p">/</span><span class="nb">home</span><span class="o">/*/</span><span class="nx">public_html</span><span class="o">&gt;</span>
+    <span class="err">#</span>        <span class="nx">php_admin_value</span> <span class="nx">engine</span> <span class="nx">Off</span>
+    <span class="err">#</span>    <span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
+    <span class="err">#</span><span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -119,14 +119,14 @@ mkdir /home/<span class="nv">$USER</span>/public_html
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html" rel="bookmark"
-                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html" rel="bookmark"
+                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-29T12:29:40.122093">
-                二 29 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.756556">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -134,54 +134,38 @@ mkdir /home/<span class="nv">$USER</span>/public_html
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
-<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用</p>
+<div class="highlight"><pre>alsamixer
 </pre></div>
 
 
-<p>到新的環境中如何重新載入library.sql呢？</p>
-<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+<p>或者是</p>
+<div class="highlight"><pre>gnome-alsamixer
 </pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/backupmysql.html">read more</a>
+
+
+<p>來調整麥克風的聲音。
+如果再不行的話，就使用</p>
+<div class="highlight"><pre>gstreamer-properties
+</pre></div>
+
+
+<p>調整input或者是output。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/gif.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-22T20:37:32.532470">
-                二 22 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
-<p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
-<div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
-convert -delay 100 -loop 0 gif/* output.gif
-</pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/gif.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html" rel="bookmark"
                            title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-17T00:00:02.902974">
-                四 17 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -214,20 +198,20 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 </li>
 </ul>
 <p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/addFont.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html" rel="bookmark"
-                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html" rel="bookmark"
+                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-08T23:24:14.015846">
-                二 08 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -235,25 +219,41 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
+</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
 </pre></div>
 
 
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
 </pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/gif.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
+                </header>
 
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
+<p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
+<div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
+convert -delay 100 -loop 0 gif/* output.gif
 </pre></div>
-
-
-<p>調整input或者是output。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/others/skypemic.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/gif.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

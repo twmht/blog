@@ -24,197 +24,59 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/10/cc/sort.html">sorting</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/acm/uva10407.html">ACM UVA-10407</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T23:16:54.647028">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:23:23.513919">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p>一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。</p>
-<ul>
-<li>
-<p>Bubble sort，把目前在最左邊的值一直往右邊推。</p>
-<div class="highlight"><pre><span class="cp">#define SWAP(x,y) int t;t = x;x = y;y = t;</span>
+</footer><!-- /.post-info --><p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm">gcd</a></p>
+<p>n1 = d1<em>q1+r1
+n2 = d1</em>q2+r1
+n3 = d1<em>q3+r1
+要找出d1出來
+a1= n1-n2 = d1</em>(q1-q2)
+a2 = n1-n3 = d1*(q1-q3)
+只要找出a1跟a2的最大公因數即可求出</p>
+<p>如果只有兩個呢？
+a1 = (n1-n2)<em>1 = d1</em>(q1-q2)
+那麼n1-n2自然就是最大的那一個答案了。</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span>
+
+<span class="p">}</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">bool</span> <span class="n">flag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span>
-                <span class="n">SWAP</span><span class="p">(</span><span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
-                <span class="n">flag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-            <span class="p">}</span>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">){</span>
+        <span class="n">istringstream</span> <span class="n">stream</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">;</span>
+        <span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">p</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">abs</span><span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">a</span><span class="p">)));</span>
         <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">flag</span><span class="p">){</span>
-            <span class="k">break</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">l</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">l</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">ans</span><span class="p">);</span>
         <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="c1">//0 1 1 2 2 3 5 6 7 10</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Selection sort, 找第一個最小的，放到左邊的第一個位置，接著找第二個最小的，放到左邊第二個位置...</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-    <span class="kt">int</span> <span class="n">mi</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">mi</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">ary</span><span class="p">[</span><span class="n">mi</span><span class="p">])</span>
-                <span class="n">mi</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">ary</span><span class="p">[</span><span class="n">mi</span><span class="p">];</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">mi</span><span class="p">;</span><span class="n">j</span><span class="o">&gt;</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">--</span><span class="p">)</span>
-            <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-
-        <span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="c1">//0 1 1 2 2 3 5 6 7 10</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Insertion Sort，從第二個element開始，看有沒有比前面一個element小，有的話就往前排，接著從第三個element開始...</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="n">value</span><span class="p">;</span><span class="n">j</span><span class="o">--</span><span class="p">){</span>
-            <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
         <span class="p">}</span>
-        <span class="n">ary</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="c1">//0 1 1 2 2 3 5 6 7 10</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">ary</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-<li>
-<p>Quick Sort，先隨便選一個pivot，小於pivot的放左邊的，大於pivot的放右邊，接著左邊跟右邊又是同樣的子問題，遞迴即可。</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="n">quicksort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">array</span><span class="p">,</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">)</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">pivot</span><span class="p">)</span>
-                <span class="k">break</span><span class="p">;</span>
-            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="p">}</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="n">left</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">pivot</span><span class="p">)</span>
-                <span class="k">break</span><span class="p">;</span>
-            <span class="n">j</span><span class="o">--</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="c1">//現在i的右邊都大於pivot了</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span><span class="p">)</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="c1">//大於pivot的放到右邊，小於pivot的放在左邊</span>
-        <span class="n">SWAP</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">ans</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="n">SWAP</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
-    <span class="c1">//排左邊</span>
-    <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-    <span class="c1">//排右邊</span>
-    <span class="n">quicksort</span><span class="p">(</span><span class="n">array</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">right</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-</li>
-</ul>
-<p>Heap sort。採用min_heap。</p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="n">build_min_heap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
-<span class="kt">void</span> <span class="n">heap_sort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">input</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">22</span><span class="p">};</span>
-    <span class="n">build_min_heap</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">12</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="n">puts</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">sorted</span><span class="p">[</span><span class="mi">13</span><span class="p">];</span>
-    <span class="n">heap_sort</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="n">sorted</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot; %d&quot;</span><span class="p">,</span><span class="n">sorted</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="n">build_min_heap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="kt">int</span> <span class="n">range</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="o">&lt;</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">]){</span>
-                <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">]);</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span>
-                <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="n">heap_sort</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="kt">int</span> <span class="n">range</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span><span class="n">sorted</span><span class="p">,</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
-    <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">range</span><span class="p">]);</span>
-    <span class="n">sorted</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">range</span><span class="p">];</span>
-    <span class="n">range</span><span class="o">--</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">range</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="c1">//調整heap</span>
-    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">range</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">]);</span>
-            <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span>
-                <span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                <span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">next</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">]);</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="n">SWAP</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="p">],</span><span class="n">input</span><span class="p">[</span><span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">]);</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span>
-
-    <span class="p">}</span>
-    <span class="n">heap_sort</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="n">range</span><span class="p">,</span><span class="n">sorted</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>                </article>
             </aside><!-- /#featured -->
@@ -225,348 +87,335 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11579.html" rel="bookmark"
-                           title="Permalink to ACM UVA-11579">ACM UVA-11579</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T21:54:16.201149">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.756556">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info -->                <p>這個好像叫做海龍公式的樣子...。</p>
+</footer><!-- /.post-info -->                <div class="highlight"><pre><span class="c">#install apache</span>
+sudo apt-get install apache2
+
+<span class="c">#install php</span>
+sudo apt-get install libapache2-mod-php5 php5
+sudo /etc/init.d/apache2 restart
+<span class="c">#install mysql</span>
+sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+<span class="c">#test mysql</span>
+mysql -u root -p
+<span class="c">#install phpmyadmin(not necessary)</span>
+<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
+<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
+sudo apt-get install phpmyadmin
+</pre></div>
+
+
+<p>如果 <code>http://localhost/phpmyadmin ...</code></p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html" rel="bookmark"
+                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-16T15:21:28.756556">
+                六 16 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用</p>
+<div class="highlight"><pre>alsamixer
+</pre></div>
+
+
+<p>或者是</p>
+<div class="highlight"><pre>gnome-alsamixer
+</pre></div>
+
+
+<p>來調整麥克風的聲音。
+如果再不行的話，就使用</p>
+<div class="highlight"><pre>gstreamer-properties
+</pre></div>
+
+
+<p>調整input或者是output。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/Introduction.html" rel="bookmark"
+                           title="Permalink to Introduction to Multithread">Introduction to Multithread</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
+<h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
+<p>一般來說，在java中可以透過兩種方式建立thread。</p>
+<ul>
+<li>
+<p>繼承Thread類別，建立PrintThread.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/Introduction.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+<ul>
+<li>
+<p>使用gnome-font-viewer </p>
+<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
+</pre></div>
+
+
+</li>
+<li>
+<p>直接在myfont.ttf上面點兩下直接安裝。</p>
+</li>
+<li>
+<p>適合一次安裝大量字型檔</p>
+<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
+sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf <span class="c">#可能不需要</span>
+<span class="nb">fc</span>-cache
+</pre></div>
+
+
+</li>
+</ul>
+<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/atoi_itoa.html" rel="bookmark"
+                           title="Permalink to atoi及itoa的實作">atoi及itoa的實作</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>很簡單但面試似乎很常問，先紀錄一下。</p>
 <div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="kt">int</span> <span class="nf">atoi</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">itoa</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">reverse</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
-    <span class="kt">double</span> <span class="n">s</span><span class="p">[</span><span class="mi">10005</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-        <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="kt">double</span> <span class="n">e</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%lf&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">e</span><span class="p">);</span>
-            <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="o">+</span><span class="n">m</span><span class="p">);</span>
-        <span class="kt">double</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
-        <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva11579.html">read more</a>
+    <span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">;</span>
+    <span class="c1">//string to integer</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+    <span class="c1">//integer to string</span>
+    <span class="n">itoa</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
+    <span class="c1">//12345</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/atoi_itoa.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10105.html" rel="bookmark"
-                           title="Permalink to ACM UVA-10105">ACM UVA-10105</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html" rel="bookmark"
+                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T21:51:57.318206">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info -->                <p>二項式定理。
-<a href="http://luckycat.kshs.kh.edu.tw/homework/q10105.htm">題目</a></p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
+</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</pre></div>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="o">*</span><span class="n">j</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">k</span><span class="o">--</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-                <span class="n">ans ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10105.html">read more</a>
+
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+</pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10057.html" rel="bookmark"
-                           title="Permalink to ACM UVA-10057">ACM UVA-10057</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/balking.html" rel="bookmark"
+                           title="Permalink to Balking Pattern">Balking Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T21:23:44.498187">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
 
-</footer><!-- /.post-info -->                <p>中位數問題。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">input</span><span class="p">[</span><span class="mi">1000000</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-            <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">==</span> <span class="nb">false</span><span class="p">){</span>
-                <span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                <span class="n">t</span><span class="p">[</span><span class="n">m ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10057.html">read more</a>
+</footer><!-- /.post-info -->                <p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
+<p>換句話說，不一定要執行。</p>
+<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
+<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
+<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
+<p>表示資料的類別，Data.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
+
+    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/balking.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva10020.html" rel="bookmark"
-                           title="Permalink to ACM UVA-10020">ACM UVA-10020</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/cast.html" rel="bookmark"
+                           title="Permalink to C++中的幾種cast">C++中的幾種cast</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T21:20:25.617911">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
 
-</footer><!-- /.post-info -->                <p>這題是greedy。</p>
-<p>首先以左端點排序所有線段，一開始邊界的左端為0，所以找所有線段的左端點小於等於0的，然後右端點是最長的，接著把右端點設成邊界的左端，接著又是解決同樣的子問題。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="k">struct</span> <span class="n">line</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">;</span>
-    <span class="n">line</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">line</span> <span class="o">&amp;</span> <span class="n">lvalue</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">left</span><span class="o">&lt;</span><span class="n">lvalue</span><span class="p">.</span><span class="n">left</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva10020.html">read more</a>
+</footer><!-- /.post-info -->                <ul>
+<li>static_cast</li>
+</ul>
+<p>比較不安全。例如把子類別指標轉成父類別指標，這是可以的。但是把父類別指標轉成子類別指標，會很危險。</p>
+<p>*dynamic_cast</p>
+<p>有回傳值，透過檢查回傳值的方式來提高安全性。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/cast.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva369.html" rel="bookmark"
-                           title="Permalink to ACM UVA-369">ACM UVA-369</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/class.html" rel="bookmark"
+                           title="Permalink to C++的Class中的一些重點整理">C++的Class中的一些重點整理</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-31T15:23:00.355977">
-                四 31 十月 2013
+        <abbr class="published" title="2013-11-16T15:21:28.752555">
+                六 16 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
 
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11369.htm">組合數+dp</a></p>
-<div class="highlight"><pre><span class="kt">void</span> <span class="n">combi</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">**</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">**</span><span class="n">table</span><span class="p">;</span>
-    <span class="n">table</span><span class="o">=</span><span class="n">new</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="o">*</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>   <span class="c1">//0到100 </span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">101</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">new</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>  <span class="c1">//0到i+1 </span>
-    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-
-    <span class="n">combi</span><span class="p">(</span><span class="n">table</span><span class="p">);</span>
-
-    <span class="kt">int</span> <span class="n">n ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva369.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva11059.html" rel="bookmark"
-                           title="Permalink to ACM UVA-11059">ACM UVA-11059</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T15:20:56.545419">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm">max product</a></p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-
-<span class="p">{</span>
-    <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">round</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Max</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">)</span>
-
-    <span class="p">{</span>      
-          <span class="n">round</span><span class="o">++</span><span class="p">;</span> 
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="p">{</span>
-                  <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">data</span><span class="p">;</span>
-                  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-          <span class="p">}</span>
-
-          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="p">{</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva11059.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva993.html" rel="bookmark"
-                           title="Permalink to ACM UVA-993">ACM UVA-993</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T15:15:30.470567">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q993.htm">greedy</a></p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">q</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">};</span>
-    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">)){</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
-            <span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%lld&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
-            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="kt">int</span> <span class="n">test</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">){</span>
-                <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva993.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva541.html" rel="bookmark"
-                           title="Permalink to ACM UVA-541">ACM UVA-541</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T15:10:54.040602">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q541.htm">Matrix</a></p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="n">row</span><span class="p">[</span><span class="mi">105</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">col</span><span class="p">[</span><span class="mi">105</span><span class="p">];</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">getchar</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">rowe</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">cole</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">rr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">ic</span><span class="p">,</span><span class="n">ir</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">tmp</span><span class="o">--</span><span class="p">){</span>
-            <span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">);</span>
-            <span class="n">istringstream</span> <span class="n">stream</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-            <span class="kt">int</span> <span class="n">bit ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva541.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/10/acm/uva591.html" rel="bookmark"
-                           title="Permalink to ACM UVA-591">ACM UVA-591</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-31T15:08:32.177545">
-                四 31 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q591.htm">平均數</a></p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">r</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">h</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">h</span><span class="p">);</span>
-            <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span><span class="o">+</span><span class="n">h</span><span class="p">;</span>
-            <span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">avg</span> <span class="o">=</span> <span class="n">sum</span><span class="o">/</span><span class="n">p</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">ans ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/10/acm/uva591.html">read more</a>
+</footer><!-- /.post-info -->                <p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
+<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
+<ul>
+<li>friend function:
+簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
+<li>const function:
+在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
+</ul>
+<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
+<ul>
+<li>private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。</li>
+<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
+<li>public: 任何可以看到這個class的地方都可以使用。</li>
+</ul>
+<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
+以下這個例子我覺得很好 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/class.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
