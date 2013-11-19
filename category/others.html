@@ -24,10 +24,10 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html">如何在ubuntu中安裝LAMP</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/others/Eclipse.html">Eclipse的設定</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.756556">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -35,126 +35,20 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info --><div class="highlight"><pre><span class="c">#install apache</span>
-sudo apt-get install apache2
-
-<span class="c">#install php</span>
-sudo apt-get install libapache2-mod-php5 php5
-sudo /etc/init.d/apache2 restart
-<span class="c">#install mysql</span>
-sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
-<span class="c">#test mysql</span>
-mysql -u root -p
-<span class="c">#install phpmyadmin(not necessary)</span>
-<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
-<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
-sudo apt-get install phpmyadmin
-</pre></div>
-
-
-<p>如果 <code>http://localhost/phpmyadmin</code> 不能開的話，可以這樣做。</p>
-<div class="highlight"><pre><span class="c">#打開/etc/apache2/apache2.conf，在最後面加上以下的code</span>
-Include /etc/phpmyadmin/apache.conf
-<span class="c">#或者也可以用下面這個方法</span>
-sudo ln -s /usr/share/phpmyadmin /var/www
-</pre></div>
-
-
-<h3>Enable userdir Apache module</h3>
-<div class="highlight"><pre>sudo a2enmod userdir
-vim /etc/apache2/mods-enabled/userdir.conf
-<span class="c">#找到下面這段，改成這樣。</span>
-&lt;IfModule mod_userdir.c&gt;
-        UserDir public_html
-        UserDir disabled root
-
-        &lt;Directory /home/*/public_html&gt;
-        AllowOverride All
-        Options MultiViews Indexes SymLinksIfOwnerMatch
-        &lt;Limit GET POST OPTIONS&gt;
-                Order allow,deny
-                Allow from all
-        &lt;/Limit&gt;
-        &lt;LimitExcept GET POST OPTIONS&gt;
-                Order deny,allow
-                Deny from all
-        &lt;/LimitExcept&gt;
-        &lt;/Directory&gt;
-&lt;/IfModule&gt;
-</pre></div>
-
-
-<p>接著修改php的設定。</p>
-<div class="highlight"><pre><span class="nx">vim</span> <span class="p">/</span><span class="nx">etc</span><span class="p">/</span><span class="nx">apache2</span><span class="p">/</span><span class="nx">mods</span><span class="na">-available</span><span class="p">/</span><span class="nx">php5.conf</span>
-<span class="err">#找到下面這段，改成這樣</span>
-<span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">mod_php5.c</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilesMatch</span> <span class="s2">&quot;\.ph(p3?|tml)$&quot;</span><span class="o">&gt;</span>
-    <span class="nx">SetHandler</span> <span class="nx">application</span><span class="p">/</span><span class="nx">x</span><span class="na">-httpd-php</span>
-    <span class="o">&lt;/</span><span class="nx">FilesMatch</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilesMatch</span> <span class="s2">&quot;\.phps$&quot;</span><span class="o">&gt;</span>
-    <span class="nx">SetHandler</span> <span class="nx">application</span><span class="p">/</span><span class="nx">x</span><span class="na">-httpd-php-source</span>
-    <span class="o">&lt;/</span><span class="nx">FilesMatch</span><span class="o">&gt;</span>
-    <span class="err">#</span> <span class="k">To</span> <span class="nx">re</span><span class="na">-enable</span> <span class="n">php</span> <span class="k">in</span> <span class="nb">user</span> <span class="nx">directories</span> <span class="nx">comment</span> <span class="nx">the</span> <span class="nx">following</span> <span class="nx">lines</span>
-    <span class="err">#</span> <span class="p">(</span><span class="nb">from</span> <span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">...</span><span class="o">&gt;</span> <span class="k">to</span> <span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span><span class="nx">.</span><span class="p">)</span> <span class="k">Do</span> <span class="ow">NOT</span> <span class="nb">set</span> <span class="nx">it</span> <span class="k">to</span> <span class="k">On</span> <span class="nx">as</span> <span class="nx">it</span>
-    <span class="err">#</span> <span class="nx">prevents</span> <span class="bp">.</span><span class="nx">htaccess</span> <span class="nx">files</span> <span class="nb">from</span> <span class="nx">disabling</span> <span class="nx">it.</span>
-    <span class="err">#</span><span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">mod_userdir.c</span><span class="o">&gt;</span>
-    <span class="err">#</span>    <span class="o">&lt;</span><span class="nx">Directory</span> <span class="p">/</span><span class="nb">home</span><span class="o">/*/</span><span class="nx">public_html</span><span class="o">&gt;</span>
-    <span class="err">#</span>        <span class="nx">php_admin_value</span> <span class="nx">engine</span> <span class="nx">Off</span>
-    <span class="err">#</span>    <span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
-    <span class="err">#</span><span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span>
-</pre></div>
-
-
-<p>最後別忘記重新啟動apache。</p>
-<div class="highlight"><pre>service apache2 restart
-<span class="c">#之後就可以在家目錄建立public_html</span>
-mkdir /home/<span class="nv">$USER</span>/public_html
-</pre></div>                </article>
+</footer><!-- /.post-info --><h2>修改Eclipse預設的Editor Theme及IDE theme</h2>
+<p><font color=red>首先是Editor theme。</font></p>
+<p>Install new software-&gt;add-&gt;http://eclipse-color-theme.github.com/update</p>
+<p>Name打Editor Theme。</p>
+<p>接著到preferences-&gt;General-&gt;Appearance-&gt;Editor Theme選擇要的Theme。</p>
+<p><font color=red> 接下來是IDE theme。 </font></p>
+<p>下載<a href="http://rogerdudler.github.io/eclipse-ui-themes/">Dark Juno</a>。</p>
+<p>解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。</p>
+<p>接著到preferences-&gt;General-&gt;Appearance選擇Dark Juno。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <hr />
                     <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html" rel="bookmark"
-                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.756556">
-                六 16 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
-</pre></div>
-
-
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
-</pre></div>
-
-
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
-</pre></div>
-
-
-<p>調整input或者是output。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -164,8 +58,8 @@ mkdir /home/<span class="nv">$USER</span>/public_html
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -210,8 +104,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -239,8 +133,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -254,6 +148,84 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 convert -delay 100 -loop 0 gif/* output.gif
 </pre></div>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/gif.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html" rel="bookmark"
+                           title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <div class="highlight"><pre><span class="c">#install apache</span>
+sudo apt-get install apache2
+
+<span class="c">#install php</span>
+sudo apt-get install libapache2-mod-php5 php5
+sudo /etc/init.d/apache2 restart
+<span class="c">#install mysql</span>
+sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+<span class="c">#test mysql</span>
+mysql -u root -p
+<span class="c">#install phpmyadmin(not necessary)</span>
+<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
+<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
+sudo apt-get install phpmyadmin
+</pre></div>
+
+
+<p>如果 <code>http://localhost/phpmyadmin ...</code></p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html" rel="bookmark"
+                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+
+</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用</p>
+<div class="highlight"><pre>alsamixer
+</pre></div>
+
+
+<p>或者是</p>
+<div class="highlight"><pre>gnome-alsamixer
+</pre></div>
+
+
+<p>來調整麥克風的聲音。
+如果再不行的話，就使用</p>
+<div class="highlight"><pre>gstreamer-properties
+</pre></div>
+
+
+<p>調整input或者是output。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

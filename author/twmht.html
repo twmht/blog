@@ -24,144 +24,31 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/acm/uva10407.html">ACM UVA-10407</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/others/Eclipse.html">Eclipse的設定</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:23:23.513919">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
 
-</footer><!-- /.post-info --><p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm">gcd</a></p>
-<p>n1 = d1<em>q1+r1
-n2 = d1</em>q2+r1
-n3 = d1<em>q3+r1
-要找出d1出來
-a1= n1-n2 = d1</em>(q1-q2)
-a2 = n1-n3 = d1*(q1-q3)
-只要找出a1跟a2的最大公因數即可求出</p>
-<p>如果只有兩個呢？
-a1 = (n1-n2)<em>1 = d1</em>(q1-q2)
-那麼n1-n2自然就是最大的那一個答案了。</p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
-    <span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span>
-
-<span class="p">}</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-
-    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">){</span>
-        <span class="n">istringstream</span> <span class="n">stream</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">;</span>
-        <span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">stream</span><span class="o">&gt;&gt;</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-            <span class="n">p</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">abs</span><span class="p">((</span><span class="n">n</span><span class="o">-</span><span class="n">a</span><span class="p">)));</span>
-        <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">l</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">l</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">ans</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">ans</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>                </article>
+</footer><!-- /.post-info --><h2>修改Eclipse預設的Editor Theme及IDE theme</h2>
+<p><font color=red>首先是Editor theme。</font></p>
+<p>Install new software-&gt;add-&gt;http://eclipse-color-theme.github.com/update</p>
+<p>Name打Editor Theme。</p>
+<p>接著到preferences-&gt;General-&gt;Appearance-&gt;Editor Theme選擇要的Theme。</p>
+<p><font color=red> 接下來是IDE theme。 </font></p>
+<p>下載<a href="http://rogerdudler.github.io/eclipse-ui-themes/">Dark Juno</a>。</p>
+<p>解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。</p>
+<p>接著到preferences-&gt;General-&gt;Appearance選擇Dark Juno。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <hr />
                     <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.756556">
-                六 16 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <div class="highlight"><pre><span class="c">#install apache</span>
-sudo apt-get install apache2
-
-<span class="c">#install php</span>
-sudo apt-get install libapache2-mod-php5 php5
-sudo /etc/init.d/apache2 restart
-<span class="c">#install mysql</span>
-sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
-<span class="c">#test mysql</span>
-mysql -u root -p
-<span class="c">#install phpmyadmin(not necessary)</span>
-<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
-<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
-sudo apt-get install phpmyadmin
-</pre></div>
-
-
-<p>如果 <code>http://localhost/phpmyadmin ...</code></p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/lamp.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html" rel="bookmark"
-                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.756556">
-                六 16 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
-</pre></div>
-
-
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
-</pre></div>
-
-
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
-</pre></div>
-
-
-<p>調整input或者是output。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/skypemic.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -171,8 +58,8 @@ sudo apt-get install phpmyadmin
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -214,8 +101,8 @@ sudo apt-get install phpmyadmin
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -260,8 +147,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -297,8 +184,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -326,8 +213,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -363,8 +250,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -390,8 +277,8 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:21:28.752555">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -416,6 +303,84 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 <p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
 以下這個例子我覺得很好 ...</p>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/class.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/compator.html" rel="bookmark"
+                           title="Permalink to 定義Comparator">定義Comparator</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->                <p>常見有三種定義方式。</p>
+<h1>1. Define operator&lt;()</h1>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/compator.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/deadlock.html" rel="bookmark"
+                           title="Permalink to DeadLock">DeadLock</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2013-11-19T14:05:02.972380">
+                二 19 十一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->                <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
+<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
+現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
+<p>以下是會產生deadlock的程式。</p>
+<p>建立shared resource，如下的Tool.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/deadlock.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

@@ -31,8 +31,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-16T15:23:23.513919">
-                六 16 十一月 2013
+        <abbr class="published" title="2013-11-19T14:05:02.968380">
+                二 19 十一月 2013
         </abbr>
 
         <address class="vcard author">
@@ -41,16 +41,16 @@
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
 </footer><!-- /.post-info -->      <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm">gcd</a></p>
-<p>n1 = d1<em>q1+r1
-n2 = d1</em>q2+r1
-n3 = d1<em>q3+r1
-要找出d1出來
-a1= n1-n2 = d1</em>(q1-q2)
-a2 = n1-n3 = d1*(q1-q3)
-只要找出a1跟a2的最大公因數即可求出</p>
-<p>如果只有兩個呢？
-a1 = (n1-n2)<em>1 = d1</em>(q1-q2)
-那麼n1-n2自然就是最大的那一個答案了。</p>
+<p>n1 = d1*q1+r1</p>
+<p>n2 = d1Xq2+r1</p>
+<p>n3 = d1Xq3+r1</p>
+<p>要找出d1出來</p>
+<p>a1= n1-n2 = d1X(q1-q2)</p>
+<p>a2 = n1-n3 = d1X(q1-q3)</p>
+<p>只要找出a1跟a2的最大公因數即可求出</p>
+<p>如果只有兩個呢？</p>
+<p>a1 = (n1-n2)X1 = d1X(q1-q2)</p>
+<p>那麼n1-n2自然就是最大的那一個答案了。</p>
 <div class="highlight"><pre><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
     <span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span>
 
