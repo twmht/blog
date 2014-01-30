@@ -1,6 +1,6 @@
 Title: Iterator Pattern
 Slug: iterator
-Category: C/C++
+Category: Design Pattern
 Author: twmht
 
 ###Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。
