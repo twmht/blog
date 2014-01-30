@@ -17,6 +17,7 @@
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
@@ -24,26 +25,33 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2013/11/others/Eclipse.html">Eclipse的設定</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/visitor.html">Visitor Pattern -- 在結構中穿梭還同時做事</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-30T15:30:55.254105">
+                四 30 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info --><h2>修改Eclipse預設的Editor Theme及IDE theme</h2>
-<p><font color=red>首先是Editor theme。</font></p>
-<p>Install new software-&gt;add-&gt;http://eclipse-color-theme.github.com/update</p>
-<p>Name打Editor Theme。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance-&gt;Editor Theme選擇要的Theme。</p>
-<p><font color=red> 接下來是IDE theme。 </font></p>
-<p>下載<a href="http://rogerdudler.github.io/eclipse-ui-themes/">Dark Juno</a>。</p>
-<p>解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance選擇Dark Juno。</p>                </article>
+</footer><!-- /.post-info --><h3>用的時間點</h3>
+<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 "處理"。那麼，這項 "處理" 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 "處理" 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
+<h3>如何設計</h3>
+<p>Visitor Pattern 把 "資料結構" 和 "處理" 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 "訪客" 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
+<h3>程式範例</h3>
+<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
+<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
+
+<h4>Visitor (訪客) 參與者</h4>
+<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 "已經去找過XXXX" 的 visit(XXXX) 方法。visit(XXXX) 是處理 XXXX 的方法，實際原始碼則寫在 ConcreteVisitor 那裡。例如 Visitor 類別。</p>
+<h4>ConcreteVisitor 參與者</h4>
+<p>ConcreteVisitor 是實作 Visitor 的介面。它實作 visit(XXXX) 格式的方法，然後敘述各個 ConcreteAcceptor 的處理。 在前面的程式範例中，扮演這個角色的是 ListVisitor 類別。就像 ListVisitor 的 currentdir 欄位之值會發生變化一樣，在處理 visit(XXXX) 的過程中，ConcreteVisitor 的內部狀態也會有變化。</p>
+<h4>Acceptor 參與者</h4>
+<p>Acceptor 是表示 Visitor 訪問對象的參與者。宣告接受訪客的 accept 方法。Visitor 則被傳遞給 accept 方法的引數。例如 Acceptor 介面。</p>
+<h4>ConcreteAcceptor 參與者</h4>
+<p>ConcreteAcceptor 實作 Acceptor 的介面，例如 File 以及 Directory 類別。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -52,340 +60,326 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/Introduction.html" rel="bookmark"
-                           title="Permalink to Introduction to Multithread">Introduction to Multithread</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/mediator.html" rel="bookmark"
+                           title="Permalink to Mediator Pattern -- 只要面對一個顧問">Mediator Pattern -- 只要面對一個顧問</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-30T14:29:20.717183">
+                四 30 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info -->                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
-<h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
-<p>一般來說，在java中可以透過兩種方式建立thread。</p>
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>一個小組裡10個同樣立場的成員共同進行作業，但卻各自為政。每個成員都對別人發出指令，讓整個作業亂成一團。而且還有干擾其他成員的作業方式、不斷發生指令相左的情形。這時候如果有一個立場超然的 "顧問" 站出來說： "請各位成員把所有狀況回報給我這個顧問，我會整體做出考量後發給各位適當的指示。但是我不會插手管各位手上工作的細節"。所有成員同意顧問的提議，於是達成共識。</p>
+<h3>如何設計</h3>
+<p>每個成員都只對顧問提出報告，也只有顧問會發出指令給各個成員。成員彼此之間也不會去探問目前狀況如何，或亂發指令給其他成員。mediator 就是一個顧問，如果有困難就告訴顧問、發生什麼會影響到整個小組的事情也要告訴顧問。對於顧問提出的要求事項要確實執行。所有小組成員都不可以擅自跟其他成員溝通意見做判斷，必須透過顧問才能進行到下一個動作。而顧問則根據小組成員所提出的報告做整體性判斷，對各個成員發出指令。</p>
+<h3>程式範例</h3>
+<p>設計一個要求輸入姓名和密碼的系統登入對話方塊的 GUI 應用軟體。這個對話方塊的使用規則如下：</p>
 <ul>
-<li>
-<p>繼承Thread類別，建立PrintThread.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/Introduction.html">read more</a>
+<li>選擇訪客 (Guest) 登入或用戶 (Login) 登入</li>
+<li>若為用戶登入，則輸入用戶名稱和密碼</li>
+<li>選擇登入則按OK，放棄登入則按 Cancel。</li>
+</ul>
+<p>有以下限制:</p>
+<p><em>　若選擇訪客登入，則用戶名稱和密碼要設為不可使用，無法輸入字串。
+</em>　若選擇用戶登入，則用戶名稱可以使用 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/mediator.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/facade.html" rel="bookmark"
+                           title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-30T13:48:52.078509">
+                四 30 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info -->                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>程式這個東西往往愈做愈大，許多類別彼此間的影響讓關係更加錯綜複雜。因此在使用類別時，要確實了解類別之間的關係，正確依序呼叫方法。
+利用大型程式進行資料處理時，必須精確控制相關的類別。既然如此，就乾脆設個處理專用的"窗口"，如此一來就不需要個別控制類別，只要把要求丟給"窗口"即可。</p>
+<h3>如何設計</h3>
+<p>Facade Pattern 能整合錯綜複雜的來龍去脈，提供較為高級的介面。Facade 參與者則是讓系統外埠看到較簡單的介面。而且 Facade 參與者還會兼顧系統內部各類別功能和互動關係，以最正確的順序利用類別。</p>
+<h3>程式範例</h3>
+<p>設計一個產生使用者 Web 網頁的程式。
+以三個類別的簡單系統為例，這個系統中包含有利用郵件信箱取得姓名的資料庫(Database)、產生 HTML 檔的類別(HtmlWriter)以及提供較高級介面的類別(PageMaker，也就是 Facade 參與者)。</p>
+<script src="https://gist.github.com/twmht/2df294dc66cd9a1008ce.js"></script>
+
+<h4>Facade (正面) 參與者</h4>
+<p>構築成系統的其他參與者之"單一窗口"。Facade 對系統外部提供較高級且單一的介面。例如 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/facade.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/state.html" rel="bookmark"
+                           title="Permalink to State Pattern">State Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-29T20:53:06.081383">
+                三 29 一月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>用類別來表示 "狀態" 。</p>
+<h3>如何設計</h3>
+<p>以類別來表示狀態之後，只要切換類別就能表現 "狀態變化"，而且在必須新增其它狀態時，也很清楚該編寫哪個部份。</p>
+<h3>程式範例</h3>
+<p>假設現在有一個會隨著時間改變警備狀態的金庫保全系統：</p>
 <ul>
-<li>
-<p>使用gnome-font-viewer </p>
-<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
-</pre></div>
-
-
-</li>
-<li>
-<p>直接在myfont.ttf上面點兩下直接安裝。</p>
-</li>
-<li>
-<p>適合一次安裝大量字型檔</p>
-<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
-sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf <span class="c">#可能不需要</span>
-<span class="nb">fc</span>-cache
-</pre></div>
-
-
-</li>
+<li>有一個金庫</li>
+<li>金庫有跟保全中心連線</li>
+<li>金庫有警鈴和一般通話用的電話</li>
+<li>金庫有時鐘，監視目前的時間</li>
+<li>白天是9:00-16:59，晚間為17:00-23:59以及0:00-8:59</li>
+<li>只有白天才能使用金庫</li>
+<li>在白天使用金庫時，保全中心會保留使用紀錄</li>
+<li>若晚間使用金庫時，保全中心會接到發生異常現象的通知</li>
+<li>警鈴是24小時都可以使用</li>
+<li>一旦使用警鈴，保全中心會接收到警鈴通知</li>
+<li>一般通話用的電話是24小時都可以使用(但晚間只有答錄機服務)</li>
+<li>在白天使用電話時，就會呼叫保全中心</li>
+<li>若晚間使用電話時，則會呼叫保全中心的答錄機</li>
 </ul>
-<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/addFont.html">read more</a>
+<script src="https://gist.github.com/twmht/a04e437a923e01314421.js"></script>
+
+<h4>State 參與者</h4>
+<p>State 表示狀態。規定不同狀態下做不同處理的介面。這個介面等於是一個不同狀態所做處理的所有方法的集合。例如 State 介面。</p>
+<h4>ConcreteState 參與者</h4>
+<p>ConcreteState ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/state.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/atoi_itoa.html" rel="bookmark"
-                           title="Permalink to atoi及itoa的實作">atoi及itoa的實作</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/memento.html" rel="bookmark"
+                           title="Permalink to Memento Pattern">Memento Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-28T19:16:28.173580">
+                二 28 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info -->                <p>很簡單但面試似乎很常問，先紀錄一下。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">int</span> <span class="nf">atoi</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">itoa</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">reverse</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">;</span>
-    <span class="c1">//string to integer</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
-    <span class="c1">//integer to string</span>
-    <span class="n">itoa</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
-    <span class="c1">//12345</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/atoi_itoa.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html" rel="bookmark"
-                           title="Permalink to 如何備份mysql database">如何備份mysql database</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
-<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
-</pre></div>
-
-
-<p>到新的環境中如何重新載入library.sql呢？</p>
-<div class="highlight"><pre>mysql -u root -p &lt; library.sql
-</pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/others/backupmysql.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/balking.html" rel="bookmark"
-                           title="Permalink to Balking Pattern">Balking Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
-
-</footer><!-- /.post-info -->                <p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
-<p>換句話說，不一定要執行。</p>
-<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
-<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
-<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
-<p>表示資料的類別，Data.java</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
-
-    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/balking.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/cast.html" rel="bookmark"
-                           title="Permalink to C++中的幾種cast">C++中的幾種cast</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <ul>
-<li>static_cast</li>
-</ul>
-<p>比較不安全。例如把子類別指標轉成父類別指標，這是可以的。但是把父類別指標轉成子類別指標，會很危險。</p>
-<p>*dynamic_cast</p>
-<p>有回傳值，透過檢查回傳值的方式來提高安全性。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/cast.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/class.html" rel="bookmark"
-                           title="Permalink to C++的Class中的一些重點整理">C++的Class中的一些重點整理</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
-
-</footer><!-- /.post-info -->                <p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
-<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>在文書軟體的操作環境下，即使不小心誤刪除了某些文字內容，只要利用 undo 功能就能救回被刪除前的內容。有些文書軟體甚至支援一次以上的還原動作。
+物件導向程式如果要執行復原，必須預先儲存物件個體的狀態。但是又不能只做儲存的動作，否則無法以儲存的情報將物件的個體復原的原始的狀態。
+必須要能自由存取物件個體內部的情報，才能還原物件個體。不過如果對存取動作毫不設限，又會讓高度依賴類別內部結構的程式碼分散到程式各處，增加修改類別時的困擾。這稱為封裝式破壞。</p>
+<h3>如何設計</h3>
+<p>加入表示物件個體狀態的功能，而能在執行儲存以及復原時不發生封裝性破壞。它會讓某個時間點的物件個體狀態紀錄儲存起來，等到以後再讓物件個體復原到當時的狀態。例如:</p>
+<ol>
+<li>undo (復原)</li>
+<li>redo (重複)</li>
+<li>history (產生操作紀錄)</li>
+<li>snapshot (儲存目前狀態)</li>
+</ol>
+<h3>程式範例</h3>
+<p>模擬一個收集水果的骰子遊戲，遊戲規則很簡單:</p>
 <ul>
-<li>friend function:
-簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
-<li>const function:
-在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
+<li>遊戲會自動進行</li>
+<li>遊戲的主人翁丟骰子，根據骰子的結果</li>
+<li>出現好的點數，則金錢增加。</li>
+<li>出現不好的點數，則金錢減少。</li>
+<li>出現很好的點數，可額外得到一個水果。</li>
+<li>玩到沒錢時，遊戲結束。</li>
 </ul>
-<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
-<ul>
-<li>private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。</li>
-<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
-<li>public: 任何可以看到這個class的地方都可以使用。</li>
-</ul>
-<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
-以下這個例子我覺得很好 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/class.html">read more</a>
+<p>為了後面能不受影響繼續進行，程式中儲存金錢的位置有建立一個 Memento 類別的物件個體，用來儲存 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/memento.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/cc/compator.html" rel="bookmark"
-                           title="Permalink to 定義Comparator">定義Comparator</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/observer.html" rel="bookmark"
+                           title="Permalink to Observer Pattern">Observer Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-28T12:25:10.781817">
+                二 28 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info -->                <p>常見有三種定義方式。</p>
-<h1>1. Define operator&lt;()</h1>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/cc/compator.html">read more</a>
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>observer是觀察的人，也就是觀察者的意思。
+當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
+<h3>如何設計</h3>
+<p>重點在於設計Observer Interface以及有具體實作的Observer類別。另外，也需要設計被觀察者。</p>
+<h3>程式範例</h3>
+<p>觀察者觀察產生多個數值的物件，然後輸出該值，輸出方式因觀察者而異。在這個範例中，有用數字來輸出的觀察者以及用長條圖來輸出的觀察者。</p>
+<p>在 Observer Interface 中，呼叫 update 方法的是產生數值的 NumberGenerator ( generator 是 "產生器" "產生設備" 的意思)。update 方法是 NumberGenerator 用來告訴 Observer 說 "我的內容已經更新過了，請你也更新你的輸出內容" 的方法。</p>
+<script src="https://gist.github.com/twmht/3fd90157d2327707922e.js"></script>
+
+<h4>Subject (被觀察者) 參與者</h4>
+<p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/observer.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2013/11/multithread/deadlock.html" rel="bookmark"
-                           title="Permalink to DeadLock">DeadLock</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html" rel="bookmark"
+                           title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-11-19T14:05:02.972380">
-                二 19 十一月 2013
+        <abbr class="published" title="2014-01-27T20:27:42.315100">
+                一 27 一月 2014
         </abbr>
 
         <address class="vcard author">
                 By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
         </address>
-<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
-</footer><!-- /.post-info -->                <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
-<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
-現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
-<p>以下是會產生deadlock的程式。</p>
-<p>建立shared resource，如下的Tool.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
+<h3>如何設計</h3>
+<p>代理人以及本人都是物件。</p>
+<h3>程式範例</h3>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
 
+<h4>Subject 參與者 ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
-<p>Main ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2013/11/multithread/deadlock.html">read more</a>
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/flyweight.html" rel="bookmark"
+                           title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-27T19:39:03.744017">
+                一 27 一月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>當想要節省記憶體空間的時候使用。</p>
+<h3>如何設計</h3>
+<p>儘量共用物件個體，不做無謂的new。</p>
+<h3>程式範例</h3>
+<p>輸出大型文字。</p>
+<script src="https://gist.github.com/twmht/aa42efa98d66a87a5271.js"></script>
+
+<h4>Flyweight 參與者</h4>
+<p>表示以一般處理會讓程式變重，因此選擇共用較佳的參與者。例如BigChar類別。</p>
+<h4>Flyweight FlyweightFactory 參與者</h4>
+<p>產生Flyweight 參與者的工廠。利用這個工廠來產生 Flyweight 參與者，即可共用物件個體。　例如BigCharFactory類別。</p>
+<h4>Client 參與者</h4>
+<p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/flyweight.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/interpreter.html" rel="bookmark"
+                           title="Permalink to Interpreter Pattern">Interpreter Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-27T15:41:45.068860">
+                一 27 一月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>Design Pattern 的目的之一就是要提高類別的可再用性。 可再用性是指已經產生的類別不需要多做修改或是儘量不修改就能多次使用的意思。</p>
+<p>Interpreter Pattern 是用簡單的"迷你語言"來表現程式要解決的問題，以迷你語言寫成"迷你程式"而表現具體的問題。迷你程式本身無法獨自啟動，必須先用Java語言寫另一個負責翻譯的程式(直譯器)。當能解決的問題發生變化時，要修改迷你程式來對應處理，而不是修改直譯器(儘量避免去修改)。</p>
+<h3>如何設計</h3>
+<p>當問題發生改變時，儘可能不去修改到直譯器（以Java寫成）。</p>
+<h3>程式範例</h3>
+<p>首先來定義我們的問題，我們要用迷你語言來操控玩具車。玩具車基本動作有 go, right, left　以及 repeat。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/interpreter.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/command.html" rel="bookmark"
+                           title="Permalink to Command Pattern">Command Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-27T15:28:36.368133">
+                一 27 一月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>當類別在執行作業時，會呼叫自己類別或其他類別的方法，呼叫方法之後的結果會反應在物件狀態上，但卻不會留下任何作業紀錄。</p>
+<p>遇到這種情形的時候，要是有一個類別能表現"請執行這項作業"的"命令"時就方便多了。因為如此一來便可以用一個"表示命令的類別物件個體"來代表要執行的作業，而不需要採用"呼叫方法"之類的動態處理。如想管理相關紀錄時，只需要管理該物件個體的集合即可。而若預先將命令的集合儲存起來，還可以再執行同一個命令;或者是把多個命令結合成一個新命令供再利用。</p>
+<h3>如何設計</h3>
+<p>這樣的Pattern叫作Command Pattern，有時也稱為"Event"，跟"Event driven"中的Event是同一個意思。一旦發生事件(例如按下滑鼠左鍵，或按下右鍵)，則先將該事件變成物件個體，按照發生順序排入queue中。接著，再依序處理所有排列等候的事件。</p>
+<h3>程式範例</h3>
+<p>設計一個簡單的繪圖軟體，移動滑鼠的時候，便會自動產生一個個紅點，按下clear即可清除。
+當使用者移動滑鼠的時候，就會產生"在這裡畫一個點"的command。把這個物件個體儲存起來，需要用的時候就可以繼續畫紅點。</p>
+<script src="https://gist.github.com/twmht/613b2636b333ca809e86.js"></script>
+
+<h4>Command ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/command.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <p class="paginator">
-    Page 1 / 8
+    Page 1 / 9
         <a href="http://twmht.github.io/blog/index2.html">&raquo;</a>
 </p>
             </section><!-- /#content -->
