@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>Strategy Pattern -- 把演算法則整個換掉</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -17,16 +17,52 @@
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (97)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/strategy.html" rel="bookmark"
+           title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-02-02T11:44:37.505640">
+                日 02 二月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
+<h3>如何設計</h3>
+<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
+<h3>程式範例</h3>
+<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
+<ul>
+<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
+<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
+</ul>
+<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
+
+<h4>Strategy 參與者</h4>
+<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
+<h4>ConcreteStrategy 參與者</h4>
+<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
+<h4>Context (文法) 參與者</h4>
+<p>利用 Strategy 參與者的參與者。它有 ConcreteStrategy 參與者的物件個體，如有必要時則可使用 (最多只能呼叫 Strategy 參與者的介面)。例如 Player 類別。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

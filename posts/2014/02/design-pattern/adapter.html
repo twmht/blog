@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>Adapter Pattern -- 換個包裝再度利用</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -17,16 +17,57 @@
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (97)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/adapter.html" rel="bookmark"
+           title="Permalink to Adapter Pattern -- 換個包裝再度利用">Adapter Pattern -- 換個包裝再度利用</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-02-06T21:29:04.933144">
+                四 06 二月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>例如將直流電換成交流電，轉換器的功能是介入既有內容和需要結果之間，作為溝通的橋樑。</p>
+<p>如果既有內容無法直接利用時，通常需要先轉換成必要的型態後再使用。具有填平<strong>既有內容</strong>和<strong>需要結果</strong>兩者間的<strong>落差</strong>就是 <strong>Adapter Pattern</strong>。</p>
+<h3>如何設計</h3>
+<p>設計wrapper，將既有內容包裝之後，重新再利用。</p>
+<h3>程式範例(繼承)</h3>
+<p>改變輸出字串的外框，採用繼承。</p>
+<script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"></script>
+
+<h3>程式範例(委讓)</h3>
+<p>改變輸出字串的外框，採用委讓。</p>
+<script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"></script>
+
+<h4>Target (對象) 參與者</h4>
+<p>決定現在需要什麼方法的參與者，例如筆記型電腦必須要有直流電才能動。例如 Print 介面。</p>
+<h4>Client 參與者</h4>
+<p>利用 Target 的方法來做事的參與者，例如有直流電 12V 才能用的比較型電腦。例如 Main 類別。</p>
+<h4>Adaptee (被動符合) 參與者</h4>
+<p>具有既有方法的參與者，也就是交流電 110V 的交流電電源。例如 Banner 類別。</p>
+<p>如果擔任 Adaptee 參與者的方法與 Target 參與者的方法有相符時(即電源不需要轉換)，那就不需要 Adapter 參與者了。</p>
+<h4>Adapter 參與者</h4>
+<p>利用 Adaptee 的方法努力滿足 Target 的要求。例如，把交流電 110V 轉換成直流電 12V 的轉換器。例如 PrintBanner 類別。</p>
+<p>如果是類別的 Adapter Pattern，Adapter 要透過<strong>繼承</strong>的方式來利用 Adaptee。而換到物件個體時，就要改以<strong>委讓</strong>來利用 Adaptee。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

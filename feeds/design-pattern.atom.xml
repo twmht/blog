@@ -1,5 +1,353 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/design-pattern.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-01-30T15:30:55+08:00</updated><entry><title>Visitor Pattern -- 在結構中穿梭還同時做事</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/visitor.html" rel="alternate"></link><updated>2014-01-30T15:30:55+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-30:posts/2014/01/design-pattern/visitor.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/design-pattern.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-02-06T21:29:04+08:00</updated><entry><title>Adapter Pattern -- 換個包裝再度利用</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/adapter.html" rel="alternate"></link><updated>2014-02-06T21:29:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-06:posts/2014/02/design-pattern/adapter.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;例如將直流電換成交流電，轉換器的功能是介入既有內容和需要結果之間，作為溝通的橋樑。&lt;/p&gt;
+&lt;p&gt;如果既有內容無法直接利用時，通常需要先轉換成必要的型態後再使用。具有填平&lt;strong&gt;既有內容&lt;/strong&gt;和&lt;strong&gt;需要結果&lt;/strong&gt;兩者間的&lt;strong&gt;落差&lt;/strong&gt;就是 &lt;strong&gt;Adapter Pattern&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;設計wrapper，將既有內容包裝之後，重新再利用。&lt;/p&gt;
+&lt;h3&gt;程式範例(繼承)&lt;/h3&gt;
+&lt;p&gt;改變輸出字串的外框，採用繼承。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"&gt;&lt;/script&gt;
+
+&lt;h3&gt;程式範例(委讓)&lt;/h3&gt;
+&lt;p&gt;改變輸出字串的外框，採用委讓。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Target (對象) 參與者&lt;/h4&gt;
+&lt;p&gt;決定現在需要什麼方法的參與者，例如筆記型電腦必須要有直流電才能動。例如 Print 介面。&lt;/p&gt;
+&lt;h4&gt;Client 參與者&lt;/h4&gt;
+&lt;p&gt;利用 Target 的方法來做事的參與者，例如有直流電 12V 才能用的比較型電腦。例如 Main 類別。&lt;/p&gt;
+&lt;h4&gt;Adaptee (被動符合) 參與者&lt;/h4&gt;
+&lt;p&gt;具有既有方法的參與者，也就是交流電 110V 的交流電電源。例如 Banner 類別。&lt;/p&gt;
+&lt;p&gt;如果擔任 Adaptee 參與者的方法與 Target 參與者的方法有相符時(即電源不需要轉換)，那就不需要 Adapter 參與者了。&lt;/p&gt;
+&lt;h4&gt;Adapter 參與者&lt;/h4&gt;
+&lt;p&gt;利用 Adaptee 的方法努力滿足 Target 的要求。例如，把交流電 110V 轉換成直流電 12V 的轉換器。例如 PrintBanner 類別。&lt;/p&gt;
+&lt;p&gt;如果是類別的 Adapter Pattern，Adapter 要透過&lt;strong&gt;繼承&lt;/strong&gt;的方式來利用 Adaptee。而換到物件個體時，就要改以&lt;strong&gt;委讓&lt;/strong&gt;來利用 Adaptee。&lt;/p&gt;</summary></entry><entry><title>Iterator Pattern</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/iterator.html" rel="alternate"></link><updated>2014-02-06T21:26:59+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-06:posts/2014/02/design-pattern/iterator.html</id><summary type="html">&lt;h3&gt;Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。&lt;/h3&gt;
+&lt;p&gt;現在要寫一個程式，可以把書籍放到書架上，並且依序印出來。&lt;/p&gt;
+&lt;p&gt;Aggregate Interface，實作此Interface的類別就變成類似&lt;font color=red&gt;陣列（多個數字或變數的集合)&lt;/font&gt;。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;Aggregate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;//一個可對應聚合的iterator&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="nf"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果要掃描整個聚合時，利用iterator方法即可建立一個實作Iterator介面的類別物件個體。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;Iterator&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;//有沒有下一個元素&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="kt"&gt;boolean&lt;/span&gt; &lt;span class="nf"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+    &lt;span class="c1"&gt;//下一個元素&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Book類別。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Book&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="nf"&gt;getName&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;BookShelf類別就是一個聚合(放書)的實體，實作Aggregate Interface。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookShelf&lt;/span&gt; &lt;span class="kd"&gt;implements&lt;/span&gt; &lt;span class="n"&gt;Aggregate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;books&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;last&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;BookShelf&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;maxsize&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;books&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;maxsize&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="nf"&gt;getBookAt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;books&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;books&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;++;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getLength&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="nf"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;BookShelfIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;BookShelfIterator實作Iterator Interface。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookShelfIterator&lt;/span&gt; &lt;span class="kd"&gt;implements&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;BookShelfIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;bookShelf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;boolean&lt;/span&gt; &lt;span class="nf"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getLength&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;next&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getBookAt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;++;&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Main類別，完成整個程式。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;BookShelf&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Around the World in 80 Days&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
+        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Bible&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
+        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Cinderella&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
+        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Daddy-Long-Legs&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
+        &lt;span class="c1"&gt;//我們只有用到Iterator的方法，實際上BookShelf內部怎麼實作的我們不管。&lt;/span&gt;
+        &lt;span class="c1"&gt;//如果今天BookShelf把陣列改成vector，下面的程式碼還是不會變動。&lt;/span&gt;
+        &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+            &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;out&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;println&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getName&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;要多加利用Abstract class以及Interface來設計程式。&lt;/p&gt;
+&lt;h4&gt;Iterator 參與者&lt;/h4&gt;
+&lt;p&gt;決定依序掃描元素的介面。它決定取得是否有下一個元素的相關資訊的 &lt;strong&gt;hasNext&lt;/strong&gt; 方法，以及取得下一個元素的 &lt;strong&gt;next&lt;/strong&gt; 方法。例如 Iterator 介面。&lt;/p&gt;
+&lt;h4&gt;ConcreteIterator 參與者&lt;/h4&gt;
+&lt;p&gt;實際上實作 Iterator 所決定的介面，例如 BookShelfIterator 類別。必須掌握掃描時的必要資訊，例如 BookShelf 類別件個體儲存 bookShelf 欄位，目前該書則儲存在 index 欄位。&lt;/p&gt;
+&lt;h4&gt;Aggregate 參與者&lt;/h4&gt;
+&lt;p&gt;決定建立 Iterator 的介面。這裡的介面是指建立&lt;strong&gt;能依序掃描出現在持有元素的人&lt;/strong&gt;的方法。例如 Aggregate 介面，它決定了 Iterator 方法。&lt;/p&gt;
+&lt;h4&gt;ConcreteAggregate 參與者&lt;/h4&gt;
+&lt;p&gt;實際上實作 Aggregate 所決定的介面，它是建立實際的 Iterator 參與者，也就是 ConcreteIterator 的物件個體。例如 BookShelf 類別，它實作了 Iterator 方法。&lt;/p&gt;</summary></entry><entry><title>Factory Method Pattern -- 建立物件個體可交給子類別</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/FactoryMethod.html" rel="alternate"></link><updated>2014-02-06T20:57:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-06:posts/2014/02/design-pattern/FactoryMethod.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;把 Template Method Pattern 應用在建立物件個體上面。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;在父類別規定物件個體的建立方法，但並沒有深入到較具體的類別。所有具體的完整內容都放在子類別。根據這個原則，我們可以大致分成產生物件個體的大綱和實際產生物件個體的類別兩方面。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;建立一個生產身份證的 factory。Product 類別和 Factory 類別屬於 framework 這個 package。負責建立產生物件個體大綱。&lt;/p&gt;
+&lt;p&gt;IDCard 類別和 IDCardFactory 類別則處理實際的內容，屬於 idcard 這個 package。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/bb3f738c08ff7891be19.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Product (產品) 參與者&lt;/h4&gt;
+&lt;p&gt;框架的部份。這個抽象類別是規定此 Pattern 所產生的物件個體應有的介面，具體內容則由子類別的 ConcreteProduct 規定。例如 Product 類別。&lt;/p&gt;
+&lt;h4&gt;Creater (生產者) 參與者&lt;/h4&gt;
+&lt;p&gt;框架的部份。這是產生 Product 的抽象類別。具體內容則有子類別的 ConcreteCreater 決定。例如 Factory 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteProduct (實際產品) 參與者&lt;/h4&gt;
+&lt;p&gt;實際處理內容的部份。規定具體的產品樣式。例如 IDCard 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteCreater (實際生產者) 參與者&lt;/h4&gt;
+&lt;p&gt;實際處理內容的部份。規定製造實際製品的類別。例如 IDCardFactory 類別。&lt;/p&gt;</summary></entry><entry><title>Template Method Pattern -- 實際處理交給子類別</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/templateMethod.html" rel="alternate"></link><updated>2014-02-06T19:52:49+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-06:posts/2014/02/design-pattern/templateMethod.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;就像在塑膠版上挖空，然後用色筆塗滿挖空的部份，所表現出來的是固定的字型，但顏色卻因所使用的色筆顏色而異。所挖空的部份我們稱為 Template。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;將作為 Template 的方法定義在父類別，而方法的定義中則使用到抽象方法。因此如果只看父類別部份的程式，根本不知道到底結果會是怎樣的處理內容，最多只能了解該如何呼叫抽象方法而已。&lt;/p&gt;
+&lt;p&gt;實際實作抽象方法的是子類別。要在子類別實作方法，才能決定具體的處理動作。理論上，如果在不同的子類別執行不同的實作，應該就能發展出不同的處理內容。不過，無論在哪個子類別執行任何一種實作，處理的大致流程都還是要依照父類別所制定的方法。&lt;/p&gt;
+&lt;p&gt;像這樣在&lt;strong&gt;在父類別指定大綱並且在子類別規定具體內容&lt;/strong&gt;，就稱為 Template Method Pattern。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;輸出字串，固定的字串(Template)，卻有不同的輸出方式(外框不同)。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/b29a5df581fcd2090243.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;AbstractClass (抽象類別) 參與者&lt;/h4&gt;
+&lt;p&gt;AbstractClass 實作範本方法，還有宣告 Template Method 所使用的抽象方法。這個抽象方法則由子類別 ConcreteClass 負責實作。例如 AbstractClass 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteClass (具象類別) 參與者&lt;/h4&gt;
+&lt;p&gt;具體實作 AbstractClass 所定義的抽象方法，這裡所實作的方法是從 AbstractClass 的範本方法呼叫出來。例如 CharDisplay 和 StringDisplay 類別。&lt;/p&gt;</summary></entry><entry><title>Abstract Factory Pattern -- 把相關零件組合成產品</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/abstractFactory.html" rel="alternate"></link><updated>2014-02-03T19:02:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-03:posts/2014/02/design-pattern/abstractFactory.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;所謂的&lt;strong&gt;抽象&lt;/strong&gt;，意思是指&lt;strong&gt;不考慮要如何具體進行實作&lt;/strong&gt;，只注意介面的部份。抽象工廠把各種抽象零件組合成產品。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;處理的重點是在&lt;strong&gt;介面&lt;/strong&gt;而不是零件的具體實作。只利用介面就能把零件組合成產品。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;將一個階層結構的相關網站鏈結做成HTML檔。&lt;/p&gt;
+&lt;p&gt;包含下列三個 package 的類別群組:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;factory --- 含抽象工廠、零件和產品&lt;/li&gt;
+&lt;li&gt;含 Main 的預設package&lt;/li&gt;
+&lt;li&gt;listfactory --- 含具體工廠、零件和產品&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src="https://gist.github.com/twmht/c98ac2b197d3c3ed7a48.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;AbstractProduct 參與者&lt;/h4&gt;
+&lt;p&gt;AbstractProduct 規定由 AbstractFactory 所產生的抽象零件及產品的介面。例如 Link、Tray 和 Page 類別。&lt;/p&gt;
+&lt;h4&gt;AbstractFactory 參與者&lt;/h4&gt;
+&lt;p&gt;AbstractFactory 規定用來產生 AbstractProduct 的物件個體的介面。例如 Factory 類別。&lt;/p&gt;
+&lt;h4&gt;Client 參與者&lt;/h4&gt;
+&lt;p&gt;Client 是一個只使用 AbstractFactory 和 AbstractProduct 的介面來完成工作的參與者。Client 並不知道具體零件、產品和工廠。例如 Main 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteProduct 參與者&lt;/h4&gt;
+&lt;p&gt;ConcreteProduct 是實作 AbstractProduct 的參與者:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;listfactory package --- ListLink、ListTray 以及 ListPage 等類別。&lt;/li&gt;
+&lt;li&gt;tablefactory package --- TableLink、TableTray 以及 TablePage 等類別。&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Builder Pattern -- 組合複雜的物件個體</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/builder.html" rel="alternate"></link><updated>2014-02-02T21:24:46+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-02:posts/2014/02/design-pattern/builder.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;所謂萬丈高樓平地起，大樓首先得打穩地基並搭建骨架，再由上而下一層層蓋上去。一般來說，如果搭建的結構愈複雜就愈難一氣呵成。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;你得先把整個架構分成幾個部份，等到個別部份都完成了之後再依序組合起來才行。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;設計一個建立&lt;strong&gt;文件&lt;/strong&gt;的程式吧!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;含有一個標題&lt;/li&gt;
+&lt;li&gt;含有一些字串&lt;/li&gt;
+&lt;li&gt;含有一些有項目符號的項目&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Builder 類別規定組成文件的方法，而 Director 類別利用這個方法才能產生一份文件具體的文件。&lt;/p&gt;
+&lt;p&gt;Builder 類別是抽象類別，不含實際的處理內容，僅宣告抽象方法而已。決定產生文件的具體處理內容則是 Builder 類別的子類別。&lt;/p&gt;
+&lt;p&gt;以下幾個類別為 Builder 類別的子類別。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TextBuilder 類別&lt;/li&gt;
+&lt;li&gt;HTMLBuilder 類別&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Director 若使用 TextBuilder 則可產生一般格式的文件，如果使用 HTMLBuilder 則可產生 HTML 格式的文件。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/763c4db0a1d41388d333.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Builder 參與者&lt;/h4&gt;
+&lt;p&gt;Builder 規定產生物件個體的介面。包括有產生物件個體各個部份的方法和取得最後結果的方法。例如 Builder 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteBuilder 參與者&lt;/h4&gt;
+&lt;p&gt;ConcreteBuilder 是實作 Builder 介面的類別。在實際產生物件個體時所呼叫的方法就是在這裡定義。例如 TextBuilder 以及 HTMLBuilder。&lt;/p&gt;
+&lt;h4&gt;Director 參與者&lt;/h4&gt;
+&lt;p&gt;Director 利用 Builder 的介面產生物件個體。設計程式必須注意不要被 ConcreteBuilder 牽著鼻子走。為了讓 ConcreteBuilder 無論在什麼情形之下都能正常發揮功能，所以只使用 Builder 的方法。例如 Director 類別。&lt;/p&gt;
+&lt;h4&gt;Client 參與者&lt;/h4&gt;
+&lt;p&gt;利用 Builder Pattern 的參與者，例如 Main 類別。&lt;/p&gt;</summary></entry><entry><title>Prototype Pattern -- 複製建立物件個體</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/prototype.html" rel="alternate"></link><updated>2014-02-02T19:54:23+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-02:posts/2014/02/design-pattern/prototype.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;種類過多無法整成類別時: 
+若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不容易利用類別產生物件個體時:
+該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;3.希望把框架和所產生的物件個體分開時:
+希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作&lt;strong&gt;雛型&lt;/strong&gt;的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。&lt;/p&gt;
+&lt;p&gt;從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說&lt;strong&gt;我要這個&lt;/strong&gt;的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟&lt;strong&gt;這個&lt;/strong&gt;相同的東西。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;為字串設計外框。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Prototype 參與者&lt;/h4&gt;
+&lt;p&gt;Prototype 規定複製物件個體再建立新物件個體的方法。例如 Product 介面。&lt;/p&gt;
+&lt;h4&gt;ConcreteProduct 參與者&lt;/h4&gt;
+&lt;p&gt;ConcreteProduct 是實際上實作先複製物件個體再建立新物件個體的方法。例如 MessageBox 以及 UnderlinePen 類別。&lt;/p&gt;
+&lt;h4&gt;Client 參與者&lt;/h4&gt;
+&lt;p&gt;Client 利用複製物件個體的方法以產生另外一個新物件個體，例如 Manager 類別。&lt;/p&gt;</summary></entry><entry><title>Singleton Pattern -- 唯一的物件個體</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/singleton.html" rel="alternate"></link><updated>2014-02-02T13:57:59+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-02:posts/2014/02/design-pattern/singleton.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。&lt;/p&gt;
+&lt;p&gt;不過，有時候難免會有 "讓這個類別的物件個體只產生一個" 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;設計一個只有一個物件個體的類別。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Singleton 參與者&lt;/h4&gt;
+&lt;p&gt;Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。&lt;/p&gt;</summary></entry><entry><title>Strategy Pattern -- 把演算法則整個換掉</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/strategy.html" rel="alternate"></link><updated>2014-02-02T11:44:37+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-02:posts/2014/02/design-pattern/strategy.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;猜贏之後繼續出同樣的招式 (WinningStrategy)。&lt;/li&gt;
+&lt;li&gt;從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Strategy 參與者&lt;/h4&gt;
+&lt;p&gt;規定使用戰略之介面的參與者。例如 Strategy 介面。&lt;/p&gt;
+&lt;h4&gt;ConcreteStrategy 參與者&lt;/h4&gt;
+&lt;p&gt;實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。&lt;/p&gt;
+&lt;h4&gt;Context (文法) 參與者&lt;/h4&gt;
+&lt;p&gt;利用 Strategy 參與者的參與者。它有 ConcreteStrategy 參與者的物件個體，如有必要時則可使用 (最多只能呼叫 Strategy 參與者的介面)。例如 Player 類別。&lt;/p&gt;</summary></entry><entry><title>Bridge Pattern -- 分成功能階層和實作階層</title><link href="http://twmht.github.io/blog/posts/2014/02/design-pattern/bridge.html" rel="alternate"></link><updated>2014-02-02T11:26:52+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-02-02:posts/2014/02/design-pattern/bridge.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;bridge 是 "橋樑" 的意思。就像現實社會裡的橋樑擔負著連接河川兩岸的重責大任一樣，Bridge Pattern 也是負責連接兩個不同位置的參與者。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;Bridge Pattern 居間溝通的兩個位置是指 "功能的類別階層" 和 "實作的類別階層"。&lt;/p&gt;
+&lt;h4&gt;想要新增功能時&lt;/h4&gt;
+&lt;p&gt;假設現在有一個類別 Something，如果想對 Something 新增其它功能時(例如，想多加一個新方法)，首先要建立 SomethingGood 類別作為 Something 的子類別 (子類別、衍生類別或擴充類別)。這就是一個小型的類別階層。
+這個階層是為了新增功能而建立:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基本功能放在父類別&lt;/li&gt;
+&lt;li&gt;新功能則新增到子類別&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;又稱為 "功能的類別階層"。
+假設現在又想對 SomethingGood 類別新增另一個功能時。此時，要建立 SomethingBetter 類別作為 SomethingGood 類別的子類別。如此一來，功能的類別階層又往下延伸一層。&lt;/p&gt;
+&lt;p&gt;如欲追加新功能時，找出類別階層中最接近目的的類別，然後建立一個子類別、建立一個有該功能的新類別...。這就是一個功能的類別階層。基本上，類別階層也最好不要建立太多層。&lt;/p&gt;
+&lt;h4&gt;想要新增實作時&lt;/h4&gt;
+&lt;p&gt;在 Template Method Pattern 中，抽象類別把一連串的方法群組宣告成抽象方法，再規定介面。然後由子類別實際實作這個抽象方法。父類別的作用是利用抽象方法來規定介面，子類別的作用則是進行實作。這樣把讓父類別扮演好參與者分工，可以建立出高零組件價值(可更換性)的類別。&lt;/p&gt;
+&lt;p&gt;這裡也有類別階層的影子，假設實作父類別 AbstractClass 的抽樣方法的子類別是 ConcreteClass，則可建立起一個小型類別階層。不過這裡的類別階層並不是為了新增功能，因為類別階層沒有追加新功能的目的。這個類別階層有下列的參與者分工:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;父類別使用抽象方法來規定介面&lt;/li&gt;
+&lt;li&gt;子類別使用具體方法來實作此介面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這樣的類別階層就稱為 "實作的類別階層"。
+假設現在要建立另一個 AbstractClass 的實作，若其子類別為 AnotherConcreteClass，則實作的階層會有一點變化。總之，如果要建立一個新的實作，必須建立 AbstractClass 的子類別，然後實作抽象方法，這就是實作的類別階層。&lt;/p&gt;
+&lt;h4&gt;類別階層的同處一室和獨立分離&lt;/h4&gt;
+&lt;p&gt;當我們有一個念頭 "好，現在要做一個子類別"的時候，請先確認清楚自己想要完成的內容 "這個動作是要新增功能?還是要進行實作?"。如果類別階層只有一個的話，功能的類別階層和實作的的類別階層就會放在同一個階層構造裡。這樣可能會讓類別階層變得太複雜，而且不容易預測後面的發展。因為自己在建立子類別時，常常會搞不清楚應該放在類別階層的哪個位置。&lt;/p&gt;
+&lt;p&gt;既然如此，那就把 "功能的類別階層" 和 "實作的類別階層" 分成兩個獨立的類別階層吧。如果一分為二可能會弄的支離破碎，所以必須在兩個類別階層之間建立一座溝通的橋樑 (bridge)。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;用來 "列印內容" 的程式。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/bdf3a8e71e7f4d11192e.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Abstraction (抽象化) 參與者&lt;/h4&gt;
+&lt;p&gt;位於 "功能的類別階層" 最上層的類別，利用 Implementor 的方法只記載基本功能的類別。這個物件個體是保持住 Implementor。例如 Display 類別。&lt;/p&gt;
+&lt;h4&gt;RefinedAbstraction (改良後的抽象化) 參與者&lt;/h4&gt;
+&lt;p&gt;對 Abstraction 參與者新增功能的參與者。例如 CountDisplay 類別。&lt;/p&gt;
+&lt;h4&gt;Implementor (實作者) 參與者&lt;/h4&gt;
+&lt;p&gt;位於 "實作的類別階層" 最上層的類別，規定要實作 Abstraction 參與者之介面的方法。例如 DisplayImpl 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteImplementor (具體的實作者) 參與者&lt;/h4&gt;
+&lt;p&gt;具體實作 Implementor 參與者的介面。例如 StringDisplayImpl 類別。&lt;/p&gt;</summary></entry><entry><title>Decorator Pattern -- 對裝飾和內容一視同仁</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/decorator.html" rel="alternate"></link><updated>2014-01-31T20:52:54+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-31:posts/2014/01/design-pattern/decorator.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;海綿蛋糕、鮮奶油蛋糕、草莓奶油蛋糕或生日蛋糕的原型其實都是海綿蛋糕，只不過運用了各種修飾技巧，能符合不同目的而改變。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;物件也很像是蛋糕的多變化，首先建立一個像是海綿蛋糕的核心物件，再一層層加上裝飾用的功能，就可以完全符合所需的物件。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;在字串周圍加上裝飾外框後再列印出來的程式。裝飾外框是指以-,+,| 等字元組成的框線。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/74632b289d5d81ac90d2.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Component 參與者&lt;/h4&gt;
+&lt;p&gt;新增功能的核心參與者。在蛋糕的比喻說明中，相當於裝飾前的海綿蛋糕。Component 只規定海綿蛋糕的介面。例如 Display 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteComponent 參與者&lt;/h4&gt;
+&lt;p&gt;實作 Component 介面的具體海綿蛋糕。例如 StringDisplay 類別。&lt;/p&gt;
+&lt;h4&gt;Decorator (裝飾者) 參與者&lt;/h4&gt;
+&lt;p&gt;具有跟 Component 參與者相同的介面，另外還有 Decorator 要修飾的 Component。這個參與者是 "早就知道" 自己要去修飾的對象。例如 Border 類別。&lt;/p&gt;
+&lt;h4&gt;ConcreteDecorator 參與者&lt;/h4&gt;
+&lt;p&gt;具體的 Decorator 參與者，例如 SiderBorder 和 FullBorder 類別。&lt;/p&gt;</summary></entry><entry><title>Composite Pattern -- 對容器和內容一視同仁</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/composite.html" rel="alternate"></link><updated>2014-01-31T20:26:03+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-31:posts/2014/01/design-pattern/composite.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;舉例來說，目錄和檔案都可以放在目錄底下，因此可以一視同仁。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;可以把目錄想成是容器，檔案想成是內容，容器底下可能是內容，也可能是更小一號的容器。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;以模擬方式表示檔案和目錄的程式。表示檔案的類別是 File 類別、表示目錄的是 Directory 類別，兩者合併起來就是父類別 Entry 類別。Entry 類別是表示目錄進入點的類別，對 File 和 Directory 一視同仁的類別。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/3aa67b2bb2be40cd03ca.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Leaf 參與者&lt;/h4&gt;
+&lt;p&gt;表示內容的參與者。不可以放入其他東西。例如 File 類別。&lt;/p&gt;
+&lt;h4&gt;Composite 參與者&lt;/h4&gt;
+&lt;p&gt;表示容器的參與者。可放入 Leaf 或 Composite。例如 Directory 類別。&lt;/p&gt;
+&lt;h4&gt;Component 參與者&lt;/h4&gt;
+&lt;p&gt;對 Leaf 和 Component 一視同仁的參與者。Component 是 Leaf 和 Composite 共用的父類別。例如 Entry 類別。&lt;/p&gt;
+&lt;h4&gt;Client 參與者&lt;/h4&gt;
+&lt;p&gt;利用 Composite Pattern 的人，例如 Main 類別。&lt;/p&gt;</summary></entry><entry><title>Chain of Responsibility Pattern -- 責任轉送</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/chainOfResponsibility.html" rel="alternate"></link><updated>2014-01-31T20:12:57+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-31:posts/2014/01/design-pattern/chainOfResponsibility.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
+&lt;p&gt;什麼是 "轉送" 呢? 假設現在要到某家公司去取文件，跟櫃台小姐說明來意後，他會告訴你應該到 "業務窗口" 去處理。當你走到業務窗口後，那邊又告訴你這份文件目前由 "客戶服務部" 負責;因此你得再到客戶服務部去一趟，找到客戶服務部後，小姐還是很客氣的說文件應該要到 "文管中心" 去拿。像這樣子把自己的要求傳送下去，一直找到適當的人選或地點就是 "轉送"。&lt;/p&gt;
+&lt;h3&gt;如何設計&lt;/h3&gt;
+&lt;p&gt;例如，現在產生一個要求，但無法直接決定處理該要求的物件。這時候，可以把一個以上的物件串聯成鎖鏈狀，依序走過這個連鎖物件再決定最後目的地的物件。
+如果使用這個 Pattern，可以降低 "要求端" 和 "處理端" 之間的結合性，讓它們個別成為獨立的零件。另外，還可支援有需依發生狀況改變處理要求的物件的程式。
+先對人產生一個要求，如果這個人有處理的能力就處理掉;如果不能處理的話，就把要求轉送給 "第二個人"。同樣的，如果第二個人有處理能力的話就處理掉，不能處理的話，就繼續轉送給第三個人，以此類推。&lt;/p&gt;
+&lt;h3&gt;程式範例&lt;/h3&gt;
+&lt;p&gt;這個程式會產生問題以及決定解決問題的人。例如一開始先是 Bob 在努力解決問題，但無法解決的時候就換成 Diana 接手。在這個過程中，都沒有發現 Alice 的蹤影，因為 Alice 只負責轉送所有問題。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/7eeb3b146fbdc6fd0ef9.js"&gt;&lt;/script&gt;
+
+&lt;h4&gt;Handler (處理者) 參與者&lt;/h4&gt;
+&lt;p&gt;Handler 是規定處理要求的介面的參與者。它會維持住 "下一個人"，萬一出現自己無法處理的要求時，再轉送過去。當然， "下一個人" 也是 Handler。例如 Support 類別。處理要求的方法則是 support 方法。&lt;/p&gt;
+&lt;h4&gt;ConcreteHandler 參與者&lt;/h4&gt;
+&lt;p&gt;ConcreteHandler 是具體處理要求的參與者。例如NoSupport、LimitSupport、OddSupport 以及 SpecialSupport 這幾個類別。&lt;/p&gt;
+&lt;h4&gt;Client (要求者) 參與者&lt;/h4&gt;
+&lt;p&gt;Client 是對第一個 ConcreteHandler 發出要求的參與者，例如 Main 類別。&lt;/p&gt;</summary></entry><entry><title>Visitor Pattern -- 在結構中穿梭還同時做事</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/visitor.html" rel="alternate"></link><updated>2014-01-30T15:30:55+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-30:posts/2014/01/design-pattern/visitor.html</id><summary type="html">&lt;h3&gt;用的時間點&lt;/h3&gt;
 &lt;p&gt;資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 "處理"。那麼，這項 "處理" 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 "處理" 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。&lt;/p&gt;
 &lt;h3&gt;如何設計&lt;/h3&gt;
 &lt;p&gt;Visitor Pattern 把 "資料結構" 和 "處理" 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 "訪客" 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。&lt;/p&gt;
@@ -195,105 +543,4 @@ Originator 和 Memento 的結合相當緊密，但 Carataker 跟 Memento 的結�
 &lt;h4&gt;Client 參與者&lt;/h4&gt;
 &lt;p&gt;在產生ConcreteCommand參與者時，分配Receiver的參與者。例如Main類別，它是配合滑鼠移動而產生 DrawCommand 的物件個體，不過同時也傳遞 DrawCommand 的物件個體給建構子，作為Receiver 參與者。&lt;/p&gt;
 &lt;h4&gt;Invoker 參與者&lt;/h4&gt;
-&lt;p&gt;開始執行命令的參與者，呼叫Command所定義的API。例如Main和DrawCanvas等類別都是呼叫 Command Interface 的 execute 方法。&lt;/p&gt;</summary></entry><entry><title>Iterator Pattern</title><link href="http://twmht.github.io/blog/posts/2014/01/design-pattern/iterator.html" rel="alternate"></link><updated>2014-01-26T22:42:07+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-01-26:posts/2014/01/design-pattern/iterator.html</id><summary type="html">&lt;h3&gt;Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。&lt;/h3&gt;
-&lt;p&gt;現在要寫一個程式，可以把書籍放到書架上，並且依序印出來。&lt;/p&gt;
-&lt;p&gt;Aggregate Interface，實作此Interface的類別就變成類似&lt;font color=red&gt;陣列（多個數字或變數的集合)&lt;/font&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;Aggregate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;//一個可對應聚合的iterator&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="nf"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;如果要掃描整個聚合時，利用iterator方法即可建立一個實作Iterator介面的類別物件個體。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt; &lt;span class="nc"&gt;Iterator&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;//有沒有下一個元素&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="kt"&gt;boolean&lt;/span&gt; &lt;span class="nf"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-    &lt;span class="c1"&gt;//下一個元素&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;abstract&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Book類別。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Book&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="nf"&gt;getName&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;BookShelf類別就是一個聚合(放書)的實體，實作Aggregate Interface。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookShelf&lt;/span&gt; &lt;span class="kd"&gt;implements&lt;/span&gt; &lt;span class="n"&gt;Aggregate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;books&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;last&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;BookShelf&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;maxsize&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;books&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;maxsize&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="nf"&gt;getBookAt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;books&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;];&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;books&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-        &lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;++;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;getLength&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;last&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="nf"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;BookShelfIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;BookShelfIterator實作Iterator Interface。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookShelfIterator&lt;/span&gt; &lt;span class="kd"&gt;implements&lt;/span&gt; &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;BookShelfIterator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;bookShelf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-        &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;boolean&lt;/span&gt; &lt;span class="nf"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getLength&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;next&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getBookAt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-        &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;++;&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Main類別，完成整個程式。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;BookShelf&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;BookShelf&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
-        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Around the World in 80 Days&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
-        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Bible&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
-        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Cinderella&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
-        &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;appendBook&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Daddy-Long-Legs&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;));&lt;/span&gt;
-        &lt;span class="c1"&gt;//我們只有用到Iterator的方法，實際上BookShelf內部怎麼實作的我們不管。&lt;/span&gt;
-        &lt;span class="c1"&gt;//如果今天BookShelf把陣列改成vector，下面的程式碼還是不會變動。&lt;/span&gt;
-        &lt;span class="n"&gt;Iterator&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bookShelf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;iterator&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;hasNext&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;Book&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;next&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
-            &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;out&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;println&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getName&lt;/span&gt;&lt;span class="o"&gt;());&lt;/span&gt;
-        &lt;span class="o"&gt;}&lt;/span&gt;
-    &lt;span class="o"&gt;}&lt;/span&gt;
-&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;要多加利用Abstract class以及Interface來設計程式。&lt;/p&gt;</summary></entry></feed>
+&lt;p&gt;開始執行命令的參與者，呼叫Command所定義的API。例如Main和DrawCanvas等類別都是呼叫 Command Interface 的 execute 方法。&lt;/p&gt;</summary></entry></feed>

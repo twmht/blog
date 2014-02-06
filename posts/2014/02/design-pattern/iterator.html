@@ -26,14 +26,14 @@
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/iterator.html" rel="bookmark"
+        <a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/iterator.html" rel="bookmark"
            title="Permalink to Iterator Pattern">Iterator Pattern</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-26T22:42:07.367510">
-                日 26 一月 2014
+        <abbr class="published" title="2014-02-06T21:26:59.063837">
+                四 06 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -143,6 +143,14 @@
 
 
 <p>要多加利用Abstract class以及Interface來設計程式。</p>
+<h4>Iterator 參與者</h4>
+<p>決定依序掃描元素的介面。它決定取得是否有下一個元素的相關資訊的 <strong>hasNext</strong> 方法，以及取得下一個元素的 <strong>next</strong> 方法。例如 Iterator 介面。</p>
+<h4>ConcreteIterator 參與者</h4>
+<p>實際上實作 Iterator 所決定的介面，例如 BookShelfIterator 類別。必須掌握掃描時的必要資訊，例如 BookShelf 類別件個體儲存 bookShelf 欄位，目前該書則儲存在 index 欄位。</p>
+<h4>Aggregate 參與者</h4>
+<p>決定建立 Iterator 的介面。這裡的介面是指建立<strong>能依序掃描出現在持有元素的人</strong>的方法。例如 Aggregate 介面，它決定了 Iterator 方法。</p>
+<h4>ConcreteAggregate 參與者</h4>
+<p>實際上實作 Aggregate 所決定的介面，它是建立實際的 Iterator 參與者，也就是 ConcreteIterator 的物件個體。例如 BookShelf 類別，它實作了 Iterator 方法。</p>
     </div><!-- /.entry-content -->
 
   </article>

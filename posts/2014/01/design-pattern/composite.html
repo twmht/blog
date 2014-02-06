@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>技術筆記 - Authors</title>
+        <title>Composite Pattern -- 對容器和內容一視同仁</title>
         <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
         <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
 
@@ -17,16 +17,50 @@
                 <nav><ul>
                     <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
                     <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (97)</li>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/composite.html" rel="bookmark"
+           title="Permalink to Composite Pattern -- 對容器和內容一視同仁">Composite Pattern -- 對容器和內容一視同仁</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-31T20:26:03.441994">
+                五 31 一月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>舉例來說，目錄和檔案都可以放在目錄底下，因此可以一視同仁。</p>
+<h3>如何設計</h3>
+<p>可以把目錄想成是容器，檔案想成是內容，容器底下可能是內容，也可能是更小一號的容器。</p>
+<h3>程式範例</h3>
+<p>以模擬方式表示檔案和目錄的程式。表示檔案的類別是 File 類別、表示目錄的是 Directory 類別，兩者合併起來就是父類別 Entry 類別。Entry 類別是表示目錄進入點的類別，對 File 和 Directory 一視同仁的類別。</p>
+<script src="https://gist.github.com/twmht/3aa67b2bb2be40cd03ca.js"></script>
+
+<h4>Leaf 參與者</h4>
+<p>表示內容的參與者。不可以放入其他東西。例如 File 類別。</p>
+<h4>Composite 參與者</h4>
+<p>表示容器的參與者。可放入 Leaf 或 Composite。例如 Directory 類別。</p>
+<h4>Component 參與者</h4>
+<p>對 Leaf 和 Component 一視同仁的參與者。Component 是 Leaf 和 Composite 共用的父類別。例如 Entry 類別。</p>
+<h4>Client 參與者</h4>
+<p>利用 Composite Pattern 的人，例如 Main 類別。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
