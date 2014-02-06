@@ -107,3 +107,12 @@ Main類別，完成整個程式。
     }
 
 要多加利用Abstract class以及Interface來設計程式。
+
+####Iterator 參與者
+決定依序掃描元素的介面。它決定取得是否有下一個元素的相關資訊的 **hasNext** 方法，以及取得下一個元素的 **next** 方法。例如 Iterator 介面。
+####ConcreteIterator 參與者
+實際上實作 Iterator 所決定的介面，例如 BookShelfIterator 類別。必須掌握掃描時的必要資訊，例如 BookShelf 類別件個體儲存 bookShelf 欄位，目前該書則儲存在 index 欄位。
+####Aggregate 參與者
+決定建立 Iterator 的介面。這裡的介面是指建立**能依序掃描出現在持有元素的人**的方法。例如 Aggregate 介面，它決定了 Iterator 方法。
+####ConcreteAggregate 參與者
+實際上實作 Aggregate 所決定的介面，它是建立實際的 Iterator 參與者，也就是 ConcreteIterator 的物件個體。例如 BookShelf 類別，它實作了 Iterator 方法。

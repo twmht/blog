@@ -1,4 +1,4 @@
-Title: Decorator Pattern -- 對容器和內容一視同仁
+Title: Decorator Pattern -- 對裝飾和內容一視同仁
 Slug: decorator
 Category: Design Pattern
 Author: twmht
