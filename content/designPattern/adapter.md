@@ -18,7 +18,7 @@ Author: twmht
 <script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"></script>
 
 ###程式範例(委讓)
-改變輸出字串的外框，採用繼承。
+改變輸出字串的外框，採用委讓。
 
 <script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"></script>
 
