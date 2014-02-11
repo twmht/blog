@@ -116,3 +116,59 @@ Main類別，完成整個程式。
 決定建立 Iterator 的介面。這裡的介面是指建立**能依序掃描出現在持有元素的人**的方法。例如 Aggregate 介面，它決定了 Iterator 方法。
 ####ConcreteAggregate 參與者
 實際上實作 Aggregate 所決定的介面，它是建立實際的 Iterator 參與者，也就是 ConcreteIterator 的物件個體。例如 BookShelf 類別，它實作了 Iterator 方法。
+
+###優點
+####無論實作結果如何，都能使用 Iterator
+利用 Iterator 可以跟實作分開，單獨進行遞增。請看以下的程式碼。
+
+    :::java
+    while(it.hasNext()){
+        Book book = (Book)it.next();
+        System.out.println(""+book.getName());
+    }
+
+這裡指使用到 hasNext 和 next 這兩個 Iterator 的方法，並沒有使用到 BookShelf 實作時所使用的方法。換句話說，這裡的**while 迴圈不會受到 BookShelf 實作的影響**。
+
+假設原先有實作了 BookShelf，但現在不想再利用陣列管裡書籍，打算把程式修改成能使用 java.util.Vector。無論 BookShelf 修改成怎樣，BookShelf 仍然還有 iterator 方法，只要能回傳正確的 Iterator(即有傳回正常實作 hasNext 及 next 方法的類別的物件個體)，**上面的　while 迴圈即使一字不改也能正常運作**。
+
+從這個角度來看，就可以了解為什麼在 Main 類別中我們把　iterator 方法的回傳值指定給  Iterator 型態變數，而不是 BookShelfIterator　型態變數。因為我們不是利用 BookShelfIterator 的方法來寫程式，而只是打算利用 Iterator 的方法來寫程式而已。
+
+####一個以上的 Iterator
+**把遞增的架構放在 Aggregate 之外**是 Iterator Pattern 的特徵之一。利用這個特點可以對一個 ConcreteAggregate 建立出一個以上的 ConcreteIterator。
+
+###習慣抽象類別及介面
+如果對如何使用抽象類別和介面還不太清楚的話，很容易一腳栽進去用 ConcreteAggregate 或　ConcreteIterator　來寫程式的壞習慣，就再也脫不了身回來用 Aggregate 介面或　Iterator 介面。因為只要用具體類別就能解決所有問題的感覺會讓人不知不覺上癮。
+
+為了提高再利用性，因此必須引進抽象類別和介面的觀念。
+
+### Aggregate 與　Iterator 的對應
+BookShelfIterator 非常了解 BookShelf 整個實作過程，也因為它了解實作，所以才能呼叫用來取得**下一本書**的方法　getBookAt。
+
+由於如果 BookShelf 的實作整個被改變，而且連 getBookAt 方法這個介面也有變動的話，就必須修改 BookShelfIterator。
+
+###問題
+####在 BookShelf 類別中，若書籍數量超過最先設定的書架大小，就無法繼續把書放上去。請利用 java.util.Vector 取代陣列，把程式改成即使已經超過書架容量也能繼續新增書籍。
+
+如下。不需要修改 Main 的 while 迴圈。
+
+    :::java
+    import java.util.Vector;
+
+    public class BookShelf implements Aggregate {
+        private Vector books;   
+        public BookShelf(int initialsize) {         
+            this.books = new Vector(initialsize);   
+        }
+        public Book getBookAt(int index) {
+            return (Book)books.get(index);
+        }
+        public void appendBook(Book book) {
+            books.add(book);
+        }
+        public int getLength() {
+            return books.size();                    
+        }
+        public Iterator iterator() {
+            return new BookShelfIterator(this);
+        }
+    }
