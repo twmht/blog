@@ -32,8 +32,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-02-06T21:29:04.933144">
-                四 06 二月 2014
+        <abbr class="published" title="2014-02-08T16:03:21.465508">
+                六 08 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -64,6 +64,34 @@
 <h4>Adapter 參與者</h4>
 <p>利用 Adaptee 的方法努力滿足 Target 的要求。例如，把交流電 110V 轉換成直流電 12V 的轉換器。例如 PrintBanner 類別。</p>
 <p>如果是類別的 Adapter Pattern，Adapter 要透過<strong>繼承</strong>的方式來利用 Adaptee。而換到物件個體時，就要改以<strong>委讓</strong>來利用 Adaptee。</p>
+<h3>優點</h3>
+<h4>就算沒有原始碼也無妨</h4>
+<p>Adapter Pattern 可以把過去使用過的類別換個包裝重新建立出需要的類別。因為可以確定既有類別 (Adaptee 參與者) 沒有問題，所以只要重點式地檢查 Adapter 參與者的類別即可。</p>
+<p>Adapter Pattern 只要知道既有類別的規格，就能建立其它新的類別。</p>
+<h4>版本更新與相容性</h4>
+<p>凡是軟體都會需要做版本更新，當你在做軟體的版本更新時最常碰到的問題應該是<strong>與舊版本的相容性</strong>。利用 Adapter Pattern 可讓新舊版本共存，維護更容易。</p>
+<p>假設現在完成版本更新後，就只著重在新版本而不想再維護舊版本的部份。此時，把新版本視為 Adaptee 參與者，舊版本則為 Target ，接下來只要建立一個擔任 Adapter 參與者的類別，讓它利用新版本的類別來實作舊版本即可。</p>
+<p>如果 Adaptee 與 Target 功能相差太多的話，當然就不能使用 Adapter Pattern 了。</p>
+<h3>問題</h3>
+<p>java.util.Properties類別是用來管理 key 和相對應 value （即內容），如：</p>
+<ul>
+<li>year=2000 </li>
+<li>month=11 </li>
+<li>day=20</li>
+</ul>
+<p>java.util.Properties類別有下面幾個方法可從資料束（stream）讀取內容或反向寫入到 資料束。</p>
+<ul>
+<li>void load(InputStream in) throws IOException 從InputStream讀取內容的集合。</li>
+<li>void store(OutputStream out, String header) throws IOException 把內容的集合寫入到OutputStream。header是註解字串。 </li>
+</ul>
+<p>請利用Adapter Pattern建立一個把內容的集合儲存成檔案的FileProperties類別。</p>
+<p>假設在此是以FileIO介面（Target角色）宣告把內容的集合儲存成檔案的方
+法，FileProperties類別則是實作這個FileIO介面。</p>
+<p>執行前和執行後的file.txt、newfile.txt（若該行字首是#，則為java.util.Properties類別自動產生的註解）。</p>
+<p><strong>如果有FileProperties類別，就算不知道java.util.Properties類別的方法，只要知道FileIO介面的方法就能處理內容。</strong></p>
+<p>以電源來比喻的話，java.util.Properties類別是既有的交流電110V、FileIO介面是現在需要的直流電12V，而FileProperties類別則為轉接器。 </p>
+<p><strong>實際上這個問題主要是要把本來的 java.util.Properties 包裝成 FileProperties 類別。</strong></p>
+<script src="https://gist.github.com/twmht/dd1521c8d1fcf6e16d4f.js"></script>
     </div><!-- /.entry-content -->
 
   </article>

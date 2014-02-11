@@ -32,8 +32,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-02-06T21:26:59.063837">
-                四 06 二月 2014
+        <abbr class="published" title="2014-02-11T16:46:32.726684">
+                二 11 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -151,6 +151,51 @@
 <p>決定建立 Iterator 的介面。這裡的介面是指建立<strong>能依序掃描出現在持有元素的人</strong>的方法。例如 Aggregate 介面，它決定了 Iterator 方法。</p>
 <h4>ConcreteAggregate 參與者</h4>
 <p>實際上實作 Aggregate 所決定的介面，它是建立實際的 Iterator 參與者，也就是 ConcreteIterator 的物件個體。例如 BookShelf 類別，它實作了 Iterator 方法。</p>
+<h3>優點</h3>
+<h4>無論實作結果如何，都能使用 Iterator</h4>
+<p>利用 Iterator 可以跟實作分開，單獨進行遞增。請看以下的程式碼。</p>
+<div class="highlight"><pre><span class="k">while</span><span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+    <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="o">(</span><span class="n">Book</span><span class="o">)</span><span class="n">it</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">+</span><span class="n">book</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>這裡指使用到 hasNext 和 next 這兩個 Iterator 的方法，並沒有使用到 BookShelf 實作時所使用的方法。換句話說，這裡的<strong>while 迴圈不會受到 BookShelf 實作的影響</strong>。</p>
+<p>假設原先有實作了 BookShelf，但現在不想再利用陣列管裡書籍，打算把程式修改成能使用 java.util.Vector。無論 BookShelf 修改成怎樣，BookShelf 仍然還有 iterator 方法，只要能回傳正確的 Iterator(即有傳回正常實作 hasNext 及 next 方法的類別的物件個體)，<strong>上面的　while 迴圈即使一字不改也能正常運作</strong>。</p>
+<p>從這個角度來看，就可以了解為什麼在 Main 類別中我們把　iterator 方法的回傳值指定給  Iterator 型態變數，而不是 BookShelfIterator　型態變數。因為我們不是利用 BookShelfIterator 的方法來寫程式，而只是打算利用 Iterator 的方法來寫程式而已。</p>
+<h4>一個以上的 Iterator</h4>
+<p><strong>把遞增的架構放在 Aggregate 之外</strong>是 Iterator Pattern 的特徵之一。利用這個特點可以對一個 ConcreteAggregate 建立出一個以上的 ConcreteIterator。</p>
+<h3>習慣抽象類別及介面</h3>
+<p>如果對如何使用抽象類別和介面還不太清楚的話，很容易一腳栽進去用 ConcreteAggregate 或　ConcreteIterator　來寫程式的壞習慣，就再也脫不了身回來用 Aggregate 介面或　Iterator 介面。因為只要用具體類別就能解決所有問題的感覺會讓人不知不覺上癮。</p>
+<p>為了提高再利用性，因此必須引進抽象類別和介面的觀念。</p>
+<h3>Aggregate 與　Iterator 的對應</h3>
+<p>BookShelfIterator 非常了解 BookShelf 整個實作過程，也因為它了解實作，所以才能呼叫用來取得<strong>下一本書</strong>的方法　getBookAt。</p>
+<p>由於如果 BookShelf 的實作整個被改變，而且連 getBookAt 方法這個介面也有變動的話，就必須修改 BookShelfIterator。</p>
+<h3>問題</h3>
+<h4>在 BookShelf 類別中，若書籍數量超過最先設定的書架大小，就無法繼續把書放上去。請利用 java.util.Vector 取代陣列，把程式改成即使已經超過書架容量也能繼續新增書籍。</h4>
+<p>如下。不需要修改 Main 的 while 迴圈。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookShelf</span> <span class="kd">implements</span> <span class="n">Aggregate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Vector</span> <span class="n">books</span><span class="o">;</span>   
+    <span class="kd">public</span> <span class="nf">BookShelf</span><span class="o">(</span><span class="kt">int</span> <span class="n">initialsize</span><span class="o">)</span> <span class="o">{</span>         
+        <span class="k">this</span><span class="o">.</span><span class="na">books</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">(</span><span class="n">initialsize</span><span class="o">);</span>   
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Book</span> <span class="nf">getBookAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">Book</span><span class="o">)</span><span class="n">books</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">appendBook</span><span class="o">(</span><span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">books</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLength</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">books</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>                    
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">BookShelfIterator</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
     </div><!-- /.entry-content -->
 
   </article>

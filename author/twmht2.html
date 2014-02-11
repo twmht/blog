@@ -27,14 +27,14 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/decorator.html" rel="bookmark"
-                           title="Permalink to Decorator Pattern -- 對裝飾和內容一視同仁">Decorator Pattern -- 對裝飾和內容一視同仁</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/prototype.html" rel="bookmark"
+                           title="Permalink to Prototype Pattern -- 複製建立物件個體">Prototype Pattern -- 複製建立物件個體</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-31T20:52:54.179145">
-                五 31 一月 2014
+        <abbr class="published" title="2014-02-02T19:54:23.970650">
+                日 02 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -43,34 +43,42 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>海綿蛋糕、鮮奶油蛋糕、草莓奶油蛋糕或生日蛋糕的原型其實都是海綿蛋糕，只不過運用了各種修飾技巧，能符合不同目的而改變。</p>
+<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
+<ol>
+<li>
+<p>種類過多無法整成類別時: 
+若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
+</li>
+<li>
+<p>不容易利用類別產生物件個體時:
+該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
+</li>
+</ol>
+<p>3.希望把框架和所產生的物件個體分開時:
+希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
+<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
 <h3>如何設計</h3>
-<p>物件也很像是蛋糕的多變化，首先建立一個像是海綿蛋糕的核心物件，再一層層加上裝飾用的功能，就可以完全符合所需的物件。</p>
+<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
 <h3>程式範例</h3>
-<p>在字串周圍加上裝飾外框後再列印出來的程式。裝飾外框是指以-,+,| 等字元組成的框線。</p>
-<script src="https://gist.github.com/twmht/74632b289d5d81ac90d2.js"></script>
+<p>為字串設計外框。</p>
+<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
 
-<h4>Component 參與者</h4>
-<p>新增功能的核心參與者。在蛋糕的比喻說明中，相當於裝飾前的海綿蛋糕。Component 只規定海綿蛋糕的介面。例如 Display 類別。</p>
-<h4>ConcreteComponent 參與者</h4>
-<p>實作 Component 介面的具體海綿蛋糕。例如 StringDisplay 類別。</p>
-<h4>Decorator (裝飾者) 參與者</h4>
-<p>具有跟 Component 參與者相同的介面，另外還有 Decorator 要修飾的 Component。這個參與者是 "早就知道" 自己要去修飾的對象。例如 Border 類別。</p>
-<h4>ConcreteDecorator ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/decorator.html">read more</a>
+<h4>Prototype 參與者</h4>
+<p>Prototype ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/02/design-pattern/prototype.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/composite.html" rel="bookmark"
-                           title="Permalink to Composite Pattern -- 對容器和內容一視同仁">Composite Pattern -- 對容器和內容一視同仁</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/strategy.html" rel="bookmark"
+                           title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-31T20:26:03.441994">
-                五 31 一月 2014
+        <abbr class="published" title="2014-02-02T11:44:37.505640">
+                日 02 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -79,20 +87,24 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>舉例來說，目錄和檔案都可以放在目錄底下，因此可以一視同仁。</p>
+<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
 <h3>如何設計</h3>
-<p>可以把目錄想成是容器，檔案想成是內容，容器底下可能是內容，也可能是更小一號的容器。</p>
+<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
 <h3>程式範例</h3>
-<p>以模擬方式表示檔案和目錄的程式。表示檔案的類別是 File 類別、表示目錄的是 Directory 類別，兩者合併起來就是父類別 Entry 類別。Entry 類別是表示目錄進入點的類別，對 File 和 Directory 一視同仁的類別。</p>
-<script src="https://gist.github.com/twmht/3aa67b2bb2be40cd03ca.js"></script>
+<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
+<ul>
+<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
+<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
+</ul>
+<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
 
-<h4>Leaf 參與者</h4>
-<p>表示內容的參與者。不可以放入其他東西。例如 File 類別。</p>
-<h4>Composite 參與者</h4>
-<p>表示容器的參與者。可放入 Leaf 或 Composite。例如 Directory 類別。</p>
-<h4>Component 參與者</h4>
-<p>對 Leaf 和 Component ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/composite.html">read more</a>
+<h4>Strategy 參與者</h4>
+<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
+<h4>ConcreteStrategy 參與者</h4>
+<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
+<h4>Context (文法) 參與者</h4>
+<p>利用 Strategy ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/02/design-pattern/strategy.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
