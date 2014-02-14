@@ -21,3 +21,62 @@ Facade Pattern 能整合錯綜複雜的來龍去脈，提供較為高級的介�
 其他林林種種的參與者則各司其職，Facade 參與者的存在並不會有任何影響。它們乖乖的聽從 Facade 的呼叫出來做事，但不會反過來呼叫 Facade。例如 Database 及 HtmlWriter 類別。
 #### Client 參與者
 利用 Facade Pattern 的參與者。例如 Main 類別。
+
+####優點
+###減少介面
+Facade 讓複雜的內容看起來很單純。躲在背後工作的那些類別間的關係和用法相當複雜，Facade 可以把這些複雜的方法組合隱藏在背後，讓 Client 只專注在 Facade 上面。
+
+這部份的重點就在**減少介面**。看了太多的類別和方法，只會讓程式設計師猶豫不知道該使用哪一個才對，而且還得注意呼叫順序不能搞錯。要注意的事情愈多，就愈是容易弄錯。所以不如**把精神放在介面較少的 Facade 上**，反而比較有效率。
+
+###Facade Pattern 的遞迴應用
+假設現在有數個內含 Facade 的類別集合，這時候當然可以新增一個整合所有集合的 Facade。換句話說，就是遞迴應用 Facade Pattern。
+
+如果是面對大型系統有大量的類別和 package 時，在適當的位置使用 Facade Pattern 會很方便。
+
+###問題
+####請在 PageMaker 類別新增一個 makeLinkPage 方法，這個方法可產生使用者郵件信箱的相關鏈結。
+
+    :::java
+    package pagemaker;
+
+    import java.io.FileWriter;
+    import java.io.IOException;
+    import java.util.Properties;
+    import java.util.Enumeration;
+
+    public class PageMaker {
+        private PageMaker() {   // 不建立物件個體，所以宣告private
+        }
+        public static void makeWelcomePage(String mailaddr, String filename) {
+            try {
+                Properties mailprop = Database.getProperties("maildata");
+                String username = mailprop.getProperty(mailaddr);
+                HtmlWriter writer = new HtmlWriter(new FileWriter(filename));
+                writer.title("Welcome to " + username + "'s page!");
+                writer.paragraph("歡迎來到" + username + "的網頁。");
+                writer.paragraph("等你來信喔！");
+                writer.mailto(mailaddr, username);
+                writer.close();
+                System.out.println(filename + " is created for " + mailaddr + " (" + username + ")");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        public static void makeLinkPage(String filename) {          
+            try {
+                HtmlWriter writer = new HtmlWriter(new FileWriter(filename));
+                writer.title("Link page");
+                Properties mailprop = Database.getProperties("maildata");
+                Enumeration en = mailprop.propertyNames();
+                while (en.hasMoreElements()) {
+                    String mailaddr = (String)en.nextElement();
+                    String username = mailprop.getProperty(mailaddr, "(unknown)");
+                    writer.mailto(mailaddr, username);
+                }
+                writer.close();
+                System.out.println(filename + " is created.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }

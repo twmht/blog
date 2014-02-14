@@ -21,3 +21,69 @@ Handler 是規定處理要求的介面的參與者。它會維持住 "下一個�
 ConcreteHandler 是具體處理要求的參與者。例如NoSupport、LimitSupport、OddSupport 以及 SpecialSupport 這幾個類別。
 #### Client (要求者) 參與者
 Client 是對第一個 ConcreteHandler 發出要求的參與者，例如 Main 類別。
+
+###優點
+####讓要求跟處理要求兩者間的結合關係不會太緊密
+Client 直接把要求丟給第一個人，接下來這個要求就會被送往進行連鎖處理，由適合的處理者來處理要求。
+
+如果不想使用這個 Pattern 的話，就必須採取中央集權式的管理，也就是要由其中一個人掌握**這個要求該由哪個人處理**的訊息。這個訊息最好不要交給**發出要求的人**，因為如果發出要求的人還要了解處理者個別作用能力的話，反而會降低零件的獨立性。
+
+####機動性改變連鎖狀態
+支援小組從 Alice 到 Fred 的排列順序都沒有改變。但是，程式也有可能需要機動性改變物件(處理要求的 ConcreteHandler)之間的關係。此時，只要像 Chain of Responsibility Pattern 這樣利用委讓來轉送，就能根據狀況變化重組 ConcreteHandler。
+
+萬一程式沒有利用 Chain of Responsibility Pattern，把**如果是A要求，則由甲處理者處理**的對應關係寫死的話，要想在跑程式的時候改成其他的處理者就很麻煩。
+
+####能專心工作在自己的崗位上
+所有 ConcreteHandler 都只看著自己有能力處理的工作，如果自己處理不了，就當機立斷送出去。如此一來，應該寫在各個 ConcreteHandler 的處理就會鎖定是在該 ConcreteHandler 的固定內容。
+
+假設現在不用這個 Pattern，那就要採取找**一個出來帶頭，讓它決定要由誰來處理不同的要求的方法**;或者是讓所有 ConcreteHandler 都要負責**工作分配**，也就是**如果自己無法處理時，要交給某甲。如果某甲也不行，就交給某乙。如果系統出現 A 狀況，就交給某丙的方法。**
+
+###轉送會造成處理速度變慢？
+如果有預先確定由誰處理哪個要求，可以讓處理者立即動手處理，相較之下，Chain of Responsibility Pattern 的處理速度本來就會稍慢。
+
+如果說要求跟處理者的關係很固定，而且又講究速度時，可能不使用這個 Pattern 會較有利。
+
+###問題
+####1. 視窗系統使用 Chain of Responsibility Pattern 的頻率很高。 視窗上有很多種元件，當按下滑鼠左鍵時所產生的事件是如何轉送出去?轉送位置(next)又出現在哪裡?
+
+通常是在元件所在的父視窗為 next 的情況下，傳遞給元件的要求如果不是由該元件處理，則會傳過去給父視窗。
+
+###2. Support 類別中，support 方法設為 public，但 resolve 方法卻是 protected。為什麼？
+
+因為當其他類別要求 Support 類別的物件個體幫忙解決問題時，必須要使用 support 方法，而不是 resolve 方法。
+
+###3. 原本以遞迴呼叫的 suppot 方法，請改成迴圈吧！
+
+    :::java
+    public abstract class Support {
+        private String name;                  // 問題解決者的名稱
+        private Support next;                 // 轉送位置
+        public Support(String name) {         // 產生問題解決者
+            this.name = name;
+        }
+        public Support setNext(Support next) {  // 設定轉送位置
+            this.next = next;
+            return next;
+        }
+        public final void support(Trouble trouble) {          
+            for (Support obj = this; true; obj = obj.next) {
+                if (obj.resolve(trouble)) {
+                    obj.done(trouble);
+                    break;
+                } else if (obj.next == null) {
+                    obj.fail(trouble);
+                    break;
+                }
+            }
+        }
+        public String toString() {              // 列印字串
+            return "[" + name + "]";
+        }
+        protected abstract boolean resolve(Trouble trouble); // 解決的方法
+        protected void done(Trouble trouble) {  // 已解決
+            System.out.println(trouble + " is resolved by " + this + ".");
+        }
+        protected void fail(Trouble trouble) {  // 尚未解決
+            System.out.println(trouble + " cannot be resolved.");
+        }
+    }

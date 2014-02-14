@@ -37,3 +37,14 @@ ConcreteBuilder 是實作 Builder 介面的類別。在實際產生物件個體�
 Director 利用 Builder 的介面產生物件個體。設計程式必須注意不要被 ConcreteBuilder 牽著鼻子走。為了讓 ConcreteBuilder 無論在什麼情形之下都能正常發揮功能，所以只使用 Builder 的方法。例如 Director 類別。
 ####Client 參與者
 利用 Builder Pattern 的參與者，例如 Main 類別。
+
+###問題
+####1. 將 Builder 類別修改成介面，同時配合修改其它類別。
+
+Builder 類別由抽象類別直接修改成介面即可。其子類別則是改成實作該介面。其餘可不用改。
+
+####2. 再建立一個 ConcreteBuilder 吧！
+
+可以用 GUI 建立。
+
+<script src="https://gist.github.com/twmht/e78cfebd191dbc878f3c.js"></script>
