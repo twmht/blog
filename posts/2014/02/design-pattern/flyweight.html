@@ -26,14 +26,14 @@
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/flyweight.html" rel="bookmark"
+        <a href="http://twmht.github.io/blog/posts/2014/02/design-pattern/flyweight.html" rel="bookmark"
            title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-27T19:39:03.744017">
-                一 27 一月 2014
+        <abbr class="published" title="2014-02-15T20:16:25.979242">
+                六 15 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -55,6 +55,32 @@
 <p>產生Flyweight 參與者的工廠。利用這個工廠來產生 Flyweight 參與者，即可共用物件個體。　例如BigCharFactory類別。</p>
 <h4>Client 參與者</h4>
 <p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
+<h3>問題</h3>
+<h4>1. 在 BigString 中新增如下的建構子。BigString(String string, boolean shared)，若 shared 為 true 則共用 BigChar;若為 false 則不共用。</h4>
+<p>若不共用 BigChar，則不使用 BigCharFactory 而改用 new 的方式。</p>
+<script src="https://gist.github.com/twmht/6436cb19bd60c33d194e.js"></script>
+
+<h4>2. 利用上一個問題所修改的 BigString 類別，比較共用和不共用 BigChar 的物件個體時的記憶體使用量。</h4>
+<p>結果的確是共用的話，記憶體耗用較少。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Usage: java Main digits&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Example: java Main 1212123&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">BigString</span> <span class="n">bs</span><span class="o">;</span>
+        <span class="n">bs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigString</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="kc">false</span><span class="o">);</span>     <span class="c1">// 不共用</span>
+        <span class="n">bs</span><span class="o">.</span><span class="na">print</span><span class="o">();</span>
+        <span class="n">bs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigString</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="kc">true</span><span class="o">);</span>      <span class="c1">// 共用</span>
+        <span class="n">bs</span><span class="o">.</span><span class="na">print</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>3. 在 BigCharFactory 類別中，getBigChar 是 synchronized 方法。如果不設為 synchronize，會出現什麼問題?</h4>
+<p>在多個 Thread 呼叫時，可能會有重複 new 的情形。</p>
     </div><!-- /.entry-content -->
 
   </article>

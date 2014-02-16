@@ -27,13 +27,13 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/flyweight.html" rel="bookmark"
-                           title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html" rel="bookmark"
+                           title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-27T19:39:03.744017">
+        <abbr class="published" title="2014-01-27T20:27:42.315100">
                 一 27 一月 2014
         </abbr>
 
@@ -43,20 +43,17 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>當想要節省記憶體空間的時候使用。</p>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
 <h3>如何設計</h3>
-<p>儘量共用物件個體，不做無謂的new。</p>
+<p>代理人以及本人都是物件。</p>
 <h3>程式範例</h3>
-<p>輸出大型文字。</p>
-<script src="https://gist.github.com/twmht/aa42efa98d66a87a5271.js"></script>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
 
-<h4>Flyweight 參與者</h4>
-<p>表示以一般處理會讓程式變重，因此選擇共用較佳的參與者。例如BigChar類別。</p>
-<h4>Flyweight FlyweightFactory 參與者</h4>
-<p>產生Flyweight 參與者的工廠。利用這個工廠來產生 Flyweight 參與者，即可共用物件個體。　例如BigCharFactory類別。</p>
-<h4>Client 參與者</h4>
-<p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/flyweight.html">read more</a>
+<h4>Subject 參與者 ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 

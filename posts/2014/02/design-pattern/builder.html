@@ -32,8 +32,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-02-02T21:24:46.870549">
-                日 02 二月 2014
+        <abbr class="published" title="2014-02-12T23:24:45.170743">
+                三 12 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -70,6 +70,12 @@
 <p>Director 利用 Builder 的介面產生物件個體。設計程式必須注意不要被 ConcreteBuilder 牽著鼻子走。為了讓 ConcreteBuilder 無論在什麼情形之下都能正常發揮功能，所以只使用 Builder 的方法。例如 Director 類別。</p>
 <h4>Client 參與者</h4>
 <p>利用 Builder Pattern 的參與者，例如 Main 類別。</p>
+<h3>問題</h3>
+<h4>1. 將 Builder 類別修改成介面，同時配合修改其它類別。</h4>
+<p>Builder 類別由抽象類別直接修改成介面即可。其子類別則是改成實作該介面。其餘可不用改。</p>
+<h4>2. 再建立一個 ConcreteBuilder 吧！</h4>
+<p>可以用 GUI 建立。</p>
+<script src="https://gist.github.com/twmht/e78cfebd191dbc878f3c.js"></script>
     </div><!-- /.entry-content -->
 
   </article>

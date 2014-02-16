@@ -32,8 +32,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-02-02T19:54:23.970650">
-                日 02 二月 2014
+        <abbr class="published" title="2014-02-12T23:10:18.913162">
+                三 12 二月 2014
         </abbr>
 
         <address class="vcard author">
@@ -68,6 +68,21 @@
 <p>ConcreteProduct 是實際上實作先複製物件個體再建立新物件個體的方法。例如 MessageBox 以及 UnderlinePen 類別。</p>
 <h4>Client 參與者</h4>
 <p>Client 利用複製物件個體的方法以產生另外一個新物件個體，例如 Manager 類別。</p>
+<h3>優點</h3>
+<p>Prototype Pattern 有效解決以下三種情形。</p>
+<h4>種類過多無法整合成類別時</h4>
+<p>程式範例列出了下面三種雛型：</p>
+<ul>
+<li>以'~'把字串加上底線</li>
+<li>以'*'把字串加上外框</li>
+<li>以'/'把字串加上外框</li>
+</ul>
+<p>日後還可能再增加更多雛型，如果全部都要做成不同的類別，類別數量會很可觀，增加管理程式原始碼的難度。</p>
+<h4>不容易利用類別產生物件個體時</h4>
+<p>假設有一個表示原本以人工操作之圖形的物件個體，而現在要建立一個完全相同的新物體，利用物件個體複製的方式，就輕鬆很多。</p>
+<h4>不容易利用類別產生物件個體時</h4>
+<p>把執行物件個體的複製放在 framework package 中。</p>
+<p>產生物件個體時不以類別名稱傳遞，例如，以 <strong>strong message</strong> 取代。這可以說是讓框架脫離類別的束縛。</p>
     </div><!-- /.entry-content -->
 
   </article>
