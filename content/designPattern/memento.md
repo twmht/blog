@@ -46,3 +46,35 @@ Memento 參與者是整合 Originator 參與者的內部資訊。Memento 參與�
 如想儲存目前 Originator 參與者的狀態時，Carataker 參與者會把這個情形告訴 Originator 參與者。Originator 參與者接收這個訊息後就產生 Memento 參與者，然後傳遞給 Carataker 參與者。Carataker 為了將來可能會需要使用，因此要預先儲存這個 Memento。例如 Main 類別就是一個Carataker。
 但是 Carataker 只能使用 Memento 的 narrow interface，所以不能存取 Memento 的內部資訊。 它只會把別人產生出來的 Memento 照單全收儲存起來，當作是一塊未知區域。
 Originator 和 Memento 的結合相當緊密，但 Carataker 跟 Memento 的結合較為鬆散。Memento 會對 Carataker 隱藏資訊。
+
+###優點
+Carataker 去找 Originator 產生表示**目前狀態**的 Memento。Carataker 並不知道　Memento 的內部資訊，而且也不過問。Carataker 為了以後可能要還原，所以預先將 Memento 儲存起來。有這個需求時，再取出 Memento 交給 Originator，即可順利還原。
+
+####區隔 Carataker 以及 Originator
+為什麼不把復原的動作寫到 Originator 就好呢？
+
+Carataker 的工作是決定要在哪個時間點做快照、復原以及保留 Memento。
+
+而 Originator 則是負責產生 Memento 以及利用傳遞過來的 Memento 復原自己的狀態。
+
+Carataker 跟 Originator 有這樣的分配，好處是要做以下的修正時，可以不用去修改 Originator。
+
+* 將復原動作修改為需要有一個步驟以上
+* 除了復原之外，還要將目前的狀態儲存成檔案
+
+###問題
+####1. Carataker 只能利用 narrow API 來操作 Memento 。請問如果 Carataker 能隨意操作 Memento 時，會發生什麼問題?
+
+會喪失 **Carataker** 和 **Originator、Memento**之間的獨立性。
+
+如果 Carataker 能隨意操作 Memento，則當 Originator 內部有修改時，Carataker 也必須做同樣的修改。
+
+若 Carataker 只使用 narrow API，則只要修改沒有動到這個 API，就能隨意修改 Originator 和 Memento。
+
+####2.決定狀態的因素只有水果跟金錢，如果資訊量較多時，必須有更多記憶體或磁碟空間來儲存。要如何解決這個問題?
+
+如果有計算跟已經儲存的 Memento 的資料差異，也許可以做資料壓縮。
+
+###3. 利用串列化（serialization)功能可以將 Memento 的物件個體儲存成檔案。
+
+<script src="https://gist.github.com/twmht/3aa2a70b07a4bce34b67.js"></script>
