@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Builder Pattern -- 組合複雜的物件個體</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/builder.html" rel="bookmark"
+           title="Permalink to Builder Pattern -- 組合複雜的物件個體">Builder Pattern -- 組合複雜的物件個體</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>所謂萬丈高樓平地起，大樓首先得打穩地基並搭建骨架，再由上而下一層層蓋上去。一般來說，如果搭建的結構愈複雜就愈難一氣呵成。</p>
+<h3>如何設計</h3>
+<p>你得先把整個架構分成幾個部份，等到個別部份都完成了之後再依序組合起來才行。</p>
+<h3>程式範例</h3>
+<p>設計一個建立<strong>文件</strong>的程式吧!</p>
+<ul>
+<li>含有一個標題</li>
+<li>含有一些字串</li>
+<li>含有一些有項目符號的項目</li>
+</ul>
+<p>Builder 類別規定組成文件的方法，而 Director 類別利用這個方法才能產生一份文件具體的文件。</p>
+<p>Builder 類別是抽象類別，不含實際的處理內容，僅宣告抽象方法而已。決定產生文件的具體處理內容則是 Builder 類別的子類別。</p>
+<p>以下幾個類別為 Builder 類別的子類別。</p>
+<ul>
+<li>TextBuilder 類別</li>
+<li>HTMLBuilder 類別</li>
+</ul>
+<p>Director 若使用 TextBuilder 則可產生一般格式的文件，如果使用 HTMLBuilder 則可產生 HTML 格式的文件。</p>
+<script src="https://gist.github.com/twmht/763c4db0a1d41388d333.js"></script>
+
+<h4>Builder 參與者</h4>
+<p>Builder 規定產生物件個體的介面。包括有產生物件個體各個部份的方法和取得最後結果的方法。例如 Builder 類別。</p>
+<h4>ConcreteBuilder 參與者</h4>
+<p>ConcreteBuilder 是實作 Builder 介面的類別。在實際產生物件個體時所呼叫的方法就是在這裡定義。例如 TextBuilder 以及 HTMLBuilder。</p>
+<h4>Director 參與者</h4>
+<p>Director 利用 Builder 的介面產生物件個體。設計程式必須注意不要被 ConcreteBuilder 牽著鼻子走。為了讓 ConcreteBuilder 無論在什麼情形之下都能正常發揮功能，所以只使用 Builder 的方法。例如 Director 類別。</p>
+<h4>Client 參與者</h4>
+<p>利用 Builder Pattern 的參與者，例如 Main 類別。</p>
+<h3>問題</h3>
+<h4>1. 將 Builder 類別修改成介面，同時配合修改其它類別。</h4>
+<p>Builder 類別由抽象類別直接修改成介面即可。其子類別則是改成實作該介面。其餘可不用改。</p>
+<h4>2. 再建立一個 ConcreteBuilder 吧！</h4>
+<p>可以用 GUI 建立。</p>
+<script src="https://gist.github.com/twmht/e78cfebd191dbc878f3c.js"></script>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

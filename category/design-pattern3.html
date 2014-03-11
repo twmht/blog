@@ -27,14 +27,14 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html" rel="bookmark"
-                           title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/strategy.html" rel="bookmark"
+                           title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-27T20:27:42.315100">
-                一 27 一月 2014
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
         </abbr>
 
         <address class="vcard author">
@@ -43,30 +43,37 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
+<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
 <h3>如何設計</h3>
-<p>代理人以及本人都是物件。</p>
+<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
 <h3>程式範例</h3>
-<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體。</p>
-<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
-<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
-<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
+<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
+<ul>
+<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
+<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
+</ul>
+<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
 
-<h4>Subject 參與者 ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/proxy.html">read more</a>
+<h4>Strategy 參與者</h4>
+<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
+<h4>ConcreteStrategy 參與者</h4>
+<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
+<h4>Context (文法) 參與者</h4>
+<p>利用 Strategy ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/strategy.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/interpreter.html" rel="bookmark"
-                           title="Permalink to Interpreter Pattern">Interpreter Pattern</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/templateMethod.html" rel="bookmark"
+                           title="Permalink to Template Method Pattern -- 實際處理交給子類別">Template Method Pattern -- 實際處理交給子類別</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-27T15:41:45.068860">
-                一 27 一月 2014
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
         </abbr>
 
         <address class="vcard author">
@@ -75,26 +82,31 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>Design Pattern 的目的之一就是要提高類別的可再用性。 可再用性是指已經產生的類別不需要多做修改或是儘量不修改就能多次使用的意思。</p>
-<p>Interpreter Pattern 是用簡單的"迷你語言"來表現程式要解決的問題，以迷你語言寫成"迷你程式"而表現具體的問題。迷你程式本身無法獨自啟動，必須先用Java語言寫另一個負責翻譯的程式(直譯器)。當能解決的問題發生變化時，要修改迷你程式來對應處理，而不是修改直譯器(儘量避免去修改)。</p>
+<p>就像在塑膠版上挖空，然後用色筆塗滿挖空的部份，所表現出來的是固定的字型，但顏色卻因所使用的色筆顏色而異。所挖空的部份我們稱為 Template。</p>
 <h3>如何設計</h3>
-<p>當問題發生改變時，儘可能不去修改到直譯器（以Java寫成）。</p>
+<p>將作為 Template 的方法定義在父類別，而方法的定義中則使用到抽象方法。因此如果只看父類別部份的程式，根本不知道到底結果會是怎樣的處理內容，最多只能了解該如何呼叫抽象方法而已。</p>
+<p>實際實作抽象方法的是子類別。要在子類別實作方法，才能決定具體的處理動作。理論上，如果在不同的子類別執行不同的實作，應該就能發展出不同的處理內容。不過，無論在哪個子類別執行任何一種實作，處理的大致流程都還是要依照父類別所制定的方法。</p>
+<p>像這樣在<strong>在父類別指定大綱並且在子類別規定具體內容</strong>，就稱為 Template Method Pattern。</p>
 <h3>程式範例</h3>
-<p>首先來定義我們的問題，我們要用迷你語言來操控玩具車。玩具車基本動作有 go, right, left　以及 repeat。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/interpreter.html">read more</a>
+<p>輸出字串，同樣流程的display，卻有不同的輸出方式(字串或字元)。</p>
+<script src="https://gist.github.com/twmht/b29a5df581fcd2090243.js"></script>
+
+<h4>AbstractClass (抽象類別) 參與者</h4>
+<p>AbstractClass 實作範本方法，還有宣告 Template Method 所使用的抽象方法。這個抽象方法則由子類別 ConcreteClass 負責實作。例如 AbstractClass 類別 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/templateMethod.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/01/design-pattern/command.html" rel="bookmark"
-                           title="Permalink to Command Pattern">Command Pattern</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/visitor.html" rel="bookmark"
+                           title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">Visitor Pattern -- 在結構中穿梭還同時做事</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-01-27T15:28:36.368133">
-                一 27 一月 2014
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
         </abbr>
 
         <address class="vcard author">
@@ -103,17 +115,16 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>當類別在執行作業時，會呼叫自己類別或其他類別的方法，呼叫方法之後的結果會反應在物件狀態上，但卻不會留下任何作業紀錄。</p>
-<p>遇到這種情形的時候，要是有一個類別能表現"請執行這項作業"的"命令"時就方便多了。因為如此一來便可以用一個"表示命令的類別物件個體"來代表要執行的作業，而不需要採用"呼叫方法"之類的動態處理。如想管理相關紀錄時，只需要管理該物件個體的集合即可。而若預先將命令的集合儲存起來，還可以再執行同一個命令;或者是把多個命令結合成一個新命令供再利用。</p>
+<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 <strong>處理</strong>。那麼，這項 <strong>處理</strong> 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 <strong>處理</strong> 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
 <h3>如何設計</h3>
-<p>這樣的Pattern叫作Command Pattern，有時也稱為"Event"，跟"Event driven"中的Event是同一個意思。一旦發生事件(例如按下滑鼠左鍵，或按下右鍵)，則先將該事件變成物件個體，按照發生順序排入queue中。接著，再依序處理所有排列等候的事件。</p>
+<p>Visitor Pattern 把 <strong>資料結構</strong> 和 <strong>處理</strong> 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 <strong>訪客</strong> 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
 <h3>程式範例</h3>
-<p>設計一個簡單的繪圖軟體，移動滑鼠的時候，便會自動產生一個個紅點，按下clear即可清除。
-當使用者移動滑鼠的時候，就會產生"在這裡畫一個點"的command。把這個物件個體儲存起來，需要用的時候就可以繼續畫紅點。</p>
-<script src="https://gist.github.com/twmht/613b2636b333ca809e86.js"></script>
+<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
+<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
 
-<h4>Command ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/01/design-pattern/command.html">read more</a>
+<h4>Visitor (訪客) 參與者</h4>
+<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/visitor.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

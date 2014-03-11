@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>DeadLock</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/03/multithread/deadlock.html" rel="bookmark"
+           title="Permalink to DeadLock">DeadLock</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->      <p>所謂的死結，是指兩個執行緒分別取得了鎖定，互相等待另外一個執行緒解除鎖定的現象，發生死結的時候，哪個執行緒都無法繼續執行下去，這時候程式就會不斷等待。</p>
+<p>假設有兩個人(Alice and Boddy)在用餐，餐具只有兩個，分別是spoon以及fork，Alice的習慣是左手拿spoon，接著右手拿fork才會開始用餐;Boddy的習慣是左手拿spoon，接著右手拿fork之後才開始用餐。
+現在寫一個程式去模擬整個過程，一個不小心可能會出現一個情況：Alice左手拿了spoon，等待fork，但Boddy左手已經拿了fork，等待spoon，這樣互相等待共享資源的情況，就會產生deadlock。</p>
+<p>以下是會產生deadlock的程式。</p>
+<p>建立shared resource，如下的Tool.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tool</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Tool</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Testing EaterThread, hit CTRL+C to exit.&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">spoon</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Spoon&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">fork</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Fork&quot;</span><span class="o">);</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="n">spoon</span><span class="o">,</span> <span class="n">fork</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Bobby&quot;</span><span class="o">,</span> <span class="n">fork</span><span class="o">,</span> <span class="n">spoon</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>EaterThread.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EaterThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Tool</span> <span class="n">lefthand</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Tool</span> <span class="n">righthand</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Tool</span> <span class="n">lefthand</span><span class="o">,</span> <span class="n">Tool</span> <span class="n">righthand</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lefthand</span> <span class="o">=</span> <span class="n">lefthand</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">righthand</span> <span class="o">=</span> <span class="n">righthand</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">eat</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//Alice拿起了spoon,在還沒拿到fork之前，bob已經拿到了fork</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lefthand</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; takes up &quot;</span> <span class="o">+</span> <span class="n">lefthand</span> <span class="o">+</span> <span class="s">&quot; (left).&quot;</span><span class="o">);</span>
+            <span class="c1">//兩個人都在等對方的資源</span>
+            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">righthand</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; takes up &quot;</span> <span class="o">+</span> <span class="n">righthand</span> <span class="o">+</span> <span class="s">&quot; (right).&quot;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; is eating now, yam yam!&quot;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; puts down &quot;</span> <span class="o">+</span> <span class="n">righthand</span> <span class="o">+</span> <span class="s">&quot; (right).&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; puts down &quot;</span> <span class="o">+</span> <span class="n">lefthand</span> <span class="o">+</span> <span class="s">&quot; (left).&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</pre></div>
+
+
+<p>要怎麼解決deadlock的問題？當然就是改寫程式囉！</p>
+<h2>要先了解deadlock會發生在下列三種情況都成立的時候:</h2>
+<ul>
+<li>具有多個shared resource，例如上述的spoon以及fork。</li>
+<li>執行緒鎖定一個shared resource時，還沒解除鎖定就想去鎖定另外一個shared resource。</li>
+<li>取得shared resource的順序不固定，例如先拿spoon再拿fork以及先拿fork再拿spoon。</li>
+</ul>
+<p>只要打破其中一種條件，就能解除deadlock。</p>
+<p>現在來打破第三個條件，讓拿resource的順序可以一致。</p>
+<p>修改Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Testing EaterThread, hit CTRL+C to exit.&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">spoon</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Spoon&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">fork</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Fork&quot;</span><span class="o">);</span>
+        <span class="c1">//修改順序</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="n">spoon</span><span class="o">,</span> <span class="n">fork</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Bobby&quot;</span><span class="o">,</span> <span class="n">spoon</span><span class="o">,</span> <span class="n">fork</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>這樣就可以打破死結。</p>
+<p>第二個條件比較難打破，因為必須同時拿兩個工具才能開始吃東西。</p>
+<p>現在來試著打破第一個條件，我們可以試著把spoon以及fork合併在一起。</p>
+<p>定義一個Pair.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pair</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Tool</span> <span class="n">lefthand</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Tool</span> <span class="n">righthand</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Pair</span><span class="o">(</span><span class="n">Tool</span> <span class="n">lefthand</span><span class="o">,</span> <span class="n">Tool</span> <span class="n">righthand</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lefthand</span> <span class="o">=</span> <span class="n">lefthand</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">righthand</span> <span class="o">=</span> <span class="n">righthand</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;[ &quot;</span> <span class="o">+</span> <span class="n">lefthand</span> <span class="o">+</span> <span class="s">&quot; and &quot;</span> <span class="o">+</span> <span class="n">righthand</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>修改Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Testing EaterThread, hit CTRL+C to exit.&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">spoon</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Spoon&quot;</span><span class="o">);</span>
+        <span class="n">Tool</span> <span class="n">fork</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tool</span><span class="o">(</span><span class="s">&quot;Fork&quot;</span><span class="o">);</span>
+        <span class="n">Pair</span> <span class="n">pair</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">(</span><span class="n">spoon</span><span class="o">,</span> <span class="n">fork</span><span class="o">);</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="n">pair</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="s">&quot;Bobby&quot;</span><span class="o">,</span> <span class="n">pair</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>這時候EaterThread.java也就可以被修改成只存取一個resource。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EaterThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Pair</span> <span class="n">pair</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">EaterThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Pair</span> <span class="n">pair</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pair</span> <span class="o">=</span> <span class="n">pair</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">eat</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//只鎖定pair這個shared resource</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">pair</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; takes up &quot;</span> <span class="o">+</span> <span class="n">pair</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; is eating now, yam yam!&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot; puts down &quot;</span> <span class="o">+</span> <span class="n">pair</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>deadlock是個很有趣且在Multithread上經常會碰到的問題，但只要打破三個條件中的其中一個就可以讓deadlock不成立。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

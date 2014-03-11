@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Abstract Factory Pattern -- 把相關零件組合成產品</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/abstractFactory.html" rel="bookmark"
+           title="Permalink to Abstract Factory Pattern -- 把相關零件組合成產品">Abstract Factory Pattern -- 把相關零件組合成產品</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-03-11T16:44:43.909287">
+                二 11 三月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>所謂的<strong>抽象</strong>，意思是指<strong>不考慮要如何具體進行實作</strong>，只注意介面的部份。抽象工廠把各種抽象零件組合成產品。</p>
+<h3>如何設計</h3>
+<p>處理的重點是在<strong>介面</strong>而不是零件的具體實作。只利用介面就能把零件組合成產品。</p>
+<h3>程式範例</h3>
+<p>將一個階層結構的相關網站鏈結做成HTML檔。</p>
+<p>包含下列三個 package 的類別群組:</p>
+<ul>
+<li>factory --- 含抽象工廠、零件和產品</li>
+<li>含 Main 的預設package</li>
+<li>listfactory --- 含具體工廠、零件和產品</li>
+</ul>
+<script src="https://gist.github.com/twmht/c98ac2b197d3c3ed7a48.js"></script>
+
+<h4>AbstractProduct 參與者</h4>
+<p>AbstractProduct 規定由 AbstractFactory 所產生的抽象零件及產品的介面。例如 Link、Tray 和 Page 類別。</p>
+<h4>AbstractFactory 參與者</h4>
+<p>AbstractFactory 規定用來產生 AbstractProduct 的物件個體的介面。例如 Factory 類別。</p>
+<h4>Client 參與者</h4>
+<p>Client 是一個只使用 AbstractFactory 和 AbstractProduct 的介面來完成工作的參與者。Client 並不知道具體零件、產品和工廠。例如 Main 類別。</p>
+<h4>ConcreteProduct 參與者</h4>
+<p>ConcreteProduct 是實作 AbstractProduct 的參與者:</p>
+<ul>
+<li>listfactory package --- ListLink、ListTray 以及 ListPage 等類別。</li>
+<li>tablefactory package --- TableLink、TableTray 以及 TablePage 等類別。</li>
+</ul>
+<h4>ConcreteFactory 參與者</h4>
+<p>ConcreteFactory 實作 AbstractFactory 的介面：</p>
+<ul>
+<li>listfactory package --- ListFactory 類別</li>
+<li>tablefactory package --- TableFactory 類別</li>
+</ul>
+<h3>優點</h3>
+<h4>新增具體工廠很容易</h4>
+<p>因為要建立哪些類別以及該實作哪些方法一清二楚，當然就簡單許多。</p>
+<p>假設現在想新增其他的具體工廠。固定動作不外乎就是建立 Factory, Link, Tray, Page 的子類別，實作各個抽象方法。換句話說，就是要讓含有 factory package 的類別的抽象部份全部具體化。</p>
+<p>此時，無論新增幾個具體工廠(或修改具體工廠的 bug)，都不需要再去修改抽象工廠或 Main 的部份。</p>
+<h3>新增零件就很有難度</h3>
+<p>假設現在想要在 factory package 新增一個顯示影像的 Picture 零件。此時，所有已經存在的具體工廠都要修改成有支援 Picture。以 listfactory package 為例，要修改的動作包括：</p>
+<ul>
+<li>在 ListFactory 類別新增 createPicture 方法</li>
+<li>新增一個 ListPicture 類別</li>
+</ul>
+<p>已經完工的具體工廠愈多，修改動作就愈多。</p>
+<h3>問題</h3>
+<h4>1. 在 Tray 類別中，tray 欄位被定義為 protected。如果改成 private，優缺點為何?</h4>
+<p>優點是其子類別(實作 Tray 的類別)跟 tray 不會有依存關係。缺點則是不能直接參照，必須另外寫一個取得 tray 欄位的方法。</p>
+<h4>2. 假設現在想在 Factory 類別中定義一個 <strong>可產生只有 Yahoo 鏈結的網頁的具體方法</strong>，也就是 <strong>public page createYahooPage()</strong>， 網頁作者和標題都是 Yahoo，此時具體工廠和具體零件要如何修改?</h4>
+<p>只有 Factory 類別和 Main 類別需要修改。</p>
+<script src="https://gist.github.com/twmht/93b775cdf35af47cf826.js"></script>
+
+<h4>3. Page 類別的作用和 Tray 類別很像，為什麼不乾脆把 Page 類別寫成是 Tray 類別的子類別呢?</h4>
+<p>因為 Page 不能 add 到 Tray (HTML 語法不合)。如果把 Page 類別設為 Tray 類別的子類別，則 Page 也是 Item 的子類別，故也可以 add。</p>
+<p>但是必須在 Page 類別宣告 makeHTML。若如下建立一個含有 makeHTML 方法的 java 的介面的 HTMLLable，修改由 Item 類別和 Page 類別 implements HTMLLable，則可讓整個程式更加嚴謹。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HTMLLable</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">makeHTML</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
