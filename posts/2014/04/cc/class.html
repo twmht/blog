@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>C++的Class中的一些重點整理</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/04/cc/class.html" rel="bookmark"
+           title="Permalink to C++的Class中的一些重點整理">C++的Class中的一些重點整理</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>. </p>
+
+</footer><!-- /.post-info -->      <p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
+<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
+<ul>
+<li>friend function:
+簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
+<li>const function:
+在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
+</ul>
+<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
+<ul>
+<li>private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。</li>
+<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
+<li>public: 任何可以看到這個class的地方都可以使用。</li>
+</ul>
+<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
+以下這個例子我覺得很好，應該是說當物件內部有動態配置的時候，可以一起把動態配置的記憶體回收掉，我想應該是這個物件被回收的的時候，不會一起把內部動態配置的member data一起free掉的原因，可以看<a href="http://stackoverflow.com/questions/11288358/does-dynamically-allocated-memory-for-data-members-of-a-c-class-frees-when-cla">這裡</a>。</p>
+<div class="highlight"><pre><span class="c1">// example on constructors and destructors rect area: 12</span>
+<span class="cp">#include &lt;iostream.h&gt; rectb area: 30</span>
+<span class="k">class</span> <span class="nc">CRectangle</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="o">*</span><span class="n">height</span><span class="p">;</span>
+<span class="nl">public:</span>
+<span class="c1">//overloading</span>
+<span class="n">CRectangle</span> <span class="p">();</span>
+<span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span>
+<span class="o">~</span><span class="n">CRectangle</span> <span class="p">();</span>
+<span class="c1">//實作內容定義在class以內的有機會被編譯器視為inline function，編譯器會自己作判斷</span>
+<span class="c1">//inline function會直接將程式碼展開來，與macro非常類似</span>
+<span class="c1">//程式碼很短，只有return statement，用inline較有效率</span>
+<span class="kt">int</span> <span class="nf">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">width</span> <span class="o">*</span> <span class="o">*</span><span class="n">height</span><span class="p">);}</span>
+<span class="p">};</span>
+<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CRectangle</span><span class="o">::</span><span class="n">CRectangle</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">width</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="n">height</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+<span class="o">*</span><span class="n">width</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="o">*</span><span class="n">height</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">CRectangle</span><span class="o">::~</span><span class="n">CRectangle</span> <span class="p">()</span> <span class="p">{</span>
+<span class="k">delete</span> <span class="n">width</span><span class="p">;</span>
+<span class="k">delete</span> <span class="n">height</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="c1">//若不傳參數，則不需要括弧，java則需要</span>
+<span class="n">CRectangle</span> <span class="n">rect</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">rectb</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">rectc</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rect area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;rectb area: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">rectb</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>實際上,當我們定義一個 class 而沒有定義建構子的時候,編譯器會自動假設兩
+個重載的建構子 (預設建構子"default constructor" 和複製建構子"copy
+constructor")，又與java類似，只是在java中我沒聽過copy constructor。</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CExample</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="c1">//沒有定義建構子</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">multiply</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">=</span><span class="n">m</span><span class="p">;</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>因此defalut constructor以及copy constructor會被自動定義，copy constructor是一個只有一個參數的建構子,該參數是這個 class 的一個物件,這個函數的功能是將被傳入的物件(object)的所有<font color=red>非靜態</font> (non-static)成員變數的值都複製給自身這個 object。</p>
+<div class="highlight"><pre><span class="c1">//default constructor</span>
+<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+<span class="c1">//copy constructor</span>
+<span class="c1">//一定要pass by reference，否則會導致遞迴呼叫copy constructor而形成無窮迴圈。</span>
+<span class="c1">//若是有用到指標，則copy constructor預設只會複製指標的address，所以一定要視情況改寫</span>
+<span class="n">CExample</span><span class="o">::</span><span class="n">CExample</span> <span class="p">(</span><span class="k">const</span> <span class="n">CExample</span><span class="o">&amp;</span> <span class="n">rv</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">a</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+<span class="n">b</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+<span class="n">c</span><span class="o">=</span><span class="n">rv</span><span class="p">.</span><span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>為什麼copy constructor一定要pass by reference?，這個問題我大一的時候有想過，去問了ptt的版友之後終於恍然大悟。
+問題點出在<font color=red>pass by value</font>的時候並不是直接用等號來作assignment，而是會先呼叫copy constructor。</p>
+<p>假設有一個function foo長這樣</p>
+<div class="highlight"><pre><span class="c1">//pass by reference</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">Bar</span> <span class="n">bar</span><span class="p">)</span>
+</pre></div>
+
+
+<p>當有人要呼叫foo()</p>
+<div class="highlight"><pre><span class="n">Bar</span> <span class="n">mybar</span><span class="p">;</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">mybar</span><span class="p">)</span>
+</pre></div>
+
+
+<p>進入 foo 之前, 因為是 pass by value, 所以要生成一個 myBar 的 copy. 要怎樣生成呢? compiler 會利用 copy constructor 生成一個 myBar 的複製品, 然後供 foo() 裡面使用。</p>
+<p>要是Bar這個class的copy constructor 是 pass-by-value 的話, 比如</p>
+<div class="highlight"><pre><span class="n">Bar</span> <span class="n">myBar</span><span class="p">;</span>
+<span class="n">Bar</span> <span class="nf">barCopy</span><span class="p">(</span><span class="n">myBar</span><span class="p">);</span>
+</pre></div>
+
+
+<p>生成 barCopy 的時候, 因為 myBar 是 pass by value, 所以 compiler
+要生成一個 myBar 的複製品 (假設叫 tmpBarA) 才傳進去生成 barCopy.</p>
+<p>但生成 tmpBarA, 也是利用 copy ctor, 即是 compiler 是在做
+Bar tmpBarA(myBar);
+由於是 pass-by-val, 那麼要生成 tmpBarA, 其實傳進去的是 myBar 的一個
+複製品 (tmpBarB).</p>
+<p>要生成 tmpBarB......(遞迴呼叫，無窮迴圈)，<font color=red>而如果是copy by reference，則不會呼叫copy constructor。</font></p>
+<h3>繼承</h3>
+<p>繼承的語法如下。</p>
+<div class="highlight"><pre><span class="c1">//public表示子類別繼承過來的最低的權限</span>
+<span class="c1">//例如如果把public改成protected，如果父類別有一個public member，則在子類別子類別會自動被改成protected</span>
+<span class="k">class</span> <span class="nc">derived_class_name</span><span class="o">:</span> <span class="k">public</span> <span class="n">base_class_name</span><span class="p">;</span>
+</pre></div>
+
+
+<p>例如</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">daughter</span><span class="o">:</span> <span class="k">protected</span> <span class="n">mother</span><span class="p">;</span>
+</pre></div>
+
+
+<p>protected 將使得 daughter 從 mother 處繼承的成員其最低訪問限制為 protected。也就是說, 原來mother中的所有public成員到daughter中將會成為protected 成員。 最常用的繼承限制除了 public 外就是 private ,
+<font color=red>它被用來將父類別完全封裝起來</font> , 因為在這種情況下,除了子類別自身外,其它任何的繼承子類別的子類別(孫子)都不能訪問那些從父類別(爺爺)繼承而來的成員。不過大多數情況下繼承都是使用 public。</p>
+<p>子類別從父類別繼承了public及protected成員，但以下三個例外。</p>
+<ul>
+<li>建構子 Constructor 和解構子 destructor</li>
+<li>operator=() 成員</li>
+<li>friends</li>
+</ul>
+<p>雖然父類別的建構子和解構子沒有被繼承,但是當一個子類別的 object 被生成或銷毀的時候,其父類別的預設建構子 (即,沒有任何參數的建構子)和解構子總是被自動調用的。</p>
+<p>如果父類別沒有預設建構子,或你希望當子類別生成新的 object 時,父類別的某個重載的建構子被調用,你需要在子類別的每一個建構子的定義中指定它:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">mother</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="n">mother</span> <span class="p">()</span>
+<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mother: no parameters</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="n">mother</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
+<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;mother: int parameter</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">daughter</span> <span class="o">:</span> <span class="k">public</span> <span class="n">mother</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="n">daughter</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
+<span class="c1">//daughter建構子會自動呼叫mother()</span>
+<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;daughter: int parameter</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">son</span> <span class="o">:</span> <span class="k">public</span> <span class="n">mother</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="c1">//son建構子會呼叫mother(a)</span>
+<span class="n">son</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">mother</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;son: int parameter</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">daughter</span> <span class="n">cynthia</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">son</span> <span class="n">daniel</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3>多型</h3>
+<p>多型的好處就是一個interface可以操控不同的物件，要達成多型的手段就是繼承，讓父類別的指標可以指到子類別的物件。</p>
+<p>而一般來說，如果沒有用到virtual function，則父類別的指標只能夠呼叫那些被子類別所繼承的方法。</p>
+<p>例如，</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
+<span class="nl">protected:</span>
+<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
+<span class="nl">public:</span>
+<span class="kt">void</span> <span class="nf">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span> <span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
+<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
+<span class="c1">//父類別指向子類別</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
+<span class="c1">//但只能夠呼叫父類別自己有定義的</span>
+<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="c1">//例如父類別沒定義area()，就不能呼叫</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">rect</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">trgl</span><span class="p">.</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>如果要讓父類別呼叫area，要怎麼做呢？方法就是在父類別中定義virtual function。</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
+<span class="nl">protected:</span>
+<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
+<span class="nl">public:</span>
+<span class="kt">void</span> <span class="nf">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">virtual</span> <span class="kt">int</span> <span class="nf">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
+<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="n">poly</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly3</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">poly</span><span class="p">;</span>
+<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">ppoly3</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="c1">//呼叫的是rect的area()</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="c1">//呼叫的是trgl的area()</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="c1">//呼叫的是poly的area()</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ppoly3</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>因此,關鍵字 virtual 的作用就是在當使用父類別的指標的時候,使子類別中與父類別同名的成員在適當的時候被調用,如前面例子中所示。</p>
+<p>這個又叫做dynamic binding。在執行階段決定要執行哪個實體的方法。</p>
+<p><font color=red>其實這邊跟java稍微不同，因為在java裡面只要子類別有覆寫父類別的方法的話，就會自動去呼叫子類別自己所定義的方法，不用再特別去寫virtual關鍵字。</font> </p>
+<p>如果我們的子類別覆寫了父類別的virtual function，但是名字卻打錯了，這樣就還是只會呼叫父類別的方法。
+要怎麼避免呢？答案就是採用pure virtual function，若子類別沒有正確override，則編譯失敗。
+<font color=red>在java中，則是用abstract function來做到，所有包含abstract function的class又稱為interface。 </font>
+例如，</p>
+<div class="highlight"><pre><span class="c1">// abstract class CPolygon</span>
+<span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
+<span class="nl">protected:</span>
+<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
+<span class="nl">public:</span>
+<span class="kt">void</span> <span class="nf">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">virtual</span> <span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>抽象父類別的最大不同是它不能夠有實例(物件),但我們可以定義指向它的指標。<font color=red>(這跟java的interface很像)</font></p>
+<p>以下是一個多型的完整的例子，</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">CPolygon</span> <span class="p">{</span>
+<span class="nl">protected:</span>
+<span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">;</span>
+<span class="nl">public:</span>
+<span class="kt">void</span> <span class="nf">set_values</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">width</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+<span class="n">height</span><span class="o">=</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">virtual</span> <span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//我們可以寫一個 CPolygon 的成員函數,使得它可以將函數</span>
+<span class="c1">//area()的結果列印到螢幕上,而不必考慮具體是為哪一個子類別。</span>
+<span class="c1">//加上了printarea，記住,this 代表正在被程式執行的這一個物件的指標。</span>
+<span class="kt">void</span> <span class="nf">printarea</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">area</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CRectangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">class</span> <span class="nc">CTriangle</span><span class="o">:</span> <span class="k">public</span> <span class="n">CPolygon</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">area</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">return</span> <span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+<span class="n">CRectangle</span> <span class="n">rect</span><span class="p">;</span>
+<span class="n">CTriangle</span> <span class="n">trgl</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rect</span><span class="p">;</span>
+<span class="n">CPolygon</span> <span class="o">*</span> <span class="n">ppoly2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">trgl</span><span class="p">;</span>
+<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">set_values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">ppoly1</span><span class="o">-&gt;</span><span class="n">printarea</span><span class="p">();</span>
+<span class="n">ppoly2</span><span class="o">-&gt;</span><span class="n">printarea</span><span class="p">();</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

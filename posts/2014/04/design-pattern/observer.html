@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Observer Pattern</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html" rel="bookmark"
+           title="Permalink to Observer Pattern">Observer Pattern</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>observer是觀察的人，也就是觀察者的意思。
+當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
+<h3>如何設計</h3>
+<p>重點在於設計Observer Interface以及有具體實作的Observer類別。另外，也需要設計被觀察者。</p>
+<h3>程式範例</h3>
+<p>觀察者觀察產生多個數值的物件，然後輸出該值，輸出方式因觀察者而異。在這個範例中，有用數字來輸出的觀察者以及用長條圖來輸出的觀察者。</p>
+<p>在 Observer Interface 中，呼叫 update 方法的是產生數值的 NumberGenerator ( generator 是 "產生器" "產生設備" 的意思)。update 方法是 NumberGenerator 用來告訴 Observer 說 "我的內容已經更新過了，請你也更新你的輸出內容" 的方法。</p>
+<script src="https://gist.github.com/twmht/3fd90157d2327707922e.js"></script>
+
+<h4>Subject (被觀察者) 參與者</h4>
+<p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法。另外也有宣告了 "取得目前狀態" 的方法。例如 NumberGenerator 類別。</p>
+<h4>ConcreteSubject 參與者</h4>
+<p>表示實際 "被觀察的一方" 的參與者。一旦狀態有變化，就會立刻通知已登錄的 Observer 參與者。例如 RandomNumberGenerator 類別。</p>
+<h4>Observer 參與者</h4>
+<p>被 Subject 參與者通知 "狀態有變化" 的參與者。通知的方法是 update。例如 Observer 介面。</p>
+<h4>ConcreteObserver 參與者</h4>
+<p>實際的 Observer。一呼叫 update 方法時，即可從該方法取得 Subject 參與者的目前狀態。 例如 DigitalObserver 類別和 GraphObserver 類別。</p>
+<h3>優點</h3>
+<h4>讓類別再利用</h4>
+<p>RandomNumberGenerator 類別並不知道現在在觀察自己的到底是 DigitalObserver 還是 GraphObserver 的物件個體。但是儲存在 observers 欄位的物件個體知道有實作 Observer 介面。因為這些物件個體是以 addObserver 新增而來，所以一定會實作 Observer 介面，也絕對能呼叫 update 方法。</p>
+<p>而 DigitalObserver 類別也不會去注意自己所觀察的是 RandomNumberGenerator 還是其它 XXXXNumberGenerator 的物件個體。不過仍然知道這是 NumberGenerator 的子類別的物件個體，而且具有 getNumber 方法。</p>
+<p>只要設計如下，就能達到以上的效果：</p>
+<ul>
+<li>先利用抽象類別和介面從實際類別抽出抽象方法</li>
+<li>當以引數傳遞物件個體或將物件個體儲存在欄位時，把它設成抽象類別或介面的型別，不要寫成實際的型別</li>
+</ul>
+<h3>當Observer 的行為會影響 Subject 的時候</h3>
+<p>Subject 發生變化，然後通知 Observer，Observer 再呼叫 Subject 的方法。這是 Observer Pattern 一般的情況，假設 Observer 呼叫 Subject 的方法時，同時也會影響到 Subject 的狀態，那麼又要再通知 Observer，然後再...，這樣反而會一直在呼叫方法。解決方式就是在 Observer 中加一個旗標變數來表示<strong>目前是否有 Subject 的通知</strong>即可。</p>
+<h3>通知的意義重於觀察</h3>
+<p>雖然 observer 是叫作<strong>觀察者</strong>，但實際上它是被動等待 Subject 的通知。Observer Pattern 又可稱為 Publish-Subscribe Pattern。</p>
+<h3>問題</h3>
+<h4>1. 建立一個子類別 IncrementalNumberGenerator，讓它擴充 NumberGenerator 類別並逐一加計數值的功能。其建構子有下列三個引數:</h4>
+<ul>
+<li>開始的數值</li>
+<li>結束的數值</li>
+<li>增加幅度</li>
+</ul>
+<p>另外，要讓　DigitalObserver 及　GraphObserver 類別觀察其動作。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IncrementalNumberGenerator</span> <span class="kd">extends</span> <span class="n">NumberGenerator</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>                     <span class="c1">// 目前數值</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">end</span><span class="o">;</span>                        <span class="c1">// 結束數值（不含此值）</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">inc</span><span class="o">;</span>                        <span class="c1">// 增加若干</span>
+    <span class="kd">public</span> <span class="nf">IncrementalNumberGenerator</span><span class="o">(</span><span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">,</span> <span class="kt">int</span> <span class="n">inc</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">inc</span> <span class="o">=</span> <span class="n">inc</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumber</span><span class="o">()</span> <span class="o">{</span>                <span class="c1">// 取得數值</span>
+        <span class="k">return</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">number</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">notifyObservers</span><span class="o">();</span>
+            <span class="n">number</span> <span class="o">+=</span> <span class="n">inc</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main 類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">NumberGenerator</span> <span class="n">generator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IncrementalNumberGenerator</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">50</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span> 
+        <span class="n">Observer</span> <span class="n">observer1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DigitObserver</span><span class="o">();</span>
+        <span class="n">Observer</span> <span class="n">observer2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GraphObserver</span><span class="o">();</span>
+        <span class="n">generator</span><span class="o">.</span><span class="na">addObserver</span><span class="o">(</span><span class="n">observer1</span><span class="o">);</span>
+        <span class="n">generator</span><span class="o">.</span><span class="na">addObserver</span><span class="o">(</span><span class="n">observer2</span><span class="o">);</span>
+        <span class="n">generator</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>2. 新增一個　ConcreteObserver 參與者。</h4>
+<p>建立一個圓餅圖的 ConcreteObserver。</p>
+<script src="https://gist.github.com/twmht/1fd95a6801c7f161f21b.js"></script>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -20,6 +20,7 @@
                     <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -27,14 +28,62 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/strategy.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html" rel="bookmark"
+                           title="Permalink to State Pattern">State Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>用類別來表示 "狀態" 。</p>
+<h3>如何設計</h3>
+<p>以類別來表示狀態之後，只要切換類別就能表現 "狀態變化"，而且在必須新增其它狀態時，也很清楚該編寫哪個部份。</p>
+<h3>程式範例</h3>
+<p>假設現在有一個會隨著時間改變警備狀態的金庫保全系統：</p>
+<ul>
+<li>有一個金庫</li>
+<li>金庫有跟保全中心連線</li>
+<li>金庫有警鈴和一般通話用的電話</li>
+<li>金庫有時鐘，監視目前的時間</li>
+<li>白天是9:00-16:59，晚間為17:00-23:59以及0:00-8:59</li>
+<li>只有白天才能使用金庫</li>
+<li>在白天使用金庫時，保全中心會保留使用紀錄</li>
+<li>若晚間使用金庫時，保全中心會接到發生異常現象的通知</li>
+<li>警鈴是24小時都可以使用</li>
+<li>一旦使用警鈴，保全中心會接收到警鈴通知</li>
+<li>一般通話用的電話是24小時都可以使用(但晚間只有答錄機服務)</li>
+<li>在白天使用電話時，就會呼叫保全中心</li>
+<li>若晚間使用電話時，則會呼叫保全中心的答錄機</li>
+</ul>
+<script src="https://gist.github.com/twmht/a04e437a923e01314421.js"></script>
+
+<h4>State 參與者</h4>
+<p>State 表示狀態。規定不同狀態下做不同處理的介面。這個介面等於是一個不同狀態所做處理的所有方法的集合。例如 State 介面。</p>
+<h4>ConcreteState 參與者</h4>
+<p>ConcreteState ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html" rel="bookmark"
                            title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -60,53 +109,20 @@
 <p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
 <h4>Context (文法) 參與者</h4>
 <p>利用 Strategy ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/strategy.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/templateMethod.html" rel="bookmark"
-                           title="Permalink to Template Method Pattern -- 實際處理交給子類別">Template Method Pattern -- 實際處理交給子類別</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>就像在塑膠版上挖空，然後用色筆塗滿挖空的部份，所表現出來的是固定的字型，但顏色卻因所使用的色筆顏色而異。所挖空的部份我們稱為 Template。</p>
-<h3>如何設計</h3>
-<p>將作為 Template 的方法定義在父類別，而方法的定義中則使用到抽象方法。因此如果只看父類別部份的程式，根本不知道到底結果會是怎樣的處理內容，最多只能了解該如何呼叫抽象方法而已。</p>
-<p>實際實作抽象方法的是子類別。要在子類別實作方法，才能決定具體的處理動作。理論上，如果在不同的子類別執行不同的實作，應該就能發展出不同的處理內容。不過，無論在哪個子類別執行任何一種實作，處理的大致流程都還是要依照父類別所制定的方法。</p>
-<p>像這樣在<strong>在父類別指定大綱並且在子類別規定具體內容</strong>，就稱為 Template Method Pattern。</p>
-<h3>程式範例</h3>
-<p>輸出字串，同樣流程的display，卻有不同的輸出方式(字串或字元)。</p>
-<script src="https://gist.github.com/twmht/b29a5df581fcd2090243.js"></script>
-
-<h4>AbstractClass (抽象類別) 參與者</h4>
-<p>AbstractClass 實作範本方法，還有宣告 Template Method 所使用的抽象方法。這個抽象方法則由子類別 ConcreteClass 負責實作。例如 AbstractClass 類別 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/templateMethod.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/visitor.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html" rel="bookmark"
                            title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">Visitor Pattern -- 在結構中穿梭還同時做事</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -124,7 +140,7 @@
 
 <h4>Visitor (訪客) 參與者</h4>
 <p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/visitor.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

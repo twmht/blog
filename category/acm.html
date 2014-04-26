@@ -20,15 +20,16 @@
                     <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11069.html">ACM UVA-11069</a></h1>
+                    <h1 class="entry-title"><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11059.html">ACM UVA-11059</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -36,10 +37,56 @@
         </address>
 <p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
 
-</footer><!-- /.post-info --><p>這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。</p>
-<p>所以關係式應為f[n] = f[n-2]+f[n-3]</p>
-<p>其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
-f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。</p>                </article>
+</footer><!-- /.post-info --><p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm">max product</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">round</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Max</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">)</span>
+
+    <span class="p">{</span>      
+          <span class="n">round</span><span class="o">++</span><span class="p">;</span> 
+          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+          <span class="p">{</span>
+                  <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">data</span><span class="p">;</span>
+                  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+          <span class="p">}</span>
+
+          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+          <span class="p">{</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">i</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+          <span class="p">{</span>
+          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="n">j</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+
+          <span class="p">{</span>
+                  <span class="n">max</span><span class="o">=</span><span class="n">max</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>                <span class="c1">//brute force</span>
+          <span class="p">}</span>
+
+          <span class="n">Max</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">max</span><span class="p">);</span>
+          <span class="n">max</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+
+          <span class="p">}</span>
+
+          <span class="p">}</span>
+
+          <span class="n">sort</span><span class="p">(</span><span class="n">Max</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">Max</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>  <span class="c1">//由小排到大</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">Max</span><span class="p">[</span><span class="n">Max</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span> <span class="p">)</span>  <span class="c1">//最後一個如果是負數就變0</span>
+
+          <span class="p">{</span>
+              <span class="n">Max</span><span class="p">[</span><span class="n">Max</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+          <span class="p">}</span>
+          <span class="c1">//印出最大的那個數字 </span>
+          <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Case #&quot;</span><span class="o">&lt;&lt;</span><span class="n">round</span><span class="o">&lt;&lt;</span><span class="s">&quot;: The maximum product is &quot;</span><span class="o">&lt;&lt;</span><span class="n">Max</span><span class="p">[</span><span class="n">Max</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="sc">&#39;.&#39;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+          <span class="n">v</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+          <span class="n">Max</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="p">}</span>         
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -48,14 +95,39 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11310.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11069.html" rel="bookmark"
+                           title="Permalink to ACM UVA-11069">ACM UVA-11069</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
+
+</footer><!-- /.post-info -->                <p>這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。</p>
+<p>所以關係式應為f[n] = f[n-2]+f[n-3]</p>
+<p>其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
+f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11069.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11310.html" rel="bookmark"
                            title="Permalink to ACM UVA-11310">ACM UVA-11310</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -76,20 +148,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
     <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">)){</span>
         <span class="k">while</span><span class="p">(</span><span class="n">t ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11310.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11310.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11401.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11401.html" rel="bookmark"
                            title="Permalink to ACM UVA-11401">ACM UVA-11401</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -111,20 +183,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">1000000</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
         <span class="n">ans</span><span class="p">[</span><span class="n">i ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11401.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11401.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11526.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11526.html" rel="bookmark"
                            title="Permalink to ACM UVA-11526">ACM UVA-11526</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -146,20 +218,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
             <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">sq</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
                <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">n</span><span class="o">/</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
                <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="o">/</span><span class="n">i ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11526.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11526.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11565.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11565.html" rel="bookmark"
                            title="Permalink to ACM UVA-11565">ACM UVA-11565</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -181,20 +253,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
                 <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">B</span><span class="o">%</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
                     <span class="n">yz</span> <span class="o">=</span> <span class="n">B</span><span class="o">/</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
                     <span class="n">b</span> <span class="o">=</span> <span class="nb">false ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11565.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11565.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11579.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11579.html" rel="bookmark"
                            title="Permalink to ACM UVA-11579">ACM UVA-11579</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -220,20 +292,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
         <span class="n">sort</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="o">+</span><span class="n">m</span><span class="p">);</span>
         <span class="kt">double</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
         <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11579.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11579.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11876.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11876.html" rel="bookmark"
                            title="Permalink to ACM UVA-11876">ACM UVA-11876</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -255,20 +327,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
             <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">seq ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11876.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11876.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva11997.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11997.html" rel="bookmark"
                            title="Permalink to ACM UVA-11997">ACM UVA-11997</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -283,20 +355,20 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
 <span class="k">struct</span> <span class="n">element</span><span class="p">{</span>
     <span class="kt">int</span> <span class="n">sum</span><span class="p">,</span><span class="n">index ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva11997.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva11997.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva147.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/acm/uva147.html" rel="bookmark"
                            title="Permalink to ACM UVA-147">ACM UVA-147</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -310,45 +382,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">money</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10000</span><span class="p">,</span><span class="mi">5000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">};</span>
     <span class="kt">unsigned ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva147.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/acm/uva160.html" rel="bookmark"
-                           title="Permalink to ACM UVA-160">ACM UVA-160</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>. </p>
-
-</footer><!-- /.post-info -->                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q160.htm">prime</a></p>
-<div class="highlight"><pre><span class="kt">bool</span> <span class="n">is_prime</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">prime</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">ans</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">is_prime</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
-            <span class="n">prime</span><span class="p">[</span><span class="n">m</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">;</span><span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="n">i</span><span class="p">){</span>
-                <span class="n">is_prime</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/acm/uva160.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/acm/uva147.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

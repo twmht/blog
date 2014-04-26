@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Single Threaded Execution Pattern</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/04/multithread/single-thread-execution.html" rel="bookmark"
+           title="Permalink to Single Threaded Execution Pattern">Single Threaded Execution Pattern</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.398063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>. </p>
+
+</footer><!-- /.post-info -->      <h2>Single Threaded Execution Pattern</h2>
+<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
+<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
+<p>Gate.java</p>
+<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+        <span class="n">check</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">counter</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">name</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="n">address</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">//表示shared resource有同時讓不同的thread更改過，同時也代表這不是thread-safe</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;***** BROKEN ***** &quot;</span> <span class="o">+</span> <span class="n">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Testing Gate, hit CTRL+C to exit.&quot;</span><span class="o">);</span>
+        <span class="n">Gate</span> <span class="n">gate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gate</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">UserThread</span><span class="o">(</span><span class="n">gate</span><span class="o">,</span> <span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="s">&quot;Alaska&quot;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">UserThread</span><span class="o">(</span><span class="n">gate</span><span class="o">,</span> <span class="s">&quot;Bobby&quot;</span><span class="o">,</span> <span class="s">&quot;Brazil&quot;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">UserThread</span><span class="o">(</span><span class="n">gate</span><span class="o">,</span> <span class="s">&quot;Chris&quot;</span><span class="o">,</span> <span class="s">&quot;Canada&quot;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>UserThread.java</p>
+<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Gate</span> <span class="n">gate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">myname</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">myaddress</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">UserThread</span><span class="o">(</span><span class="n">Gate</span> <span class="n">gate</span><span class="o">,</span> <span class="n">String</span> <span class="n">myname</span><span class="o">,</span> <span class="n">String</span> <span class="n">myaddress</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">gate</span> <span class="o">=</span> <span class="n">gate</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">myname</span> <span class="o">=</span> <span class="n">myname</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">myaddress</span> <span class="o">=</span> <span class="n">myaddress</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myname</span> <span class="o">+</span> <span class="s">&quot; BEGIN&quot;</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">gate</span><span class="o">.</span><span class="na">pass</span><span class="o">(</span><span class="n">myname</span><span class="o">,</span> <span class="n">myaddress</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Single Thread Execution Pattern的概念較為簡單，我們把Gate當作SharedResource，在一般情況下，SharedResource會被多個執行緒所存取，SharedResource會有一些方法，這些方法又可以分為safeMethod以及unsafeMethod。</p>
+<ul>
+<li>safeMethod: 讓多個執行緒同時存取也不會有問題。</li>
+<li>unsafeMethod: 讓多個執行緒同時存取會有問題，因此可以考慮加上synchronized，讓unsafeMethod只能同時被一個執行緒所存取。我們又可以稱加上synchronized的方法為critical section。</li>
+</ul>
+<p>至於為什麼check()這一個方法不需要加上synchronized，因為check()在pass()中被呼叫，而pass()又是synchronized的方法，因此可以保證同時只會有一個執行緒去執行check()。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

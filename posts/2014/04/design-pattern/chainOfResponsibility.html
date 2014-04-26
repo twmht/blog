@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Chain of Responsibility Pattern -- 責任轉送</title>
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
+        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
+                <nav><ul>
+                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html" rel="bookmark"
+           title="Permalink to Chain of Responsibility Pattern -- 責任轉送">Chain of Responsibility Pattern -- 責任轉送</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+<p>什麼是 "轉送" 呢? 假設現在要到某家公司去取文件，跟櫃台小姐說明來意後，他會告訴你應該到 "業務窗口" 去處理。當你走到業務窗口後，那邊又告訴你這份文件目前由 "客戶服務部" 負責;因此你得再到客戶服務部去一趟，找到客戶服務部後，小姐還是很客氣的說文件應該要到 "文管中心" 去拿。像這樣子把自己的要求傳送下去，一直找到適當的人選或地點就是 "轉送"。</p>
+<h3>如何設計</h3>
+<p>例如，現在產生一個要求，但無法直接決定處理該要求的物件。這時候，可以把一個以上的物件串聯成鎖鏈狀，依序走過這個連鎖物件再決定最後目的地的物件。
+如果使用這個 Pattern，可以降低 "要求端" 和 "處理端" 之間的結合性，讓它們個別成為獨立的零件。另外，還可支援有需依發生狀況改變處理要求的物件的程式。
+先對人產生一個要求，如果這個人有處理的能力就處理掉;如果不能處理的話，就把要求轉送給 "第二個人"。同樣的，如果第二個人有處理能力的話就處理掉，不能處理的話，就繼續轉送給第三個人，以此類推。</p>
+<h3>程式範例</h3>
+<p>這個程式會產生問題以及決定解決問題的人。例如一開始先是 Bob 在努力解決問題，但無法解決的時候就換成 Diana 接手。在這個過程中，都沒有發現 Alice 的蹤影，因為 Alice 只負責轉送所有問題。</p>
+<script src="https://gist.github.com/twmht/7eeb3b146fbdc6fd0ef9.js"></script>
+
+<h4>Handler (處理者) 參與者</h4>
+<p>Handler 是規定處理要求的介面的參與者。它會維持住 "下一個人"，萬一出現自己無法處理的要求時，再轉送過去。當然， "下一個人" 也是 Handler。例如 Support 類別。處理要求的方法則是 support 方法。</p>
+<h4>ConcreteHandler 參與者</h4>
+<p>ConcreteHandler 是具體處理要求的參與者。例如NoSupport、LimitSupport、OddSupport 以及 SpecialSupport 這幾個類別。</p>
+<h4>Client (要求者) 參與者</h4>
+<p>Client 是對第一個 ConcreteHandler 發出要求的參與者，例如 Main 類別。</p>
+<h3>優點</h3>
+<h4>讓要求跟處理要求兩者間的結合關係不會太緊密</h4>
+<p>Client 直接把要求丟給第一個人，接下來這個要求就會被送往進行連鎖處理，由適合的處理者來處理要求。</p>
+<p>如果不想使用這個 Pattern 的話，就必須採取中央集權式的管理，也就是要由其中一個人掌握<strong>這個要求該由哪個人處理</strong>的訊息。這個訊息最好不要交給<strong>發出要求的人</strong>，因為如果發出要求的人還要了解處理者個別作用能力的話，反而會降低零件的獨立性。</p>
+<h4>機動性改變連鎖狀態</h4>
+<p>支援小組從 Alice 到 Fred 的排列順序都沒有改變。但是，程式也有可能需要機動性改變物件(處理要求的 ConcreteHandler)之間的關係。此時，只要像 Chain of Responsibility Pattern 這樣利用委讓來轉送，就能根據狀況變化重組 ConcreteHandler。</p>
+<p>萬一程式沒有利用 Chain of Responsibility Pattern，把<strong>如果是A要求，則由甲處理者處理</strong>的對應關係寫死的話，要想在跑程式的時候改成其他的處理者就很麻煩。</p>
+<h4>能專心工作在自己的崗位上</h4>
+<p>所有 ConcreteHandler 都只看著自己有能力處理的工作，如果自己處理不了，就當機立斷送出去。如此一來，應該寫在各個 ConcreteHandler 的處理就會鎖定是在該 ConcreteHandler 的固定內容。</p>
+<p>假設現在不用這個 Pattern，那就要採取找<strong>一個出來帶頭，讓它決定要由誰來處理不同的要求的方法</strong>;或者是讓所有 ConcreteHandler 都要負責<strong>工作分配</strong>，也就是<strong>如果自己無法處理時，要交給某甲。如果某甲也不行，就交給某乙。如果系統出現 A 狀況，就交給某丙的方法。</strong></p>
+<h3>轉送會造成處理速度變慢？</h3>
+<p>如果有預先確定由誰處理哪個要求，可以讓處理者立即動手處理，相較之下，Chain of Responsibility Pattern 的處理速度本來就會稍慢。</p>
+<p>如果說要求跟處理者的關係很固定，而且又講究速度時，可能不使用這個 Pattern 會較有利。</p>
+<h3>問題</h3>
+<h4>1. 視窗系統使用 Chain of Responsibility Pattern 的頻率很高。 視窗上有很多種元件，當按下滑鼠左鍵時所產生的事件是如何轉送出去?轉送位置(next)又出現在哪裡?</h4>
+<p>通常是在元件所在的父視窗為 next 的情況下，傳遞給元件的要求如果不是由該元件處理，則會傳過去給父視窗。</p>
+<h3>2. Support 類別中，support 方法設為 public，但 resolve 方法卻是 protected。為什麼？</h3>
+<p>因為當其他類別要求 Support 類別的物件個體幫忙解決問題時，必須要使用 support 方法，而不是 resolve 方法。</p>
+<h3>3. 原本以遞迴呼叫的 suppot 方法，請改成迴圈吧！</h3>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Support</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>                  <span class="c1">// 問題解決者的名稱</span>
+    <span class="kd">private</span> <span class="n">Support</span> <span class="n">next</span><span class="o">;</span>                 <span class="c1">// 轉送位置</span>
+    <span class="kd">public</span> <span class="nf">Support</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>         <span class="c1">// 產生問題解決者</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Support</span> <span class="nf">setNext</span><span class="o">(</span><span class="n">Support</span> <span class="n">next</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 設定轉送位置</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">support</span><span class="o">(</span><span class="n">Trouble</span> <span class="n">trouble</span><span class="o">)</span> <span class="o">{</span>          
+        <span class="k">for</span> <span class="o">(</span><span class="n">Support</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span> <span class="kc">true</span><span class="o">;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="n">trouble</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">obj</span><span class="o">.</span><span class="na">done</span><span class="o">(</span><span class="n">trouble</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">obj</span><span class="o">.</span><span class="na">fail</span><span class="o">(</span><span class="n">trouble</span><span class="o">);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>              <span class="c1">// 列印字串</span>
+        <span class="k">return</span> <span class="s">&quot;[&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">resolve</span><span class="o">(</span><span class="n">Trouble</span> <span class="n">trouble</span><span class="o">);</span> <span class="c1">// 解決的方法</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">done</span><span class="o">(</span><span class="n">Trouble</span> <span class="n">trouble</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 已解決</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">trouble</span> <span class="o">+</span> <span class="s">&quot; is resolved by &quot;</span> <span class="o">+</span> <span class="k">this</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">fail</span><span class="o">(</span><span class="n">Trouble</span> <span class="n">trouble</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 尚未解決</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">trouble</span> <span class="o">+</span> <span class="s">&quot; cannot be resolved.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="http://twmht.github.io">Author</a></li>
+                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://github.com/twmht">Github</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

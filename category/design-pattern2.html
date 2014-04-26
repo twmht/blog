@@ -20,6 +20,7 @@
                     <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                     <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                     <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -27,14 +28,155 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/facade.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/abstractFactory.html" rel="bookmark"
+                           title="Permalink to Abstract Factory Pattern -- 把相關零件組合成產品">Abstract Factory Pattern -- 把相關零件組合成產品</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-26T21:00:28.646429">
+                六 26 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>所謂的<strong>抽象</strong>，意思是指<strong>不考慮要如何具體進行實作</strong>，只注意介面的部份。抽象工廠把各種抽象零件組合成產品。</p>
+<h3>如何設計</h3>
+<p>處理的重點是在<strong>介面</strong>而不是零件的具體實作。只利用介面就能把零件組合成產品。</p>
+<h3>程式範例</h3>
+<p>將一個階層結構的相關網站鏈結做成HTML檔。</p>
+<p>包含下列三個 package 的類別群組:</p>
+<ul>
+<li>factory --- 含抽象工廠、零件和產品</li>
+<li>含 Main 的預設package</li>
+<li>listfactory --- 含具體工廠、零件和產品</li>
+</ul>
+<script src="https://gist.github.com/twmht/c98ac2b197d3c3ed7a48.js"></script>
+
+<h4>AbstractProduct 參與者</h4>
+<p>AbstractProduct 規定由 AbstractFactory 所產生的抽象零件及產品的介面。例如 Link、Tray 和 Page 類別。</p>
+<h4>AbstractFactory 參與者</h4>
+<p>AbstractFactory 規定用來產生 AbstractProduct 的物件個體的介面。例如 Factory 類別。</p>
+<h4>Client 參與者</h4>
+<p>Client ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/abstractFactory.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html" rel="bookmark"
+                           title="Permalink to Chain of Responsibility Pattern -- 責任轉送">Chain of Responsibility Pattern -- 責任轉送</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>什麼是 "轉送" 呢? 假設現在要到某家公司去取文件，跟櫃台小姐說明來意後，他會告訴你應該到 "業務窗口" 去處理。當你走到業務窗口後，那邊又告訴你這份文件目前由 "客戶服務部" 負責;因此你得再到客戶服務部去一趟，找到客戶服務部後，小姐還是很客氣的說文件應該要到 "文管中心" 去拿。像這樣子把自己的要求傳送下去，一直找到適當的人選或地點就是 "轉送"。</p>
+<h3>如何設計</h3>
+<p>例如，現在產生一個要求，但無法直接決定處理該要求的物件。這時候，可以把一個以上的物件串聯成鎖鏈狀，依序走過這個連鎖物件再決定最後目的地的物件。
+如果使用這個 Pattern，可以降低 "要求端" 和 "處理端" 之間的結合性，讓它們個別成為獨立的零件。另外，還可支援有需依發生狀況改變處理要求的物件的程式。
+先對人產生一個要求，如果這個人有處理的能力就處理掉;如果不能處理的話，就把要求轉送給 "第二個人"。同樣的，如果第二個人有處理能力的話就處理掉，不能處理的話，就繼續轉送給第三個人，以此類推。</p>
+<h3>程式範例</h3>
+<p>這個程式會產生問題以及決定解決問題的人 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/composite.html" rel="bookmark"
+                           title="Permalink to Composite Pattern -- 對容器和內容一視同仁">Composite Pattern -- 對容器和內容一視同仁</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>舉例來說，目錄和檔案都可以放在目錄底下，因此可以一視同仁。</p>
+<h3>如何設計</h3>
+<p>可以把目錄想成是容器，檔案想成是內容，容器底下可能是內容，也可能是更小一號的容器。</p>
+<h3>程式範例</h3>
+<p>以模擬方式表示檔案和目錄的程式。表示檔案的類別是 File 類別、表示目錄的是 Directory 類別，兩者合併起來就是父類別 Entry 類別。Entry 類別是表示目錄進入點的類別，對 File 和 Directory 一視同仁的類別。</p>
+<script src="https://gist.github.com/twmht/3aa67b2bb2be40cd03ca.js"></script>
+
+<h4>Leaf 參與者</h4>
+<p>表示內容的參與者。不可以放入其他東西。例如 File 類別。</p>
+<h4>Composite 參與者</h4>
+<p>表示容器的參與者。可放入 Leaf 或 Composite。例如 Directory 類別。</p>
+<h4>Component 參與者</h4>
+<p>對 Leaf 和 Component ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/composite.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/decorator.html" rel="bookmark"
+                           title="Permalink to Decorator Pattern -- 對裝飾和內容一視同仁">Decorator Pattern -- 對裝飾和內容一視同仁</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>海綿蛋糕、鮮奶油蛋糕、草莓奶油蛋糕或生日蛋糕的原型其實都是海綿蛋糕，只不過運用了各種修飾技巧，能符合不同目的而改變。</p>
+<h3>如何設計</h3>
+<p>物件也很像是蛋糕的多變化，首先建立一個像是海綿蛋糕的核心物件，再一層層加上裝飾用的功能，就可以完全符合所需的物件。</p>
+<h3>程式範例</h3>
+<p>在字串周圍加上裝飾外框後再列印出來的程式。裝飾外框是指以-,+,| 等字元組成的框線。</p>
+<script src="https://gist.github.com/twmht/74632b289d5d81ac90d2.js"></script>
+
+<h4>Component 參與者</h4>
+<p>新增功能的核心參與者。在蛋糕的比喻說明中，相當於裝飾前的海綿蛋糕。Component 只規定海綿蛋糕的介面。例如 Display 類別。</p>
+<h4>ConcreteComponent 參與者</h4>
+<p>實作 Component 介面的具體海綿蛋糕。例如 StringDisplay 類別。</p>
+<h4>Decorator (裝飾者) 參與者</h4>
+<p>具有跟 Component 參與者相同的介面，另外還有 Decorator 要修飾的 Component。這個參與者是 "早就知道" 自己要去修飾的對象。例如 Border 類別。</p>
+<h4>ConcreteDecorator ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/decorator.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html" rel="bookmark"
                            title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -54,20 +196,20 @@
 
 <h4>Facade (正面) 參與者</h4>
 <p>構築成系統的其他參與者之"單一窗口"。Facade 對系統外部提供較高級且單一的介面。例如 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/facade.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/flyweight.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html" rel="bookmark"
                            title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -91,96 +233,20 @@
 <p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
 <h3>問題</h3>
 <h4>1. 在 BigString 中新增如下的建構子。BigString(String string, boolean shared)，若 shared 為 true 則共用 BigChar;若為 false ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/flyweight.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/interpreter.html" rel="bookmark"
-                           title="Permalink to Interpreter Pattern">Interpreter Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>Design Pattern 的目的之一就是要提高類別的可再用性。 可再用性是指已經產生的類別不需要多做修改或是儘量不修改就能多次使用的意思。</p>
-<p>Interpreter Pattern 是用簡單的"迷你語言"來表現程式要解決的問題，以迷你語言寫成"迷你程式"而表現具體的問題。迷你程式本身無法獨自啟動，必須先用Java語言寫另一個負責翻譯的程式(直譯器)。當能解決的問題發生變化時，要修改迷你程式來對應處理，而不是修改直譯器(儘量避免去修改)。</p>
-<h3>如何設計</h3>
-<p>當問題發生改變時，儘可能不去修改到直譯器（以Java寫成）。</p>
-<h3>程式範例</h3>
-<p>首先來定義我們的問題，我們要用迷你語言來操控玩具車。玩具車基本動作有 go, right, left　以及 repeat。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/interpreter.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/iterator.html" rel="bookmark"
-                           title="Permalink to Iterator Pattern">Iterator Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。</h3>
-<p>現在要寫一個程式，可以把書籍放到書架上，並且依序印出來。</p>
-<p>Aggregate Interface，實作此Interface的類別就變成類似<font color=red>陣列（多個數字或變數的集合)</font>。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Aggregate</span> <span class="o">{</span>
-    <span class="c1">//一個可對應聚合的iterator</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>如果要掃描整個聚合時，利用iterator方法即可建立一個實作Iterator介面的類別物件個體。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Iterator</span> <span class="o">{</span>
-    <span class="c1">//有沒有下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
-    <span class="c1">//下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Object</span> <span class="nf">next</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Book類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public ...</span></pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/iterator.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/mediator.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html" rel="bookmark"
                            title="Permalink to Mediator Pattern -- 只要面對一個顧問">Mediator Pattern -- 只要面對一個顧問</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -202,20 +268,20 @@
 <p>有以下限制:</p>
 <p><em>　若選擇訪客登入，則用戶名稱和密碼要設為不可使用，無法輸入字串。
 </em>　若選擇用戶登入，則用戶名稱可以使用 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/mediator.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/memento.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html" rel="bookmark"
                            title="Permalink to Memento Pattern">Memento Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -246,20 +312,20 @@
 <li>玩到沒錢時，遊戲結束。</li>
 </ul>
 <p>為了後面能不受影響繼續進行，程式中儲存金錢的位置有建立一個 Memento 類別的物件個體，用來儲存 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/memento.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/observer.html" rel="bookmark"
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html" rel="bookmark"
                            title="Permalink to Observer Pattern">Observer Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -279,20 +345,20 @@
 
 <h4>Subject (被觀察者) 參與者</h4>
 <p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/observer.html">read more</a>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/prototype.html" rel="bookmark"
-                           title="Permalink to Prototype Pattern -- 複製建立物件個體">Prototype Pattern -- 複製建立物件個體</a></h1>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/proxy.html" rel="bookmark"
+                           title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -301,112 +367,17 @@
 <p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
 
 </footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
-<ol>
-<li>
-<p>種類過多無法整成類別時: 
-若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
-</li>
-<li>
-<p>不容易利用類別產生物件個體時:
-該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
-</li>
-</ol>
-<p>3.希望把框架和所產生的物件個體分開時:
-希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
-<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
 <h3>如何設計</h3>
-<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
+<p>代理人以及本人都是物件。</p>
 <h3>程式範例</h3>
-<p>為字串設計外框。</p>
-<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，<strong>最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體</strong>。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
 
-<h4>Prototype 參與者</h4>
-<p>Prototype ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/prototype.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/singleton.html" rel="bookmark"
-                           title="Permalink to Singleton Pattern -- 唯一的物件個體">Singleton Pattern -- 唯一的物件個體</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
-<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
-<h3>如何設計</h3>
-<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
-<h3>程式範例</h3>
-<p>設計一個只有一個物件個體的類別。</p>
-<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
-
-<h4>Singleton 參與者</h4>
-<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
-<h3>優點</h3>
-<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
-<h3>問題 ...</h3>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/singleton.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/03/design-pattern/state.html" rel="bookmark"
-                           title="Permalink to State Pattern">State Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-03-11T16:44:43.909287">
-                二 11 三月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>用類別來表示 "狀態" 。</p>
-<h3>如何設計</h3>
-<p>以類別來表示狀態之後，只要切換類別就能表現 "狀態變化"，而且在必須新增其它狀態時，也很清楚該編寫哪個部份。</p>
-<h3>程式範例</h3>
-<p>假設現在有一個會隨著時間改變警備狀態的金庫保全系統：</p>
-<ul>
-<li>有一個金庫</li>
-<li>金庫有跟保全中心連線</li>
-<li>金庫有警鈴和一般通話用的電話</li>
-<li>金庫有時鐘，監視目前的時間</li>
-<li>白天是9:00-16:59，晚間為17:00-23:59以及0:00-8:59</li>
-<li>只有白天才能使用金庫</li>
-<li>在白天使用金庫時，保全中心會保留使用紀錄</li>
-<li>若晚間使用金庫時，保全中心會接到發生異常現象的通知</li>
-<li>警鈴是24小時都可以使用</li>
-<li>一旦使用警鈴，保全中心會接收到警鈴通知</li>
-<li>一般通話用的電話是24小時都可以使用(但晚間只有答錄機服務)</li>
-<li>在白天使用電話時，就會呼叫保全中心</li>
-<li>若晚間使用電話時，則會呼叫保全中心的答錄機</li>
-</ul>
-<script src="https://gist.github.com/twmht/a04e437a923e01314421.js"></script>
-
-<h4>State 參與者</h4>
-<p>State 表示狀態。規定不同狀態下做不同處理的介面。這個介面等於是一個不同狀態所做處理的所有方法的集合。例如 State 介面。</p>
-<h4>ConcreteState 參與者</h4>
-<p>ConcreteState ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/03/design-pattern/state.html">read more</a>
+<h4>Subject 參與者 ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/proxy.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
