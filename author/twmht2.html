@@ -28,6 +28,81 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/bridge.html" rel="bookmark"
+                           title="Permalink to Bridge Pattern -- 分成功能階層和實作階層">Bridge Pattern -- 分成功能階層和實作階層</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-26T21:00:44.990685">
+                六 26 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>bridge 是 <strong>橋樑</strong> 的意思。就像現實社會裡的橋樑擔負著連接河川兩岸的重責大任一樣，Bridge Pattern 也是負責連接兩個不同位置的參與者。</p>
+<h3>如何設計</h3>
+<p>Bridge Pattern 居間溝通的兩個位置是指 <strong>功能的類別階層</strong> 和 <strong>實作的類別階層</strong>。</p>
+<h4>想要新增功能時</h4>
+<p>假設現在有一個類別 Something，如果想對 Something 新增其它功能時(例如，想多加一個新方法)，首先要建立 SomethingGood 類別作為 Something 的子類別 (子類別、衍生類別或擴充類別)。這就是一個小型的類別階層。
+這個階層是為了新增功能而建立:</p>
+<ul>
+<li>基本功能放在父類別</li>
+<li>新功能則新增到子類別</li>
+</ul>
+<p>又稱為 <strong>功能的類別階層</strong>。
+假設現在又想對 SomethingGood 類別新增另一個功能時。此時，要建立 SomethingBetter 類別作為 SomethingGood 類別的子類別。如此一來，功能的類別階層又往下延伸一層。</p>
+<p>如欲追加新功能時，找出類別階層中最接近目的的類別 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/bridge.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/adapter.html" rel="bookmark"
+                           title="Permalink to Adapter Pattern -- 換個包裝再度利用">Adapter Pattern -- 換個包裝再度利用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-26T21:00:35.474536">
+                六 26 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>例如將直流電換成交流電，轉換器的功能是介入既有內容和需要結果之間，作為溝通的橋樑。</p>
+<p>如果既有內容無法直接利用時，通常需要先轉換成必要的型態後再使用。具有填平<strong>既有內容</strong>和<strong>需要結果</strong>兩者間的<strong>落差</strong>就是 <strong>Adapter Pattern</strong>。</p>
+<h3>如何設計</h3>
+<p>設計wrapper，將既有內容包裝之後，重新再利用。</p>
+<h3>程式範例(繼承)</h3>
+<p>改變輸出字串的外框，採用繼承。</p>
+<script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"></script>
+
+<h3>程式範例(委讓)</h3>
+<p>改變輸出字串的外框，採用委讓。</p>
+<script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"></script>
+
+<h4>Target (對象) 參與者</h4>
+<p>決定現在需要什麼方法的參與者，例如筆記型電腦必須要有直流電才能動。例如 Print 介面。</p>
+<h4>Client 參與者</h4>
+<p>利用 Target 的方法來做事的參與者，例如有直流電 12V 才能用的比較型電腦。例如 Main 類別。</p>
+<h4>Adaptee (被動符合) 參與者</h4>
+<p>具有既有方法的參與者 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/adapter.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/abstractFactory.html" rel="bookmark"
                            title="Permalink to Abstract Factory Pattern -- 把相關零件組合成產品">Abstract Factory Pattern -- 把相關零件組合成產品</a></h1>
                 </header>
@@ -291,76 +366,6 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
 <p>具有跟 Component 參與者相同的介面，另外還有 Decorator 要修飾的 Component。這個參與者是 "早就知道" 自己要去修飾的對象。例如 Border 類別。</p>
 <h4>ConcreteDecorator ...</h4>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/decorator.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html" rel="bookmark"
-                           title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>程式這個東西往往愈做愈大，許多類別彼此間的影響讓關係更加錯綜複雜。因此在使用類別時，要確實了解類別之間的關係，正確依序呼叫方法。
-利用大型程式進行資料處理時，必須精確控制相關的類別。既然如此，就乾脆設個處理專用的"窗口"，如此一來就不需要個別控制類別，只要把要求丟給"窗口"即可。</p>
-<h3>如何設計</h3>
-<p>Facade Pattern 能整合錯綜複雜的來龍去脈，提供較為高級的介面。Facade 參與者則是讓系統外埠看到較簡單的介面。而且 Facade 參與者還會兼顧系統內部各類別功能和互動關係，以最正確的順序利用類別。</p>
-<h3>程式範例</h3>
-<p>設計一個產生使用者 Web 網頁的程式。
-以三個類別的簡單系統為例，這個系統中包含有利用郵件信箱取得姓名的資料庫(Database)、產生 HTML 檔的類別(HtmlWriter)以及提供較高級介面的類別(PageMaker，也就是 Facade 參與者)。</p>
-<script src="https://gist.github.com/twmht/2df294dc66cd9a1008ce.js"></script>
-
-<h4>Facade (正面) 參與者</h4>
-<p>構築成系統的其他參與者之"單一窗口"。Facade 對系統外部提供較高級且單一的介面。例如 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html" rel="bookmark"
-                           title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>當想要節省記憶體空間的時候使用。</p>
-<h3>如何設計</h3>
-<p>儘量共用物件個體，不做無謂的new。</p>
-<h3>程式範例</h3>
-<p>輸出大型文字。</p>
-<script src="https://gist.github.com/twmht/aa42efa98d66a87a5271.js"></script>
-
-<h4>Flyweight 參與者</h4>
-<p>表示以一般處理會讓程式變重，因此選擇共用較佳的參與者。例如BigChar類別。</p>
-<h4>Flyweight FlyweightFactory 參與者</h4>
-<p>產生Flyweight 參與者的工廠。利用這個工廠來產生 Flyweight 參與者，即可共用物件個體。　例如BigCharFactory類別。</p>
-<h4>Client 參與者</h4>
-<p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
-<h3>問題</h3>
-<h4>1. 在 BigString 中新增如下的建構子。BigString(String string, boolean shared)，若 shared 為 true 則共用 BigChar;若為 false ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

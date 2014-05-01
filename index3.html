@@ -28,6 +28,76 @@
                     <ol id="posts-list" class="hfeed" start="9">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html" rel="bookmark"
+                           title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>程式這個東西往往愈做愈大，許多類別彼此間的影響讓關係更加錯綜複雜。因此在使用類別時，要確實了解類別之間的關係，正確依序呼叫方法。
+利用大型程式進行資料處理時，必須精確控制相關的類別。既然如此，就乾脆設個處理專用的"窗口"，如此一來就不需要個別控制類別，只要把要求丟給"窗口"即可。</p>
+<h3>如何設計</h3>
+<p>Facade Pattern 能整合錯綜複雜的來龍去脈，提供較為高級的介面。Facade 參與者則是讓系統外埠看到較簡單的介面。而且 Facade 參與者還會兼顧系統內部各類別功能和互動關係，以最正確的順序利用類別。</p>
+<h3>程式範例</h3>
+<p>設計一個產生使用者 Web 網頁的程式。
+以三個類別的簡單系統為例，這個系統中包含有利用郵件信箱取得姓名的資料庫(Database)、產生 HTML 檔的類別(HtmlWriter)以及提供較高級介面的類別(PageMaker，也就是 Facade 參與者)。</p>
+<script src="https://gist.github.com/twmht/2df294dc66cd9a1008ce.js"></script>
+
+<h4>Facade (正面) 參與者</h4>
+<p>構築成系統的其他參與者之"單一窗口"。Facade 對系統外部提供較高級且單一的介面。例如 ...</p>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html" rel="bookmark"
+                           title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-17T16:29:31.402063">
+                四 17 四月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+        </address>
+<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
+
+</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<p>當想要節省記憶體空間的時候使用。</p>
+<h3>如何設計</h3>
+<p>儘量共用物件個體，不做無謂的new。</p>
+<h3>程式範例</h3>
+<p>輸出大型文字。</p>
+<script src="https://gist.github.com/twmht/aa42efa98d66a87a5271.js"></script>
+
+<h4>Flyweight 參與者</h4>
+<p>表示以一般處理會讓程式變重，因此選擇共用較佳的參與者。例如BigChar類別。</p>
+<h4>Flyweight FlyweightFactory 參與者</h4>
+<p>產生Flyweight 參與者的工廠。利用這個工廠來產生 Flyweight 參與者，即可共用物件個體。　例如BigCharFactory類別。</p>
+<h4>Client 參與者</h4>
+<p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
+<h3>問題</h3>
+<h4>1. 在 BigString 中新增如下的建構子。BigString(String string, boolean shared)，若 shared 為 true 則共用 BigChar;若為 false ...</h4>
+                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html" rel="bookmark"
                            title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
                 </header>
@@ -319,76 +389,6 @@ sudo apt-get install phpmyadmin
 <h4>ConcreteState 參與者</h4>
 <p>ConcreteState ...</p>
                 <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html" rel="bookmark"
-                           title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
-<h3>如何設計</h3>
-<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
-<h3>程式範例</h3>
-<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
-<ul>
-<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
-<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
-</ul>
-<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
-
-<h4>Strategy 參與者</h4>
-<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
-<h4>ConcreteStrategy 參與者</h4>
-<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
-<h4>Context (文法) 參與者</h4>
-<p>利用 Strategy ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html" rel="bookmark"
-                           title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">Visitor Pattern -- 在結構中穿梭還同時做事</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 <strong>處理</strong>。那麼，這項 <strong>處理</strong> 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 <strong>處理</strong> 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
-<h3>如何設計</h3>
-<p>Visitor Pattern 把 <strong>資料結構</strong> 和 <strong>處理</strong> 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 <strong>訪客</strong> 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
-<h3>程式範例</h3>
-<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
-<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
-
-<h4>Visitor (訪客) 參與者</h4>
-<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->

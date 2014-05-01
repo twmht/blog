@@ -33,8 +33,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.398063">
-                四 17 四月 2014
+        <abbr class="published" title="2014-04-30T17:18:01.743673">
+                三 30 四月 2014
         </abbr>
 
         <address class="vcard author">
@@ -223,6 +223,41 @@
 
 
 <p>因為故意都沒有改變ready的狀態，所以一定會發生timeout。</p>
+<h3>所有參與者</h3>
+<h4>GuardedObject 參與者</h4>
+<p>與 Guarded Suspension Pattern 不同，當防衛條件不成立時，就不執行實際動作，而直接離開。</p>
+<p>在程式範例中，Data 類別就是 GuardedObject 參與者。save 方法與 change 方法則分別是 guardedMethod 與 stateChangingMethod。</p>
+<p>範例程式的防衛條件是<b>changed 欄位的值為 true</b>。</p>
+<h3>重點整理</h3>
+<h4>何時使用</h4>
+<p>什麼情況下，我們會想在動作前 balk 呢？</p>
+<h5>不需要刻意去執行的時候</h5>
+<p>範例程式中，當 content 欄位的內容沒有改變，就在 save 方法裡 balk 住了。</p>
+<p>balk 的原因是 content 的內容已經寫在檔案裡了，沒有必要大費工夫再去寫一次。</p>
+<p>像這樣<b>不需要刻意去執行</b>，就可以使用 Balking Pattern，在這裡 balk 的原因，是為了提高程式的執行效率。</p>
+<h5>不想等待防衛條件成立時</h5>
+<p>Balking Pattern 的特徵是<b>不等待</b>。當防衛條件不成立時，就馬上離開，進入下一個工作。</p>
+<h5>防衛條件只有第一次成立時</h5>
+<p>例如底下的 Something 類別，在這裡先用 initialized 欄位來表示是否已經初始化。呼叫 init 方法時，會先去檢查 initialized 欄位。</p>
+<p>當 initialized 欄位的值為 true 時，表示已經初始化了，所以就直接 return 離開（就是 balk，設計成 throw 出例外也可以）。</p>
+<p>當 initialized 欄位為 false 時，以 doInit 方法進行實際的初始化，接下來就設定 initialized 為 true，表示初始化動作已經處理完了（這相當於沒有 stateChangingMethod 方法的情況）</p>
+<p>這種例子經常出現在實體的初始化及終結處理等<b>無法執行兩次以上的動作</b>中。</p>
+<p>像 Something 類別的 initialized 這種<b>狀態只會變化一次的變數</b>，我們有時候稱為 latch。這個 latch，只有一鎖上就不會再打開了。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Something</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">initialized</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//防衛條件不成立之後，就絕對不會再次成立</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">initialized</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">doInit</span><span class="o">();</span>
+        <span class="n">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doInit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 實際的初始化動作</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
     </div><!-- /.entry-content -->
 
   </article>
