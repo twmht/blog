@@ -237,4 +237,47 @@ Balking Pattern 的特徵是<b>不等待</b>。當防衛條件不成立時，就
         }
     }
 
+####表達 balk 結果的方式
+在 guardedMethod 裡因為 balk 而離開時，我們可用下面幾種方式來表示 balk 的結果。
+#####忽略
+最簡單的方法，就是不通知呼叫端 balk 的發生。在範例程式中就是採用這種方式。
+#####傳回值
+以 boolean 型別的傳回值表示 balk 的發生。例如傳回 ture 就是沒有 balk，而有正常處理目的的動作;傳回 false 則表示發生 balk，目前動作沒有進行。
+若是傳回參考型別的方法，也可以傳回 null 來表示 balk 的發生。
+#####例外
+也可以使用例外來表達 balk 的發生。這時，balk 時就不是從方法 return 出來，而是從方法 throw 出例外。
+
+####timeout
+這是一個折衷方法，等待一段時間之後再離開。稱為 guraded timed 或是 timeout
+#### 什麼時候結束 wait
+
+    :::java
+    //指定 timeout 時間約 1 秒
+    obj.wait(1000)
+
+執行這個敘述時，執行緒會進入 obj 的等待區暫停，並且釋放 obj 的鎖定。只有發生下面的情況，才會從等待區離開：
+
+1. 當 notify 被呼叫時
+2. 當 notifyAll 被呼叫時
+3. 當 interrupt 被呼叫時
+4. 發生 timeout 時
+
+我們無法分辨到底是因為哪一種情況而離開。
+
+guraded timed 程式範例如下。
+<script src="https://gist.github.com/twmht/fce951d0f945fbba10d7.js"></script>
+
+###問題
+####1.在程式範例中，無法清楚看到 balk 的動作，請在程式加入偵錯輸出，使 balk 的動作可以明顯得知。請故意刪除 save 的 synchronized，測試是否會出現多餘的檔案操作。為了使多餘的檔案操作更容易發生，加入 sleep 也可以。
+
+加入偵錯輸出:
+<script src="https://gist.github.com/twmht/05756219c6e66da6490b.js"></script>
+
+故意刪除 save 的 synchronized:
+<script src="https://gist.github.com/twmht/a27c225be7257d322ad1.js"></script>
+
+####2.嘗試改寫 Guarded Suspension Pattern 的範例程式中出現的 RequestQueue 類別，讓他可以檢查死結的發生。發經過 30 秒還沒有滿足防衛條件時，請讓他丟出 LivenessException。
+
+到 Guarded 條件被滿足為止的休息時間約為 30 秒。
+<script src="https://gist.github.com/twmht/90de5da494b6d761cc3e.js"></script>
 
