@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import os
 
 AUTHOR = u'twmht'
 SITENAME = u'技術筆記'
@@ -15,6 +16,7 @@ DEFAULT_DATE = 'fs'
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
+THEME = '../pelican-themes/iris'
 
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),
