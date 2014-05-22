@@ -1,49 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
         <title>技術筆記</title>
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
-        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
+        <meta charset="utf-8" />
+      
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <!-- Javascript-->
+        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript"> 
+          $(function() {
+            invisibleMenu();
+          });
+        </script> 
 </head>
 
 <body id="index" class="home">
+     <div class="navigation">
+        <ol class="nav">
+          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
+          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
+          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
+          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
+        </ol>
+      </div>
         <header id="banner" class="body">
-                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
-                <nav><ul>
-                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
-                </ul></nav>
+                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
         </header><!-- /#banner -->
-
-                <section id="content" class="body">
-                    <ol id="posts-list" class="hfeed" start="9">
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html" rel="bookmark"
-                           title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a></h1>
+        <nav id="menu"><ul>
+        </ul></nav><!-- /#menu -->
+        <div class="box">
+        
+<section id="content">
+<div class="posts">
+    <ol id="post-list">
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html" rel="bookmark" title="Permalink to Chain of Responsibility Pattern -- 責任轉送">Chain of Responsibility Pattern -- 責任轉送</a>
+                    </h2> 
                 </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
+<p>什麼是 "轉送" 呢? 假設現在要到某家公司去取文件，跟櫃台小姐說明來意後，他會告訴你應該到 "業務窗口" 去處理。當你走到業務窗口後，那邊又告訴你這份文件目前由 "客戶服務部" 負責;因此你得再到客戶服務部去一趟，找到客戶服務部後，小姐還是很客氣的說文件應該要到 "文管中心" 去拿。像這樣子把自己的要求傳送下去，一直找到適當的人選或地點就是 "轉送"。</p>
+<h3>如何設計</h3>
+<p>例如，現在產生一個要求，但無法直接決定處理該要求的物件。這時候，可以把一個以上的物件串聯成鎖鏈狀，依序走過這個連鎖物件再決定最後目的地的物件。
+如果使用這個 Pattern，可以降低 "要求端" 和 "處理端" 之間的結合性，讓它們個別成為獨立的零件。另外，還可支援有需依發生狀況改變處理要求的物件的程式。
+先對人產生一個要求，如果這個人有處理的能力就處理掉;如果不能處理的話，就把要求轉送給 "第二個人"。同樣的，如果第二個人有處理能力的話就處理掉，不能處理的話，就繼續轉送給第三個人，以此類推。</p>
+<h3>程式範例</h3>
+<p>這個程式會產生問題以及決定解決問題的人 ...</p>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/composite.html" rel="bookmark" title="Permalink to Composite Pattern -- 對容器和內容一視同仁">Composite Pattern -- 對容器和內容一視同仁</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
+<p>舉例來說，目錄和檔案都可以放在目錄底下，因此可以一視同仁。</p>
+<h3>如何設計</h3>
+<p>可以把目錄想成是容器，檔案想成是內容，容器底下可能是內容，也可能是更小一號的容器。</p>
+<h3>程式範例</h3>
+<p>以模擬方式表示檔案和目錄的程式。表示檔案的類別是 File 類別、表示目錄的是 Directory 類別，兩者合併起來就是父類別 Entry 類別。Entry 類別是表示目錄進入點的類別，對 File 和 Directory 一視同仁的類別。</p>
+<script src="https://gist.github.com/twmht/3aa67b2bb2be40cd03ca.js"></script>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
+<h4>Leaf 參與者</h4>
+<p>表示內容的參與者。不可以放入其他東西。例如 File 類別。</p>
+<h4>Composite 參與者</h4>
+<p>表示容器的參與者。可放入 Leaf 或 Composite。例如 Directory 類別。</p>
+<h4>Component 參與者</h4>
+<p>對 Leaf 和 Component ...</p>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/composite.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/decorator.html" rel="bookmark" title="Permalink to Decorator Pattern -- 對裝飾和內容一視同仁">Decorator Pattern -- 對裝飾和內容一視同仁</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
+<p>海綿蛋糕、鮮奶油蛋糕、草莓奶油蛋糕或生日蛋糕的原型其實都是海綿蛋糕，只不過運用了各種修飾技巧，能符合不同目的而改變。</p>
+<h3>如何設計</h3>
+<p>物件也很像是蛋糕的多變化，首先建立一個像是海綿蛋糕的核心物件，再一層層加上裝飾用的功能，就可以完全符合所需的物件。</p>
+<h3>程式範例</h3>
+<p>在字串周圍加上裝飾外框後再列印出來的程式。裝飾外框是指以-,+,| 等字元組成的框線。</p>
+<script src="https://gist.github.com/twmht/74632b289d5d81ac90d2.js"></script>
 
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+<h4>Component 參與者</h4>
+<p>新增功能的核心參與者。在蛋糕的比喻說明中，相當於裝飾前的海綿蛋糕。Component 只規定海綿蛋糕的介面。例如 Display 類別。</p>
+<h4>ConcreteComponent 參與者</h4>
+<p>實作 Component 介面的具體海綿蛋糕。例如 StringDisplay 類別。</p>
+<h4>Decorator (裝飾者) 參與者</h4>
+<p>具有跟 Component 參與者相同的介面，另外還有 Decorator 要修飾的 Component。這個參與者是 "早就知道" 自己要去修飾的對象。例如 Border 類別。</p>
+<h4>ConcreteDecorator ...</h4>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/decorator.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html" rel="bookmark" title="Permalink to Facade Pattern -- 單一窗口">Facade Pattern -- 單一窗口</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
 <p>程式這個東西往往愈做愈大，許多類別彼此間的影響讓關係更加錯綜複雜。因此在使用類別時，要確實了解類別之間的關係，正確依序呼叫方法。
 利用大型程式進行資料處理時，必須精確控制相關的類別。既然如此，就乾脆設個處理專用的"窗口"，如此一來就不需要個別控制類別，只要把要求丟給"窗口"即可。</p>
 <h3>如何設計</h3>
@@ -55,28 +162,26 @@
 
 <h4>Facade (正面) 參與者</h4>
 <p>構築成系統的其他參與者之"單一窗口"。Facade 對系統外部提供較高級且單一的介面。例如 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html" rel="bookmark"
-                           title="Permalink to Flyweight Pattern">Flyweight Pattern</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/facade.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html" rel="bookmark" title="Permalink to Flyweight Pattern">Flyweight Pattern</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
 <p>當想要節省記憶體空間的時候使用。</p>
 <h3>如何設計</h3>
 <p>儘量共用物件個體，不做無謂的new。</p>
@@ -92,54 +197,50 @@
 <p>利用 FlyweightFactory 參與者產生並使用 Flyweight 參與者。例如 BigString 類別。</p>
 <h3>問題</h3>
 <h4>1. 在 BigString 中新增如下的建構子。BigString(String string, boolean shared)，若 shared 為 true 則共用 BigChar;若為 false ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/flyweight.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html" rel="bookmark" title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
 <p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
 <div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
 convert -delay 100 -loop 0 gif/* output.gif
 </pre></div>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/others/gif.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html" rel="bookmark"
-                           title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html" rel="bookmark" title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <div class="highlight"><pre><span class="c">#install apache</span>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <div class="highlight"><pre><span class="c">#install apache</span>
 sudo apt-get install apache2
 
 <span class="c">#install php</span>
@@ -157,28 +258,26 @@ sudo apt-get install phpmyadmin
 
 
 <p>如果 <code>http://localhost/phpmyadmin ...</code></p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html" rel="bookmark"
-                           title="Permalink to Mediator Pattern -- 只要面對一個顧問">Mediator Pattern -- 只要面對一個顧問</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html" rel="bookmark" title="Permalink to Mediator Pattern -- 只要面對一個顧問">Mediator Pattern -- 只要面對一個顧問</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
 <p>一個小組裡10個同樣立場的成員共同進行作業，但卻各自為政。每個成員都對別人發出指令，讓整個作業亂成一團。而且還有干擾其他成員的作業方式、不斷發生指令相左的情形。這時候如果有一個立場超然的 <strong>顧問</strong> 站出來說： <strong>請各位成員把所有狀況回報給我這個顧問，我會整體做出考量後發給各位適當的指示。但是我不會插手管各位手上工作的細節</strong>。所有成員同意顧問的提議，於是達成共識。</p>
 <h3>如何設計</h3>
 <p><strong>每個成員都只對顧問提出報告，也只有顧問會發出指令給各個成員</strong>。成員彼此之間也不會去探問目前狀況如何，或亂發指令給其他成員。mediator 就是一個顧問，如果有困難就告訴顧問、發生什麼會影響到整個小組的事情也要告訴顧問。對於顧問提出的要求事項要確實執行。所有小組成員都不可以擅自跟其他成員溝通意見做判斷，必須透過顧問才能進行到下一個動作。而顧問則根據小組成員所提出的報告做整體性判斷，對各個成員發出指令。</p>
@@ -192,28 +291,26 @@ sudo apt-get install phpmyadmin
 <p>有以下限制:</p>
 <p><em>　若選擇訪客登入，則用戶名稱和密碼要設為不可使用，無法輸入字串。
 </em>　若選擇用戶登入，則用戶名稱可以使用 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html" rel="bookmark"
-                           title="Permalink to Memento Pattern">Memento Pattern</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/mediator.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html" rel="bookmark" title="Permalink to Memento Pattern">Memento Pattern</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
 <p>在文書軟體的操作環境下，即使不小心誤刪除了某些文字內容，只要利用 undo 功能就能救回被刪除前的內容。有些文書軟體甚至支援一次以上的還原動作。
 物件導向程式如果要執行復原，必須預先儲存物件個體的狀態。但是又不能只做儲存的動作，否則無法以儲存的情報將物件的個體復原的原始的狀態。
 必須要能自由存取物件個體內部的情報，才能還原物件個體。不過如果對存取動作毫不設限，又會讓高度依賴類別內部結構的程式碼分散到程式各處，增加修改類別時的困擾。這稱為封裝式破壞。</p>
@@ -236,28 +333,26 @@ sudo apt-get install phpmyadmin
 <li>玩到沒錢時，遊戲結束。</li>
 </ul>
 <p>為了後面能不受影響繼續進行，程式中儲存金錢的位置有建立一個 Memento 類別的物件個體，用來儲存 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html" rel="bookmark"
-                           title="Permalink to Observer Pattern">Observer Pattern</a></h1>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a>
+                    </h2> 
                 </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <h3>用的時間點</h3>
 <p>observer是觀察的人，也就是觀察者的意思。
 當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
 <h3>如何設計</h3>
@@ -269,165 +364,42 @@ sudo apt-get install phpmyadmin
 
 <h4>Subject (被觀察者) 參與者</h4>
 <p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/proxy.html" rel="bookmark"
-                           title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
-<h3>如何設計</h3>
-<p>代理人以及本人都是物件。</p>
-<h3>程式範例</h3>
-<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，<strong>最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體</strong>。</p>
-<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
-<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
-<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
-
-<h4>Subject 參與者 ...</h4>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/proxy.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/others/skypemic.html" rel="bookmark"
-                           title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/others.html">Others</a>. </p>
-
-</footer><!-- /.post-info -->                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
-</pre></div>
-
-
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
-</pre></div>
-
-
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
-</pre></div>
-
-
-<p>調整input或者是output。</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/others/skypemic.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html" rel="bookmark"
-                           title="Permalink to State Pattern">State Pattern</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->                <h3>用的時間點</h3>
-<p>用類別來表示 "狀態" 。</p>
-<h3>如何設計</h3>
-<p>以類別來表示狀態之後，只要切換類別就能表現 "狀態變化"，而且在必須新增其它狀態時，也很清楚該編寫哪個部份。</p>
-<h3>程式範例</h3>
-<p>假設現在有一個會隨著時間改變警備狀態的金庫保全系統：</p>
-<ul>
-<li>有一個金庫</li>
-<li>金庫有跟保全中心連線</li>
-<li>金庫有警鈴和一般通話用的電話</li>
-<li>金庫有時鐘，監視目前的時間</li>
-<li>白天是9:00-16:59，晚間為17:00-23:59以及0:00-8:59</li>
-<li>只有白天才能使用金庫</li>
-<li>在白天使用金庫時，保全中心會保留使用紀錄</li>
-<li>若晚間使用金庫時，保全中心會接到發生異常現象的通知</li>
-<li>警鈴是24小時都可以使用</li>
-<li>一旦使用警鈴，保全中心會接收到警鈴通知</li>
-<li>一般通話用的電話是24小時都可以使用(但晚間只有答錄機服務)</li>
-<li>在白天使用電話時，就會呼叫保全中心</li>
-<li>若晚間使用電話時，則會呼叫保全中心的答錄機</li>
-</ul>
-<script src="https://gist.github.com/twmht/a04e437a923e01314421.js"></script>
-
-<h4>State 參與者</h4>
-<p>State 表示狀態。規定不同狀態下做不同處理的介面。這個介面等於是一個不同狀態所做處理的所有方法的集合。例如 State 介面。</p>
-<h4>ConcreteState 參與者</h4>
-<p>ConcreteState ...</p>
-                <a class="readmore" href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
+                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+    </ol><!-- /#posts-list -->
+</div>
 <p class="paginator">
-        <a href="http://twmht.github.io/blog/index2.html">&laquo;</a>
+            <a href="http://twmht.github.io/blog/index2.html">&laquo;</a>
     Page 3 / 10
         <a href="http://twmht.github.io/blog/index4.html">&raquo;</a>
 </p>
-            </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="http://twmht.github.io">Author</a></li>
-                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
-                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
+</section><!-- /#content -->
+            <hr/>
+            <footer id="contentinfo" class="footer">
+                <div>
+                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
+                </div>
+                <div>
+                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
+                </div>
+                <div>
+                    powered by <a href="http://getpelican.com/">Pelican</a>
+                    and <a href="http://python.org">Python</a>. 
+                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
+                </div>
+                <div>
+                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
+                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
+                </div>
                 <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="https://github.com/twmht">Github</a></li>
-                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
+                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
+                </div>
+            </footer><!-- /#contentinfo -->
+        </div>
+        <!--Add statistycs-->
 </body>
 </html>

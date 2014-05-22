@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <title>技術筆記</title>
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
         <meta charset="utf-8" />
-        <title>Memento Pattern</title>
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
-        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+      
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <!-- Javascript-->
+        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript"> 
+          $(function() {
+            invisibleMenu();
+          });
+        </script> 
 </head>
 
 <body id="index" class="home">
+     <div class="navigation">
+        <ol class="nav">
+          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
+          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
+          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
+          <li><a href="">RSS</a> </li>
+        </ol>
+      </div>
         <header id="banner" class="body">
-                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
-                <nav><ul>
-                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
-                </ul></nav>
+                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+        </ul></nav><!-- /#menu -->
+        <div class="box">
 <section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html" rel="bookmark"
-           title="Permalink to Memento Pattern">Memento Pattern</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-17T16:29:31.402063">
-                四 17 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+  <header class="post">
+    <h2 class="entry-title">
+      Memento Pattern
+    </h2>
+  </header>
+  <footer class="post-info">
+    <abbr>
+      四 17 四月 2014 
+         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+    </abbr>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <h3>用的時間點</h3>
 <p>在文書軟體的操作環境下，即使不小心誤刪除了某些文字內容，只要利用 undo 功能就能救回被刪除前的內容。有些文書軟體甚至支援一次以上的還原動作。
 物件導向程式如果要執行復原，必須預先儲存物件個體的狀態。但是又不能只做儲存的動作，否則無法以儲存的情報將物件的個體復原的原始的狀態。
 必須要能自由存取物件個體內部的情報，才能還原物件個體。不過如果對存取動作毫不設限，又會讓高度依賴類別內部結構的程式碼分散到程式各處，增加修改類別時的困擾。這稱為封裝式破壞。</p>
@@ -100,40 +110,31 @@ Originator 和 Memento 的結合相當緊密，但 Carataker 跟 Memento 的結�
 <p>如果有計算跟已經儲存的 Memento 的資料差異，也許可以做資料壓縮。</p>
 <h3>3. 利用串列化（serialization)功能可以將 Memento 的物件個體儲存成檔案。</h3>
 <script src="https://gist.github.com/twmht/3aa2a70b07a4bce34b67.js"></script>
-    </div><!-- /.entry-content -->
-
-  </article>
+  </div><!-- /.entry-content -->
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="http://twmht.github.io">Author</a></li>
-                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
-                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
+            <hr/>
+            <footer id="contentinfo" class="footer">
+                <div>
+                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
+                </div>
+                <div>
+                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
+                </div>
+                <div>
+                    powered by <a href="http://getpelican.com/">Pelican</a>
+                    and <a href="http://python.org">Python</a>. 
+                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
+                </div>
+                <div>
+                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
+                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
+                </div>
                 <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="https://github.com/twmht">Github</a></li>
-                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
+                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
+                </div>
+            </footer><!-- /#contentinfo -->
+        </div>
+        <!--Add statistycs-->
 </body>
 </html>

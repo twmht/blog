@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <title>技術筆記</title>
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
         <meta charset="utf-8" />
-        <title>Command Pattern -- 將命令寫成類別</title>
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" />
-        <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+      
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <!-- Javascript-->
+        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript"> 
+          $(function() {
+            invisibleMenu();
+          });
+        </script> 
 </head>
 
 <body id="index" class="home">
+     <div class="navigation">
+        <ol class="nav">
+          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
+          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
+          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
+          <li><a href="">RSS</a> </li>
+        </ol>
+      </div>
         <header id="banner" class="body">
-                <h1><a href="http://twmht.github.io/blog/">技術筆記 </a></h1>
-                <nav><ul>
-                    <li><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
-                    <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
-                    <li><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
-                </ul></nav>
+                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
         </header><!-- /#banner -->
+        <nav id="menu"><ul>
+        </ul></nav><!-- /#menu -->
+        <div class="box">
 <section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/command.html" rel="bookmark"
-           title="Permalink to Command Pattern -- 將命令寫成類別">Command Pattern -- 將命令寫成類別</a></h1>
-    </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-04-26T21:32:33.204549">
-                六 26 四月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-        </address>
-<p>In <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>. </p>
-
-</footer><!-- /.post-info -->      <h3>用的時間點</h3>
+  <header class="post">
+    <h2 class="entry-title">
+      Command Pattern -- 將命令寫成類別
+    </h2>
+  </header>
+  <footer class="post-info">
+    <abbr>
+      六 26 四月 2014 
+         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+    </abbr>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <h3>用的時間點</h3>
 <p>當類別在執行作業時，會呼叫自己類別或其他類別的方法，呼叫方法之後的結果會反應在物件狀態上，但卻不會留下任何作業紀錄。</p>
 <p>遇到這種情形的時候，要是有一個類別能表現"請執行這項作業"的"命令"時就方便多了。因為如此一來便可以用一個"表示命令的類別物件個體"來代表要執行的作業，而不需要採用"呼叫方法"之類的動態處理。如想管理相關紀錄時，只需要管理該物件個體的集合即可。而若預先將命令的集合儲存起來，還可以再執行同一個命令;或者是把多個命令結合成一個新命令供再利用。</p>
 <h3>如何設計</h3>
@@ -93,40 +103,31 @@
 <script src="https://gist.github.com/twmht/685e4c86859b4fabb7c7.js"></script></p>
 <h4>3. 修改 Main 類別，利用 MouseMotionAdapter 以及 WindowAdapter 來取代 MouseMotionListener 介面和 WindowListener 介面。</h4>
 <p><script src="https://gist.github.com/twmht/0b585df6c2e35c68e58d.js"></script></p>
-    </div><!-- /.entry-content -->
-
-  </article>
+  </div><!-- /.entry-content -->
 </section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="http://twmht.github.io">Author</a></li>
-                            <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
-                            <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
+            <hr/>
+            <footer id="contentinfo" class="footer">
+                <div>
+                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
+                </div>
+                <div>
+                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
+                </div>
+                <div>
+                    powered by <a href="http://getpelican.com/">Pelican</a>
+                    and <a href="http://python.org">Python</a>. 
+                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
+                </div>
+                <div>
+                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
+                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
+                </div>
                 <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="https://github.com/twmht">Github</a></li>
-                            <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
+                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
+                </div>
+            </footer><!-- /#contentinfo -->
+        </div>
+        <!--Add statistycs-->
 </body>
 </html>

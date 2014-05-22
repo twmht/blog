@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>技術筆記</title>
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
+        <meta charset="utf-8" />
+      
+
+        <!-- Javascript-->
+        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript"> 
+          $(function() {
+            invisibleMenu();
+          });
+        </script> 
+</head>
+
+<body id="index" class="home">
+     <div class="navigation">
+        <ol class="nav">
+          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
+          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
+          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
+          <li><a href="">RSS</a> </li>
+        </ol>
+      </div>
+        <header id="banner" class="body">
+                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+        </ul></nav><!-- /#menu -->
+        <div class="box">
+<section id="content" class="body">
+  <header class="post">
+    <h2 class="entry-title">
+      Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔
+    </h2>
+  </header>
+  <footer class="post-info">
+    <abbr>
+      一 19 五月 2014 
+         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+    </abbr>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Read-Write Lock Pattern 主要是分成讀跟寫的執行緒，當讀跟讀之間的執行緒不需要共用互斥時，而且讀的頻率很高的時候，使用這個 Pattern 效率會很好。這個 Pattern 的重點在於，他沒有 read-read conflict，但是其他三種組合會有 conflict，例如 read-write conflict，因此需要做共用互斥。</p>
+<p>在範例程式碼中，preferWriter 欄位就是用來讓 ReaderThread 以及 WriterThread 可以輪流執行。
+<script src="https://gist.github.com/twmht/a4b92735f01b4efdc3c3.js"></script></p>
+<h3>所有參與者</h3>
+<h4>Reader</h4>
+<p>Reader 會對 SharedResource 進行 read。例如 ReaderThread 類別。</p>
+<h4>Writer</h4>
+<p>Writer 會對 SharedResource 進行 write。例如 WriterThread 類別。</p>
+<h4>SharedResource</h4>
+<p>SharedResource 代表 Reader 與 Writer 所共享的資源。SharedResource 會提供不會改變內部狀態的動作 (read)，與會改變內部狀態的動作 (write)，例如 Data 類別。</p>
+<h4>ReadWriteLock</h4>
+<p>ReadWriteLock 提供了對 SharedResource 進行 read 動作與 write 動作時所需要的鎖定。為了達成 read 動作，提供了 readLock 與 readUnlock，為了達成 write 動作，提供了 writeLock 與 writeUnlock。例如 ReadWriteLock 類別。</p>
+<h3>重點</h3>
+<h4>鎖定的意義</h4>
+<p>使用 synchronized 可以取得實體的鎖定，java 中的每一個實體都有一個鎖定，同一個實體的鎖定無法由兩個以上的執行緒所取得，這是<em>物理</em>上的鎖定。
+而 ReadWriteLock 裡面所定義的讀取的鎖定以及寫入的鎖定，是屬於邏輯上的鎖定，由程式設計師來實作。 但實際上實作時，也用到了一個物理性的鎖定，也就是 ReadWriteLock 實體的鎖定。</p>
+<h4>Before/After Pattern</h4>
+<p>程式範例中的 Data 類別使用了 Before/After pattern，通常會像下面這樣寫：</p>
+<div class="highlight"><pre><span class="n">before</span><span class="o">();</span>
+<span class="k">try</span><span class="o">{</span>
+    <span class="n">execute</span><span class="o">();</span>
+<span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+    <span class="n">after</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>呼叫 execute 方法之前一定會呼叫 before 方法，並且能確保 after 方法也一定會被呼叫到。而 before 方法在 try 之外，就表示*如果在 before 的執行過程中發生例外，就不執行 execute 與 after。例如，從 before 中丟出 InterruptedException，就可以想成是 before 的中斷，如果 before 放在 try 裡面的話，即使中斷 before 的執行，也會呼叫 after。</p>
+<h3>問題</h3>
+<h4>關於程式再利用性，有下列問題，請修改之。</h4>
+<ol>
+<li>Data 類別包含實際進行讀寫的動作。若要進行其他的讀寫動作，需要建立新的類別，進行與 Data 類別一樣的同步處理動作。</li>
+<li>ReadWriteLock 類別包含了防衛條件。當想要更改防衛條件的原則時，還需要建立新的類別，進行與 Data 類別一樣的讀寫動作。</li>
+<li>ReadWriteLock 類別的方法都是 public，有被 Data 以為的類別呼叫的危險。</li>
+</ol>
+<p>為了解決 1 跟 2，可以使用 Strategy Pattern。關於讀寫處理的 policy 以 ReadWriteStrategy 表示，Guard 條件相關的 policy 則以 GuardStrategy 介面表現。之後，再建立 Data 類別的實體時，設定表示各自 policy 的 ConcreteStrategy，在執行時將處理交給對方處理。如果 policy 未被設定，則預設的 policy 如 DefaultReadWriteStrategy 類別及 DefaultGuardStrategy 類別會成為 Data 類別的 inner class。</p>
+<p>為了解決 3，將 ReadWriteLock 類別當成 Data 類別的 inner class。</p>
+<p>將 ReadWriteStrategy  介面與 GuardStrategy 介面與 Data 類別整合到 readwritelock package 中。</p>
+<p>只要先走這一步，就可以切換讀寫處理與 Guard 條件的 policy。但是，這個方法也會有使得類別和介面增加，導致管理困難。
+<script src="https://gist.github.com/twmht/7895d5c4fe69736d0bdf.js"></script></p>
+  </div><!-- /.entry-content -->
+</section>
+            <hr/>
+            <footer id="contentinfo" class="footer">
+                <div>
+                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
+                </div>
+                <div>
+                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
+                </div>
+                <div>
+                    powered by <a href="http://getpelican.com/">Pelican</a>
+                    and <a href="http://python.org">Python</a>. 
+                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
+                </div>
+                <div>
+                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
+                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
+                </div>
+                <div class="social">
+                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
+                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
+                </div>
+            </footer><!-- /#contentinfo -->
+        </div>
+        <!--Add statistycs-->
+</body>
+</html>
