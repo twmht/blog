@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>技術筆記 - Authors</title>
+        <title>技術筆記</title>
         <!-- Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
@@ -29,7 +29,7 @@
           <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
           <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
           <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
-          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
+          <li><a href="">RSS</a> </li>
         </ol>
       </div>
         <header id="banner" class="body">
@@ -38,7 +38,65 @@
         <nav id="menu"><ul>
         </ul></nav><!-- /#menu -->
         <div class="box">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (102)</li>
+<section id="content" class="body">
+  <header class="post">
+    <h2 class="entry-title">
+      利用 squid 及 pam module 建立 proxy server
+    </h2>
+  </header>
+  <footer class="post-info">
+    <abbr>
+      四 22 五月 2014 
+         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+    </abbr>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>以下是 squid3 的設定方式</p>
+<ol>
+<li>首先修改 <b>/etc/squid3/squid.conf</b>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</li>
+</ol>
+<p>在 auth_param section 中:</p>
+<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+</pre></div>
+
+
+<p>在 acl section 中：</p>
+<div class="highlight"><pre>acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED
+</pre></div>
+
+
+<p>在 http_access 中：</p>
+<div class="highlight"><pre>http_access allow pam
+</pre></div>
+
+
+<ol>
+<li>
+<p>接下來修改 <b>/etc/pam.d/squid</b>，加入以下這兩行。</p>
+<p>:::bash</p>
+<h1>先找出 pam_unix.so 的路徑</h1>
+<h1>updatedb &amp;&amp; locate pam_unix.so</h1>
+<p>auth required path_to_pam_unix.so
+account required path_to_pam_unix.so</p>
+</li>
+<li>
+<p>重新啟動 squid</p>
+<p>:::bash
+service squid restart</p>
+</li>
+<li>
+<p>若驗證有問題，則可能是權限問題。</p>
+<p>:::bash
+sudo chmod u+s /usr/lib/squid3/pam_auth</p>
+</li>
+</ol>
+  </div><!-- /.entry-content -->
+</section>
             <hr/>
             <footer id="contentinfo" class="footer">
                 <div>

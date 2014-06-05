@@ -47,6 +47,67 @@
             <article class="archive">
                 <header> 
                     <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="bookmark" title="Permalink to Lubuntu 底下設定雙螢幕">Lubuntu 底下設定雙螢幕</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 05 六月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>以下是 lubuntu 的設定方式。</p>
+<p>如果想進入桌面之後就執行，必須要去修改<code>.config/lxsession/Lubuntu/autostart</code>。</p>
+<p>加入</p>
+<div class="highlight"><pre>@xrandr --auto --output VGA-1 --right-of DVI-I-1
+</pre></div>
+
+
+<p>接著會在<code>.config/autostart/lxrandr-autostart.desktop</code>看到相關設定。</p>
+                    <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html" rel="bookmark" title="Permalink to 利用 squid 及 pam module 建立 proxy server">利用 squid 及 pam module 建立 proxy server</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 22 五月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>以下是 squid3 的設定方式</p>
+<ol>
+<li>首先修改 <b>/etc/squid3/squid.conf</b>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</li>
+</ol>
+<p>在 auth_param section 中:</p>
+<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+</pre></div>
+
+
+<p>在 acl section 中：</p>
+<div class="highlight"><pre>acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED ...</pre></div>
+                    <a href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
                         <a href="http://twmht.github.io/blog/posts/2014/05/multithread/ThreadPerMessage.html" rel="bookmark" title="Permalink to Thread-Per-Message Pattern -- 這個工作交給你了">Thread-Per-Message Pattern -- 這個工作交給你了</a>
                     </h2> 
                 </header>
@@ -293,89 +354,10 @@
                 <!-- /.entry-content -->
             </article>
         </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/singleton.html" rel="bookmark" title="Permalink to Singleton Pattern -- 唯一的物件個體">Singleton Pattern -- 唯一的物件個體</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
-<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
-<h3>如何設計</h3>
-<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
-<h3>程式範例</h3>
-<p>設計一個只有一個物件個體的類別。</p>
-<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
-
-<h4>Singleton 參與者</h4>
-<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
-<h3>優點</h3>
-<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
-<h3>問題 ...</h3>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/singleton.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/iterator.html" rel="bookmark" title="Permalink to Iterator Pattern">Iterator Pattern</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。</h3>
-<p>現在要寫一個程式，可以把書籍放到書架上，並且依序印出來。</p>
-<p>Aggregate Interface，實作此Interface的類別就變成類似<font color=red>陣列（多個數字或變數的集合)</font>。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Aggregate</span> <span class="o">{</span>
-    <span class="c1">//一個可對應聚合的iterator</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>如果要掃描整個聚合時，利用iterator方法即可建立一個實作Iterator介面的類別物件個體。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Iterator</span> <span class="o">{</span>
-    <span class="c1">//有沒有下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
-    <span class="c1">//下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Object</span> <span class="nf">next</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Book類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public ...</span></pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/iterator.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
     </ol><!-- /#posts-list -->
 </div>
 <p class="paginator">
-    Page 1 / 10
+    Page 1 / 11
         <a href="http://twmht.github.io/blog/author/twmht2.html">&raquo;</a>
 </p>
 </section><!-- /#content -->

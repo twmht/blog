@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-04-17T16:29:31+08:00</updated><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/04/others/Eclipse.html" rel="alternate"></link><updated>2014-04-17T16:29:31+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-04-17:posts/2014/04/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-05T18:12:37+08:00</updated><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-05T18:12:37+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-05:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
+&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html" rel="alternate"></link><updated>2014-05-22T20:14:06+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-05-22:posts/2014/05/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先修改 &lt;b&gt;/etc/squid3/squid.conf&lt;/b&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在 auth_param section 中:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 acl section 中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 http_access 中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http_access allow pam
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;接下來修改 &lt;b&gt;/etc/pam.d/squid&lt;/b&gt;，加入以下這兩行。&lt;/p&gt;
+&lt;p&gt;:::bash&lt;/p&gt;
+&lt;h1&gt;先找出 pam_unix.so 的路徑&lt;/h1&gt;
+&lt;h1&gt;updatedb &amp;amp;&amp;amp; locate pam_unix.so&lt;/h1&gt;
+&lt;p&gt;auth required path_to_pam_unix.so
+account required path_to_pam_unix.so&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重新啟動 squid&lt;/p&gt;
+&lt;p&gt;:::bash
+service squid restart&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;若驗證有問題，則可能是權限問題。&lt;/p&gt;
+&lt;p&gt;:::bash
+sudo chmod u+s /usr/lib/squid3/pam_auth&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary></entry><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/04/others/Eclipse.html" rel="alternate"></link><updated>2014-04-17T16:29:31+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-04-17:posts/2014/04/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
 &lt;p&gt;&lt;font color=red&gt;首先是Editor theme。&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;Install new software-&amp;gt;add-&amp;gt;http://eclipse-color-theme.github.com/update&lt;/p&gt;
 &lt;p&gt;Name打Editor Theme。&lt;/p&gt;

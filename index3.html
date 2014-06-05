@@ -47,6 +47,77 @@
             <article class="archive">
                 <header> 
                     <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/others/addFont.html" rel="bookmark" title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
+<ul>
+<li>
+<p>使用gnome-font-viewer </p>
+<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
+</pre></div>
+
+
+</li>
+<li>
+<p>直接在myfont.ttf上面點兩下直接安裝。</p>
+</li>
+<li>
+<p>適合一次安裝大量字型檔</p>
+<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
+sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf <span class="c">#可能不需要</span>
+<span class="nb">fc</span>-cache
+</pre></div>
+
+
+</li>
+</ul>
+<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/others/addFont.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/others/backupmysql.html" rel="bookmark" title="Permalink to 如何備份mysql database">如何備份mysql database</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</pre></div>
+
+
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+</pre></div>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/others/backupmysql.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
                         <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/chainOfResponsibility.html" rel="bookmark" title="Permalink to Chain of Responsibility Pattern -- 責任轉送">Chain of Responsibility Pattern -- 責任轉送</a>
                     </h2> 
                 </header>
@@ -296,84 +367,11 @@ sudo apt-get install phpmyadmin
                 <!-- /.entry-content -->
             </article>
         </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html" rel="bookmark" title="Permalink to Memento Pattern">Memento Pattern</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>在文書軟體的操作環境下，即使不小心誤刪除了某些文字內容，只要利用 undo 功能就能救回被刪除前的內容。有些文書軟體甚至支援一次以上的還原動作。
-物件導向程式如果要執行復原，必須預先儲存物件個體的狀態。但是又不能只做儲存的動作，否則無法以儲存的情報將物件的個體復原的原始的狀態。
-必須要能自由存取物件個體內部的情報，才能還原物件個體。不過如果對存取動作毫不設限，又會讓高度依賴類別內部結構的程式碼分散到程式各處，增加修改類別時的困擾。這稱為封裝式破壞。</p>
-<h3>如何設計</h3>
-<p>加入表示物件個體狀態的功能，而能在執行儲存以及復原時不發生封裝性破壞。它會讓某個時間點的物件個體狀態紀錄儲存起來，等到以後再讓物件個體復原到當時的狀態。例如:</p>
-<ol>
-<li>undo (復原)</li>
-<li>redo (重複)</li>
-<li>history (產生操作紀錄)</li>
-<li>snapshot (儲存目前狀態)</li>
-</ol>
-<h3>程式範例</h3>
-<p>模擬一個收集水果的骰子遊戲，遊戲規則很簡單:</p>
-<ul>
-<li>遊戲會自動進行</li>
-<li>遊戲的主人翁丟骰子，根據骰子的結果</li>
-<li>出現好的點數，則金錢增加。</li>
-<li>出現不好的點數，則金錢減少。</li>
-<li>出現很好的點數，可額外得到一個水果。</li>
-<li>玩到沒錢時，遊戲結束。</li>
-</ul>
-<p>為了後面能不受影響繼續進行，程式中儲存金錢的位置有建立一個 Memento 類別的物件個體，用來儲存 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/memento.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html" rel="bookmark" title="Permalink to Observer Pattern">Observer Pattern</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>observer是觀察的人，也就是觀察者的意思。
-當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
-<h3>如何設計</h3>
-<p>重點在於設計Observer Interface以及有具體實作的Observer類別。另外，也需要設計被觀察者。</p>
-<h3>程式範例</h3>
-<p>觀察者觀察產生多個數值的物件，然後輸出該值，輸出方式因觀察者而異。在這個範例中，有用數字來輸出的觀察者以及用長條圖來輸出的觀察者。</p>
-<p>在 Observer Interface 中，呼叫 update 方法的是產生數值的 NumberGenerator ( generator 是 "產生器" "產生設備" 的意思)。update 方法是 NumberGenerator 用來告訴 Observer 說 "我的內容已經更新過了，請你也更新你的輸出內容" 的方法。</p>
-<script src="https://gist.github.com/twmht/3fd90157d2327707922e.js"></script>
-
-<h4>Subject (被觀察者) 參與者</h4>
-<p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/observer.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
     </ol><!-- /#posts-list -->
 </div>
 <p class="paginator">
             <a href="http://twmht.github.io/blog/index2.html">&laquo;</a>
-    Page 3 / 10
+    Page 3 / 11
         <a href="http://twmht.github.io/blog/index4.html">&raquo;</a>
 </p>
 </section><!-- /#content -->

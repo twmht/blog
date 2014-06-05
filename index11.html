@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>技術筆記</title>
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
+        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
+        <meta charset="utf-8" />
+      
+
+        <!-- Javascript-->
+        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        <script type="text/javascript"> 
+          $(function() {
+            invisibleMenu();
+          });
+        </script> 
+</head>
+
+<body id="index" class="home">
+     <div class="navigation">
+        <ol class="nav">
+          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
+          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
+          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
+          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
+        </ol>
+      </div>
+        <header id="banner" class="body">
+                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+        </ul></nav><!-- /#menu -->
+        <div class="box">
+        
+<section id="content">
+<div class="posts">
+    <ol id="post-list">
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva10959.html" rel="bookmark" title="Permalink to ACM UVA-10959">ACM UVA-10959</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10959.htm">bfs</a></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">ans</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">first</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">~</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">t</span><span class="p">)){</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">){</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">P</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span>
+            <span class="kt">bool</span> <span class="n">visit</span><span class="p">[</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">first</span><span class="p">){</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="kt">int</span> <span class="n">p</span><span class="p">,</span><span class="n">d</span><span class="p">;</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">d</span><span class="o">--</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">;</span>
+                <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d ...</span></pre></div>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva10959.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva10986.html" rel="bookmark" title="Permalink to ACM UVA-10986">ACM UVA-10986</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dis</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Node</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">dis</span><span class="o">&gt;</span><span class="n">n</span><span class="p">.</span><span class="n">dis</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">w</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+
+
+    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d ...</span></pre></div>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva10986.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+    </ol><!-- /#posts-list -->
+</div>
+<p class="paginator">
+            <a href="http://twmht.github.io/blog/index10.html">&laquo;</a>
+    Page 11 / 11
+</p>
+</section><!-- /#content -->
+            <hr/>
+            <footer id="contentinfo" class="footer">
+                <div>
+                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
+                </div>
+                <div>
+                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
+                </div>
+                <div>
+                    powered by <a href="http://getpelican.com/">Pelican</a>
+                    and <a href="http://python.org">Python</a>. 
+                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
+                </div>
+                <div>
+                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
+                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
+                </div>
+                <div class="social">
+                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
+                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
+                </div>
+            </footer><!-- /#contentinfo -->
+        </div>
+        <!--Add statistycs-->
+</body>
+</html>

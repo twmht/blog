@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>技術筆記 - Authors</title>
+        <title>技術筆記</title>
         <!-- Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
@@ -29,7 +29,7 @@
           <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
           <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
           <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
-          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
+          <li><a href="">RSS</a> </li>
         </ol>
       </div>
         <header id="banner" class="body">
@@ -38,7 +38,30 @@
         <nav id="menu"><ul>
         </ul></nav><!-- /#menu -->
         <div class="box">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (102)</li>
+<section id="content" class="body">
+  <header class="post">
+    <h2 class="entry-title">
+      Lubuntu 底下設定雙螢幕
+    </h2>
+  </header>
+  <footer class="post-info">
+    <abbr>
+      四 05 六月 2014 
+         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+    </abbr>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>以下是 lubuntu 的設定方式。</p>
+<p>如果想進入桌面之後就執行，必須要去修改<code>.config/lxsession/Lubuntu/autostart</code>。</p>
+<p>加入</p>
+<div class="highlight"><pre>@xrandr --auto --output VGA-1 --right-of DVI-I-1
+</pre></div>
+
+
+<p>接著會在<code>.config/autostart/lxrandr-autostart.desktop</code>看到相關設定。</p>
+  </div><!-- /.entry-content -->
+</section>
             <hr/>
             <footer id="contentinfo" class="footer">
                 <div>

@@ -47,6 +47,78 @@
             <article class="archive">
                 <header> 
                     <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/cc/class.html" rel="bookmark" title="Permalink to C++的Class中的一些重點整理">C++的Class中的一些重點整理</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p><font color=red> class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 </font></p>
+<p>以下是我看螞蟻書的重點整理。另外，也有參考<a href="https://www.google.com.tw/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;sig2=lqmcR3rmQmWj79H-W_q8DQ">這篇</a>。</p>
+<ul>
+<li>friend function:
+簡單來說就是你在class裡面定義了一個friend function，這個function是在class的外面，同時這個function可以修改private data。</li>
+<li>const function:
+在function後面如果加了const的話，就表示它不會修改任何的menber data，所以，const object不能夠呼叫non const function。</li>
+</ul>
+<p>以下講權限範圍，如果沒有定義的話，則預設表示private。其實跟java很類似，差別在於java沒有friend class，而且java的預設權限是package scope。</p>
+<ul>
+<li>private: 只有自己或者是friend class看得到(其實就是可不可以直接存取的意思啦)。</li>
+<li>protected: 只有自己，friend class或者子類別才可以看得到。</li>
+<li>public: 任何可以看到這個class的地方都可以使用。</li>
+</ul>
+<p>建構子跟解構子也很重要，以前不太清楚解構子可以幹嘛，只知道物件被回收的時候解構子會自動被呼叫。
+以下這個例子我覺得很好 ...</p>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/cc/class.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/04/cc/compator.html" rel="bookmark" title="Permalink to 定義Comparator">定義Comparator</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 17 四月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>常見有三種定義方式。</p>
+<h1>1. Define operator&lt;()</h1>
+<div class="highlight"><pre><span class="k">struct</span> <span class="n">Edge</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Edge</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="n">other</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">printOut</span><span class="p">(</span><span class="n">Edge</span> <span class="n">e</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">.</span><span class="n">weight</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="n">Edge</span><span class="p">){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back ...</span></pre></div>
+                    <a href="http://twmht.github.io/blog/posts/2014/04/cc/compator.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
                         <a href="http://twmht.github.io/blog/posts/2014/04/multithread/deadlock.html" rel="bookmark" title="Permalink to DeadLock">DeadLock</a>
                     </h2> 
                 </header>
@@ -320,73 +392,11 @@ Stack.h</p>
                 <!-- /.entry-content -->
             </article>
         </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11059.html" rel="bookmark" title="Permalink to ACM UVA-11059">ACM UVA-11059</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm">max product</a></p>
-<div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-
-<span class="p">{</span>
-    <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">round</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Max</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">)</span>
-
-    <span class="p">{</span>      
-          <span class="n">round</span><span class="o">++</span><span class="p">;</span> 
-          <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="p">{</span>
-                  <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">data</span><span class="p">;</span>
-                  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-          <span class="p">}</span>
-
-          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="p">{</span>
-          <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j ...</span></pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11059.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11069.html" rel="bookmark" title="Permalink to ACM UVA-11069">ACM UVA-11069</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。</p>
-<p>所以關係式應為f[n] = f[n-2]+f[n-3]</p>
-<p>其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
-f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/acm/uva11069.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
     </ol><!-- /#posts-list -->
 </div>
 <p class="paginator">
             <a href="http://twmht.github.io/blog/author/twmht4.html">&laquo;</a>
-    Page 5 / 10
+    Page 5 / 11
         <a href="http://twmht.github.io/blog/author/twmht6.html">&raquo;</a>
 </p>
 </section><!-- /#content -->
