@@ -47,6 +47,40 @@
             <article class="archive">
                 <header> 
                     <h2 class="archive-entry-title">
+                        <a href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="bookmark" title="Permalink to 利用 squid 及 pam module 建立 proxy server">利用 squid 及 pam module 建立 proxy server</a>
+                    </h2> 
+                </header>
+                <footer class="post-info">
+                    <abbr>
+                      四 05 六月 2014 
+                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+  
+                    </abbr>
+                    <div class="entry-summary"> <p>以下是 squid3 的設定方式</p>
+<ul>
+<li>
+<p>首先修改 <code>/etc/squid3/squid.conf</code>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</p>
+<p>在 auth_param section 中:</p>
+<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+</pre></div>
+
+
+<p>在 acl section 中：</p>
+<div class="highlight"><pre>acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED ...</pre></div></li></ul>
+                    <a href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html">read more</a></div>
+                </footer><!-- /.post-info -->
+                <!-- /.entry-content -->
+            </article>
+        </li>
+        
+        <li>
+            <article class="archive">
+                <header> 
+                    <h2 class="archive-entry-title">
                         <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="bookmark" title="Permalink to Lubuntu 底下設定雙螢幕">Lubuntu 底下設定雙螢幕</a>
                     </h2> 
                 </header>
@@ -65,40 +99,6 @@
 
 <p>接著會在<code>.config/autostart/lxrandr-autostart.desktop</code>看到相關設定。</p>
                     <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html" rel="bookmark" title="Permalink to 利用 squid 及 pam module 建立 proxy server">利用 squid 及 pam module 建立 proxy server</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 22 五月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>以下是 squid3 的設定方式</p>
-<ol>
-<li>首先修改 <b>/etc/squid3/squid.conf</b>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</li>
-</ol>
-<p>在 auth_param section 中:</p>
-<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
-auth_param basic children 5
-auth_param basic realm Squid proxy-caching web server
-auth_param basic credentialsttl 2 hours
-</pre></div>
-
-
-<p>在 acl section 中：</p>
-<div class="highlight"><pre>acl pam proxy_auth REQUIRED
-acl password proxy_auth REQUIRED ...</pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html">read more</a></div>
                 </footer><!-- /.post-info -->
                 <!-- /.entry-content -->
             </article>

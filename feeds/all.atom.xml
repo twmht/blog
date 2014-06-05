@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-05T18:12:37+08:00</updated><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-05T18:12:37+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-05:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
-&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;加入&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/05/others/squid_proxy.html" rel="alternate"></link><updated>2014-05-22T20:14:06+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-05-22:posts/2014/05/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;首先修改 &lt;b&gt;/etc/squid3/squid.conf&lt;/b&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/li&gt;
-&lt;/ol&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-05T18:24:58+08:00</updated><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="alternate"></link><updated>2014-06-05T18:24:58+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-05:posts/2014/06/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先修改 &lt;code&gt;/etc/squid3/squid.conf&lt;/code&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/p&gt;
 &lt;p&gt;在 auth_param section 中:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;auth_param basic program /usr/lib/squid/pam_auth
 auth_param basic children 5
@@ -29,26 +22,40 @@ acl password proxy_auth REQUIRED
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;ol&gt;
+&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;接下來修改 &lt;b&gt;/etc/pam.d/squid&lt;/b&gt;，加入以下這兩行。&lt;/p&gt;
-&lt;p&gt;:::bash&lt;/p&gt;
-&lt;h1&gt;先找出 pam_unix.so 的路徑&lt;/h1&gt;
-&lt;h1&gt;updatedb &amp;amp;&amp;amp; locate pam_unix.so&lt;/h1&gt;
-&lt;p&gt;auth required path_to_pam_unix.so
-account required path_to_pam_unix.so&lt;/p&gt;
+&lt;p&gt;接下來修改 &lt;code&gt;/etc/pam.d/squid&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入下面這兩行。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#先找出 pam_unix.so 的路徑&lt;/span&gt;
+&lt;span class="c"&gt;#updatedb &amp;amp;&amp;amp; locate pam_unix.so&lt;/span&gt;
+auth required path_to_pam_unix.so
+account required path_to_pam_unix.so
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;重新啟動 squid&lt;/p&gt;
-&lt;p&gt;:::bash
-service squid restart&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;service squid restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;若驗證有問題，則可能是權限問題。&lt;/p&gt;
-&lt;p&gt;:::bash
-sudo chmod u+s /usr/lib/squid3/pam_auth&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo chmod u+s /usr/lib/squid3/pam_auth
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;/li&gt;
-&lt;/ol&gt;</summary></entry><entry><title>Thread-Per-Message Pattern -- 這個工作交給你了</title><link href="http://twmht.github.io/blog/posts/2014/05/multithread/ThreadPerMessage.html" rel="alternate"></link><updated>2014-05-19T15:57:24+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-05-19:posts/2014/05/multithread/ThreadPerMessage.html</id><summary type="html">&lt;p&gt;對每個命令或請求，配置一個執行緒，由這個執行緒執行工作，這就是 Thread-Per-Message Pattern。&lt;/p&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-05T18:12:37+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-05:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
+&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>Thread-Per-Message Pattern -- 這個工作交給你了</title><link href="http://twmht.github.io/blog/posts/2014/05/multithread/ThreadPerMessage.html" rel="alternate"></link><updated>2014-05-19T15:57:24+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-05-19:posts/2014/05/multithread/ThreadPerMessage.html</id><summary type="html">&lt;p&gt;對每個命令或請求，配置一個執行緒，由這個執行緒執行工作，這就是 Thread-Per-Message Pattern。&lt;/p&gt;
 &lt;p&gt;在範例程式中，Main 類別會委託 Host 類別顯示文字。Host 類別會啟動一個執行緒，來處理這項委託的工作。啟動的執行緒，會使用 Helper 類別實際進行顯示動作。 無論 Helper 類別的 handle 方法多花時間，Main 類別的 request 方法都不會等待 handle 方法執行完畢，而會馬上離開。&lt;/p&gt;
 &lt;script src="https://gist.github.com/twmht/2eea75686a221a8d57b8.js"&gt;&lt;/script&gt;
 

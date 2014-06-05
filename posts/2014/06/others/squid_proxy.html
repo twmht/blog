@@ -46,16 +46,16 @@
   </header>
   <footer class="post-info">
     <abbr>
-      四 22 五月 2014 
+      四 05 六月 2014 
          By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
   
     </abbr>
   </footer><!-- /.post-info -->
   <div class="entry-content">
     <p>以下是 squid3 的設定方式</p>
-<ol>
-<li>首先修改 <b>/etc/squid3/squid.conf</b>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</li>
-</ol>
+<ul>
+<li>
+<p>首先修改 <code>/etc/squid3/squid.conf</code>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</p>
 <p>在 auth_param section 中:</p>
 <div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
 auth_param basic children 5
@@ -75,26 +75,33 @@ acl password proxy_auth REQUIRED
 </pre></div>
 
 
-<ol>
+</li>
 <li>
-<p>接下來修改 <b>/etc/pam.d/squid</b>，加入以下這兩行。</p>
-<p>:::bash</p>
-<h1>先找出 pam_unix.so 的路徑</h1>
-<h1>updatedb &amp;&amp; locate pam_unix.so</h1>
-<p>auth required path_to_pam_unix.so
-account required path_to_pam_unix.so</p>
+<p>接下來修改 <code>/etc/pam.d/squid</code>。</p>
+<p>加入下面這兩行。</p>
+<div class="highlight"><pre><span class="c">#先找出 pam_unix.so 的路徑</span>
+<span class="c">#updatedb &amp;&amp; locate pam_unix.so</span>
+auth required path_to_pam_unix.so
+account required path_to_pam_unix.so
+</pre></div>
+
+
 </li>
 <li>
 <p>重新啟動 squid</p>
-<p>:::bash
-service squid restart</p>
+<div class="highlight"><pre>service squid restart
+</pre></div>
+
+
 </li>
 <li>
 <p>若驗證有問題，則可能是權限問題。</p>
-<p>:::bash
-sudo chmod u+s /usr/lib/squid3/pam_auth</p>
+<div class="highlight"><pre>sudo chmod u+s /usr/lib/squid3/pam_auth
+</pre></div>
+
+
 </li>
-</ol>
+</ul>
   </div><!-- /.entry-content -->
 </section>
             <hr/>
