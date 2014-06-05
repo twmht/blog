@@ -1,4 +1,4 @@
-Title: adb devices 顯示 "no permissions"
+Title: adb devices 顯示 no permissions
 Slug: adb_permission
 Category: android
 Author: twmht
