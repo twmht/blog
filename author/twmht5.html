@@ -80,6 +80,52 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/macro.html" rel="bookmark" title="Permalink to 用macro的技巧">
+                                       用macro的技巧
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-06-18
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>關於macro的介紹，有一個還不錯的<a href="http://www.cprogramming.com/tutorial/cpreprocessor.html">網站</a>。</p>
+<p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
+<span class="c1">//也可以這樣</span>
+<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
+<span class="c1">//s: aaa</span>
+<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//a is 5</span>
+<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果想要一次印出多個變數，可以這樣做。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)     do {         printf(&quot;%s: %s\n&quot;, #var ...</span></pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/macro.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
                                     <a href="http://twmht.github.io/blog/posts/2014/06/cc/class.html" rel="bookmark" title="Permalink to C++的Class中的一些重點整理">
                                        C++的Class中的一些重點整理
                                     </a>
@@ -251,43 +297,6 @@
 <div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
                                 <p class="readmore">
                                     <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/Introduction.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html" rel="bookmark" title="Permalink to adb devices 顯示 no permissions">
-                                       adb devices 顯示 no permissions
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/android.html">android</a>
-
-    on 2014-06-18
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>解決方法如下，這使得任何使用 adb 的使用者都是以 root 的權限來使用：</p>
-<div class="highlight"><pre>sudo chown root:root adb
-sudo chmod a+x adb
-sudo chmod a+s adb
-adb <span class="nb">kill</span>-server
-adb start-server
-</pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -547,6 +556,12 @@ adb start-server
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

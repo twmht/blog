@@ -5,14 +5,14 @@
     <meta name="author" content="twmht" />
     <meta name="robots" content="index, follow"/>
 
-    <meta property="og:title" content="如何在ubuntu中加入新的字型"/>
-    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/06/others/addFont.html"/>
+    <meta property="og:title" content="技術筆記 - font"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/tag/font.html"/>
     <meta property="og:site_name" content="技術筆記"/>
-    <meta property="og:type" content="article"/>
+    <meta property="og:type" content="website"/>
 
-    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" />
+    <link rel="canonical" href="http://twmht.github.io/blog/tag/font.html" />
 
-    <title>如何在ubuntu中加入新的字型 | 技術筆記</title>
+    <title>技術筆記 - font | 技術筆記</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
@@ -48,7 +48,7 @@
                             <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                            <li class="active"><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
                         </ul>
 
@@ -73,63 +73,69 @@
     <div class="row-fluid">
         <div class="span10 offset1">
             <div class="row-fluid">
-<div class="span10 offset1">
-  <section>
-    <article>
-      <header>
-        <h1 class="entry-title">
-          <a href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="bookmark"
-             title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a></h1>
-      </header>
-      <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
+<div class="span9">
+    <section>
+    <h1>Articles tagged with "font"</h1>
 
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+        <div class="row-fluid archive_row">
+            <div class="span1 archive_year">2014</div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset1 span1 archive_month">Jun</div>
+        </div>
+        <div class="row-fluid archive_row">
+                <div class="offset1 span1 archive_day">
+                18
+                </div>
+            <div class="span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html">如何在ubuntu中加入新的字型</a>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="span3">
+    <section id="sidebar">
+            <div>
+                <h2>Browse content by</h2>
+                <ul class="fa-ul">
+                <li><a href="http://twmht.github.io/blog/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
+                <li><a href="http://twmht.github.io/blog/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
+                <li><a href="http://twmht.github.io/blog/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
 
-    on 2014-06-18
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
-        <a href="http://twmht.github.io/blog/tag/font.html">font</a>
-
-
-
-    
-</footer><!-- /.post-info -->
-
-        <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
-<ul>
-<li>
-<p>使用gnome-font-viewer </p>
-<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
-</pre></div>
-
-
-</li>
-<li>
-<p>直接在myfont.ttf上面點兩下直接安裝。</p>
-</li>
-<li>
-<p>適合一次安裝大量字型檔</p>
-<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
-sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf <span class="c">#可能不需要</span>
-<span class="nb">fc</span>-cache
-</pre></div>
-
-
-</li>
-</ul>
-<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-
-      </div><!-- /.entry-content -->
-
-    </article>
-  </section>
+                <li><a href="http://twmht.github.io/blog/feeds/all.atom.xml"><i class="fa-li fa fa-rss"></i> Feed</a></li>
+                </ul>
+            </div><!-- /.browse -->
+            <div>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="http://getpelican.com/">Pelican</a></li>
+                    <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                    <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                    <li><a href="http://twmht.github.io">Author</a></li>
+                    <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                    <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                </ul>
+            </div><!-- /.Links -->
+            <div>
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="https://github.com/twmht">Github</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                </ul>
+            </div><!-- /.social -->
+            <div>
+                <h2>Tags</h2>
+                <ul id="cloud">
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                </ul>
+             </div>
+<!-- /.Tags -->
+    </section><!-- /#sidebar -->
 </div>
             </div>
         </div>

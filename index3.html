@@ -80,6 +80,48 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/observer.html" rel="bookmark" title="Permalink to Observer Pattern">
+                                       Observer Pattern
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-06-18
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>observer是觀察的人，也就是觀察者的意思。
+當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
+<h3>如何設計</h3>
+<p>重點在於設計Observer Interface以及有具體實作的Observer類別。另外，也需要設計被觀察者。</p>
+<h3>程式範例</h3>
+<p>觀察者觀察產生多個數值的物件，然後輸出該值，輸出方式因觀察者而異。在這個範例中，有用數字來輸出的觀察者以及用長條圖來輸出的觀察者。</p>
+<p>在 Observer Interface 中，呼叫 update 方法的是產生數值的 NumberGenerator ( generator 是 "產生器" "產生設備" 的意思)。update 方法是 NumberGenerator 用來告訴 Observer 說 "我的內容已經更新過了，請你也更新你的輸出內容" 的方法。</p>
+<script src="https://gist.github.com/twmht/3fd90157d2327707922e.js"></script>
+
+<h4>Subject (被觀察者) 參與者</h4>
+<p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/observer.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
                                     <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/prototype.html" rel="bookmark" title="Permalink to Prototype Pattern -- 複製建立物件個體">
                                        Prototype Pattern -- 複製建立物件個體
                                     </a>
@@ -504,59 +546,6 @@
                             <hr/>
                         </article>
                     </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/builder.html" rel="bookmark" title="Permalink to Builder Pattern -- 組合複雜的物件個體">
-                                       Builder Pattern -- 組合複雜的物件個體
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-18
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>所謂萬丈高樓平地起，大樓首先得打穩地基並搭建骨架，再由上而下一層層蓋上去。一般來說，如果搭建的結構愈複雜就愈難一氣呵成。</p>
-<h3>如何設計</h3>
-<p>你得先把整個架構分成幾個部份，等到個別部份都完成了之後再依序組合起來才行。</p>
-<h3>程式範例</h3>
-<p>設計一個建立<strong>文件</strong>的程式吧!</p>
-<ul>
-<li>含有一個標題</li>
-<li>含有一些字串</li>
-<li>含有一些有項目符號的項目</li>
-</ul>
-<p>Builder 類別規定組成文件的方法，而 Director 類別利用這個方法才能產生一份文件具體的文件。</p>
-<p>Builder 類別是抽象類別，不含實際的處理內容，僅宣告抽象方法而已。決定產生文件的具體處理內容則是 Builder 類別的子類別。</p>
-<p>以下幾個類別為 Builder 類別的子類別。</p>
-<ul>
-<li>TextBuilder 類別</li>
-<li>HTMLBuilder 類別</li>
-</ul>
-<p>Director 若使用 TextBuilder 則可產生一般格式的文件，如果使用 HTMLBuilder 則可產生 HTML 格式的文件。</p>
-<script src="https://gist.github.com/twmht/763c4db0a1d41388d333.js"></script>
-
-<h4>Builder 參與者</h4>
-<p>Builder 規定產生物件個體的介面。包括有產生物件個體各個部份的方法和取得最後結果的方法。例如 ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/builder.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
                     </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/index2.html">&laquo;</a>
@@ -598,6 +587,12 @@
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

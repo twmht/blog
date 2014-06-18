@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-18T11:12:48+08:00</updated><entry><title>multiprocessing with map</title><link href="http://twmht.github.io/blog/posts/2014/06/python/multiprocessing_map.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/python/multiprocessing_map.html</id><summary type="html">&lt;p&gt;&lt;a href="https://medium.com/building-things-on-the-internet/parallelism-in-one-line-40e9b2b36148"&gt;參考&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-18T11:34:20+08:00</updated><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="alternate"></link><updated>2014-06-18T11:34:20+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用gnome-font-viewer &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo gnome-font-viewer myfont.ttf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;直接在myfont.ttf上面點兩下直接安裝。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;適合一次安裝大量字型檔&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/share/fonts/truetype &lt;span class="c"&gt;#如果是open type font(otf)的話，資料夾名稱是opentype&lt;/span&gt;
+sudo mkdir myfonts &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd &lt;/span&gt;myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
+&lt;span class="nb"&gt;fc&lt;/span&gt;-cache
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary><category term="ubuntu"></category><category term="font"></category></entry><entry><title>adb devices 顯示 no permissions</title><link href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html" rel="alternate"></link><updated>2014-06-18T11:33:45+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/android/adb_permission.html</id><summary type="html">&lt;p&gt;解決方法如下，這使得任何使用 adb 的使用者都是以 root 的權限來使用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo chown root:root adb
+sudo chmod a+x adb
+sudo chmod a+s adb
+adb &lt;span class="nb"&gt;kill&lt;/span&gt;-server
+adb start-server
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="adb"></category><category term="android"></category></entry><entry><title>multiprocessing with map</title><link href="http://twmht.github.io/blog/posts/2014/06/python/multiprocessing_map.html" rel="alternate"></link><updated>2014-06-18T11:32:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/python/multiprocessing_map.html</id><summary type="html">&lt;p&gt;&lt;a href="https://medium.com/building-things-on-the-internet/parallelism-in-one-line-40e9b2b36148"&gt;參考&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;一般來說，會利用 Producer/Consumer 來處理 Multithread。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
 &lt;span class="sd"&gt;Standard Producer/Consumer Threading Pattern&lt;/span&gt;
@@ -183,7 +213,7 @@
     &lt;span class="n"&gt;pool&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_thumbnail&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;images&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;pool&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;pool&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>安裝 pythonbrew</title><link href="http://twmht.github.io/blog/posts/2014/06/python/pythonbrew.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/python/pythonbrew.html</id><summary type="html">&lt;script src="https://gist.github.com/twmht/10984610.js"&gt;&lt;/script&gt;</summary></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="python"></category><category term="thread"></category></entry><entry><title>安裝 pythonbrew</title><link href="http://twmht.github.io/blog/posts/2014/06/python/pythonbrew.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/python/pythonbrew.html</id><summary type="html">&lt;script src="https://gist.github.com/twmht/10984610.js"&gt;&lt;/script&gt;</summary></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
 這時候可以使用&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;alsamixer
 &lt;/pre&gt;&lt;/div&gt;
@@ -346,31 +376,7 @@ mkdir /home/&lt;span class="nv"&gt;$USER&lt;/span&gt;/public_html
 &lt;p&gt;假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#delay的值*10ms為delay的秒數，loop為0表示infinite loop&lt;/span&gt;
 convert -delay 100 -loop 0 gif/* output.gif
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;使用gnome-font-viewer &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo gnome-font-viewer myfont.ttf
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;直接在myfont.ttf上面點兩下直接安裝。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;適合一次安裝大量字型檔&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/share/fonts/truetype &lt;span class="c"&gt;#如果是open type font(otf)的話，資料夾名稱是opentype&lt;/span&gt;
-sudo mkdir myfonts &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd &lt;/span&gt;myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
-&lt;span class="nb"&gt;fc&lt;/span&gt;-cache
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -3363,13 +3369,7 @@ Bar tmpBarA(myBar);
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;被叫醒後的執行緒，要繼續排隊取得鎖定，之後會執行wait()後的敘述。&lt;/p&gt;</summary></entry><entry><title>adb devices 顯示 no permissions</title><link href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/android/adb_permission.html</id><summary type="html">&lt;p&gt;解決方法如下，這使得任何使用 adb 的使用者都是以 root 的權限來使用：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo chown root:root adb
-sudo chmod a+x adb
-sudo chmod a+s adb
-adb &lt;span class="nb"&gt;kill&lt;/span&gt;-server
-adb start-server
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Mutex</title><link href="http://twmht.github.io/blog/posts/2014/06/multithread/mutex.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/multithread/mutex.html</id><summary type="html">&lt;p&gt;如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。&lt;/p&gt;
+&lt;p&gt;被叫醒後的執行緒，要繼續排隊取得鎖定，之後會執行wait()後的敘述。&lt;/p&gt;</summary></entry><entry><title>Mutex</title><link href="http://twmht.github.io/blog/posts/2014/06/multithread/mutex.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/multithread/mutex.html</id><summary type="html">&lt;p&gt;如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。&lt;/p&gt;
 &lt;p&gt;現在來修改在&lt;a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html"&gt;Single Threaded Execution Pattern&lt;/a&gt;所用到的Gate類別。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Gate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;counter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
