@@ -1,334 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-        <title>技術筆記</title>
-        <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
-        <meta charset="utf-8" />
-      
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
 
-        <!-- Javascript-->
-        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script type="text/javascript"> 
-          $(function() {
-            invisibleMenu();
-          });
-        </script> 
+    <meta property="og:title" content="技術筆記 - Others"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/category/others.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="website"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/category/others.html" />
+
+    <title>技術筆記 - Others</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
 </head>
 
-<body id="index" class="home">
-     <div class="navigation">
-        <ol class="nav">
-          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
-          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
-          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
-          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
-        </ol>
-      </div>
-        <header id="banner" class="body">
-                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-        </ul></nav><!-- /#menu -->
-        <div class="box">
-        
-<section id="content">
-<div class="posts">
-    <ol id="post-list">
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="bookmark" title="Permalink to 利用 squid 及 pam module 建立 proxy server">利用 squid 及 pam module 建立 proxy server</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 05 六月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>以下是 squid3 的設定方式</p>
-<ul>
-<li>
-<p>首先修改 <code>/etc/squid3/squid.conf</code>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</p>
-<p>在 auth_param section 中:</p>
-<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
-auth_param basic children 5
-auth_param basic realm Squid proxy-caching web server
-auth_param basic credentialsttl 2 hours
-</pre></div>
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
 
-
-<p>在 acl section 中：</p>
-<div class="highlight"><pre>acl pam proxy_auth REQUIRED
-acl password proxy_auth REQUIRED ...</pre></div></li></ul>
-                    <a href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="bookmark" title="Permalink to Lubuntu 底下設定雙螢幕">Lubuntu 底下設定雙螢幕</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 05 六月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>以下是 lubuntu 的設定方式。</p>
-<p>如果想進入桌面之後就執行，必須要去修改<code>.config/lxsession/Lubuntu/autostart</code>。</p>
-<p>加入</p>
-<div class="highlight"><pre>@xrandr --auto --output VGA-1 --right-of DVI-I-1
-</pre></div>
-
-
-<p>接著會在<code>.config/autostart/lxrandr-autostart.desktop</code>看到相關設定。</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/Eclipse.html" rel="bookmark" title="Permalink to Eclipse的設定">Eclipse的設定</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h2>修改Eclipse預設的Editor Theme及IDE theme</h2>
-<p><font color=red>首先是Editor theme。</font></p>
-<p>Install new software-&gt;add-&gt;http://eclipse-color-theme.github.com/update</p>
-<p>Name打Editor Theme。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance-&gt;Editor Theme選擇要的Theme。</p>
-<p><font color=red> 接下來是IDE theme。 </font></p>
-<p>下載<a href="http://rogerdudler.github.io/eclipse-ui-themes/">Dark Juno</a>。</p>
-<p>解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance選擇Dark Juno。</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/Eclipse.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/addFont.html" rel="bookmark" title="Permalink to 如何在ubuntu中加入新的字型">如何在ubuntu中加入新的字型</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
-<ul>
-<li>
-<p>使用gnome-font-viewer </p>
-<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
-</pre></div>
-
-
-</li>
-<li>
-<p>直接在myfont.ttf上面點兩下直接安裝。</p>
-</li>
-<li>
-<p>適合一次安裝大量字型檔</p>
-<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
-sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf <span class="c">#可能不需要</span>
-<span class="nb">fc</span>-cache
-</pre></div>
-
-
-</li>
-</ul>
-<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/addFont.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/backupmysql.html" rel="bookmark" title="Permalink to 如何備份mysql database">如何備份mysql database</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
-<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
-</pre></div>
-
-
-<p>到新的環境中如何重新載入library.sql呢？</p>
-<div class="highlight"><pre>mysql -u root -p &lt; library.sql
-</pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/backupmysql.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html" rel="bookmark" title="Permalink to 如何在ubuntu中製作gif檔">如何在ubuntu中製作gif檔</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>在ubuntu上面製作gif檔的話，可以安裝<a href="http://www.imagemagick.org/script/index.php">ImageMagick</a></p>
-<p>假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...</p>
-<div class="highlight"><pre><span class="c">#delay的值*10ms為delay的秒數，loop為0表示infinite loop</span>
-convert -delay 100 -loop 0 gif/* output.gif
-</pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/gif.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html" rel="bookmark" title="Permalink to 如何在ubuntu中安裝LAMP">如何在ubuntu中安裝LAMP</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <div class="highlight"><pre><span class="c">#install apache</span>
-sudo apt-get install apache2
-
-<span class="c">#install php</span>
-sudo apt-get install libapache2-mod-php5 php5
-sudo /etc/init.d/apache2 restart
-<span class="c">#install mysql</span>
-sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
-<span class="c">#test mysql</span>
-mysql -u root -p
-<span class="c">#install phpmyadmin(not necessary)</span>
-<span class="c">#一開始會問你要不要自動幫你設定phpmyadmin，選擇yes。之後會問你mysql server中root的密碼。</span>
-<span class="c">#最後會問你進入phpmyadmin的密碼。</span>
-sudo apt-get install phpmyadmin
-</pre></div>
-
-
-<p>如果 <code>http://localhost/phpmyadmin ...</code></p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/lamp.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/others/skypemic.html" rel="bookmark" title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">解決ubuntu上面麥克風沒聲音的問題</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用</p>
-<div class="highlight"><pre>alsamixer
-</pre></div>
-
-
-<p>或者是</p>
-<div class="highlight"><pre>gnome-alsamixer
-</pre></div>
-
-
-<p>來調整麥克風的聲音。
-如果再不行的話，就使用</p>
-<div class="highlight"><pre>gstreamer-properties
-</pre></div>
-
-
-<p>調整input或者是output。</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/others/skypemic.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-    </ol><!-- /#posts-list -->
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
 </div>
-<p class="paginator">
-    Page 1 / 1
-</p>
-</section><!-- /#content -->
-            <hr/>
-            <footer id="contentinfo" class="footer">
-                <div>
-                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
-                </div>
-                <div>
-                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
-                </div>
-                <div>
-                    powered by <a href="http://getpelican.com/">Pelican</a>
-                    and <a href="http://python.org">Python</a>. 
-                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
-                </div>
-                <div>
-                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
-                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
-                </div>
-                <div class="social">
-                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
-                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
-                </div>
-            </footer><!-- /#contentinfo -->
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
         </div>
-        <!--Add statistycs-->
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span9">
+    <section>
+    <h1>Articles in Others</h1>
+
+        <div class="row-fluid archive_row">
+            <div class="span1 archive_year">2014</div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset1 span1 archive_month">Jun</div>
+        </div>
+        <div class="row-fluid archive_row">
+                <div class="offset1 span1 archive_day">
+                18
+                </div>
+            <div class="span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html">解決ubuntu上面麥克風沒聲音的問題</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html">利用 squid 及 pam module 建立 proxy server</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/lamp.html">如何在ubuntu中安裝LAMP</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/Eclipse.html">Eclipse的設定</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html">Lubuntu 底下設定雙螢幕</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/eclipse_encoding.html">Eclipse 修改編碼</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/gif.html">如何在ubuntu中製作gif檔</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html">如何在ubuntu中加入新的字型</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html">如何備份mysql database</a>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="span3">
+    <section id="sidebar">
+            <div>
+                <h2>Browse content by</h2>
+                <ul class="fa-ul">
+                <li><a href="http://twmht.github.io/blog/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
+                <li><a href="http://twmht.github.io/blog/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
+                <li><a href="http://twmht.github.io/blog/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
+
+                <li><a href="http://twmht.github.io/blog/feeds/others.atom.xml"><i class="fa-li fa fa-rss"></i> Feed</a></li>
+                </ul>
+            </div><!-- /.browse -->
+            <div>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="http://getpelican.com/">Pelican</a></li>
+                    <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                    <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                    <li><a href="http://twmht.github.io">Author</a></li>
+                    <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                    <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                </ul>
+            </div><!-- /.Links -->
+            <div>
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="https://github.com/twmht">Github</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                </ul>
+            </div><!-- /.social -->
+            <div>
+                <h2>Tags</h2>
+                <ul id="cloud">
+                </ul>
+             </div>
+<!-- /.Tags -->
+    </section><!-- /#sidebar -->
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

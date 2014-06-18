@@ -1,90 +1,299 @@
-body         { font-family: 'Georgia', serif; font-size: 18px; color: #444; }
-a            { color: #004B6B; }
-a:hover      { color: #6D4100; }
-.box         { width: 740px; margin: 30px auto; }
-h2, h3, h4   { font-family: 'Garamond', 'Georgia', serif; font-weight: normal; color: #222;}
-h1           { margin: 0 0 30px 0; background: no-repeat center;
-               height: 165px; }
-h1 span      { display: none; }
-.banner      { font-size: 75px; margin: 30px 0 5px 0; 
-               font-family: 'The Girl Next Door', cursive;
-               text-align: center;}
-.banner a    {text-decoration: none;}
-h2           { font-size: 30px; margin: 15px 0 5px 0; }
-h3           { font-size: 24px; margin: 15px 0 5px 0; }
-h4           { font-size: 19px; margin: 15px 0 5px 0; }
-textarea, code, tt,
-pre          { font-family: 'Inconsolata', sans-serif, monospace!important; 
-             color: #000; font-size: 18px ; background: #eee; }
-pre          { padding: 7px 30px; margin: 15px -30px; line-height: 1.3; 
-             border-style:solid; border-width:1px; border-color:#bbb;}
+@import url("pygment.css");
+@import url(//fonts.googleapis.com/css?family=Overlock:400,700,900);
+@import url(//fonts.googleapis.com/css?family=PT+Mono);
+/*
+ *  Name: Fresh
+ *  Date: February 2013
+ *  Description: A Pelican theme with clean layout. Based on Smashing HTML5 and Twitter Bootstrap.
+ *  Version: 1.0.0
+ *  Author: Jui-Shan Liang
+ *  Author URI: http://jsliang.com
+ */
+body {
+  color: #333;
+  font-size: 15px;
+  font-family: "Lucida Sans", sans-serif;
+  line-height: 22.5px;
+  margin: 0;
+  padding: 0;
+  text-align: left; }
 
-code, tt     {padding: 1px 4px 1px 4px; border-style:solid; border-width:1px; border-color:#bbb;}
+a {
+  color: #226ae9; }
+  a:hover {
+    color: #08c; }
 
-.ig          { color: #888; }
-p            { line-height: 1.4; }
-ul           { margin: 15px 0 15px 0; padding: 15; list-style: none; line-height: 1.4; }
-ul li:before { content: "\00BB \0020"; color: #888; position: absolute; margin-left: -19px; }
-ol           { line-height: 1.4; margin: 15px 0 15px 30px; padding: 15; }
-blockquote   { margin: 0; font-style: italic; color: #444; }
-.footer      { font-size: 13px; color: #888; text-align: center; margin-top: 25px; }
-.more        { text-align: right; margin-top: 0; font-size: 0.9em; font-style: italic; }
-.nav         { text-align: center; }
-.nav a       { font-style: italic; }
-.backnav     { float: right; color: #444; font-style: italic;
-               margin: 5px 0 0 0; font-size: 0.9em; }
-.message     { background: #DEEBF3; color: #004B6B; padding: 5px 30px;
-               margin: 10px -30px; }
-.actions     { margin-top: 0; }
-.twitter:before { background: no-repeat; content: " ";
-                  float: right; width: 64px; height: 64px;
-                  margin: -25px 0 0 0; padding: 0 0 10px 10px; }
-.twitter li  { margin: 15px 0; line-height: 1.2; font-size: 15px; }
-.twitter li:before { content: "♯"; padding-left: 4px; }
-.twitter .meta, .twitter .meta a { color: #888; font-size: 13px; }
-table        { border: 1px solid black; border-collapse: collapse;
-               margin: 15px 0; }
-td, th       { border: 1px solid black; padding: 4px 10px;
-               text-align: left; }
-th           { background: #eee; font-weight: normal; }
+h1 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 60px; }
 
-td input     { border: none; padding: 0; }
+h2 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: #113D8B;
+  line-height: 48px; }
 
-table.archives, .archives td, .archives th {border: none;}
+h3 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 21.6px;
+  color: #000;
+  line-height: 43.2px; }
 
-/*Navigation*/
-div.navigation a   { text-decoration: none;  font-size: 20px; padding: 10px;}
-div.navigation ol  { margin: 0; padding: 0;}
-div.navigation li  { display: inline; padding: 0; content:none;}
-div.navigation {
-                float: left; background-color: #f4f4f4; 
-                padding-top:0;
-                text-align: center;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 999;
-                width: 100%;
-                height: 26px;
-              }
+h4 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 19.44px;
+  color: #000;
+  line-height: 38.88px; }
 
-.current a{color: #666}
-/* social */
-.social      {margin:10px 0 10px 0; font-size: 40px; text-align: center;}
-.social a    {margin: 10px 20px 5px 20px; color: #777; text-decoration: none;}
-.social a:hover {color: #004B6B;}
+h5 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 17.496px;
+  color: #666;
+  line-height: 34.992px; }
 
-/*posts*/
-.posts ol, .posts ul, .posts li  {list-style-type: none; padding: 0;}
-.posts li {padding-bottom: 30px;}
-.post h2 { font-size: 50px;}
-.post h2 a {text-decoration: none;}
-.post-info abbr {font-size: 15px; color: #555; font-style: italic;}
-article .archive{margin-top: 10px; margin-bottom: 10px;}
-.entry-content{margin-top: 50px; margin-bottom: 40px;}
-.archive-entry-title a{font-size: 40px; text-decoration: none;}
+h6 {
+  font-family: "Microsoft YaHei", Overlock, sans-serif;
+  font-weight: bold;
+  font-size: 15.7464px;
+  color: #777;
+  line-height: 31.4928px; }
 
+hr {
+  border: 2px solid #eeeeee; }
 
-/* Inset, by Dan Eden */ 
-hr { border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); 
-              border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+strong, b {
+  font-weight: bold; }
+
+em, i {
+  font-style: italic; }
+
+ul {
+  list-style: outside disc;
+  margin: 1em 0 1.5em 1.5em; }
+
+ol {
+  list-style: outside decimal;
+  margin: 1em 0 1.5em 1.5em; }
+
+.post-info {
+  font-size: 0.8em;
+  text-align: right;
+  margin-bottom: 1em; }
+  .post-info address {
+    font-style: normal;
+    display: inline; }
+
+.readmore {
+  margin-top: 1em;
+  font-weight: bold; }
+
+.archive_row {
+  font-family: "Microsoft YaHei", Overlock, sans-serif; }
+  .archive_row .archive_year {
+    color: #113D8B;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 24px;
+    text-align: center; }
+  .archive_row .archive_month {
+    color: #000;
+    font-size: 21.6px;
+    font-weight: bold;
+    margin-top: 21.6px;
+    text-align: center; }
+  .archive_row .archive_day {
+    text-align: center; }
+
+pre {
+  background-color: #eeeeee;
+  padding: 10px;
+  margin: 10px;
+  overflow: auto; }
+
+code, pre {
+  font-family: 'PT Mono', sans-serif; }
+
+blockquote {
+  margin: 20px;
+  font-style: normal;
+  border: 0; }
+  blockquote p {
+    font-size: 15px;
+    margin-bottom: 1em;
+    font-weight: normal; }
+
+header, section, footer, aside, nav, article, figure {
+  display: block; }
+
+section {
+  padding: 1em; }
+
+img.right, figure.right {
+  float: right;
+  margin: 0 0 2em 2em; }
+
+img.left, figure.left {
+  float: left;
+  margin: 0 2em 2em 0; }
+
+#banner {
+  margin: 0 auto;
+  padding: 2.5em 0 0 0; }
+  #banner h1 {
+    font-size: 4em;
+    font-family: 'Overlock';
+    line-height: 1;
+    text-align: center; }
+    #banner h1 a:link, #banner h1 a:visited {
+      color: #000305;
+      display: block;
+      font-weight: bold;
+      margin: 0 0 0.6em 0.2em;
+      text-decoration: none; }
+    #banner h1 a:hover, #banner h1 a:active {
+      color: #113D8B;
+      text-shadow: 1px 1px #fff; }
+  #banner .nav > li > a {
+    font-family: Overlock, sans-serif;
+    font-weight: bold; }
+    #banner .nav > li > a:hover {
+      text-shadow: 1px 1px #bbb; }
+
+#google-custom-search {
+  width: 300px;
+  float: right;
+  margin-top: 5px; }
+  #google-custom-search .gsc-control-cse {
+    padding: 0 !important;
+    border: 0 !important;
+    background-color: transparent !important; }
+
+#sidebar {
+  padding: 0.5em; }
+
+#site-footer {
+  text-align: right;
+  font-size: 0.8em;
+  padding: 1em; }
+  #site-footer address {
+    display: inline; }
+
+.hentry {
+  display: block;
+  clear: both;
+  border-bottom: 1px solid #eeeeee;
+  padding: 1.5em 0; }
+
+li:last-child .hentry {
+  border: 0;
+  margin: 0; }
+
+#content > .hentry {
+  border: 0;
+  margin: 0;
+  padding: 1em 0; }
+
+.hentry img {
+  display: none; }
+
+.entry-title {
+  margin-bottom: 10px;
+  margin-top: 0; }
+  .entry-title a:link, .entry-title a:visited {
+    text-decoration: none;
+    color: #333; }
+  .entry-title a:hover {
+    color: #113D8B; }
+
+.sharethis, .sharethis-top, .sharethis-bottom {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+.sharethis-top {
+  text-align: right; }
+
+.sharethis-bottom {
+  text-align: left; }
+
+#posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 1em; }
+
+.paginator {
+  padding-left: 1em; }
+
+#comments-list {
+  list-style: none;
+  margin: 0 1em; }
+  #comments-list blockquote {
+    background: #f8f8f8;
+    clear: both;
+    font-style: normal;
+    margin: 0;
+    padding: 15px 20px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px; }
+  #comments-list footer {
+    color: #888;
+    padding: 0.5em 1em 0 0;
+    text-align: right; }
+  #comments-list li:nth-child(2n) blockquote {
+    background: #F5f5f5; }
+
+#add-comment label {
+  clear: left;
+  float: left;
+  text-align: left; }
+#add-comment input[type='text'], #add-comment input[type='email'], #add-comment input[type='url'] {
+  float: left; }
+#add-comment textarea {
+  float: left;
+  height: 150px; }
+#add-comment p.req {
+  clear: both;
+  margin: 0 0.5em 1em 0;
+  text-align: right; }
+#add-comment input[type='submit'] {
+  float: right;
+  margin: 0 0.5em; }
+#add-comment * {
+  margin-bottom: .5em; }
+
+.err {
+  border: 0; }
+
+#cloud {
+  padding: 2px;
+  line-height: 2em;
+  text-align: center;
+  margin: 0; }
+
+#cloud a {
+  padding: 0px; }
+
+#cloud li {
+  display: inline; }
+
+li.tag-4 {
+  font-size: 0.8em;
+  font-weight: 100; }
+
+li.tag-3 {
+  font-size: 1.0em;
+  font-weight: 200; }
+
+li.tag-2 {
+  font-size: 1.2em;
+  font-weight: 300; }
+
+li.tag-1 {
+  font-size: 1.4em;
+  font-weight: 400; }

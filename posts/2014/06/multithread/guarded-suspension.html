@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Guarded Suspension Pattern -- 要等到我準備好喔"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/06/multithread/guarded-suspension.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/06/multithread/guarded-suspension.html" />
+
+    <title>Guarded Suspension Pattern -- 要等到我準備好喔 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/06/multithread/guarded-suspension.html" rel="bookmark"
+             title="Permalink to Guarded Suspension Pattern -- 要等到我準備好喔">Guarded Suspension Pattern -- 要等到我準備好喔</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-06-18
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>當光靠synchronized已經沒有辦法保護shared resource的時候，通常表示存取shared resource的時候需要條件，這時候就要設計Guarded Suspension Pattern。</p>
+<p>最常見的例子是client端以及server端的溝通，client端會不斷地送request給server，而server會不停地去收request，假設我們用queue去儲存request，那麼server就不能在queue為empty的時候去接收request，這個就是<font color=blue>存取的條件</font>---<font color = red>queue不能是empty</font>。</p>
+<p>Request.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Request</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Request</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;[ Request &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>RequestQueue.java，採用LinkedList來存放Request</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RequestQueue</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">LinkedList</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="n">Request</span> <span class="nf">getRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>                                   
+                <span class="c1">//當條件不滿足的時候，進入wait set</span>
+                <span class="n">wait</span><span class="o">();</span>
+                <span class="c1">//當被喚醒的時候，只有拿到鎖定的server thread才能執行下一個敘述</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>      
+            <span class="o">}</span>                                       
+        <span class="o">}</span>                                           
+        <span class="k">return</span> <span class="o">(</span><span class="n">Request</span><span class="o">)</span><span class="n">queue</span><span class="o">.</span><span class="na">removeFirst</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">putRequest</span><span class="o">(</span><span class="n">Request</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="c1">//當條件滿足的時候，喚醒所有的server thread</span>
+        <span class="n">notifyAll</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>ClientThread.java，不斷呼叫putRequest，並且呼叫在RequestQueue中的wait set中server thread。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Random</span> <span class="n">random</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">RequestQueue</span> <span class="n">requestQueue</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">ClientThread</span><span class="o">(</span><span class="n">RequestQueue</span> <span class="n">requestQueue</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">long</span> <span class="n">seed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">requestQueue</span> <span class="o">=</span> <span class="n">requestQueue</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">(</span><span class="n">seed</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Request</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Request</span><span class="o">(</span><span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; requests &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">);</span>
+            <span class="n">requestQueue</span><span class="o">.</span><span class="na">putRequest</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>ServerThread.java，檢查queue是否empty，不是empty才能存取，不然就進去wait set中。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Random</span> <span class="n">random</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">RequestQueue</span> <span class="n">requestQueue</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">ServerThread</span><span class="o">(</span><span class="n">RequestQueue</span> <span class="n">requestQueue</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">long</span> <span class="n">seed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">requestQueue</span> <span class="o">=</span> <span class="n">requestQueue</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">(</span><span class="n">seed</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Request</span> <span class="n">request</span> <span class="o">=</span> <span class="n">requestQueue</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; handles  &quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">RequestQueue</span> <span class="n">requestQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RequestQueue</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">ClientThread</span><span class="o">(</span><span class="n">requestQueue</span><span class="o">,</span> <span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="mi">3141592L</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">ServerThread</span><span class="o">(</span><span class="n">requestQueue</span><span class="o">,</span> <span class="s">&quot;Bobby&quot;</span><span class="o">,</span> <span class="mi">6535897L</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3>參與者</h3>
+<h4>GuardedObject 參與者</h4>
+<p>GuardedObject 參與者是一個擁有被防衛的方法 (guardedMethod) 的類別。當執行緒執行 guardMethod 時，只要滿足防衛條件，就會馬上執行。但防衛條件不成立的時候，就要開始等待。防衛條件的成立與否，會隨 GuardedObject 的狀態變化。</p>
+<p>GuardedObject 除了 guardedMethod 以外，可能還會有用來更改實體狀態（特別是用來更改防衛條件） 的方法（stateChangingMethod）。</p>
+<p>在 Java 中，是使用 while 敘述與 wait 方法  來實作 guardedMethod 的。 而使用 notify 或 notifyAll 方法來實作 stateChangingMethod。</p>
+<p>在程式中，RequestQueue 類別就是 GuardedObject 參與者。setRequest 方法與 putRequest 方法則分別是 guardedMethod 與 stateChagingMethod。</p>
+<h3>重點整理</h3>
+<h4>有條件的 synchronized</h4>
+<p>Guarded Suspension Pattern 是附加條件的 Single Threaded Execution Pattern。也就是<b>有條件的 synchronized</b>。</p>
+<h4>多執行緒板的 if</h4>
+<p>一般來說，單一執行緒的程式，防衛條件會使用 if 敘述處理。從這個角度來看，Guarded Suspension Pattern 就像是<b>多執行緒版的 if</b>。</p>
+<h4>忘記更改狀態與生命性</h4>
+<p>如果程式寫錯，忘記修改 GuardedObject 的狀態，那防衛條件無論經過多久都不會成立。這種時候，執行緒永遠都不會前進，程式就失去生命性。</p>
+<p>所以我們可能會想將 wait 之後經過一段很長的時間還沒有被 notify 或 notifyAll 的現象，認定為一種錯誤，而想要中斷程式運作，想要在一定時間後中斷動作時，我們可以在呼叫 wait 方法時，在引數裡指定 timeout 的時間。</p>
+<h4>再利用性</h4>
+<p>在程式中，會發現只有 RequestQueue 類別有用到 wait 及 notifyAll。之所以這樣做的原因是因為，使用 RequestQueue 類別的一方，並不需要考慮 wait 以及 notifyAll 的問題，只要呼叫 getRequest 方法與 putRequest 方法就行了。</p>
+<h4>各式各樣的稱呼</h4>
+<p>Guarded Suspension Pattern 共通的特徵有下面三點：</p>
+<ol>
+<li>有迴圈的存在</li>
+<li>有條件的測試</li>
+<li>因為某種原因在<b>等待</b></li>
+</ol>
+<h5>guarded wait</h5>
+<p>意義是被阻擋而等待。大致上是執行緒使用 wait 等待，等到被 notify 及 notifyAll 以後再次測試條件的實作方法。使用 wait 等待的時間，其實是停止在等待區裡停止執行，所以不會浪費到 JVM 的處理時間。</p>
+<p>一般來說，在接收端(server)的設計會是這樣。</p>
+<div class="highlight"><pre><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">receive</span><span class="o">(){</span>
+    <span class="k">while</span><span class="o">(!</span><span class="n">ready</span><span class="o">){</span>
+        <span class="c1">//釋放鎖定，進到wait set中。</span>
+        <span class="n">wait</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="c1">//do something</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>而在發送端(client)的設計會是這樣</p>
+<div class="highlight"><pre><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(){</span>
+    <span class="c1">//do something</span>
+    <span class="n">ready</span> <span class="o">=</span> <span class="n">True</span>
+    <span class="c1">//wake up all receivers</span>
+    <span class="n">notifyAll</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h5>busy wait</h5>
+<p>執行緒不使用 wait 等待，而使用 yield （儘量把優先權交給其它執行緒），並且不斷測試條件。因為等待中的執行緒也持續運作，所以會浪費 JVM 的時間。
+    :::java
+    //Thread.yield()不會解除鎖定，所以不可以寫在 synchronized 裡面。
+    //ready 必須宣告成 volatile。
+    void receive(){
+        while(!ready){
+            Thread.yield();
+        }
+    }</p>
+<p>而在發送端(client)的設計會是這樣</p>
+<div class="highlight"><pre><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(){</span>
+    <span class="c1">//do something</span>
+    <span class="n">ready</span> <span class="o">=</span> <span class="n">True</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h5>spin lock</h5>
+<p>spin lock 有時意思與 guarded wait 相同，有時與 busy wait 相同。另外，有時候則是指一開始使用 busy wait，之後再切換成 guarded wait 的方式。另外，有些以硬體實作的同步機制，也稱為 spin lock。</p>
+<h5>polling</h5>
+<p>反覆檢查某個事件是否發生，當發生時，就進行對應處理的方式。</p>
+<h3>問題</h3>
+<h4>1. 請在 RequestQueue 類別加上偵錯輸出，使我們可以一目瞭然程式是否有照我們的期待運作。</h4>
+<p><script src="https://gist.github.com/twmht/77d734c9de468249de36.js"></script></p>
+<h4>2. 請嘗試不更改 Main 類別，而試著修改其它類別，讓程式在約十秒後能夠真的結束。</h4>
+<p>雖然 Main 類別呼叫 interrupt 方法，執行緒還是不停下來，是因為 sleep 方法與 wait 方法在呼叫時，沒有顧慮到 InterruptedException 的緣故。</p>
+<p>修正 RequestQueue 類別，準備讓 getRequest 方法丟出 InterruptException。</p>
+<p>此外，修正 ClientThread 類別與 ServerThread 類別，在 InterruptedException 被丟出後，就跳出 fot 敘述之外。</p>
+<p>如果沒有修正 ReQuestQueue 類別的話，則假設 interrupt 方法被呼叫時執行緒正在 sleep，程式就可以正常結束。但是如果執行緒正在 wait，程式就不會結束，這是因為沒有顧慮到 InterruptException 的緣故。也就是說，這個程式每執行幾次就會有一次無法正常結束。</p>
+<script src="https://gist.github.com/twmht/3a3424dd062a37afaa7d.js"></script>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,189 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-        <title>技術筆記</title>
-        <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
-        <meta charset="utf-8" />
-      
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
 
-        <!-- Javascript-->
-        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script type="text/javascript"> 
-          $(function() {
-            invisibleMenu();
-          });
-        </script> 
+    <meta property="og:title" content="技術筆記 - Design Pattern"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/category/design-pattern.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="website"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/category/design-pattern.html" />
+
+    <title>技術筆記 - Design Pattern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
 </head>
 
-<body id="index" class="home">
-     <div class="navigation">
-        <ol class="nav">
-          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
-          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
-          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
-          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
-        </ol>
-      </div>
-        <header id="banner" class="body">
-                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-        </ul></nav><!-- /#menu -->
-        <div class="box">
-        
-<section id="content">
-<div class="posts">
-    <ol id="post-list">
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html" rel="bookmark" title="Permalink to State Pattern">State Pattern</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>用類別來表示 "狀態" 。</p>
-<h3>如何設計</h3>
-<p>以類別來表示狀態之後，只要切換類別就能表現 "狀態變化"，而且在必須新增其它狀態時，也很清楚該編寫哪個部份。</p>
-<h3>程式範例</h3>
-<p>假設現在有一個會隨著時間改變警備狀態的金庫保全系統：</p>
-<ul>
-<li>有一個金庫</li>
-<li>金庫有跟保全中心連線</li>
-<li>金庫有警鈴和一般通話用的電話</li>
-<li>金庫有時鐘，監視目前的時間</li>
-<li>白天是9:00-16:59，晚間為17:00-23:59以及0:00-8:59</li>
-<li>只有白天才能使用金庫</li>
-<li>在白天使用金庫時，保全中心會保留使用紀錄</li>
-<li>若晚間使用金庫時，保全中心會接到發生異常現象的通知</li>
-<li>警鈴是24小時都可以使用</li>
-<li>一旦使用警鈴，保全中心會接收到警鈴通知</li>
-<li>一般通話用的電話是24小時都可以使用(但晚間只有答錄機服務)</li>
-<li>在白天使用電話時，就會呼叫保全中心</li>
-<li>若晚間使用電話時，則會呼叫保全中心的答錄機</li>
-</ul>
-<script src="https://gist.github.com/twmht/a04e437a923e01314421.js"></script>
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
 
-<h4>State 參與者</h4>
-<p>State 表示狀態。規定不同狀態下做不同處理的介面。這個介面等於是一個不同狀態所做處理的所有方法的集合。例如 State 介面。</p>
-<h4>ConcreteState 參與者</h4>
-<p>ConcreteState ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/state.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html" rel="bookmark" title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
-<h3>如何設計</h3>
-<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
-<h3>程式範例</h3>
-<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
-<ul>
-<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
-<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
-</ul>
-<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
-
-<h4>Strategy 參與者</h4>
-<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
-<h4>ConcreteStrategy 參與者</h4>
-<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
-<h4>Context (文法) 參與者</h4>
-<p>利用 Strategy ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/strategy.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html" rel="bookmark" title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">Visitor Pattern -- 在結構中穿梭還同時做事</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      四 17 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 <strong>處理</strong>。那麼，這項 <strong>處理</strong> 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 <strong>處理</strong> 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
-<h3>如何設計</h3>
-<p>Visitor Pattern 把 <strong>資料結構</strong> 和 <strong>處理</strong> 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 <strong>訪客</strong> 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
-<h3>程式範例</h3>
-<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
-<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
-
-<h4>Visitor (訪客) 參與者</h4>
-<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/visitor.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-    </ol><!-- /#posts-list -->
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
 </div>
-<p class="paginator">
-            <a href="http://twmht.github.io/blog/category/design-pattern2.html">&laquo;</a>
-    Page 3 / 3
-</p>
-</section><!-- /#content -->
-            <hr/>
-            <footer id="contentinfo" class="footer">
-                <div>
-                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
-                </div>
-                <div>
-                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
-                </div>
-                <div>
-                    powered by <a href="http://getpelican.com/">Pelican</a>
-                    and <a href="http://python.org">Python</a>. 
-                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
-                </div>
-                <div>
-                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
-                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
-                </div>
-                <div class="social">
-                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
-                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
-                </div>
-            </footer><!-- /#contentinfo -->
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
         </div>
-        <!--Add statistycs-->
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span9">
+    <section>
+    <h1>Articles in Design Pattern</h1>
+
+        <div class="row-fluid archive_row">
+            <div class="span1 archive_year">2014</div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset1 span1 archive_month">Jun</div>
+        </div>
+        <div class="row-fluid archive_row">
+                <div class="offset1 span1 archive_day">
+                18
+                </div>
+            <div class="span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/visitor.html">Visitor Pattern -- 在結構中穿梭還同時做事</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/FactoryMethod.html">Factory Method Pattern -- 建立物件個體可交給子類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/facade.html">Facade Pattern -- 單一窗口</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/flyweight.html">Flyweight Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/interpreter.html">Interpreter Pattern -- 以類別來表達文法規則</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/iterator.html">Iterator Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/mediator.html">Mediator Pattern -- 只要面對一個顧問</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/memento.html">Memento Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/observer.html">Observer Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/prototype.html">Prototype Pattern -- 複製建立物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/proxy.html">Proxy Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html">Singleton Pattern -- 唯一的物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/state.html">State Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/strategy.html">Strategy Pattern -- 把演算法則整個換掉</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/templateMethod.html">Template Method Pattern -- 實際處理交給子類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/abstractFactory.html">Abstract Factory Pattern -- 把相關零件組合成產品</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/adapter.html">Adapter Pattern -- 換個包裝再度利用</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/bridge.html">Bridge Pattern -- 分成功能階層和實作階層</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/builder.html">Builder Pattern -- 組合複雜的物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/chainOfResponsibility.html">Chain of Responsibility Pattern -- 責任轉送</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/command.html">Command Pattern -- 將命令寫成類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/composite.html">Composite Pattern -- 對容器和內容一視同仁</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/decorator.html">Decorator Pattern -- 對裝飾和內容一視同仁</a>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="span3">
+    <section id="sidebar">
+            <div>
+                <h2>Browse content by</h2>
+                <ul class="fa-ul">
+                <li><a href="http://twmht.github.io/blog/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
+                <li><a href="http://twmht.github.io/blog/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
+                <li><a href="http://twmht.github.io/blog/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
+
+                <li><a href="http://twmht.github.io/blog/feeds/design-pattern.atom.xml"><i class="fa-li fa fa-rss"></i> Feed</a></li>
+                </ul>
+            </div><!-- /.browse -->
+            <div>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="http://getpelican.com/">Pelican</a></li>
+                    <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                    <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                    <li><a href="http://twmht.github.io">Author</a></li>
+                    <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                    <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                </ul>
+            </div><!-- /.Links -->
+            <div>
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="https://github.com/twmht">Github</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                </ul>
+            </div><!-- /.social -->
+            <div>
+                <h2>Tags</h2>
+                <ul id="cloud">
+                </ul>
+             </div>
+<!-- /.Tags -->
+    </section><!-- /#sidebar -->
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

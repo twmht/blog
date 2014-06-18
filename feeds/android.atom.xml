@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/android.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-18T11:12:48+08:00</updated><entry><title>adb devices 顯示 no permissions</title><link href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/android/adb_permission.html</id><summary type="html">&lt;p&gt;解決方法如下，這使得任何使用 adb 的使用者都是以 root 的權限來使用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo chown root:root adb
+sudo chmod a+x adb
+sudo chmod a+s adb
+adb &lt;span class="nb"&gt;kill&lt;/span&gt;-server
+adb start-server
+&lt;/pre&gt;&lt;/div&gt;</summary></entry></feed>

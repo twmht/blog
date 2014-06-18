@@ -1,434 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-        <title>技術筆記</title>
-        <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/main.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/pygments.css" type="text/css" />
-        <link rel="stylesheet" href="http://twmht.github.io/blog/theme/css/font-awesome.css" type="text/css" />
-        <meta charset="utf-8" />
-      
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
 
-        <!-- Javascript-->
-        <script src="http://twmht.github.io/blog/theme/js/invisible-menu-scroll.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script type="text/javascript"> 
-          $(function() {
-            invisibleMenu();
-          });
-        </script> 
+    <meta property="og:title" content="技術筆記 - Design Pattern"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/category/design-pattern.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="website"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/category/design-pattern.html" />
+
+    <title>技術筆記 - Design Pattern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
 </head>
 
-<body id="index" class="home">
-     <div class="navigation">
-        <ol class="nav">
-          <li class="current"><a href="http://twmht.github.io/blog">Blog</a> </li>
-          <li><a href="http://twmht.github.io/blog/archives.html">Archive</a></li>
-          <li><a href="http://twmht.github.io/blog/tags.html">Tags</a> </li>
-          <li><a href="http://twmht.github.io/blog/">RSS</a> </li>
-        </ol>
-      </div>
-        <header id="banner" class="body">
-                <div class="banner"><a href="http://twmht.github.io/blog">技術筆記 <strong></strong></a></div>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-        </ul></nav><!-- /#menu -->
-        <div class="box">
-        
-<section id="content">
-<div class="posts">
-    <ol id="post-list">
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/interpreter.html" rel="bookmark" title="Permalink to Interpreter Pattern -- 以類別來表達文法規則">Interpreter Pattern -- 以類別來表達文法規則</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>Design Pattern 的目的之一就是要提高類別的可再用性。 可再用性是指已經產生的類別不需要多做修改或是儘量不修改就能多次使用的意思。</p>
-<p>Interpreter Pattern 是用簡單的"迷你語言"來表現程式要解決的問題，以迷你語言寫成"迷你程式"而表現具體的問題。迷你程式本身無法獨自啟動，必須先用Java語言寫另一個負責翻譯的程式(直譯器)。當能解決的問題發生變化時，要修改迷你程式來對應處理，而不是修改直譯器(儘量避免去修改)。</p>
-<h3>如何設計</h3>
-<p>當問題發生改變時，儘可能不去修改到直譯器（以Java寫成）。</p>
-<h3>程式範例</h3>
-<p>首先來定義我們的問題，我們要用迷你語言來操控玩具車。玩具車基本動作有 go, right, left　以及 repeat。go 表示前進，right 表示向右轉，left 表示向左轉，repeat 像是一個迴圈，後面接上若干個命令。
-以下是幾個範例：</p>
-<ol>
-<li>program go right right go end</li>
-<li>program ...</li></ol>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/interpreter.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/command.html" rel="bookmark" title="Permalink to Command Pattern -- 將命令寫成類別">Command Pattern -- 將命令寫成類別</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>當類別在執行作業時，會呼叫自己類別或其他類別的方法，呼叫方法之後的結果會反應在物件狀態上，但卻不會留下任何作業紀錄。</p>
-<p>遇到這種情形的時候，要是有一個類別能表現"請執行這項作業"的"命令"時就方便多了。因為如此一來便可以用一個"表示命令的類別物件個體"來代表要執行的作業，而不需要採用"呼叫方法"之類的動態處理。如想管理相關紀錄時，只需要管理該物件個體的集合即可。而若預先將命令的集合儲存起來，還可以再執行同一個命令;或者是把多個命令結合成一個新命令供再利用。</p>
-<h3>如何設計</h3>
-<p>這樣的Pattern叫作Command Pattern，有時也稱為"Event"，跟"Event driven"中的Event是同一個意思。一旦發生事件(例如按下滑鼠左鍵，或按下右鍵)，則先將該事件變成物件個體，按照發生順序排入queue中。接著，再依序處理所有排列等候的事件。</p>
-<h3>程式範例</h3>
-<p>設計一個簡單的繪圖軟體，移動滑鼠的時候，便會自動產生一個個紅點，按下clear即可清除。
-當使用者移動滑鼠的時候，就會產生"在這裡畫一個點"的command。把這個物件個體儲存起來，需要用的時候就可以繼續畫紅點。</p>
-<script src="https://gist.github.com/twmht/613b2636b333ca809e86.js"></script>
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
 
-<h4>Command ...</h4>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/command.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/templateMethod.html" rel="bookmark" title="Permalink to Template Method Pattern -- 實際處理交給子類別">Template Method Pattern -- 實際處理交給子類別</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>就像在塑膠版上挖空，然後用色筆塗滿挖空的部份，所表現出來的是固定的字型，但顏色卻因所使用的色筆顏色而異。所挖空的部份我們稱為 Template。</p>
-<h3>如何設計</h3>
-<p>將作為 Template 的方法定義在父類別，而方法的定義中則使用到抽象方法。因此如果只看父類別部份的程式，根本不知道到底結果會是怎樣的處理內容，最多只能了解該如何呼叫抽象方法而已。</p>
-<p>實際實作抽象方法的是子類別。要在子類別實作方法，才能決定具體的處理動作。理論上，如果在不同的子類別執行不同的實作，應該就能發展出不同的處理內容。不過，無論在哪個子類別執行任何一種實作，處理的大致流程都還是要依照父類別所制定的方法。</p>
-<p>像這樣在<strong>在父類別指定大綱並且在子類別規定具體內容</strong>，就稱為 Template Method Pattern。</p>
-<h3>程式範例</h3>
-<p>輸出字串，同樣流程的display，卻有不同的輸出方式(字串或字元)。</p>
-<script src="https://gist.github.com/twmht/b29a5df581fcd2090243.js"></script>
-
-<h4>AbstractClass (抽象類別) 參與者</h4>
-<p>AbstractClass 實作範本方法，還有宣告 Template Method 所使用的抽象方法。這個抽象方法則由子類別 ConcreteClass 負責實作。例如 AbstractClass 類別 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/templateMethod.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/singleton.html" rel="bookmark" title="Permalink to Singleton Pattern -- 唯一的物件個體">Singleton Pattern -- 唯一的物件個體</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
-<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
-<h3>如何設計</h3>
-<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
-<h3>程式範例</h3>
-<p>設計一個只有一個物件個體的類別。</p>
-<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
-
-<h4>Singleton 參與者</h4>
-<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
-<h3>優點</h3>
-<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
-<h3>問題 ...</h3>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/singleton.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/iterator.html" rel="bookmark" title="Permalink to Iterator Pattern">Iterator Pattern</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>Iterator Pattern是指依序掃描並且處理多個數字或變數。本身也是反覆的意思，又可以稱為迭代器。</h3>
-<p>現在要寫一個程式，可以把書籍放到書架上，並且依序印出來。</p>
-<p>Aggregate Interface，實作此Interface的類別就變成類似<font color=red>陣列（多個數字或變數的集合)</font>。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Aggregate</span> <span class="o">{</span>
-    <span class="c1">//一個可對應聚合的iterator</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>如果要掃描整個聚合時，利用iterator方法即可建立一個實作Iterator介面的類別物件個體。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Iterator</span> <span class="o">{</span>
-    <span class="c1">//有沒有下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
-    <span class="c1">//下一個元素</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Object</span> <span class="nf">next</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Book類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public ...</span></pre></div>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/iterator.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/prototype.html" rel="bookmark" title="Permalink to Prototype Pattern -- 複製建立物件個體">Prototype Pattern -- 複製建立物件個體</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
-<ol>
-<li>
-<p>種類過多無法整成類別時: 
-若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
-</li>
-<li>
-<p>不容易利用類別產生物件個體時:
-該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
-</li>
-</ol>
-<p>3.希望把框架和所產生的物件個體分開時:
-希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
-<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
-<h3>如何設計</h3>
-<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
-<h3>程式範例</h3>
-<p>為字串設計外框。</p>
-<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
-
-<h4>Prototype 參與者</h4>
-<p>Prototype ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/prototype.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/FactoryMethod.html" rel="bookmark" title="Permalink to Factory Method Pattern -- 建立物件個體可交給子類別">Factory Method Pattern -- 建立物件個體可交給子類別</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>把 Template Method Pattern 應用在建立物件個體上面。</p>
-<h3>如何設計</h3>
-<p>在父類別規定物件個體的建立方法，但並沒有深入到較具體的類別。所有具體的完整內容都放在子類別。根據這個原則，我們可以大致分成產生物件個體的大綱和實際產生物件個體的類別兩方面。</p>
-<h3>程式範例</h3>
-<p>建立一個生產身份證的 factory。Product 類別和 Factory 類別屬於 framework 這個 package。負責建立產生物件個體大綱。</p>
-<p>IDCard 類別和 IDCardFactory 類別則處理實際的內容，屬於 idcard 這個 package。</p>
-<script src="https://gist.github.com/twmht/bb3f738c08ff7891be19.js"></script>
-
-<h4>Product (產品) 參與者</h4>
-<p>框架的部份。這個抽象類別是規定此 Pattern 所產生的物件個體應有的介面，具體內容則由子類別的 ConcreteProduct 規定。例如 Product 類別。</p>
-<h4>Creater (生產者) 參與者</h4>
-<p>框架的部份。這是產生 Product ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/FactoryMethod.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/builder.html" rel="bookmark" title="Permalink to Builder Pattern -- 組合複雜的物件個體">Builder Pattern -- 組合複雜的物件個體</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>所謂萬丈高樓平地起，大樓首先得打穩地基並搭建骨架，再由上而下一層層蓋上去。一般來說，如果搭建的結構愈複雜就愈難一氣呵成。</p>
-<h3>如何設計</h3>
-<p>你得先把整個架構分成幾個部份，等到個別部份都完成了之後再依序組合起來才行。</p>
-<h3>程式範例</h3>
-<p>設計一個建立<strong>文件</strong>的程式吧!</p>
-<ul>
-<li>含有一個標題</li>
-<li>含有一些字串</li>
-<li>含有一些有項目符號的項目</li>
-</ul>
-<p>Builder 類別規定組成文件的方法，而 Director 類別利用這個方法才能產生一份文件具體的文件。</p>
-<p>Builder 類別是抽象類別，不含實際的處理內容，僅宣告抽象方法而已。決定產生文件的具體處理內容則是 Builder 類別的子類別。</p>
-<p>以下幾個類別為 Builder 類別的子類別。</p>
-<ul>
-<li>TextBuilder 類別</li>
-<li>HTMLBuilder 類別</li>
-</ul>
-<p>Director 若使用 TextBuilder 則可產生一般格式的文件，如果使用 HTMLBuilder 則可產生 HTML 格式的文件。</p>
-<script src="https://gist.github.com/twmht/763c4db0a1d41388d333.js"></script>
-
-<h4>Builder 參與者</h4>
-<p>Builder 規定產生物件個體的介面。包括有產生物件個體各個部份的方法和取得最後結果的方法。例如 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/builder.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/bridge.html" rel="bookmark" title="Permalink to Bridge Pattern -- 分成功能階層和實作階層">Bridge Pattern -- 分成功能階層和實作階層</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>bridge 是 <strong>橋樑</strong> 的意思。就像現實社會裡的橋樑擔負著連接河川兩岸的重責大任一樣，Bridge Pattern 也是負責連接兩個不同位置的參與者。</p>
-<h3>如何設計</h3>
-<p>Bridge Pattern 居間溝通的兩個位置是指 <strong>功能的類別階層</strong> 和 <strong>實作的類別階層</strong>。</p>
-<h4>想要新增功能時</h4>
-<p>假設現在有一個類別 Something，如果想對 Something 新增其它功能時(例如，想多加一個新方法)，首先要建立 SomethingGood 類別作為 Something 的子類別 (子類別、衍生類別或擴充類別)。這就是一個小型的類別階層。
-這個階層是為了新增功能而建立:</p>
-<ul>
-<li>基本功能放在父類別</li>
-<li>新功能則新增到子類別</li>
-</ul>
-<p>又稱為 <strong>功能的類別階層</strong>。
-假設現在又想對 SomethingGood 類別新增另一個功能時。此時，要建立 SomethingBetter 類別作為 SomethingGood 類別的子類別。如此一來，功能的類別階層又往下延伸一層。</p>
-<p>如欲追加新功能時，找出類別階層中最接近目的的類別 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/bridge.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-        
-        <li>
-            <article class="archive">
-                <header> 
-                    <h2 class="archive-entry-title">
-                        <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/adapter.html" rel="bookmark" title="Permalink to Adapter Pattern -- 換個包裝再度利用">Adapter Pattern -- 換個包裝再度利用</a>
-                    </h2> 
-                </header>
-                <footer class="post-info">
-                    <abbr>
-                      六 26 四月 2014 
-                         By <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-  
-                    </abbr>
-                    <div class="entry-summary"> <h3>用的時間點</h3>
-<p>例如將直流電換成交流電，轉換器的功能是介入既有內容和需要結果之間，作為溝通的橋樑。</p>
-<p>如果既有內容無法直接利用時，通常需要先轉換成必要的型態後再使用。具有填平<strong>既有內容</strong>和<strong>需要結果</strong>兩者間的<strong>落差</strong>就是 <strong>Adapter Pattern</strong>。</p>
-<h3>如何設計</h3>
-<p>設計wrapper，將既有內容包裝之後，重新再利用。</p>
-<h3>程式範例(繼承)</h3>
-<p>改變輸出字串的外框，採用繼承。</p>
-<script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"></script>
-
-<h3>程式範例(委讓)</h3>
-<p>改變輸出字串的外框，採用委讓。</p>
-<script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"></script>
-
-<h4>Target (對象) 參與者</h4>
-<p>決定現在需要什麼方法的參與者，例如筆記型電腦必須要有直流電才能動。例如 Print 介面。</p>
-<h4>Client 參與者</h4>
-<p>利用 Target 的方法來做事的參與者，例如有直流電 12V 才能用的比較型電腦。例如 Main 類別。</p>
-<h4>Adaptee (被動符合) 參與者</h4>
-<p>具有既有方法的參與者 ...</p>
-                    <a href="http://twmht.github.io/blog/posts/2014/04/design-pattern/adapter.html">read more</a></div>
-                </footer><!-- /.post-info -->
-                <!-- /.entry-content -->
-            </article>
-        </li>
-    </ol><!-- /#posts-list -->
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
 </div>
-<p class="paginator">
-    Page 1 / 3
-        <a href="http://twmht.github.io/blog/category/design-pattern2.html">&raquo;</a>
-</p>
-</section><!-- /#content -->
-            <hr/>
-            <footer id="contentinfo" class="footer">
-                <div>
-                    <a href="http://twmht.github.io/blog">twmht</a> (2012)
-                </div>
-                <div>
-                    This work is licensed under <a rel="license" href="http://opensource.org/licenses/bsd-3-clause">3 clause BSD</a>. Source code available on <a rel="source code" href="https://github.com/slok/blog">Github</a>
-                </div>
-                <div>
-                    powered by <a href="http://getpelican.com/">Pelican</a>
-                    and <a href="http://python.org">Python</a>. 
-                    <a href="http://github.com/slok/iris">Theme</a> by <a href="http://xlarrakoetxea.org">Xabier Larrakoetxea</a> based on <a href="http://flask.pocoo.org/">Flask</a> theme
-                </div>
-                <div>
-                    Social icons (font awesome) by <a href="http://fortawesome.github.com/Font-Awesome/"> fort awesome<a>.
-                    <a href="http://www.google.com/webfonts/specimen/The+Girl+Next+Door">Title</a> and <a href="http://www.google.com/webfonts/specimen/Inconsolata">source code</a> fonts by google fonts
-                </div>
-                <div class="social">
-                        <a href="https://github.com/twmht"><i class="icon-Github"></i>  </a>
-                        <a href="https://www.facebook.com/profile.php?id=1793746917"><i class="icon-Facebook"></i>  </a>
-                </div>
-            </footer><!-- /#contentinfo -->
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
         </div>
-        <!--Add statistycs-->
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span9">
+    <section>
+    <h1>Articles in Design Pattern</h1>
+
+        <div class="row-fluid archive_row">
+            <div class="span1 archive_year">2014</div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset1 span1 archive_month">Jun</div>
+        </div>
+        <div class="row-fluid archive_row">
+                <div class="offset1 span1 archive_day">
+                18
+                </div>
+            <div class="span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/visitor.html">Visitor Pattern -- 在結構中穿梭還同時做事</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/FactoryMethod.html">Factory Method Pattern -- 建立物件個體可交給子類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/facade.html">Facade Pattern -- 單一窗口</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/flyweight.html">Flyweight Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/interpreter.html">Interpreter Pattern -- 以類別來表達文法規則</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/iterator.html">Iterator Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/mediator.html">Mediator Pattern -- 只要面對一個顧問</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/memento.html">Memento Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/observer.html">Observer Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/prototype.html">Prototype Pattern -- 複製建立物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/proxy.html">Proxy Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html">Singleton Pattern -- 唯一的物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/state.html">State Pattern</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/strategy.html">Strategy Pattern -- 把演算法則整個換掉</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/templateMethod.html">Template Method Pattern -- 實際處理交給子類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/abstractFactory.html">Abstract Factory Pattern -- 把相關零件組合成產品</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/adapter.html">Adapter Pattern -- 換個包裝再度利用</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/bridge.html">Bridge Pattern -- 分成功能階層和實作階層</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/builder.html">Builder Pattern -- 組合複雜的物件個體</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/chainOfResponsibility.html">Chain of Responsibility Pattern -- 責任轉送</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/command.html">Command Pattern -- 將命令寫成類別</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/composite.html">Composite Pattern -- 對容器和內容一視同仁</a>
+            </div>
+        </div>
+        <div class="row-fluid archive_row">
+            <div class="offset2 span10">
+                <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/decorator.html">Decorator Pattern -- 對裝飾和內容一視同仁</a>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="span3">
+    <section id="sidebar">
+            <div>
+                <h2>Browse content by</h2>
+                <ul class="fa-ul">
+                <li><a href="http://twmht.github.io/blog/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
+                <li><a href="http://twmht.github.io/blog/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
+                <li><a href="http://twmht.github.io/blog/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
+
+                <li><a href="http://twmht.github.io/blog/feeds/design-pattern.atom.xml"><i class="fa-li fa fa-rss"></i> Feed</a></li>
+                </ul>
+            </div><!-- /.browse -->
+            <div>
+                <h2>Links</h2>
+                <ul>
+                    <li><a href="http://getpelican.com/">Pelican</a></li>
+                    <li><a href="http://pygments.org/docs/lexers/">pygments</a></li>
+                    <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                    <li><a href="http://twmht.github.io">Author</a></li>
+                    <li><a href="http://luckycat.kshs.kh.edu.tw/">Luckycat</a></li>
+                    <li><a href="http://warpedvisions.org/projects/markdown-cheat-sheet.md">Markdown</a></li>
+                </ul>
+            </div><!-- /.Links -->
+            <div>
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="https://github.com/twmht">Github</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=1793746917">Facebook</a></li>
+                </ul>
+            </div><!-- /.social -->
+            <div>
+                <h2>Tags</h2>
+                <ul id="cloud">
+                </ul>
+             </div>
+<!-- /.Tags -->
+    </section><!-- /#sidebar -->
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
