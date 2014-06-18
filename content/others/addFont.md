@@ -1,4 +1,5 @@
 Title: 如何在ubuntu中加入新的字型
+Tags: ubuntu, font
 Slug: addFont
 Category: Others
 Author: twmht

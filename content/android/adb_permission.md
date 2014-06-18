@@ -1,5 +1,6 @@
 Title: adb devices 顯示 no permissions
 Slug: adb_permission
+Tags: adb, android
 Category: android
 Author: twmht
 

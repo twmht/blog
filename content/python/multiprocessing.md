@@ -1,4 +1,5 @@
 Title: multiprocessing with map
+Tags: python, thread
 Slug: multiprocessing_map
 Category: Python
 Author: twmht
