@@ -16,7 +16,9 @@ DEFAULT_DATE = 'fs'
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
-THEME = '../pelican-themes/iris'
+THEME = 'pelican-theme/pelican-fresh'
+GOOGLE_CUSTOM_SEARCH = '011100128719699788018:4mb0t5kqbse'
+
 
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),
