@@ -1,4 +1,5 @@
 Title: Eclipse的設定
+Tags: eclipse, theme
 Slug: Eclipse
 Category: Others
 Author: twmht
