@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-18T11:34:20+08:00</updated><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="alternate"></link><updated>2014-06-18T11:34:20+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-29T17:16:09+08:00</updated><entry><title>在 bash shell 中顯示 git branch</title><link href="http://twmht.github.io/blog/posts/2014/06/others/showgit.html" rel="alternate"></link><updated>2014-06-29T17:16:09+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/showgit.html</id><summary type="html">&lt;p&gt;加到 &lt;code&gt;.bashrc&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/e95f0495053bc6a1a7c5.js"&gt;&lt;/script&gt;</summary><category term="bash"></category><category term="git"></category></entry><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/06/others/Eclipse.html" rel="alternate"></link><updated>2014-06-29T17:13:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
+&lt;p&gt;&lt;font color=red&gt;首先是Editor theme。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;Install new software-&amp;gt;add-&amp;gt;http://eclipse-color-theme.github.com/update&lt;/p&gt;
+&lt;p&gt;Name打Editor Theme。&lt;/p&gt;
+&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance-&amp;gt;Editor Theme選擇要的Theme。&lt;/p&gt;
+&lt;p&gt;&lt;font color=red&gt; 接下來是IDE theme。 &lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;下載&lt;a href="http://rogerdudler.github.io/eclipse-ui-themes/"&gt;Dark Juno&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。&lt;/p&gt;
+&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance選擇Dark Juno。&lt;/p&gt;</summary><category term="eclipse"></category><category term="theme"></category></entry><entry><title>Eclipse 修改編碼</title><link href="http://twmht.github.io/blog/posts/2014/06/others/eclipse_encoding.html" rel="alternate"></link><updated>2014-06-29T17:13:27+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/eclipse_encoding.html</id><summary type="html">&lt;p&gt;如下，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;修改語系，開啟&lt;code&gt;/var/lib/locales/supported.d/zh-hant&lt;/code&gt;。
+    加入&lt;code&gt;zh_TW.Big5 Big5&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重新開啟 eclipse，右鍵&lt;code&gt;Poject-&amp;gt;Property-&amp;gt;Resource-&amp;gt;Text file encoding&lt;/code&gt;
+    手動輸入 Big5&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="eclipse"></category><category term="encoding"></category></entry><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;使用gnome-font-viewer &lt;/p&gt;
@@ -23,73 +42,25 @@ sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
 
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary><category term="ubuntu"></category><category term="font"></category></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
-這時候可以使用&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;alsamixer
+&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary><category term="ubuntu"></category><category term="font"></category></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;或者是&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;gnome-alsamixer
+&lt;p&gt;到新的環境中如何重新載入library.sql呢？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysql -u root -p &amp;lt; library.sql
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
+&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;來調整麥克風的聲音。
-如果再不行的話，就使用&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;gstreamer-properties
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;調整input或者是output。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;首先修改 &lt;code&gt;/etc/squid3/squid.conf&lt;/code&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/p&gt;
-&lt;p&gt;在 auth_param section 中:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;auth_param basic program /usr/lib/squid/pam_auth
-auth_param basic children 5
-auth_param basic realm Squid proxy-caching web server
-auth_param basic credentialsttl 2 hours
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;在 acl section 中：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;acl pam proxy_auth REQUIRED
-acl password proxy_auth REQUIRED
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;在 http_access 中：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;http_access allow pam
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;接下來修改 &lt;code&gt;/etc/pam.d/squid&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;加入下面這兩行。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#先找出 pam_unix.so 的路徑&lt;/span&gt;
-&lt;span class="c"&gt;#updatedb &amp;amp;&amp;amp; locate pam_unix.so&lt;/span&gt;
-auth required path_to_pam_unix.so
-account required path_to_pam_unix.so
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;重新啟動 squid&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;service squid restart
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;若驗證有問題，則可能是權限問題。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo chmod u+s /usr/lib/squid3/pam_auth
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>如何在ubuntu中安裝LAMP</title><link href="http://twmht.github.io/blog/posts/2014/06/others/lamp.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/lamp.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#install apache&lt;/span&gt;
+&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2014/06/others/gif.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#delay的值*10ms為delay的秒數，loop為0表示infinite loop&lt;/span&gt;
+convert -delay 100 -loop 0 gif/* output.gif
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何在ubuntu中安裝LAMP</title><link href="http://twmht.github.io/blog/posts/2014/06/others/lamp.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/lamp.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#install apache&lt;/span&gt;
 sudo apt-get install apache2
 
 &lt;span class="c"&gt;#install php&lt;/span&gt;
@@ -164,33 +135,70 @@ vim /etc/apache2/mods-enabled/userdir.conf
 &lt;div class="highlight"&gt;&lt;pre&gt;service apache2 restart
 &lt;span class="c"&gt;#之後就可以在家目錄建立public_html&lt;/span&gt;
 mkdir /home/&lt;span class="nv"&gt;$USER&lt;/span&gt;/public_html
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/06/others/Eclipse.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
-&lt;p&gt;&lt;font color=red&gt;首先是Editor theme。&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;Install new software-&amp;gt;add-&amp;gt;http://eclipse-color-theme.github.com/update&lt;/p&gt;
-&lt;p&gt;Name打Editor Theme。&lt;/p&gt;
-&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance-&amp;gt;Editor Theme選擇要的Theme。&lt;/p&gt;
-&lt;p&gt;&lt;font color=red&gt; 接下來是IDE theme。 &lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;下載&lt;a href="http://rogerdudler.github.io/eclipse-ui-themes/"&gt;Dark Juno&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。&lt;/p&gt;
-&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance選擇Dark Juno。&lt;/p&gt;</summary></entry><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
-&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;加入&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;alsamixer
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>Eclipse 修改編碼</title><link href="http://twmht.github.io/blog/posts/2014/06/others/eclipse_encoding.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/eclipse_encoding.html</id><summary type="html">&lt;p&gt;*修改語系，開啟&lt;code&gt;/var/lib/locales/supported.d/zh-hant&lt;/code&gt;。
-    加入&lt;code&gt;zh_TW.Big5 Big5&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;*重新開啟 eclipse，右鍵&lt;code&gt;Poject-&amp;gt;Property-&amp;gt;Resource-&amp;gt;Text file encoding&lt;/code&gt;
-    手動輸入 Big5&lt;/p&gt;</summary></entry><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2014/06/others/gif.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#delay的值*10ms為delay的秒數，loop為0表示infinite loop&lt;/span&gt;
-convert -delay 100 -loop 0 gif/* output.gif
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html" rel="alternate"></link><updated>2014-06-18T11:12:48+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-18:posts/2014/06/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
+&lt;p&gt;或者是&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;gnome-alsamixer
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;到新的環境中如何重新載入library.sql呢？&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mysql -u root -p &amp;lt; library.sql
-&lt;/pre&gt;&lt;/div&gt;</summary></entry></feed>
+&lt;p&gt;來調整麥克風的聲音。
+如果再不行的話，就使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;gstreamer-properties
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;調整input或者是output。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="alternate"></link><updated>2014-06-29T16:14:36+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先修改 &lt;code&gt;/etc/squid3/squid.conf&lt;/code&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/p&gt;
+&lt;p&gt;在 auth_param section 中:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 acl section 中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 http_access 中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http_access allow pam
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接下來修改 &lt;code&gt;/etc/pam.d/squid&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入下面這兩行。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#先找出 pam_unix.so 的路徑&lt;/span&gt;
+&lt;span class="c"&gt;#updatedb &amp;amp;&amp;amp; locate pam_unix.so&lt;/span&gt;
+auth required path_to_pam_unix.so
+account required path_to_pam_unix.so
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重新啟動 squid&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;service squid restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;若驗證有問題，則可能是權限問題。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo chmod u+s /usr/lib/squid3/pam_auth
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;</summary></entry></feed>
