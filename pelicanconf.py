@@ -38,3 +38,5 @@ DEFAULT_PAGINATION = 10
 RELATIVE_URLS = True
 ARTICLE_URL = 'posts/{date:%Y}/{date:%m}/{category}/{slug}.html'
 ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%m}/{category}/{slug}.html'
+STATIC_PATHS = ['images', 'pdf']
+#FILES_TO_COPY = ( ('extra/favicon.ico', 'favicon.ico'),)
