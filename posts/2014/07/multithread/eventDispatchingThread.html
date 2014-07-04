@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Swing 的 Event-Dispatching Thread"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/multithread/eventDispatchingThread.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/multithread/eventDispatchingThread.html" />
+
+    <title>Swing 的 Event-Dispatching Thread | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/multithread/eventDispatchingThread.html" rel="bookmark"
+             title="Permalink to Swing 的 Event-Dispatching Thread">Swing 的 Event-Dispatching Thread</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-02
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h4>Event-Dispatching Thread</h4>
+<p>當按下按鈕時，會產生 <code>java.awt.event.ActionEvent</code> 這個類別的實體，移動滑鼠的時候，會產生 <code>java.awt.event.MouseEvent</code> 的類別實體。這些實體放在 Swing 的 event queue 中。</p>
+<p>如果提到 Worker Thread 的話，那麼產生的 event 可以對應到 Request，event queue 就是 Channel，而 Client 就是對應到管理滑鼠及鍵盤等事件來源的部份。event-dispatching thread 就是 worker。</p>
+<p>event-dispatching thread 會從 event queue 中取出一個 event，並執行這個 event。執行結束後，再回來 event queue 取出下一個 event。如果 event queue 中沒有任何 event， 則 event-dispatching thread 就會停下來等待新的 event。整個過程就是一個 Worker Thread Pattern。</p>
+<p>而 event-dispatching thread 只有一條，因此可以省略共用互斥的問題，速度快很多。</p>
+<h4>Event-dispatching Thread 會呼叫 Listener</h4>
+<p>event-dispatching thread 會去執行事件，接下來要具體思考的是要怎麼執行。</p>
+<p>event-dispatching thread 進行的動作之一，是呼叫各種 Listener 的方法。</p>
+<p>例如，按下按鈕的時候，<code>java.awt.event.ActionEvent</code> 的實體會被放進 event queue 中，當 event-dispatching thread 取得這個實體，會去呼叫用來處理 ActionEvent 實體的物件(Listener) 的 actionPerformed 方法。Event-dispatching thread 其實不知道這個方法會做什麼事情，它只是單純去呼叫這個方法而已。</p>
+<h5>登錄 Listener 的意義</h5>
+<p>例如，當要登錄 Listener 的時候，會呼叫 addActionListener 或 addMouseListener。對元件登錄 Listener，其實就是對元件設定當 event 發生時，event-dispatching thread 所要呼叫的方法所在的實體。</p>
+<h4>Event-dispatching thread 也處理畫面的重繪</h4>
+<p>event-dispatching thread 除了呼叫 Listener 的方法以外，還會呼叫重繪的方法。</p>
+<p>當我們想要重繪畫面的時候，會去呼叫 repaint 方法，但呼叫 repaint 方法，其實並不會馬上開始重畫。repaint 方法只會在內部紀錄要重畫的區域，實際上，重畫的動作還是由 event-dispatching thread 另外處理的。</p>
+<h4>Java.swing.SwingUtilities 類別</h4>
+<h5>invokeAndWait 方法</h5>
+<p>這個方法會執行參數中傳入的 Runnable 物件。不過，執行這個物件的，是 event-dispatching thread。也就是說，使用 invokeAndWait 方法，可以將任意動作塞進 Swing 的 event queue。</p>
+<p>invokeAndWait 是啟動並等待的意思。如同其名，這個方法會等待參數中傳入的 Runnable 物件執行完畢。也就是說，要等到呼叫 invokeAndWait 方法的時間點，event queue 中已經存放的所有事件都執行完，並且參數傳入的 Runnable 物件的 run 方法也執行完畢以後，才會從 invokeAndWait 方法離開。</p>
+<p>如果我們建立額外的執行緒去呼叫元件的方法，其實是危險的。如果無論如何都想要呼叫元件的方法的話，就該將要執行的動作的內容建立成 Runnable 物件，使用 invokeAndWait 方法(或是 invokeLater 方法)交給 event-dispatching thread 來呼叫。</p>
+<h5>invokeLater 方法</h5>
+<p>invokeLater 方法類似 invokeAndWait 方法，不過它不會等待 Runnable 物件執行完，而是塞入 event queue 後就馬上離開。</p>
+<h5>isEventDispatchThread 方法</h5>
+<p>使用這個方法可以檢查目前的執行緒是不是 event-dispatching thread。</p>
+<h4>The single-thread rule</h4>
+<p>當 Swing 元件一旦被實現，可能改變元件狀態的程式碼或只是相依於狀態的程式碼，都必須交由 event-dispatching thread 執行。所謂元件被 realized (實現)，是指元件處在已經可以呼叫 paint 的狀態。具體來說，就是這個元件的 <code>setVisible(true)</code> 方法、<code>show()</code> 方法或者是 <code>pack()</code> 方法已經被呼叫，或是這個元件是已經被實現的子元件。</p>
+<p>簡單來說，當元件還在準備時，由其他的執行緒呼叫也沒有關係，可是，一旦顯示出來以後(設定為可顯示以後)，元件的方法就只能從 event-dispatching thread 執行。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

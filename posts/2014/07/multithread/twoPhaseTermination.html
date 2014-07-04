@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/multithread/twoPhaseTermination.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/multithread/twoPhaseTermination.html" />
+
+    <title>Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/multithread/twoPhaseTermination.html" rel="bookmark"
+             title="Permalink to Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧">Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-04
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
+        <a href="http://twmht.github.io/blog/tag/java.html">java</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Two-Phase Termination Pattern 是用來確實地進行結束的動作後，再結束掉執行緒。</p>
+<p>我們將執行緒進行平常的處理的狀態稱為<strong>作業中</strong>。當希望結束這個執行緒時，則送出<strong>中止請求</strong>。接著這個執行緒，並不會馬上結束，而會開始進行必要的善後工作。這個狀態稱為<strong>終止處理中</strong>。從<strong>作業中</strong>改變成<strong>終止處理中</strong>是第一階段。</p>
+<p><strong>終止處理中</strong>的狀態並不會進行平常的動作。雖然執行緒還在運行，但進行的是終止處理。直到<strong>終止處理中</strong>結束後，才真正結束執行緒。<strong>終止處理中</strong>的動作結束，是第二階段。</p>
+<p>先從<strong>作業中</strong>進入<strong>終止處理中</strong>狀態，再真正結束掉執行緒。主要考慮的關鍵如下：</p>
+<ul>
+<li>安全地結束(安全性)</li>
+<li>一定會進行終止處理(生命性)</li>
+<li>收到終止請求後，要盡快開始終止處理(回應性)</li>
+</ul>
+<h3>範例程式</h3>
+<p>有一條執行緒會在每隔約 500 毫秒將計數遞增 1，而我們要在約 10 秒後結束程式。</p>
+<script src="https://gist.github.com/twmht/2a703442a85a40338bad.js"></script>
+
+<h3>參與者</h3>
+<h4>TerminationRequest</h4>
+<p>TerminationRequest 對 Terminator 送出終止請求。例如 Main 類別。</p>
+<h4>Terminator</h4>
+<p>Terminator 會接受終止請求，實際進行終止處理。Terminator 提供有用來提出終止請求的 shutdownRequest 方法。我們沒必要對 shutdownRequest 方法使用 Single Threaded Execution Pattern。</p>
+<p>當 shutdownRequest 方法被呼叫，Terminator 就會在考慮到安全性的情況下，自己進入<strong>終止處理中</strong>的狀態。接著在終止處理執行完畢後，執行緒正式結束。</p>
+<p>Terminator 有一個 flag 來表示自己是否已經收到終止請求。並在可以安全地開始進行終止處理的地方，檢查這個 flag。如果檢查 flag 的動作很頻繁，那從收到終止請求，直到真正進入<strong>終止處理中</strong>狀態所間隔的時間，就可以縮短。例如 CountupThread 類別。</p>
+<h3>重點</h3>
+<h4>不可以使用 Thread 類別的 stop 方法</h4>
+<p><code>java.lang.Thread</code>中的 stop 方法，會強制將正在執行 critical section 的執行緒結束掉，因此缺乏資料安全性。</p>
+<h4>只檢查 flag 也不夠</h4>
+<p>shutdownRequest 方法除了將 flag 設定為 true 之外，也呼叫了 interrupt 方法，原因在於說執行緒可能正在 sleep 或者是 wait，因此需要呼叫 interrupt 來改變執行緒的狀態。</p>
+<h4>進行繁重的處理之前，先檢查終止請求</h4>
+<p>為了使收到終止請求前，能儘快開始終止處理，故每當要開始繁重的處理前，應該先檢查 shutdownRequested flag，或是呼叫 isShutdownRequested 方法。這樣一來，可使程式的<strong>回應性</strong>提高。</p>
+<h4>程式的結束與 addShutdownHook 方法</h4>
+<p><code>java.lang.Runtime</code>的 addShutdownHook。可在程式結束時，呼叫所指定的 thread 的 start 方法。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;main:BEGIN&quot;</span><span class="o">);</span>
+
+        <span class="c1">// 設定shutdown hook</span>
+        <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">addShutdownHook</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">Thread</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;*****&quot;</span><span class="o">);</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;: SHUTDOWN HOOK!&quot;</span><span class="o">);</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;*****&quot;</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;main:SLEEP...&quot;</span><span class="o">);</span>
+
+        <span class="c1">// 約3秒後強制結束程式</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;main:EXIT&quot;</span><span class="o">);</span>
+
+        <span class="c1">// 在這裡強制結束</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+        <span class="c1">// 不會執行到這裡</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;main:END&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3>問題</h3>
+<h4>1.中斷狀態的變化。以下程式沒有檢查 shutdownRequested 這個 flag，但是仍然可以正常結束。請把它修改成無法正常結束。</h4>
+<p>拿掉 flag 之後的 CountThread 類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountupThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="c1">// 計數器的值</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+
+    <span class="c1">// 終止請求</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdownRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 動作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">isInterrupted</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">doWork</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">doShutdown</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doWork: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>因為 sleep 方法會丟出 InterruptedException。因此只要忽略這個 InterruptedException，就可以使程式無法正常被執行。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountupThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="c1">// 計數器的值</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// 終止請求</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdownRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">interrupt</span><span class="o">();</span>                    
+    <span class="o">}</span>
+
+    <span class="c1">// 動作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">isInterrupted</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">doWork</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">doShutdown</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doWork: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//在這裡先抓下來，直接忽略掉</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>2.改寫 CountupThread 類別定義的 doShutdown 方法，將呼叫 doShutdown 方法時，counter 欄位的值會存到檔案 counter.txt 裡面。</h4>
+<p>如下，</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountupThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="c1">// 計數器的值</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// 已經送出終止請求則為true</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="c1">// 終止請求</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdownRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 判斷終求請求是否已經送出</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isShutdownRequested</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shutdownRequested</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 動作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">shutdownRequested</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">doWork</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">doShutdown</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doWork: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: Save BEGIN&quot;</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">FileWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="s">&quot;counter.txt&quot;</span><span class="o">);</span>
+            <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&quot;counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+            <span class="n">writer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: Save END&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>3. Template Method Pattern。請改寫 CountupThread 類別，使其成為 GracefulThread 類別的子類別。</h4>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GracefulThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="c1">// 已經送出終止請求則為true</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="c1">// 終止請求</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">shutdownRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 判斷終止請求是否已經送出</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">isShutdownRequested</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shutdownRequested</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 動作</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">shutdownRequested</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">doWork</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">doShutdown</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>以父類別的方法來組成處理的架構，將該方法呼叫出來的方法用子類別來實作，稱為 Template Method Pattern。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountupThread</span> <span class="kd">extends</span> <span class="n">GracefulThread</span> <span class="o">{</span>
+    <span class="c1">// 計數器的值</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doWork: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: counter = &quot;</span> <span class="o">+</span> <span class="n">counter</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>4. 現在寫一支 GUI 程式，按下之後會逐漸顯示 50 個句點。可以按 Cancel 鈕取消顯示。</h4>
+<p>繼承 GracefulThread 類別，建立 ServerThread 類別。從 Service 類別啟動 ServiceThread 類別。這就是 Thread-Per-Message Pattern。</p>
+<p>連續按 Execute 按鈕時，採用 Balking Pattern 進行 balk。</p>
+<script src="https://gist.github.com/twmht/ac95da9ad1f9626b7162.js"></script>
+
+<h4>5. 改善回應性。以下是一隻河內塔程式，在 10 秒後送出終止請求，但是程式卻延遲了 7681 毫秒後才呼叫 doShutdown 方法。請改寫之，使其能夠縮短延遲的時間。</h4>
+<script src="https://gist.github.com/twmht/8e817762af3ddb042e5d.js"></script>
+
+<p>在 dowork 方法裡面檢查 showdownRequested 這個 flag，如果有就馬上丟出 InterruptedException。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HanoiThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="c1">// 已經送出終止請求則為true</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="c1">// 送出終止請求的時刻</span>
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">long</span> <span class="n">requestedTimeMillis</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// 終止請求</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdownRequest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">requestedTimeMillis</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 判斷終止請求是否已經送出</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isShutdownRequested</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">shutdownRequested</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 動作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="o">!</span><span class="n">shutdownRequested</span><span class="o">;</span> <span class="n">level</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;==== Level &quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="s">&quot; ====&quot;</span><span class="o">);</span>
+                <span class="n">doWork</span><span class="o">(</span><span class="n">level</span><span class="o">,</span> <span class="sc">&#39;A&#39;</span><span class="o">,</span> <span class="sc">&#39;B&#39;</span><span class="o">,</span> <span class="sc">&#39;C&#39;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">doShutdown</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 作業</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">(</span><span class="kt">int</span> <span class="n">level</span><span class="o">,</span> <span class="kt">char</span> <span class="n">posA</span><span class="o">,</span> <span class="kt">char</span> <span class="n">posB</span><span class="o">,</span> <span class="kt">char</span> <span class="n">posC</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">level</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">shutdownRequested</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">InterruptedException</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">doWork</span><span class="o">(</span><span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">posA</span><span class="o">,</span> <span class="n">posC</span><span class="o">,</span> <span class="n">posB</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">posA</span> <span class="o">+</span> <span class="s">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">posB</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="o">);</span>
+            <span class="n">doWork</span><span class="o">(</span><span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">posC</span><span class="o">,</span> <span class="n">posB</span><span class="o">,</span> <span class="n">posA</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 終止處理</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doShutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">requestedTimeMillis</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;doShutdown: Latency = &quot;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> <span class="s">&quot; msec.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
