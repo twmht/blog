@@ -80,182 +80,7 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/queue.html" rel="bookmark" title="Permalink to queue實作">
-                                       queue實作
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>用Array實作queue。</p>
-<div class="highlight"><pre><span class="cp">#ifndef QUEUE_H</span>
-<span class="cp">#define QUEUE_H</span>
-<span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="cp">#include &lt;stdlib.h&gt;</span>
-<span class="cp">#include &lt;string.h&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Queue</span><span class="p">{</span>
-    <span class="nl">public:</span>
-    <span class="n">Queue</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">Queue</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">this ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/queue.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/readWrite.html" rel="bookmark" title="Permalink to Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔">
-                                       Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>Read-Write Lock Pattern 主要是分成讀跟寫的執行緒，當讀跟讀之間的執行緒不需要共用互斥時，而且讀的頻率很高的時候，使用這個 Pattern 效率會很好。這個 Pattern 的重點在於，他沒有 read-read conflict，但是其他三種組合會有 conflict，例如 read-write conflict，因此需要做共用互斥。</p>
-<p>在範例程式碼中，preferWriter 欄位就是用來讓 ReaderThread 以及 WriterThread 可以輪流執行。
-<script src="https://gist.github.com/twmht/a4b92735f01b4efdc3c3.js"></script></p>
-<h3>所有參與者</h3>
-<h4>Reader</h4>
-<p>Reader 會對 SharedResource 進行 read。例如 ReaderThread 類別。</p>
-<h4>Writer</h4>
-<p>Writer 會對 SharedResource 進行 write。例如 WriterThread 類別。</p>
-<h4>SharedResource</h4>
-<p>SharedResource 代表 ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/readWrite.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/single-thread-execution.html" rel="bookmark" title="Permalink to Single Threaded Execution Pattern">
-                                       Single Threaded Execution Pattern
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h2>Single Threaded Execution Pattern</h2>
-<p>是指我們的方法限定一次只能由一個執行緒所執行。 </p>
-<p>假設我們有一個<em>Gate</em>，一次只能夠限定一個人通過，現在我們有多個人（多個thread)要通過這個門，每次通過之後<em>Gate</em>會顯示通過的人的<em>name</em>以及<em>address</em>，同時<em>Gate</em>會用一個<em>counter</em>來紀錄目前有多少人通過。</p>
-<p>Gate.java</p>
-<div class="highlight"><pre>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="c1">//加入synchronized限制一次只能由一個thread來執行這個pass</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/single-thread-execution.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html" rel="bookmark" title="Permalink to Singleton Pattern -- 唯一的物件個體">
-                                       Singleton Pattern -- 唯一的物件個體
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
-<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
-<h3>如何設計</h3>
-<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
-<h3>程式範例</h3>
-<p>設計一個只有一個物件個體的類別。</p>
-<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
-
-<h4>Singleton 參與者</h4>
-<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
-<h3>優點</h3>
-<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
-<h3>問題 ...</h3>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/sort.html" rel="bookmark" title="Permalink to sorting">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/cc/sort.html" rel="bookmark" title="Permalink to sorting">
                                        sorting
                                     </a>
                                 </h1>
@@ -268,7 +93,7 @@
 
     in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -286,7 +111,7 @@
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="kt">bool ...</span></pre></div></li></ul>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/sort.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/cc/sort.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -296,7 +121,7 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/stack.html" rel="bookmark" title="Permalink to stack實作">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/cc/stack.html" rel="bookmark" title="Permalink to stack實作">
                                        stack實作
                                     </a>
                                 </h1>
@@ -309,7 +134,7 @@
 
     in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -336,7 +161,7 @@ Stack.h</p>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T ...</span></pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/stack.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/cc/stack.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -346,7 +171,109 @@ Stack.h</p>
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/ThreadPerMessage.html" rel="bookmark" title="Permalink to Thread-Per-Message Pattern -- 這個工作交給你了">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/InterruptedException.html" rel="bookmark" title="Permalink to InterruptedException">
+                                       InterruptedException
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-14
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
+        <a href="http://twmht.github.io/blog/tag/java.html">java</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>呼叫 interrupt 方法後，可以中斷掉執行緒。有下面其中一種結果：</p>
+<ul>
+<li>執行緒變成中斷狀態。</li>
+<li>丟出 InterruptedException，只有在執行緒是 sleep、wait 或是 join 時才會發生，而且這個時候不會變成中斷狀態。</li>
+</ul>
+<h4>從中斷狀態到丟出 InterruptedException 例外</h4>
+<p><strong>若執行緒是中斷狀態，就丟出 InterruptedException</strong>，可以像下面這樣寫。</p>
+<div class="highlight"><pre><span class="k">if</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">()){</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">InterruptedException</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h5>哪個執行緒來檢查 interrupted 方法</h5>
+<p>Thread.interrupted 方法會檢查 Thread.currentThread() 的中斷狀態。也就是說，上面的 if 敘述無論寫在哪個類別的哪個方法，都是檢查執行 if 敘述的執行緒的中斷狀態。</p>
+<h5>不想清楚中斷狀態的時候</h5>
+<p>呼叫 Thread.interrupted 方法後，執行緒就不再是中斷狀態了 ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/InterruptedException.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/Introduction.html" rel="bookmark" title="Permalink to Introduction to Multithread">
+                                       Introduction to Multithread
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
+<h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
+<p>一般來說，在java中可以透過兩種方式建立thread。</p>
+<ul>
+<li>
+<p>繼承Thread類別，建立PrintThread.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/Introduction.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/ThreadPerMessage.html" rel="bookmark" title="Permalink to Thread-Per-Message Pattern -- 這個工作交給你了">
                                        Thread-Per-Message Pattern -- 這個工作交給你了
                                     </a>
                                 </h1>
@@ -359,7 +286,7 @@ Stack.h</p>
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -375,7 +302,7 @@ Stack.h</p>
 <h4>Host</h4>
 <p>當 Host 收到 Client 的請求，會建立新的執行緒並啟動它 ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/ThreadPerMessage.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/ThreadPerMessage.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -385,7 +312,7 @@ Stack.h</p>
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/balking.html" rel="bookmark" title="Permalink to Balking Pattern">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/balking.html" rel="bookmark" title="Permalink to Balking Pattern">
                                        Balking Pattern
                                     </a>
                                 </h1>
@@ -398,7 +325,7 @@ Stack.h</p>
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -421,7 +348,7 @@ Stack.h</p>
 
     <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String ...</span></pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/balking.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/balking.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -431,7 +358,7 @@ Stack.h</p>
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/deadlock.html" rel="bookmark" title="Permalink to DeadLock">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/deadlock.html" rel="bookmark" title="Permalink to DeadLock">
                                        DeadLock
                                     </a>
                                 </h1>
@@ -444,7 +371,7 @@ Stack.h</p>
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -469,7 +396,7 @@ Stack.h</p>
 
 <p>Main ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/deadlock.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/deadlock.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -479,7 +406,84 @@ Stack.h</p>
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/guarded-suspension.html" rel="bookmark" title="Permalink to Guarded Suspension Pattern -- 要等到我準備好喔">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/eventDispatchingThread.html" rel="bookmark" title="Permalink to Swing 的 Event-Dispatching Thread">
+                                       Swing 的 Event-Dispatching Thread
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h4>Event-Dispatching Thread</h4>
+<p>當按下按鈕時，會產生 <code>java.awt.event.ActionEvent</code> 這個類別的實體，移動滑鼠的時候，會產生 <code>java.awt.event.MouseEvent</code> 的類別實體。這些實體放在 Swing 的 event queue 中。</p>
+<p>如果提到 Worker Thread 的話，那麼產生的 event 可以對應到 Request，event queue 就是 Channel，而 Client 就是對應到管理滑鼠及鍵盤等事件來源的部份。event-dispatching thread 就是 worker。</p>
+<p>event-dispatching thread 會從 event queue 中取出一個 event，並執行這個 event ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/eventDispatchingThread.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/future.html" rel="bookmark" title="Permalink to Future -- 先給您這張提貨卷">
+                                       Future  -- 先給您這張提貨卷
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-14
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
+        <a href="http://twmht.github.io/blog/tag/java.html">java</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>假設有一個執行起來需要花一些時間的方法，我們就不要等待執行結果出來了，而取得一張替代的提貨卷。因為取得提貨卷不需要花時間，這時這個提貨卷就是 Future 參與者。</p>
+<p>取得 Future 的執行緒，會在事後再去取得執行結果。如果已經有結果了，就可以馬上到資料。如果執行結果還沒好，則繼續等到執行結果出現為止。</p>
+<p>與 Thread-Per-Message Pattern 比較的話，送出請求的方法是有回傳值的，而回傳值剛好就是 Future 參與者。</p>
+<p>程式範例：
+<script src="https://gist.github.com/twmht/7cb126892ed724326e9c.js"></script></p>
+<h3>所有參與者</h3>
+<h4>Client</h4>
+<p>Client 會向 Host 發出 Request。Client 會馬上得到 VirtualData (Future)，作為這個 Request 的結果。例如 Main 類別。</p>
+<h4>Host</h4>
+<p>Host 會建立新的執行緒，開始建立 RealData。另外，會對 Client 回傳 ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/future.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/guarded-suspension.html" rel="bookmark" title="Permalink to Guarded Suspension Pattern -- 要等到我準備好喔">
                                        Guarded Suspension Pattern -- 要等到我準備好喔
                                     </a>
                                 </h1>
@@ -492,7 +496,7 @@ Stack.h</p>
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -520,7 +524,7 @@ Stack.h</p>
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
 <span class="kd">public ...</span></pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/guarded-suspension.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/guarded-suspension.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -567,20 +571,21 @@ Stack.h</p>
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
                      <li class="tag-1"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

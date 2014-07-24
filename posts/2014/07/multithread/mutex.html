@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Mutex"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/multithread/mutex.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/multithread/mutex.html" />
+
+    <title>Mutex | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/multithread/mutex.html" rel="bookmark"
+             title="Permalink to Mutex">Mutex</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。</p>
+<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
+        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+            <span class="n">check</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">mutex</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
+        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">counter</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="o">+</span> <span class="n">address</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">mutex</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">name</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="n">address</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;***** BROKEN ***** &quot;</span> <span class="o">+</span> <span class="n">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>問題是，Mutex這個類別要如何設計?
+    我們設計一個lock方法，並且在其中設定一個busy欄位，表示目前是不是已經釋放鎖定了。同時也設定一個unlock方法，釋放鎖定。</p>
+<p>ok，現在來設計一個simple mutex，建立Mutex.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Mutex</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">busy</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="c1">//必須設定成syncronized,因為busy是一個shared resource</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">lock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">busy</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">//當還沒拿到鎖定的時候，先進入wait set</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">busy</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">unlock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">busy</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="c1">//叫醒其它在wait set中的執行緒。</span>
+        <span class="n">notifyAll</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>但是這樣設計並不好，雖然在Gate類別運作良好，但假設有某個執行緒連續呼叫兩次lock，則會變成在還沒釋放鎖定之前就把自己關到wait set中。
+另外，即使是沒有獲得鎖定的執行緒，也可以呼叫unlock方法，邏輯上會變得很奇怪。</p>
+<p>以下是一個改良過後的Mutex.java。利用locks紀錄目前的lock數量，並且紀錄一個owner來紀錄誰呼叫了這個lock。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Mutex</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">locks</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Thread</span> <span class="n">owner</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">lock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">me</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">locks</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">me</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">//若被叫醒回來發現lock大於0的話，則再回去wait set。</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">// locks == 0 || owner == me</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="n">me</span><span class="o">;</span>
+        <span class="n">locks</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">unlock</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">me</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">locks</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">me</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// locks &gt; 0 &amp;&amp; owner == me</span>
+        <span class="n">locks</span><span class="o">--;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">locks</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">owner</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">notifyAll</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

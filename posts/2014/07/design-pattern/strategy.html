@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Strategy Pattern -- 把演算法則整個換掉"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/design-pattern/strategy.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/strategy.html" />
+
+    <title>Strategy Pattern -- 把演算法則整個換掉 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/strategy.html" rel="bookmark"
+             title="Permalink to Strategy Pattern -- 把演算法則整個換掉">Strategy Pattern -- 把演算法則整個換掉</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h3>用的時間點</h3>
+<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
+<h3>如何設計</h3>
+<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
+<h3>程式範例</h3>
+<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
+<ul>
+<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
+<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
+</ul>
+<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
+
+<h4>Strategy 參與者</h4>
+<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
+<h4>ConcreteStrategy 參與者</h4>
+<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
+<h4>Context (文法) 參與者</h4>
+<p>利用 Strategy 參與者的參與者。它有 ConcreteStrategy 參與者的物件個體，如有必要時則可使用 (最多只能呼叫 Strategy 參與者的介面)。例如 Player 類別。</p>
+<h3>優點</h3>
+<p>我們比較習慣把實作運算法則這個部份結合到方法裡面。但是 Strategy Pattern 則故意把運算法則的部份跟其他部份分開。只規定跟運算法則有關的介面的部份，然後再從程式這邊以委讓的方式來利用運算法則。</p>
+<p>假設現在我們想改良運算法則提高速度，只需要注意不要去修改到 Strategy 的介面，然後再改 ConcreteStrategy 就行。而且它所使用的委讓又是說分就分的關係，所以很容易就切換運算法則。舉例來說，假設想比較一下原始運算法則跟改良後的運算法則兩者的速度時，只要動手切換一下就能測得出來。</p>
+<p>即使這個程式是一個象棋遊戲，只要使用 Strategy Pattern 的話，還能配合使用者選擇的參與者切換思考模式等級。</p>
+<h4>執行時也能切換</h4>
+<p>可在程式執行中直接切換 ConcreteStrategy。例如若電腦記憶體不夠時，就切換為節省記憶的 Strategy，若足夠時，則切換為較快但較耗費記憶體的 Strategy。</p>
+<p>當然也可以用甲方的運算法則來<strong>驗算</strong>乙方的運算法則。假設現在想用一個試算表軟體的除錯版，進行高複雜度的運算。此時，只要手邊同時有<strong>可能還有 bug 的高速運算法則</strong>和<strong>可保證計算正確的低速運算法則</strong>，就可能利用後者去驗算前者。</p>
+<h3>問題</h3>
+<h4>1. 建立一個隨便決定下一個猜拳手勢的 RandomStrategy 類別。</h4>
+<script src="https://gist.github.com/twmht/35e6dc1700439247ab23.js"></script>
+
+<h4>2. 以下程式為進行字串排序的類別與介面。使用的是 insertion sort。請配合 Sorter 的介面，建立一個可表示其他運算法則的類別。</h4>
+<script src="https://gist.github.com/twmht/96fcf5fb58e784695574.js"></script>
+
+<p>可加入 QuickSort。</p>
+<script src="https://gist.github.com/twmht/2a9f59f054e0935de7e1.js"></script>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

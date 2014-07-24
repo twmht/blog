@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Interpreter Pattern -- 以類別來表達文法規則"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/design-pattern/interpreter.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/interpreter.html" />
+
+    <title>Interpreter Pattern -- 以類別來表達文法規則 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/interpreter.html" rel="bookmark"
+             title="Permalink to Interpreter Pattern -- 以類別來表達文法規則">Interpreter Pattern -- 以類別來表達文法規則</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h3>用的時間點</h3>
+<p>Design Pattern 的目的之一就是要提高類別的可再用性。 可再用性是指已經產生的類別不需要多做修改或是儘量不修改就能多次使用的意思。</p>
+<p>Interpreter Pattern 是用簡單的"迷你語言"來表現程式要解決的問題，以迷你語言寫成"迷你程式"而表現具體的問題。迷你程式本身無法獨自啟動，必須先用Java語言寫另一個負責翻譯的程式(直譯器)。當能解決的問題發生變化時，要修改迷你程式來對應處理，而不是修改直譯器(儘量避免去修改)。</p>
+<h3>如何設計</h3>
+<p>當問題發生改變時，儘可能不去修改到直譯器（以Java寫成）。</p>
+<h3>程式範例</h3>
+<p>首先來定義我們的問題，我們要用迷你語言來操控玩具車。玩具車基本動作有 go, right, left　以及 repeat。go 表示前進，right 表示向右轉，left 表示向左轉，repeat 像是一個迴圈，後面接上若干個命令。
+以下是幾個範例：</p>
+<ol>
+<li>program go right right go end</li>
+<li>program repeat 4 go right end end # repeat 結尾要加上 end，就像右大括號一樣</li>
+</ol>
+<p>定義 BNF 如下：</p>
+<ol>
+<li>&#60;program&#62; ::= program &#60;command list&#62;</li>
+<li>&#60;command list&#62; ::=  &#60;command&#62;* end</li>
+<li>&#60;command&#62; ::= &#60;repeat command&#62; | &#60;primitive command&#62;</li>
+<li>&#60;repeat command&#62; ::= repeat &#60;number&#62; &#60;command list&#62;</li>
+<li>&#60;primitive command&#62; ::= go | right | left</li>
+</ol>
+<p>根據每一條語法設計一個類別，語法看到哪裡，類別就設計到哪裡。要注意的是，<b>到這個方法時，記號要讀取到哪裡 ; 離開這個方法時，記號又該讀取到哪裡</b>。</p>
+<script src="https://gist.github.com/twmht/72c8581377623688e342.js"></script>
+
+<p>如果有出現 [..] 包起來的內容，表示 interpreter 確實有解讀到該行程式。</p>
+<h3>Interpreter Pattern 的所有參與者</h3>
+<h4>AbstractExpression 參與者</h4>
+<p>規定樹狀剖析之節點的共用介面。例如 Node 類別，定義了 parse 方法。</p>
+<h4>TerminalExpression 參與者</h4>
+<p>表示不能被展開的節點，例如 PrimitiveCommandNode 類別。</p>
+<h4>NonterminalExpression 參與者</h4>
+<p>可以被展開的節點，例如 ProgramNode、CommandNode、RepeatCommandNode、CommandListNode 等類別。</p>
+<h4>Context 參與者</h4>
+<p>提供 interpreter 進行文法解析時所需要的資訊的參與者，例如 Context 類別。</p>
+<h4>Client 參與者</h4>
+<p>呼叫 TerminalExpression 以及 NonterminalExpression，以建立樹狀剖析的參與者。例如 Main 類別。</p>
+<h3>問題</h3>
+<h4>請修改範例程式，讓它能夠執行所收到的內容，例如，可以寫出 GUI 來執行。</h4>
+<p>這裡是把跟 GUI 有關的部份放在 turtle package 中，讓 language package 裡面沒有 GUI。只要建立一個能在其他 package 裡執行 Executor 和 ExecutorFactory 介面的類別，不必修改 language package 就能另外建立一個可以<b>執行</b>相同程式的新程式。
+<script src="https://gist.github.com/twmht/e0e92d0edf9dbe73aa4b.js"></script></p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

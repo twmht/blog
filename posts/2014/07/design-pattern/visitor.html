@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Visitor Pattern -- 在結構中穿梭還同時做事"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/design-pattern/visitor.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/visitor.html" />
+
+    <title>Visitor Pattern -- 在結構中穿梭還同時做事 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/visitor.html" rel="bookmark"
+             title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">Visitor Pattern -- 在結構中穿梭還同時做事</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h3>用的時間點</h3>
+<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 <strong>處理</strong>。那麼，這項 <strong>處理</strong> 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 <strong>處理</strong> 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
+<h3>如何設計</h3>
+<p>Visitor Pattern 把 <strong>資料結構</strong> 和 <strong>處理</strong> 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 <strong>訪客</strong> 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
+<h3>程式範例</h3>
+<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
+<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
+
+<h4>Visitor (訪客) 參與者</h4>
+<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX) 是處理 XXXX 的方法，實際原始碼則寫在 ConcreteVisitor 那裡。例如 Visitor 類別。</p>
+<h4>ConcreteVisitor 參與者</h4>
+<p>ConcreteVisitor 是實作 Visitor 的介面。它實作 visit(XXXX) 格式的方法，然後敘述各個 ConcreteAcceptor 的處理。 在前面的程式範例中，扮演這個角色的是 ListVisitor 類別。就像 ListVisitor 的 currentdir 欄位之值會發生變化一樣，在處理 visit(XXXX) 的過程中，ConcreteVisitor 的內部狀態也會有變化。</p>
+<h4>Acceptor 參與者</h4>
+<p>Acceptor 是表示 Visitor 訪問對象的參與者。宣告接受訪客的 accept 方法。Visitor 則被傳遞給 accept 方法的引數。例如 Acceptor 介面。</p>
+<h4>ConcreteAcceptor 參與者</h4>
+<p>ConcreteAcceptor 實作 Acceptor 的介面，例如 File 以及 Directory 類別。</p>
+<h3>優點</h3>
+<p><strong>把處理從資料結構分出來</strong>。通常 ConcreteVisitor 可以單獨開發，不必跟 File 類別或 Directory 類別雜在一起;換句話說，Visitor Pattern 能提高 File 類別和 Directory 類別的<strong>零件獨立性</strong>。假設現在想要把一個處理動作設計成 File 類別和 Directory 類別的方法，每次想新增<strong>處理</strong>功能時就得去修改 File 類別和 Directory 類別，反而會變得麻煩。</p>
+<h4>新增 ConcreteVisitor 很容易</h4>
+<p>因為具體的處理可以直接丟給 ConcreteVisitor 去做，不需要為了這個處理就去修改 ConcreteAcceptor。</p>
+<h3>雙重調度</h3>
+<p>Visitor Pattern 的方法呼叫可整理如下:</p>
+<ul>
+<li>accept 方法的呼叫為: acceptor.accept(visitor)</li>
+<li>visit 方法的呼叫為: visitor.visit(acceptor)</li>
+</ul>
+<p>兩者剛好站在相反的立場。Visitor Pattern 由 ConcreteAcceptor 和 ConcreteVisitor 來決定實際的處理。一般成為雙重調度(double dispatch)。</p>
+<h3>The Open-Closed Principle</h3>
+<p>這個原則是主張類別應該:</p>
+<ul>
+<li>擴充(extension)時要開放(open)</li>
+<li>修改(modification)時要封閉(closed)</li>
+</ul>
+<p>除非有特殊理由，否則程式設計師在設計類別時都應該容許以後繼續擴充該程式。若無正當理由，就不應該禁止後人擴充程式。這就是擴充時要開放。</p>
+<p>但是，如果每次擴充程式時還要去修改現有類別的話，那就太麻煩。所以，在擴充程式時沒有修改現有類別的需要正是<strong>修改時要關閉</strong>的真正意義。</p>
+<p>總之，就是<strong>在不修改現有類別的原則下就可以擴充</strong>。</p>
+<h3>新增ConcreteAcceptor 較為困難</h3>
+<p>假設要新增一個 Entry 類別的子類別，叫作 Device 類別。此時，必須先在 Visitor 類別建立一個 visit(Device) 方法。然後還要在 Visitor 的所有子類別都要實作這個 visit(Device) 方法。</p>
+<h3>Visitor 要怎樣做才能進行處理</h3>
+<p>Acceptor 必須公開足夠的資訊給 Visitor。例如，visit(Directory)裡面對每個目錄進入點都有執行 accept。如果想要做這樣的處理動作，Directory 必須提供<strong>能取得所有目錄進入點</strong>的 iterator 方法。</p>
+<p>訪客很努力從資料結構取得必要的資訊。如果不能取得必要的資訊情報，訪客就不能發揮百分之百的功能。但是萬一把另外不應該公開的資訊公開出來，反而也會增加以後的維護困難。</p>
+<h3>問題</h3>
+<h4>1.請新增一個類別，叫作 FileFindVistor 類別。這個類別是找出符合指定副檔名的檔案。</h4>
+<p>不需要修改 File 類別 或 Directory 類別。以抓出所有 html 為例。</p>
+<script src="https://gist.github.com/twmht/ae21ccbca4d0d47b98f1.js"></script>
+
+<h4>2.Directory 類別的 getSize 方法是進行<strong>取得目錄容量的處理</strong>。請把這個方法改寫成<strong>取得容量大小</strong>的 SizeVisitor 類別。</h4>
+<p>就是把該<strong>處理</strong>獨立開來。</p>
+<p>修改 Directory 類別。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Directory</span> <span class="kd">extends</span> <span class="n">Entry</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>                    <span class="c1">// 目錄名稱</span>
+    <span class="kd">private</span> <span class="n">Vector</span> <span class="n">dir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">();</span>      <span class="c1">// 目錄進入點的集合</span>
+    <span class="kd">public</span> <span class="nf">Directory</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>         <span class="c1">// 建構子</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>               <span class="c1">// 取得名稱</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">()</span> <span class="o">{</span>                  <span class="c1">// 取得目錄容量</span>
+        <span class="n">SizeVisitor</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SizeVisitor</span><span class="o">();</span>  
+        <span class="n">accept</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>                          
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>                 
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Entry</span> <span class="nf">add</span><span class="o">(</span><span class="n">Entry</span> <span class="n">entry</span><span class="o">)</span> <span class="o">{</span>         <span class="c1">// 新增進入點</span>
+        <span class="n">dir</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">dir</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">v</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>新增 SizeVisitor 類別。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SizeVisitor</span> <span class="kd">extends</span> <span class="n">Visitor</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="n">file</span><span class="o">.</span><span class="na">getSize</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Directory</span> <span class="n">directory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">directory</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">)</span><span class="n">it</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">entry</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>3.請在 java.util.Vector 建立一個具有 Acceptor 介面功能的 AcceptorVector 類別。讓它能對 AcceptorVector 的物件個體 add Directory 和 File 的物件個體，而且也能 accept ListVisitor 的物件個體。</h4>
+<p>AcceptorVector 類別是 java.util.Vector 的子類別，被定義要實作 Acceptor。add 方法是繼承自 Vector，不需要另外定義。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Vector</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">AcceptorVector</span> <span class="kd">extends</span> <span class="n">Vector</span> <span class="kd">implements</span> <span class="n">Acceptor</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Acceptor</span> <span class="n">a</span> <span class="o">=</span> <span class="o">(</span><span class="n">Acceptor</span><span class="o">)</span><span class="n">it</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">a</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main 如下。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Directory</span> <span class="n">root1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Directory</span><span class="o">(</span><span class="s">&quot;root1&quot;</span><span class="o">);</span>
+            <span class="n">root1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;diary.html&quot;</span><span class="o">,</span> <span class="mi">10</span><span class="o">));</span>
+            <span class="n">root1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;index.html&quot;</span><span class="o">,</span> <span class="mi">20</span><span class="o">));</span>
+
+            <span class="n">Directory</span> <span class="n">root2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Directory</span><span class="o">(</span><span class="s">&quot;root2&quot;</span><span class="o">);</span>
+            <span class="n">root2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;diary.html&quot;</span><span class="o">,</span> <span class="mi">1000</span><span class="o">));</span>
+            <span class="n">root2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;index.html&quot;</span><span class="o">,</span> <span class="mi">2000</span><span class="o">));</span>
+
+            <span class="n">AcceptorVector</span> <span class="n">vec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AcceptorVector</span><span class="o">();</span>
+            <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root1</span><span class="o">);</span>
+            <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root2</span><span class="o">);</span>
+            <span class="n">vec</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;etc.html&quot;</span><span class="o">,</span> <span class="mi">1234</span><span class="o">));</span>
+
+            <span class="n">vec</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="k">new</span> <span class="n">ListVisitor</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileTreatmentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

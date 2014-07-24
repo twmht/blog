@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Proxy Pattern"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/design-pattern/proxy.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/proxy.html" />
+
+    <title>Proxy Pattern | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/proxy.html" rel="bookmark"
+             title="Permalink to Proxy Pattern">Proxy Pattern</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h3>用的時間點</h3>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
+<h3>如何設計</h3>
+<p>代理人以及本人都是物件。</p>
+<h3>程式範例</h3>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，<strong>最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體</strong>。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
+
+<h4>Subject 參與者</h4>
+<p>規定對 Proxy 參與者和 RealSubject 參與者 一視同仁的API。因為已經有 Subject 參與者，所以 Client 參與者不需要去注意 Proxy 參與者跟 RealSubject 參與者有什麼差異。 例如 Printable Interface。</p>
+<h4>Proxy 參與者</h4>
+<p>Proxy 參與者會盡量處理 Client 參與者的要求。當自己無法單獨處理時，Proxy 參與者便會把工作交給 RealSubject 參與者。 要等到真正需要用到 RealSubject 參與者時， Proxy 參與者才會產生 RealSubject 參與者。 Proxy 參與者是實作 Subject 參與者規定的 API。 例如 PrinterProxy 類別。</p>
+<h4>RealSubject 參與者</h4>
+<p>當代理人束手無策的時候，就輪到本人 RealSubject 自己上場。這個參與者跟 Proxy 參與者同樣都要實作 Subject 參與者規定的 API。例如 Printer 類別。</p>
+<h4>Client 參與者</h4>
+<p>利用 Proxy Pattern 的參與者，例如 Main 類別。</p>
+<h3>優點</h3>
+<h4>利用代理人提高處理速度</h4>
+<p>在 Proxy Pattern 當中，Proxy 發揮代理人的功能盡力處理代理的工作。例如，在城市範例中利用 Proxy 可以把較重的處理(產生物件個體)往後延遲到實際 print 為止。</p>
+<p>假設這是一個大型系統，裡面大多數的功能在初始化都要花很多時間。在啟動的時候，所有功能都要全面初始化的時候，當然會連帶影響到應用軟體也要花很多時間才能啟動。<strong>把程式設計成到了實際要使用某種功能的階段才初始化該功能較好</strong>。</p>
+<p>例如，想要產生圖形物件時，讀取圖檔會很花時間，所以每次開啟文件都要產生圖形物件就會浪費時間。其實等到圖形物件要輸出到畫面上時再去產生會比較好。</p>
+<h3>問題</h3>
+<h4>請把 PrinterProxy 類別修改成即使 PrinterProxy 類別不知道 Printer 類別也沒有影響。</h4>
+<p>這樣處裡之後，PrinterProxy 類別就是獨立在 Printer 類別之外的零件，可以對所有實作 Printable 介面的類別扮演 Proxy。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrinterProxy</span> <span class="kd">implements</span> <span class="n">Printable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>            <span class="c1">// 名稱</span>
+    <span class="kd">private</span> <span class="n">Printable</span> <span class="n">real</span><span class="o">;</span>         <span class="c1">// 「本人」</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">className</span><span class="o">;</span>       <span class="c1">// 「本人」的類別名稱</span>
+    <span class="kd">public</span> <span class="nf">PrinterProxy</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">className</span><span class="o">)</span> <span class="o">{</span>      <span class="c1">// 建構子</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">className</span> <span class="o">=</span> <span class="n">className</span><span class="o">;</span>                                                 
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">setPrinterName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 命名</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">real</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">real</span><span class="o">.</span><span class="na">setPrinterName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>  <span class="c1">//「本人」也要命名</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPrinterName</span><span class="o">()</span> <span class="o">{</span>    <span class="c1">// 取得名稱</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">String</span> <span class="n">string</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 輸出到畫面上</span>
+        <span class="n">realize</span><span class="o">();</span>
+        <span class="n">real</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">string</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">realize</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// 產生「本人」</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">real</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>                                                                       
+                <span class="n">real</span> <span class="o">=</span> <span class="o">(</span><span class="n">Printable</span><span class="o">)</span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">className</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>               
+                <span class="n">real</span><span class="o">.</span><span class="na">setPrinterName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>                                              
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                                        
+                <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;找不到類別 &quot;</span> <span class="o">+</span> <span class="n">className</span> <span class="o">+</span> <span class="s">&quot;。&quot;</span><span class="o">);</span>      
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                                                     
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>                                                    
+            <span class="o">}</span>                                                                           
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>修改 Main 類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Printable</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrinterProxy</span><span class="o">(</span><span class="s">&quot;Alice&quot;</span><span class="o">,</span> <span class="s">&quot;Printer&quot;</span><span class="o">);</span>                 
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;現在的名稱是&quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">getPrinterName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;。&quot;</span><span class="o">);</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">setPrinterName</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;現在的名稱是&quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">getPrinterName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;。&quot;</span><span class="o">);</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Hello, world.&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Prototype Pattern -- 複製建立物件個體"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/design-pattern/prototype.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/prototype.html" />
+
+    <title>Prototype Pattern -- 複製建立物件個體 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/prototype.html" rel="bookmark"
+             title="Permalink to Prototype Pattern -- 複製建立物件個體">Prototype Pattern -- 複製建立物件個體</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <h3>用的時間點</h3>
+<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
+<ol>
+<li>
+<p>種類過多無法整成類別時: 
+若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
+</li>
+<li>
+<p>不容易利用類別產生物件個體時:
+該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
+</li>
+</ol>
+<p>3.希望把框架和所產生的物件個體分開時:
+希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
+<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
+<h3>如何設計</h3>
+<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
+<h3>程式範例</h3>
+<p>為字串設計外框。</p>
+<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
+
+<h4>Prototype 參與者</h4>
+<p>Prototype 規定複製物件個體再建立新物件個體的方法。例如 Product 介面。</p>
+<h4>ConcreteProduct 參與者</h4>
+<p>ConcreteProduct 是實際上實作先複製物件個體再建立新物件個體的方法。例如 MessageBox 以及 UnderlinePen 類別。</p>
+<h4>Client 參與者</h4>
+<p>Client 利用複製物件個體的方法以產生另外一個新物件個體，例如 Manager 類別。</p>
+<h3>優點</h3>
+<p>Prototype Pattern 有效解決以下三種情形。</p>
+<h4>種類過多無法整合成類別時</h4>
+<p>程式範例列出了下面三種雛型：</p>
+<ul>
+<li>以'~'把字串加上底線</li>
+<li>以'*'把字串加上外框</li>
+<li>以'/'把字串加上外框</li>
+</ul>
+<p>日後還可能再增加更多雛型，如果全部都要做成不同的類別，類別數量會很可觀，增加管理程式原始碼的難度。</p>
+<h4>不容易利用類別產生物件個體時</h4>
+<p>假設有一個表示原本以人工操作之圖形的物件個體，而現在要建立一個完全相同的新物體，利用物件個體複製的方式，就輕鬆很多。</p>
+<h4>不容易利用類別產生物件個體時</h4>
+<p>把執行物件個體的複製放在 framework package 中。</p>
+<p>產生物件個體時不以類別名稱傳遞，例如，以 <strong>strong message</strong> 取代。這可以說是讓框架脫離類別的束縛。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
