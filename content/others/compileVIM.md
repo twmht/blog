@@ -4,7 +4,7 @@ Slug: compileVIM
 Category: Others
 Author: twmht
 
-[參考](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source)下載到字型。
+[參考](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source)
 
 先安裝以下這些 dependency。
 
