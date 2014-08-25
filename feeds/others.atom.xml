@@ -1,62 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-07-24T21:26:33+08:00</updated><entry><title>避免更新特定套件</title><link href="http://twmht.github.io/blog/posts/2014/07/others/preventUpdate.html" rel="alternate"></link><updated>2014-07-24T21:26:33+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-24:blog/posts/2014/07/others/preventUpdate.html</id><summary type="html">&lt;p&gt;因為自己編譯了 vim，而往後必須要避免系統自動去更新 vim，除了透過  &lt;code&gt;Synaptic Package Manager&lt;/code&gt; 之外，也可以透過以下&lt;a href="http://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package"&gt;方式&lt;/a&gt;。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;using dpkg&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如下，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vim hold&amp;quot;&lt;/span&gt; | sudo dpkg --set-selections
-&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vim install&amp;quot;&lt;/span&gt; | sudo dpkg --set-selections
-&lt;span class="c"&gt;#display the status&lt;/span&gt;
-dpkg --get-selections | grep &lt;span class="s2"&gt;&amp;quot;vim&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;using apt&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如下，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-mark hold vim
-sudo apt-mark unhold vim
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;using aptitude&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如下，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo aptitude hold vim
-sudo aptitude unhold vim
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>設定 locale</title><link href="http://twmht.github.io/blog/posts/2014/07/others/settingLocales.html" rel="alternate"></link><updated>2014-07-16T19:22:08+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-16:blog/posts/2014/07/others/settingLocales.html</id><summary type="html">&lt;p&gt;Regenate all the locales&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo dpkg-reconfigure locales
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;以上會輸出&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;Generating locales...
-  en_AG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_AU.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_BW.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_CA.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_DK.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_GB.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_HK.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_IE.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_IN.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_NG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_NZ.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_PH.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_SG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_US.UTF-8... up-to-date
-  en_ZA.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_ZM.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;span class="k"&gt;  &lt;/span&gt;en_ZW.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
-Generation complete.
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;接著設定系統的 locale&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo update-locale &lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;en_US.UTF-8
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>手動 compile vim</title><link href="http://twmht.github.io/blog/posts/2014/07/others/compileVIM.html" rel="alternate"></link><updated>2014-07-16T19:03:18+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-16:blog/posts/2014/07/others/compileVIM.html</id><summary type="html">&lt;p&gt;&lt;a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source"&gt;參考&lt;/a&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/others.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-08-25T14:03:53+08:00</updated><entry><title>手動 compile vim</title><link href="http://twmht.github.io/blog/posts/2014/08/others/compileVIM.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/compileVIM.html</id><summary type="html">&lt;p&gt;&lt;a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source"&gt;參考&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;先安裝以下這些 dependency。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev &lt;span class="se"&gt;\&lt;/span&gt;
 libgtk2.0-dev libatk1.0-dev libbonoboui2-dev &lt;span class="se"&gt;\&lt;/span&gt;
@@ -94,7 +37,41 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
 
 &lt;p&gt;最好讓系統不要自動更新 vim。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo aptitude hold vim
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="vim"></category></entry><entry><title>完整移除 package</title><link href="http://twmht.github.io/blog/posts/2014/07/others/removePackage.html" rel="alternate"></link><updated>2014-07-16T16:53:39+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-16:blog/posts/2014/07/others/removePackage.html</id><summary type="html">&lt;p&gt;&lt;a href="http://blog.lyhdev.com/2013/01/ubuntu-linux-apt-get.html"&gt;參考&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="vim"></category></entry><entry><title>clone submodule</title><link href="http://twmht.github.io/blog/posts/2014/08/others/gitCloneSubmodules.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/gitCloneSubmodules.html</id><summary type="html">&lt;p&gt;連同 project 一同 clone 下來：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone --recursive git://github.com/foo/bar.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;假設 project 已經存在:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git submodule update --init --recursive
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>避免更新特定套件</title><link href="http://twmht.github.io/blog/posts/2014/08/others/preventUpdate.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/preventUpdate.html</id><summary type="html">&lt;p&gt;因為自己編譯了 vim，而往後必須要避免系統自動去更新 vim，除了透過  &lt;code&gt;Synaptic Package Manager&lt;/code&gt; 之外，也可以透過以下&lt;a href="http://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package"&gt;方式&lt;/a&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using dpkg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如下，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vim hold&amp;quot;&lt;/span&gt; | sudo dpkg --set-selections
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vim install&amp;quot;&lt;/span&gt; | sudo dpkg --set-selections
+&lt;span class="c"&gt;#display the status&lt;/span&gt;
+dpkg --get-selections | grep &lt;span class="s2"&gt;&amp;quot;vim&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;using apt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如下，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-mark hold vim
+sudo apt-mark unhold vim
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;using aptitude&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如下，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo aptitude hold vim
+sudo aptitude unhold vim
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>完整移除 package</title><link href="http://twmht.github.io/blog/posts/2014/08/others/removePackage.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/removePackage.html</id><summary type="html">&lt;p&gt;&lt;a href="http://blog.lyhdev.com/2013/01/ubuntu-linux-apt-get.html"&gt;參考&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在 ubuntu 中，利用 dpkg -l 可以看到套件的狀態。&lt;/p&gt;
 &lt;p&gt;總共有三個欄位。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;Desired&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Unknown/Install/Remove/Purge/Hold                                     
@@ -129,14 +106,44 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
 &lt;p&gt;如果想要完整移除套件的話，最好是用&lt;code&gt;apt-get purge&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;當想要完整移除所有狀態為&lt;code&gt;rc&lt;/code&gt;的套件時，可以這樣做。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get purge &lt;span class="sb"&gt;`&lt;/span&gt;dpkg -l | grep ^rc | awk &lt;span class="s1"&gt;&amp;#39;{ print $2 }&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>clone submodule</title><link href="http://twmht.github.io/blog/posts/2014/07/others/gitCloneSubmodules.html" rel="alternate"></link><updated>2014-07-16T16:53:32+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-16:blog/posts/2014/07/others/gitCloneSubmodules.html</id><summary type="html">&lt;p&gt;連同 project 一同 clone 下來：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git clone --recursive git://github.com/foo/bar.git
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>設定 locale</title><link href="http://twmht.github.io/blog/posts/2014/08/others/settingLocales.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/settingLocales.html</id><summary type="html">&lt;p&gt;Regenate all the locales&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo dpkg-reconfigure locales
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;假設 project 已經存在:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git submodule update --init --recursive
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/07/others/Eclipse.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
+&lt;p&gt;以上會輸出&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Generating locales...
+  en_AG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_AU.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_BW.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_CA.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_DK.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_GB.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_HK.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_IE.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_IN.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_NG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_NZ.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_PH.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_SG.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_US.UTF-8... up-to-date
+  en_ZA.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_ZM.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="k"&gt;  &lt;/span&gt;en_ZW.UTF-8... &lt;span class="k"&gt;done&lt;/span&gt;
+Generation complete.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著設定系統的 locale&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo update-locale &lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>快速更換 java 的預設路徑</title><link href="http://twmht.github.io/blog/posts/2014/07/others/multipleJava.html" rel="alternate"></link><updated>2014-07-08T15:43:08+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-08:posts/2014/07/others/multipleJava.html</id><summary type="html">&lt;p&gt;在安裝多個版本的 java 的情況下，如果想要快速切換系統預設的版本的話，可以這樣做。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;alternatives&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;java&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;alternatives&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;javac&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;這樣會建立一個 &lt;code&gt;/etc/alternatives/java(javac)&lt;/code&gt; 的 symbolic link。&lt;/p&gt;</summary><category term="java"></category></entry><entry><title>轉換字幕編碼</title><link href="http://twmht.github.io/blog/posts/2014/07/others/videoEncoding.html" rel="alternate"></link><updated>2014-07-06T13:42:43+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-06:posts/2014/07/others/videoEncoding.html</id><summary type="html">&lt;p&gt;看影片時常常外掛字幕會有問題，因此需要用&lt;code&gt;iconv -f source -t target filename&lt;/code&gt; 來轉換編碼(source to target)。通常 target 會指定 &lt;code&gt;utf8&lt;/code&gt; 的編碼。&lt;/p&gt;
+&lt;p&gt;但是常常會不知道 source 是什麼編碼，這時候可以下載&lt;a href="http://sourceforge.net/projects/madedit/"&gt;MadEdit&lt;/a&gt;，打開檔案之後右下角會自動顯示檔案的編碼(source)。&lt;/p&gt;</summary><category term="encoding"></category></entry><entry><title>Eclipse的設定</title><link href="http://twmht.github.io/blog/posts/2014/07/others/Eclipse.html" rel="alternate"></link><updated>2014-07-06T13:37:40+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-06:posts/2014/07/others/Eclipse.html</id><summary type="html">&lt;h2&gt;修改Eclipse預設的Editor Theme及IDE theme&lt;/h2&gt;
 &lt;p&gt;&lt;font color=red&gt;首先是Editor theme。&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;Install new software-&amp;gt;add-&amp;gt;http://eclipse-color-theme.github.com/update&lt;/p&gt;
 &lt;p&gt;Name打Editor Theme。&lt;/p&gt;
@@ -144,45 +151,60 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
 &lt;p&gt;&lt;font color=red&gt; 接下來是IDE theme。 &lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;下載&lt;a href="http://rogerdudler.github.io/eclipse-ui-themes/"&gt;Dark Juno&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。&lt;/p&gt;
-&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance選擇Dark Juno。&lt;/p&gt;</summary><category term="eclipse"></category><category term="theme"></category></entry><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/07/others/addFont.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;使用gnome-font-viewer &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo gnome-font-viewer myfont.ttf
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;直接在myfont.ttf上面點兩下直接安裝。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;適合一次安裝大量字型檔&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/share/fonts/truetype &lt;span class="c"&gt;#如果是open type font(otf)的話，資料夾名稱是opentype&lt;/span&gt;
-sudo mkdir myfonts &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd &lt;/span&gt;myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
-&lt;span class="nb"&gt;fc&lt;/span&gt;-cache
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary><category term="ubuntu"></category><category term="font"></category></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/07/others/backupmysql.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;到新的環境中如何重新載入library.sql呢？&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mysql -u root -p &amp;lt; library.sql
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/07/others/dual_monitor.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
-&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;加入&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry><entry><title>Eclipse 修改編碼</title><link href="http://twmht.github.io/blog/posts/2014/07/others/eclipse_encoding.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/eclipse_encoding.html</id><summary type="html">&lt;p&gt;如下，&lt;/p&gt;
+&lt;p&gt;接著到preferences-&amp;gt;General-&amp;gt;Appearance選擇Dark Juno。&lt;/p&gt;</summary><category term="eclipse"></category><category term="theme"></category></entry><entry><title>Email 結尾語</title><link href="http://twmht.github.io/blog/posts/2014/07/others/email,%20english.html" rel="alternate"></link><updated>2014-07-04T18:04:15+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-04:posts/2014/07/others/email, english.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.businessweekly.com.tw/KBlogArticle.aspx?ID=2010&amp;amp;pnumber=4"&gt;參考&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;對象&lt;/th&gt;
+&lt;th&gt;結尾語&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;朋友或同事&lt;/td&gt;
+&lt;td&gt;Cheers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;請對方幫忙&lt;/td&gt;
+&lt;td&gt;Many Thanks&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;呼應信件的內容&lt;/td&gt;
+&lt;td&gt;Have a nice day&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Enjoy the holiday&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;To your success&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Keep up the good work&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;充滿關心與祝福的感性結尾&lt;/td&gt;
+&lt;td&gt;Best wishes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;All the best&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Good luck!&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Take care &amp;amp; See you soon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</summary></entry><entry><title>texstudio 中消失的 icon</title><link href="http://twmht.github.io/blog/posts/2014/07/others/texstudioMissingIcon.html" rel="alternate"></link><updated>2014-07-03T13:39:44+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-03:posts/2014/07/others/texstudioMissingIcon.html</id><summary type="html">&lt;p&gt;安裝完 texstudio 之後，有時候會發現某些 icon 消失不見。&lt;/p&gt;
+&lt;p&gt;解決方式如下。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libqt4-svg
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="latex"></category><category term="texstudio"></category></entry><entry><title>Eclipse 修改編碼</title><link href="http://twmht.github.io/blog/posts/2014/06/others/eclipse_encoding.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/eclipse_encoding.html</id><summary type="html">&lt;p&gt;如下，&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;修改語系，開啟&lt;code&gt;/var/lib/locales/supported.d/zh-hant&lt;/code&gt;。
@@ -192,11 +214,11 @@ sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
 &lt;p&gt;重新開啟 eclipse，右鍵&lt;code&gt;Poject-&amp;gt;Property-&amp;gt;Resource-&amp;gt;Text file encoding&lt;/code&gt;
     手動輸入 Big5&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</summary><category term="eclipse"></category><category term="encoding"></category></entry><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2014/07/others/gif.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;</summary><category term="eclipse"></category><category term="encoding"></category></entry><entry><title>如何在ubuntu中製作gif檔</title><link href="http://twmht.github.io/blog/posts/2014/06/others/gif.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/gif.html</id><summary type="html">&lt;p&gt;在ubuntu上面製作gif檔的話，可以安裝&lt;a href="http://www.imagemagick.org/script/index.php"&gt;ImageMagick&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;假設把所有的image file放到gif資料夾中，注意檔名最好排序過，例如001.png, 002.png, and 003.png...&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#delay的值*10ms為delay的秒數，loop為0表示infinite loop&lt;/span&gt;
 convert -delay 100 -loop 0 gif/* output.gif
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何在ubuntu中安裝LAMP</title><link href="http://twmht.github.io/blog/posts/2014/07/others/lamp.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/lamp.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#install apache&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>如何在ubuntu中安裝LAMP</title><link href="http://twmht.github.io/blog/posts/2014/06/others/lamp.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/lamp.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#install apache&lt;/span&gt;
 sudo apt-get install apache2
 
 &lt;span class="c"&gt;#install php&lt;/span&gt;
@@ -247,7 +269,7 @@ vim /etc/apache2/mods-enabled/userdir.conf
 
 &lt;p&gt;接著修改php的設定。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;vim&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;etc&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;apache2&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;mods&lt;/span&gt;&lt;span class="na"&gt;-available&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;php5.conf&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;找到下面這段&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="nx"&gt;改成這樣&lt;/span&gt;
+&lt;span class="err"&gt;#找到下面這段，改成這樣&lt;/span&gt;
 &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;IfModule&lt;/span&gt; &lt;span class="nx"&gt;mod_php5.c&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;FilesMatch&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;\.ph(p3?|tml)$&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="nx"&gt;SetHandler&lt;/span&gt; &lt;span class="nx"&gt;application&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="na"&gt;-httpd-php&lt;/span&gt;
@@ -271,8 +293,8 @@ vim /etc/apache2/mods-enabled/userdir.conf
 &lt;div class="highlight"&gt;&lt;pre&gt;service apache2 restart
 &lt;span class="c"&gt;#之後就可以在家目錄建立public_html&lt;/span&gt;
 mkdir /home/&lt;span class="nv"&gt;$USER&lt;/span&gt;/public_html
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>在 bash shell 中顯示 git branch</title><link href="http://twmht.github.io/blog/posts/2014/07/others/showgit.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/showgit.html</id><summary type="html">&lt;p&gt;加到 &lt;code&gt;.bashrc&lt;/code&gt; 即可。&lt;/p&gt;
-&lt;script src="https://gist.github.com/twmht/e95f0495053bc6a1a7c5.js"&gt;&lt;/script&gt;</summary><category term="bash"></category><category term="git"></category></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/07/others/skypemic.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>在 bash shell 中顯示 git branch</title><link href="http://twmht.github.io/blog/posts/2014/06/others/showgit.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/showgit.html</id><summary type="html">&lt;p&gt;加到 &lt;code&gt;.bashrc&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;script src="https://gist.github.com/twmht/e95f0495053bc6a1a7c5.js"&gt;&lt;/script&gt;</summary><category term="bash"></category><category term="git"></category></entry><entry><title>解決ubuntu上面麥克風沒聲音的問題</title><link href="http://twmht.github.io/blog/posts/2014/06/others/skypemic.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/skypemic.html</id><summary type="html">&lt;p&gt;在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
 這時候可以使用&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;alsamixer
 &lt;/pre&gt;&lt;/div&gt;
@@ -289,7 +311,7 @@ mkdir /home/&lt;span class="nv"&gt;$USER&lt;/span&gt;/public_html
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;調整input或者是output。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/07/others/squid_proxy.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
+&lt;p&gt;調整input或者是output。&lt;/p&gt;</summary></entry><entry><title>利用 squid 及 pam module 建立 proxy server</title><link href="http://twmht.github.io/blog/posts/2014/06/others/squid_proxy.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/squid_proxy.html</id><summary type="html">&lt;p&gt;以下是 squid3 的設定方式&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;首先修改 &lt;code&gt;/etc/squid3/squid.conf&lt;/code&gt;，找到下面這幾行，把註解取消掉，有些則是要自行加入。&lt;/p&gt;
@@ -338,7 +360,42 @@ account required path_to_pam_unix.so
 
 
 &lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>texstudio 中消失的 icon</title><link href="http://twmht.github.io/blog/posts/2014/07/others/texstudioMissingIcon.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/others/texstudioMissingIcon.html</id><summary type="html">&lt;p&gt;安裝完 texstudio 之後，有時候會發現某些 icon 消失不見。&lt;/p&gt;
-&lt;p&gt;解決方式如下。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libqt4-svg
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="latex"></category><category term="texstudio"></category></entry></feed>
+&lt;/ul&gt;</summary></entry><entry><title>如何在ubuntu中加入新的字型</title><link href="http://twmht.github.io/blog/posts/2014/06/others/addFont.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/addFont.html</id><summary type="html">&lt;p&gt;在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用gnome-font-viewer &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo gnome-font-viewer myfont.ttf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;直接在myfont.ttf上面點兩下直接安裝。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;適合一次安裝大量字型檔&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/share/fonts/truetype &lt;span class="c"&gt;#如果是open type font(otf)的話，資料夾名稱是opentype&lt;/span&gt;
+sudo mkdir myfonts &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd &lt;/span&gt;myfonts
+cp /path/to/fonts/*.ttf ./
+sudo chown root *.ttf &lt;span class="c"&gt;#可能不需要&lt;/span&gt;
+&lt;span class="nb"&gt;fc&lt;/span&gt;-cache
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以在&lt;a href="http://www.exljbris.com/fontin.html"&gt;這邊&lt;/a&gt;下載到字型。&lt;/p&gt;</summary><category term="ubuntu"></category><category term="font"></category></entry><entry><title>如何備份mysql database</title><link href="http://twmht.github.io/blog/posts/2014/06/others/backupmysql.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/backupmysql.html</id><summary type="html">&lt;p&gt;有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysqldump -u root -p --databases library &amp;gt; library.sql
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;到新的環境中如何重新載入library.sql呢？&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mysql -u root -p &amp;lt; library.sql
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Lubuntu 底下設定雙螢幕</title><link href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/others/dual_monitor.html</id><summary type="html">&lt;p&gt;以下是 lubuntu 的設定方式。&lt;/p&gt;
+&lt;p&gt;如果想進入桌面之後就執行，必須要去修改&lt;code&gt;.config/lxsession/Lubuntu/autostart&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;@xrandr --auto --output VGA-1 --right-of DVI-I-1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接著會在&lt;code&gt;.config/autostart/lxrandr-autostart.desktop&lt;/code&gt;看到相關設定。&lt;/p&gt;</summary></entry></feed>

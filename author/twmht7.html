@@ -47,6 +47,7 @@
                             <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
@@ -80,52 +81,7 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/mutex.html" rel="bookmark" title="Permalink to Mutex">
-                                       Mutex
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>如果可以不要用synchronized來做到thread-safe，那麼可以考慮使用mutex。</p>
-<p>現在來修改在<a href="http://twmht.github.io/blog/posts/2013/10/multithread/single-thread-execution.html">Single Threaded Execution Pattern</a>所用到的Gate類別。</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gate</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Nobody&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&quot;Nowhere&quot;</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Mutex</span> <span class="n">mutex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mutex</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 並非synchronized</span>
-        <span class="n">mutex</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">counter</span><span class="o">++;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
-            <span class="n">check</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">finally ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/mutex.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/producer-consumer.html" rel="bookmark" title="Permalink to Producer-Consumer Pattern -- 我來做，你來用">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/producer-consumer.html" rel="bookmark" title="Permalink to Producer-Consumer Pattern -- 我來做，你來用">
                                        Producer-Consumer Pattern -- 我來做，你來用
                                     </a>
                                 </h1>
@@ -138,7 +94,7 @@
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-07-14
+    on 2014-06-29
 
 
 
@@ -154,7 +110,7 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Table</span> <span class="n">table</span><span class="o">;</span>
     <span class="kd">private ...</span></pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/producer-consumer.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/producer-consumer.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -164,7 +120,151 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/readWrite.html" rel="bookmark" title="Permalink to Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/prototype.html" rel="bookmark" title="Permalink to Prototype Pattern -- 複製建立物件個體">
+                                       Prototype Pattern -- 複製建立物件個體
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
+<ol>
+<li>
+<p>種類過多無法整成類別時: 
+若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
+</li>
+<li>
+<p>不容易利用類別產生物件個體時:
+該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
+</li>
+</ol>
+<p>3.希望把框架和所產生的物件個體分開時:
+希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
+<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
+<h3>如何設計</h3>
+<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
+<h3>程式範例</h3>
+<p>為字串設計外框。</p>
+<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
+
+<h4>Prototype 參與者</h4>
+<p>Prototype ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/prototype.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/proxy.html" rel="bookmark" title="Permalink to Proxy Pattern">
+                                       Proxy Pattern
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
+<h3>如何設計</h3>
+<p>代理人以及本人都是物件。</p>
+<h3>程式範例</h3>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，<strong>最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體</strong>。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
+
+<h4>Subject 參與者 ...</h4>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/proxy.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/queue.html" rel="bookmark" title="Permalink to queue實作">
+                                       queue實作
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>用Array實作queue。</p>
+<div class="highlight"><pre><span class="cp">#ifndef QUEUE_H</span>
+<span class="cp">#define QUEUE_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Queue</span><span class="p">{</span>
+    <span class="nl">public:</span>
+    <span class="n">Queue</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this ...</span></pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/queue.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/readWrite.html" rel="bookmark" title="Permalink to Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔">
                                        Read-Write Lock Pattern -- 大家想看就看吧，不過看的時候不能寫喔
                                     </a>
                                 </h1>
@@ -177,7 +277,7 @@
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-07-14
+    on 2014-06-29
 
 
 
@@ -194,7 +294,7 @@
 <h4>SharedResource</h4>
 <p>SharedResource 代表 ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/readWrite.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/readWrite.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -204,7 +304,7 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/single-thread-execution.html" rel="bookmark" title="Permalink to Single Threaded Execution Pattern">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/single-thread-execution.html" rel="bookmark" title="Permalink to Single Threaded Execution Pattern">
                                        Single Threaded Execution Pattern
                                     </a>
                                 </h1>
@@ -217,7 +317,7 @@
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-07-14
+    on 2014-06-29
 
 
 
@@ -235,7 +335,7 @@
     <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">pass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">counter ...</span></pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/single-thread-execution.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/single-thread-execution.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -245,8 +345,143 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/twoPhaseTermination.html" rel="bookmark" title="Permalink to Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧">
-                                       Two-Phase Termination Pattern -- 快把玩具收拾好，去睡覺吧
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html" rel="bookmark" title="Permalink to Singleton Pattern -- 唯一的物件個體">
+                                       Singleton Pattern -- 唯一的物件個體
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
+<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
+<h3>如何設計</h3>
+<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
+<h3>程式範例</h3>
+<p>設計一個只有一個物件個體的類別。</p>
+<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
+
+<h4>Singleton 參與者</h4>
+<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
+<h3>優點</h3>
+<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
+<h3>問題 ...</h3>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/singleton.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/sort.html" rel="bookmark" title="Permalink to sorting">
+                                       sorting
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。</p>
+<ul>
+<li>
+<p>Bubble sort，把目前在最左邊的值一直往右邊推。</p>
+<div class="highlight"><pre><span class="cp">#define SWAP(x,y) int t;t = x;x = y;y = t;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ary</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="kt">bool ...</span></pre></div></li></ul>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/sort.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/cc/stack.html" rel="bookmark" title="Permalink to stack實作">
+                                       stack實作
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>加入template的實作。
+Stack.h</p>
+<div class="highlight"><pre><span class="c1">//ignore header files</span>
+<span class="cp">#ifndef STACK_H</span>
+<span class="cp">#define STACK_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">{</span>
+    <span class="nl">public:</span>
+    <span class="n">Stack</span><span class="p">(){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">Stack</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T ...</span></pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/cc/stack.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/ThreadPerMessage.html" rel="bookmark" title="Permalink to Thread-Per-Message Pattern -- 這個工作交給你了">
+                                       Thread-Per-Message Pattern -- 這個工作交給你了
                                     </a>
                                 </h1>
                             </header>
@@ -258,259 +493,23 @@
 
     in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-07-14
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
-        <a href="http://twmht.github.io/blog/tag/java.html">java</a>
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>Two-Phase Termination Pattern 是用來確實地進行結束的動作後，再結束掉執行緒。</p>
-<p>我們將執行緒進行平常的處理的狀態稱為<strong>作業中</strong>。當希望結束這個執行緒時，則送出<strong>中止請求</strong>。接著這個執行緒，並不會馬上結束，而會開始進行必要的善後工作。這個狀態稱為<strong>終止處理中</strong>。從<strong>作業中</strong>改變成<strong>終止處理中</strong>是第一階段。</p>
-<p><strong>終止處理中</strong>的狀態並不會進行平常的動作。雖然執行緒還在運行，但進行的是終止處理。直到<strong>終止處理中</strong>結束後，才真正結束執行緒。<strong>終止處理中</strong>的動作結束，是第二階段。</p>
-<p>先從<strong>作業中</strong>進入<strong>終止處理中</strong>狀態，再真正結束掉執行緒。主要考慮的關鍵如下：</p>
-<ul>
-<li>安全地結束(安全性)</li>
-<li>一定會進行終止處理(生命性)</li>
-<li>收到終止請求後，要盡快開始終止處理(回應性)</li>
-</ul>
-<h3>範例程式</h3>
-<p>有一條執行緒會在每隔約 500 毫秒將計數遞增 1 ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/twoPhaseTermination.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/acm/uva10020.html" rel="bookmark" title="Permalink to ACM UVA-10020">
-                                       ACM UVA-10020
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>
-
-    on 2014-07-14
+    on 2014-06-29
 
 
 
 
     
-</footer><!-- /.post-info -->                                <p>這題是greedy。</p>
-<p>首先以左端點排序所有線段，一開始邊界的左端為0，所以找所有線段的左端點小於等於0的，然後右端點是最長的，接著把右端點設成邊界的左端，接著又是解決同樣的子問題。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="k">struct</span> <span class="n">line</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">;</span>
-    <span class="n">line</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">line</span> <span class="o">&amp;</span> <span class="n">lvalue</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
-        <span class="k">return</span> <span class="n">left</span><span class="o">&lt;</span><span class="n">lvalue</span><span class="p">.</span><span class="n">left</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int ...</span></pre></div>
+</footer><!-- /.post-info -->                                <p>對每個命令或請求，配置一個執行緒，由這個執行緒執行工作，這就是 Thread-Per-Message Pattern。</p>
+<p>在範例程式中，Main 類別會委託 Host 類別顯示文字。Host 類別會啟動一個執行緒，來處理這項委託的工作。啟動的執行緒，會使用 Helper 類別實際進行顯示動作。 無論 Helper 類別的 handle 方法多花時間，Main 類別的 request 方法都不會等待 handle 方法執行完畢，而會馬上離開。</p>
+<script src="https://gist.github.com/twmht/2eea75686a221a8d57b8.js"></script>
+
+<h3>參與者</h3>
+<h4>Client</h4>
+<p>Client 對 Host 送出請求。Client 並不知道 Host 會如何實現這個請求。例如 Main 類別。</p>
+<h4>Host</h4>
+<p>當 Host 收到 Client 的請求，會建立新的執行緒並啟動它 ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/acm/uva10020.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/acm/uva10034.html" rel="bookmark" title="Permalink to ACM UVA-10034">
-                                       ACM UVA-10034
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>這題是典型的Minimum Spanning Tree，我用Prims Algorithm。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="cp">#define dis(p1,p2) sqrt(((p1.x-p2.x)*(p1.x-p2.x))+((p1.y-p2.y)*(p1.y-p2.y)))</span>
-<span class="k">struct</span> <span class="n">point</span><span class="p">{</span>
-    <span class="kt">double</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-    <span class="n">point</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span><span class="kt">double</span> <span class="n">b</span><span class="p">,</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">struct</span> <span class="n">Edge</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">double ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/acm/uva10034.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/acm/uva10057.html" rel="bookmark" title="Permalink to ACM UVA-10057">
-                                       ACM UVA-10057
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>中位數問題。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">input</span><span class="p">[</span><span class="mi">1000000</span><span class="p">];</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-            <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">==</span> <span class="nb">false</span><span class="p">){</span>
-                <span class="n">t</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                <span class="n">t</span><span class="p">[</span><span class="n">m ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/acm/uva10057.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/acm/uva10104.html" rel="bookmark" title="Permalink to ACM UVA-10104">
-                                       ACM UVA-10104
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p><a href="http://luckycat.kshs.kh.edu.tw/homework/q10104.htm">題目</a></p>
-<p>用gcd解。</p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-<span class="kt">void</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span><span class="kt">long</span>  <span class="kt">long</span> <span class="n">b</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">j</span><span class="p">,</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">long</span> <span class="kt">long ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/acm/uva10104.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/acm/uva10105.html" rel="bookmark" title="Permalink to ACM UVA-10105">
-                                       ACM UVA-10105
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/acm.html">ACM</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>二項式定理。
-<a href="http://luckycat.kshs.kh.edu.tw/homework/q10105.htm">題目</a></p>
-<div class="highlight"><pre><span class="c1">//ignore header files</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d %d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="o">*</span><span class="n">j</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">k</span><span class="o">--</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
-            <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-                <span class="n">ans ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/acm/uva10105.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/ThreadPerMessage.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -519,7 +518,7 @@
                     </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/author/twmht6.html">&laquo;</a>
-    Page 7 / 12
+    Page 7 / 13
         <a href="http://twmht.github.io/blog/author/twmht8.html">&raquo;</a>
 </p>
                 </section><!-- /#content -->
@@ -557,21 +556,22 @@
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

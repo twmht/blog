@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Thread-Specific Storage -- 每個執行緒的保管箱"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/07/multithread/ThreadSpecificStorage.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/07/multithread/ThreadSpecificStorage.html" />
+
+    <title>Thread-Specific Storage -- 每個執行緒的保管箱 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/07/multithread/ThreadSpecificStorage.html" rel="bookmark"
+             title="Permalink to Thread-Specific Storage -- 每個執行緒的保管箱">Thread-Specific Storage  -- 每個執行緒的保管箱</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-07-05
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
+        <a href="http://twmht.github.io/blog/tag/java.html">java</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Thread-Specific Storage Pattern 是只有一個路口，但內部會對每個執行緒提供特有儲存空間的 Pattern。</p>
+<p>通常會用 <code>java.lang.ThreadLocal</code> 來管理每個執行緒的特有儲存空間。</p>
+<h3>程式範例(沒有使用 <code>java.lang.ThreadLocal</code>)：</h3>
+<p>以下是只有一個執行緒的情況。在檔案留下 Log 紀錄。
+<script src="https://gist.github.com/twmht/1f281eefc25c87ac41b6.js"></script></p>
+<h3>程式範例(有使用 <code>java.lang.ThreadLocal</code>)：</h3>
+<p>以下是多執行緒的情況。每個執行緒會各自保留一份 Log 紀錄。
+程式能夠自動區分執行緒，將字串寫入正確的 Log 中。
+<script src="https://gist.github.com/twmht/43b8f32370766e40ad86.js"></script></p>
+<h3>所有參與者</h3>
+<h4>Client</h4>
+<p>Client 會將工作委託給 TSObjectProxy。一個 TSObjectProxy 可由多個 Client 一起使用。例如 ClientThread 類別。 </p>
+<h4>TSObjectProxy</h4>
+<p>TSObjectProxy 會處理多個 Client 委託的工作。
+首先，TSObjectProxy 會使用 TSObjectCollection，取得 Client 所對應的 TSObject。並將工作委託給TSObject。例如 Log 類別。</p>
+<h4>TSObjectCollection</h4>
+<p>TSObjectCollection 擁有 Client 與 TSObject 的對照表。當 getTSObject 被呼叫時，就檢查對照表，傳回 Client 參與者所對應的 TSObject。而 setTSObject 被呼叫時，則在對照表裡設定 Client 與 TSObject 的組合。</p>
+<h4>TSObject</h4>
+<p>TSObject 存放有執行緒特有的資訊。TSObject 由 TSObjectCollection 所管理。TSObject 的方法只會由單一執行緒呼叫。例如 TSLog 類別。</p>
+<h3>重點</h3>
+<h4>使用時機點</h4>
+<p>手邊有一個假定單一執行緒作為執行環境的物件。現在我們想將這個物件放在多執行緒環境下執行。這時，我們又不想修改使用端的執行緒，也不能改變物件的介面。</p>
+<p>但是，要對執行緒進行共用互斥，以支援多執行緒，是很困難的。一不小心就可能使物件喪失安全性，或是發生死結使執行緒喪失生命性。</p>
+<p>這時就使用 Thread-Specific Storage Pattern。在此將目的物件作為 TSObject，並建立與 TSObject 具有相同介面的 TSObjectProxy。另外，為了管理 <strong>Client-&gt;TSObject </strong>的對照表，又加上了 TSObjectCollection。TSObjectProxy 會使用 TSObjectCollection，取得現在的執行緒所對應的 TSObject。而將這個工作委託給 TSObject。</p>
+<p>像這樣，不需要修改使用端的執行緒，也不需要修改物件的介面。而且，TSObject 一定會由特定的執行緒呼叫，這個部份也不需要互斥控制。關於多執行緒的部份，則隱藏在 TSObjectCollection。</p>
+<h4>Actor-based 與 Task-based</h4>
+<p>設計使用到執行緒的程式時，會因為重點放在主體與客體不同，出現兩種開發方式：</p>
+<ul>
+<li>Actor-based 著重於主體</li>
+<li>Task-based 著重於客體</li>
+</ul>
+<p>一般來說，會同時出現兩種開發方式，會是 <strong>task 在一群 actor 之間傳遞</strong> 的狀況。</p>
+<h5>Actor-based</h5>
+<p>Actor-based 著重在<strong>執行緒</strong>。</p>
+<p>Actor-based 的開發方式中，代表執行緒的實體，會擁有進行工作所需要的資訊(狀態)。這麼一來，可降低執行緒之間需要傳遞的資訊。每個執行緒會使用其他執行緒所傳來的資訊進行處理，改變自己的內部狀態。這種執行緒通常稱為 actor。</p>
+<div class="highlight"><pre><span class="kd">class</span> <span class="nc">Actor</span> <span class="kd">extends</span> <span class="n">Thread</span><span class="o">{</span>
+    <span class="c1">//actor 的內部狀態</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h5>Task-based</h5>
+<p>Task-based 著重在<strong>偏重於工作</strong>的開發方式。</p>
+<p>就是不將資訊(狀態)，放到執行緒裡面。而是把資訊放在執行緒之間傳遞的實體裡。並不是只有資料，包括用來執行工作的方法，也放在這個實體裡面。這種實體又可以稱為 <strong>task</strong>，它包含了足夠的資訊，所以 task 可以由任何執行緒來進行。這種開發方式，可以使巨大的工作能在輕巧的執行緒之間往來。</p>
+<p>最典型的應用就是 Worker Thread Pattern。</p>
+<div class="highlight"><pre><span class="kd">class</span> <span class="nc">Task</span> <span class="kd">implements</span> <span class="n">Runnable</span><span class="o">{</span>
+    <span class="c1">//執行工作所需的資訊</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span>
+        <span class="c1">//執行工作所需的處理內容</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p><code>java.util.TimerTask</code> 就是一個 task-based 的類別。這個類別實作了 <code>java.lang.Runnable</code> 介面，可由 <code>java.util.Timer</code> 類別呼叫。<code>java.util.TimerTask</code> 中可以記載在一定時間後要做的事，或是定期要執行的動作。</p>
+<h3>問題</h3>
+<h4>執行緒的終止處理。在 ClientThread 類別裡，請修改成可以不需要明確地執行<code>Log.close();</code>。執行緒在結束時，就會自己關閉掉 log 檔。</h4>
+<p><script src="https://gist.github.com/twmht/ec997f42d19e45fa28ea.js"></script></p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/acm.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-07-14T22:10:35+08:00</updated><entry><title>ACM UVA-10020</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10020.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10020.html</id><summary type="html">&lt;p&gt;這題是greedy。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/acm.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-29T21:33:04+08:00</updated><entry><title>ACM UVA-10020</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10020.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10020.html</id><summary type="html">&lt;p&gt;這題是greedy。&lt;/p&gt;
 &lt;p&gt;首先以左端點排序所有線段，一開始邊界的左端為0，所以找所有線段的左端點小於等於0的，然後右端點是最長的，接著把右端點設成邊界的左端，接著又是解決同樣的子問題。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
@@ -58,7 +58,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10034</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10034.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10034.html</id><summary type="html">&lt;p&gt;這題是典型的Minimum Spanning Tree，我用Prims Algorithm。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10034</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10034.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10034.html</id><summary type="html">&lt;p&gt;這題是典型的Minimum Spanning Tree，我用Prims Algorithm。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="cp"&gt;#define dis(p1,p2) sqrt(((p1.x-p2.x)*(p1.x-p2.x))+((p1.y-p2.y)*(p1.y-p2.y)))&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
@@ -141,7 +141,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10057</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10057.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10057.html</id><summary type="html">&lt;p&gt;中位數問題。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10057</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10057.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10057.html</id><summary type="html">&lt;p&gt;中位數問題。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -180,7 +180,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10104</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10104.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10104.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10104.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10104</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10104.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10104.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10104.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;用gcd解。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;gcd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;long&lt;/span&gt;  &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -204,7 +204,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10105</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10105.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10105.html</id><summary type="html">&lt;p&gt;二項式定理。
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10105</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10105.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10105.html</id><summary type="html">&lt;p&gt;二項式定理。
 &lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10105.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 
@@ -225,7 +225,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10106</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10106.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10106.html</id><summary type="html">&lt;p&gt;大數乘法。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10106</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10106.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10106.html</id><summary type="html">&lt;p&gt;大數乘法。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;600&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -266,7 +266,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10127</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10127.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10127.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10127.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10127</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10127.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10127.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10127.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -287,7 +287,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10193</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10193.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10193.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10193.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10193</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10193.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10193.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10193.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;strlen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -326,7 +326,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10227</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10227.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10227.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10227.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10227</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10227.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10227.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10227.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -387,7 +387,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10235</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10235.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10235.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10235.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10235</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10235.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10235.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10235.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -430,7 +430,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10268</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10268.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10268.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10268.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10268</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10268.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10268.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10268.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -462,7 +462,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10299</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10299.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10299.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10299.htm"&gt;質數題&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10299</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10299.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10299.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10299.htm"&gt;質數題&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="cp"&gt;#define max 100000&lt;/span&gt;
 &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;is_prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -510,7 +510,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10305</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10305.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10305.html</id><summary type="html">&lt;p&gt;單純的topological sort。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10305</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10305.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10305.html</id><summary type="html">&lt;p&gt;單純的topological sort。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -554,7 +554,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10323</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10323.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10323.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10323.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10323</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10323.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10323.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10323.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;factorial&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -581,7 +581,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10325</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10325.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10325.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10325.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10325</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10325.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10325.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10325.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;nn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="nf"&gt;gcd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="p"&gt;){&lt;/span&gt;
@@ -610,7 +610,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10407</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10407.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10407.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm"&gt;gcd&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10407</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10407.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10407.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10407.htm"&gt;gcd&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;n1 = d1*q1+r1&lt;/p&gt;
 &lt;p&gt;n2 = d1Xq2+r1&lt;/p&gt;
 &lt;p&gt;n3 = d1Xq3+r1&lt;/p&gt;
@@ -653,7 +653,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10591</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10591.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10591.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10591.htm"&gt;快樂數&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10591</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10591.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10591.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10591.htm"&gt;快樂數&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define happy 1&lt;/span&gt;
 &lt;span class="cp"&gt;#define unhappy 2&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
@@ -721,7 +721,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10611</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10611.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10611.html</id><summary type="html">&lt;p&gt;&lt;a href="http://uva.onlinejudge.org/external/106/10611.html"&gt;binary Search&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10611</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10611.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10611.html</id><summary type="html">&lt;p&gt;&lt;a href="http://uva.onlinejudge.org/external/106/10611.html"&gt;binary Search&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;50005&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;binarySearch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -781,7 +781,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10622</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10622.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10622.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10622.htm"&gt;Prime+GCD&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10622</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10622.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10622.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10622.htm"&gt;Prime+GCD&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;gcd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;gcd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -838,7 +838,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10673</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10673.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10673.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10673.htm"&gt;暴力法&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10673</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10673.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10673.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10673.htm"&gt;暴力法&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -869,7 +869,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10696</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10696.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10696.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10696.htm"&gt;f91&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10696</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10696.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10696.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10696.htm"&gt;f91&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;f91&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -887,7 +887,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10699</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10699.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10699.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10699.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10699</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10699.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10699.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10699.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -912,7 +912,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10783</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10783.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10783.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10783.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10783</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10783.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10783.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10783.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2001&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; 
@@ -958,7 +958,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10892</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10892.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10892.html</id><summary type="html">&lt;p&gt;&lt;a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&amp;amp;page=show_problem&amp;amp;problem=1881"&gt;dp&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10892</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10892.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10892.html</id><summary type="html">&lt;p&gt;&lt;a href="http://uva.onlinejudge.org/index.php?option=onlinejudge&amp;amp;page=show_problem&amp;amp;problem=1881"&gt;dp&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define MAX 500001&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;MAX&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;solution&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
@@ -987,7 +987,7 @@
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10959</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10959.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10959.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10959.htm"&gt;bfs&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10959</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10959.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10959.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q10959.htm"&gt;bfs&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1035,7 +1035,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10986</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva10986.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva10986.html</id><summary type="html">&lt;p&gt;這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-10986</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva10986.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva10986.html</id><summary type="html">&lt;p&gt;這題用Dijkstra+priority_queue即可解出。queue中可能會有重複的node id，不過無妨，如果拜訪過的話會被pop出來。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1111,7 +1111,7 @@
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11059</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11059.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11059.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm"&gt;max product&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11059</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11059.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11059.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11059.htm"&gt;max product&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1160,10 +1160,10 @@
     &lt;span class="p"&gt;}&lt;/span&gt;         
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11069</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11069.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11069.html</id><summary type="html">&lt;p&gt;這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11069</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11069.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11069.html</id><summary type="html">&lt;p&gt;這題也是DP題，我們一定得從第一個節點或者是第二個節點開始，因為假設我們從第三個節點開始選的話，不管怎樣我們都可以加入第一個節點而不跟其它節點相鄰，所以分成兩個情況，第一個情況是選第一個節點，那麼我們就不能選第二個節點，所以問題就變成從第三個節點之後有幾個答案(也就是扣掉前面兩個節點，f[n-2])，第二個情況是選擇第二個節點，那麼我們就不能選第三個節點，所以問題就變成從第四個節點開始有幾個答案(也就是扣掉前面三個節點,f[n-3])。&lt;/p&gt;
 &lt;p&gt;所以關係式應為f[n] = f[n-2]+f[n-3]&lt;/p&gt;
 &lt;p&gt;其中f[n-2]的意思是從第三個節點開始算有幾個答案，可以把它想成我們的問題少了前面那兩個節點，就是變成子問題的意思啦！
-f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。&lt;/p&gt;</summary></entry><entry><title>ACM UVA-11310</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11310.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11310.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11310.htm"&gt;dp&lt;/a&gt;&lt;/p&gt;
+f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案。&lt;/p&gt;</summary></entry><entry><title>ACM UVA-11310</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11310.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11310.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11310.htm"&gt;dp&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;41&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -1226,7 +1226,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11401</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11401.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11401.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11401.htm"&gt;dp&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11401</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11401.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11401.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11401.htm"&gt;dp&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;ull&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;ull&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1000001&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="n"&gt;ull&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1000001&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -1248,7 +1248,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11526</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11526.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11526.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11526.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11526</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11526.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11526.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11526.htm"&gt;題目&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1273,7 +1273,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11565</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11565.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11565.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11565.htm"&gt;解方程式&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11565</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11565.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11565.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11565.htm"&gt;解方程式&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1314,7 +1314,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11579</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11579.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11579.html</id><summary type="html">&lt;p&gt;這個好像叫做海龍公式的樣子...。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11579</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11579.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11579.html</id><summary type="html">&lt;p&gt;這個好像叫做海龍公式的樣子...。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1347,7 +1347,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11876</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11876.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11876.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11876.htm"&gt;binary search&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11876</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11876.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11876.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11876.htm"&gt;binary search&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define max 1000001&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;seq&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -1407,7 +1407,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11997</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva11997.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva11997.html</id><summary type="html">&lt;p&gt;這題是給k個大小為k的array，每個array挑一個數字再總和，求k個最小的總和。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-11997</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva11997.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva11997.html</id><summary type="html">&lt;p&gt;這題是給k個大小為k的array，每個array挑一個數字再總和，求k個最小的總和。&lt;/p&gt;
 &lt;p&gt;由於題目總共會有k的k次方種總和，所以用暴力解的話一定會TLE。&lt;/p&gt;
 &lt;p&gt;我們可以推出在k列中的任意兩列一定對答案有貢獻，例如任意兩列選兩個數字出來總和也一定是最小，所以我們可以逐列求出答案出來，首先要先將每一列排序，假設前兩列為A跟B，那我們可以先將a1+b1,a2+b1,a3+b1...ak+b1放到min heap裡面，a1+b1一定是最小的，所以先pop出來，這時候我們可以將a1+b2放到heap中，&lt;font color = red&gt;因為如果我們放的是其他組合的話，在heap裡面一定會有數字是更小的(例如我們放a2+b2，但是heap裡面的a2+b1是更小的)&lt;/font&gt;，而a2+b2 = (a1+b1)+b2-b1，a1+b1是本來pop出來的值，有一個規律是每次變更的都會是b的index，pop k次之後，就可以求出這兩行裡面的k個最小值，照這樣的作法逐行求取k個最小的值。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
@@ -1460,7 +1460,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
         &lt;span class="n"&gt;pq&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-147</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva147.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva147.html</id><summary type="html">&lt;p&gt;DP，其實跟爬階梯很像，都假設每個幣值是最後一個放進去的，例如題目給10元，十元的組合可以從一個5元加上一個5元算出來，其實就等於加上d[10-5]。假設一開始先測5元的，那麼我們可以算出十元的可以由一個五元加上一個五元組成，下一個階段測10元的，那麼我們又可以算出一個十元可以由一個十元所組成(d[10-10] = d[0],所以d[0]要設成1)。那下次就是從幣值大於十元的開始算，假設幣值是20元，理所當然20元之前的都已經被算完了，因為都小於20元，20元根本放不進去（所以這題也有點類似背包問題）。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-147</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva147.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva147.html</id><summary type="html">&lt;p&gt;DP，其實跟爬階梯很像，都假設每個幣值是最後一個放進去的，例如題目給10元，十元的組合可以從一個5元加上一個5元算出來，其實就等於加上d[10-5]。假設一開始先測5元的，那麼我們可以算出十元的可以由一個五元加上一個五元組成，下一個階段測10元的，那麼我們又可以算出一個十元可以由一個十元所組成(d[10-10] = d[0],所以d[0]要設成1)。那下次就是從幣值大於十元的開始算，假設幣值是20元，理所當然20元之前的都已經被算完了，因為都小於20元，20元根本放不進去（所以這題也有點類似背包問題）。&lt;/p&gt;
 &lt;p&gt;by the way，這程式一開始忘記初始化，結果變得很奇怪XD。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1479,7 +1479,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-160</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva160.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva160.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q160.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-160</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva160.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva160.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q160.htm"&gt;prime&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;is_prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -1536,7 +1536,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-216</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva216.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva216.html</id><summary type="html">&lt;p&gt;本來以為這題是MST，但是題目要求的是每個node只能有兩條branch(想成是兩個連接點），也就是用一條線串起全部的node。
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-216</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva216.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva216.html</id><summary type="html">&lt;p&gt;本來以為這題是MST，但是題目要求的是每個node只能有兩條branch(想成是兩個連接點），也就是用一條線串起全部的node。
 這題的input size最多只到8，所以就用暴力解，找出最佳的排列。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
@@ -1582,7 +1582,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-294</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva294.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva294.html</id><summary type="html">&lt;p&gt;這題是給定一個範圍的數字，假設是1到100，要找出哪一個數字有最多的除數。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-294</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva294.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva294.html</id><summary type="html">&lt;p&gt;這題是給定一個範圍的數字，假設是1到100，要找出哪一個數字有最多的除數。&lt;/p&gt;
 &lt;p&gt;這題就相當於做質因數分解，假設有個數字N = 2^2 X 3^2 X 7，那它的除數個數就相當於(2+1)*(2+1)(1+1)。&lt;/p&gt;
 &lt;p&gt;首先是質數篩，一個合數N必定有小於等於sqrt(N)的質因數，所以我們要先算出小於等於N以下的質數有幾個。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;is_prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;31631&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
@@ -1635,7 +1635,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-355</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva355.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva355.html</id><summary type="html">&lt;p&gt;這題是給定一個n進位的數字，轉換成一個m進位的數字。
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-355</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva355.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva355.html</id><summary type="html">&lt;p&gt;這題是給定一個n進位的數字，轉換成一個m進位的數字。
 我是先轉成十進位，之後轉成m進位。
 比較注意的是要用到unsigned long long來存十進位的數字。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
@@ -1679,7 +1679,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-369</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva369.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva369.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11369.htm"&gt;組合數+dp&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-369</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva369.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva369.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q11369.htm"&gt;組合數+dp&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;combi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
@@ -1719,7 +1719,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
          &lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;table&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;  &lt;span class="c1"&gt;//n&amp;gt;=1;m&amp;gt;=1&lt;/span&gt;
 
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-374</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva374.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva374.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q374.htm"&gt;recursion&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-374</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva374.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva374.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q374.htm"&gt;recursion&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;因為(A*B)%C = ((A%C) * (B%C))%C&lt;/p&gt;
 &lt;p&gt;所以 B^P % M = (B^(P/2)&lt;em&gt;(B^(P/2)))%M = (((B^(P/2))%M)&lt;/em&gt;((B^(P/2))%M))%M&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1748,7 +1748,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-495</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva495.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva495.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q495.htm"&gt;Fibonacci+dp&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-495</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva495.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva495.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q495.htm"&gt;Fibonacci+dp&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;ans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5001&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;3000&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
@@ -1785,7 +1785,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-498</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva498.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva498.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q498.htm"&gt;多項式&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-498</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva498.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva498.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q498.htm"&gt;多項式&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1820,7 +1820,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-516</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva516.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva516.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q516.htm"&gt;質數&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-516</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva516.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva516.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q516.htm"&gt;質數&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;isprime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;32769&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;32769&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;  &lt;span class="n"&gt;ui&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1876,7 +1876,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-530</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva530.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva530.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q530.htm"&gt;組合數&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-530</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva530.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva530.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q530.htm"&gt;組合數&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="nf"&gt;combination&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1895,7 +1895,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-541</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva541.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva541.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q541.htm"&gt;Matrix&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-541</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva541.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva541.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q541.htm"&gt;Matrix&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;col&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
@@ -1948,7 +1948,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-583</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva583.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva583.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q583.htm"&gt;質數&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-583</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva583.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva583.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q583.htm"&gt;質數&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;prime&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;65541&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="kt"&gt;long&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;33300&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
@@ -2006,7 +2006,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-591</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva591.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva591.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q591.htm"&gt;平均數&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-591</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva591.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva591.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q591.htm"&gt;平均數&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -2037,7 +2037,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-624</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva624.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva624.html</id><summary type="html">&lt;p&gt;典型的0/1背包問題。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-624</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva624.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva624.html</id><summary type="html">&lt;p&gt;典型的0/1背包問題。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -2082,7 +2082,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-627</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva627.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva627.html</id><summary type="html">&lt;p&gt;這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-627</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva627.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva627.html</id><summary type="html">&lt;p&gt;這題用BFS即可解出，有一點必須要注意的是，雖然題目要求當經過的routers數量相同，則輸出最小的id，但因為題目的input已經有幫我們做好排序，所以每次找到的自然都會是最小的id。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;bfs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;*&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;print_path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -2165,7 +2165,7 @@ f[n-3]也是一樣，代表從第四個節點開始算的話會有幾個答案�
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-993</title><link href="http://twmht.github.io/blog/posts/2014/07/acm/uva993.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/acm/uva993.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q993.htm"&gt;greedy&lt;/a&gt;&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>ACM UVA-993</title><link href="http://twmht.github.io/blog/posts/2014/06/acm/uva993.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/acm/uva993.html</id><summary type="html">&lt;p&gt;&lt;a href="http://luckycat.kshs.kh.edu.tw/homework/q993.htm"&gt;greedy&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-07-14T22:10:35+08:00</updated><entry><title>atoi及itoa的實作</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/atoi_itoa.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/atoi_itoa.html</id><summary type="html">&lt;p&gt;很簡單但面試似乎很常問，先紀錄一下。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/cc.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-06-29T21:33:04+08:00</updated><entry><title>atoi及itoa的實作</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/atoi_itoa.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/atoi_itoa.html</id><summary type="html">&lt;p&gt;很簡單但面試似乎很常問，先紀錄一下。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;atoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;itoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -52,12 +52,12 @@
         &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>C++中的幾種cast</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/cast.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/cast.html</id><summary type="html">&lt;ul&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>C++中的幾種cast</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/cast.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/cast.html</id><summary type="html">&lt;ul&gt;
 &lt;li&gt;static_cast&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;比較不安全。例如把子類別指標轉成父類別指標，這是可以的。但是把父類別指標轉成子類別指標，會很危險。&lt;/p&gt;
 &lt;p&gt;*dynamic_cast&lt;/p&gt;
-&lt;p&gt;有回傳值，透過檢查回傳值的方式來提高安全性。&lt;/p&gt;</summary></entry><entry><title>C++的Class中的一些重點整理</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/class.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/class.html</id><summary type="html">&lt;p&gt;&lt;font color=red&gt; class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 &lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;有回傳值，透過檢查回傳值的方式來提高安全性。&lt;/p&gt;</summary></entry><entry><title>C++的Class中的一些重點整理</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/class.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/class.html</id><summary type="html">&lt;p&gt;&lt;font color=red&gt; class與struct有很明顯的的差別是，class可以定義member function，但struct不行。另外，class預設的member權限是private，而struct預設則是public。 &lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;以下是我看螞蟻書的重點整理。另外，也有參考&lt;a href="https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=2&amp;amp;ved=0CD0QFjAB&amp;amp;url=http%3A%2F%2Fdisp.ee.ntu.edu.tw%2Fclass%2FC%2B%2B%25E7%2589%25A9%25E4%25BB%25B6%25E5%25B0%258E%25E5%2590%2591%25E5%258F%258A%25E5%25A2%259E%25E9%2580%25B2%25E6%2595%2588%25E7%258E%2587%25E7%25A8%258B%25E5%25BC%258F%25E6%258A%2580%25E5%25B7%25A7&amp;amp;ei=VgtpUujrMIGHlAXL4YHQDg&amp;amp;usg=AFQjCNE6jeVtMAQtoRa7e1_ycplTZ6Vmtw&amp;amp;sig2=lqmcR3rmQmWj79H-W_q8DQ"&gt;這篇&lt;/a&gt;。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;friend function:
@@ -363,7 +363,7 @@ Bar tmpBarA(myBar);
 &lt;span class="n"&gt;ppoly2&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;printarea&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>定義Comparator</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/compator.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/compator.html</id><summary type="html">&lt;p&gt;常見有三種定義方式。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>定義Comparator</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/compator.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/compator.html</id><summary type="html">&lt;p&gt;常見有三種定義方式。&lt;/p&gt;
 &lt;h1&gt;1. Define operator&amp;lt;()&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Edge&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -406,7 +406,7 @@ Bar tmpBarA(myBar);
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="n"&gt;priority_queue&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pq&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>用macro的技巧</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/macro.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/macro.html</id><summary type="html">&lt;p&gt;關於macro的介紹，有一個還不錯的&lt;a href="http://www.cprogramming.com/tutorial/cpreprocessor.html"&gt;網站&lt;/a&gt;。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>用macro的技巧</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/macro.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/macro.html</id><summary type="html">&lt;p&gt;關於macro的介紹，有一個還不錯的&lt;a href="http://www.cprogramming.com/tutorial/cpreprocessor.html"&gt;網站&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#define print_var(var)  printf(&amp;quot;%s: %s\n&amp;quot;, #var, var)&lt;/span&gt;
 &lt;span class="c1"&gt;//也可以這樣&lt;/span&gt;
@@ -519,7 +519,7 @@ Bar tmpBarA(myBar);
 &lt;span class="cp"&gt;#define MAX_WIDTH 100&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;MAX_WIDTH&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/pointer.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>struct用malloc配置記憶體空間</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/pointer.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/pointer.html</id><summary type="html">&lt;p&gt;一個指向struct的指標用動態配置之後,在記憶體裡面是長甚麼樣子?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;myFtphdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_opcode&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
         &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;short&lt;/span&gt; &lt;span class="n"&gt;mf_cksum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -550,7 +550,7 @@ Bar tmpBarA(myBar);
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面，所以mf_data本身加上512個byte會有513個byte，至於為什麼只讀了512個byte呢，因為最後一個byte要加上\0表示字串結尾。&lt;/p&gt;</summary></entry><entry><title>queue實作</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/queue.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/queue.html</id><summary type="html">&lt;p&gt;用Array實作queue。&lt;/p&gt;
+&lt;p&gt;原因在於配置記憶體的時候是連續的，以第一個例子來說的話，packet指向一塊配置518個byte的記憶體空間，雖然myFtphdr只有六個byte，但因為是連續的，所以多出來的512個byte都會接在mf_data的後面，所以mf_data本身加上512個byte會有513個byte，至於為什麼只讀了512個byte呢，因為最後一個byte要加上\0表示字串結尾。&lt;/p&gt;</summary></entry><entry><title>queue實作</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/queue.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/queue.html</id><summary type="html">&lt;p&gt;用Array實作queue。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#ifndef QUEUE_H&lt;/span&gt;
 &lt;span class="cp"&gt;#define QUEUE_H&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
@@ -721,7 +721,7 @@ Bar tmpBarA(myBar);
 
 &lt;span class="p"&gt;};&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>sorting</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/sort.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/sort.html</id><summary type="html">&lt;p&gt;一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>sorting</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/sort.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/sort.html</id><summary type="html">&lt;p&gt;一些常出現的sorting演算法。有些雖然效率很差，不過面試還滿常問的。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Bubble sort，把目前在最左邊的值一直往右邊推。&lt;/p&gt;
@@ -902,7 +902,7 @@ Bar tmpBarA(myBar);
     &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="n"&gt;heap_sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;range&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>stack實作</title><link href="http://twmht.github.io/blog/posts/2014/07/cc/stack.html" rel="alternate"></link><updated>2014-07-14T22:10:35+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io,2014-07-14:blog/posts/2014/07/cc/stack.html</id><summary type="html">&lt;p&gt;加入template的實作。
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>stack實作</title><link href="http://twmht.github.io/blog/posts/2014/06/cc/stack.html" rel="alternate"></link><updated>2014-06-29T21:33:04+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-06-29:posts/2014/06/cc/stack.html</id><summary type="html">&lt;p&gt;加入template的實作。
 Stack.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;//ignore header files&lt;/span&gt;
 &lt;span class="cp"&gt;#ifndef STACK_H&lt;/span&gt;

@@ -47,6 +47,7 @@
                             <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
@@ -80,7 +81,128 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/preventUpdate.html" rel="bookmark" title="Permalink to 避免更新特定套件">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/android/adb_not_found.html" rel="bookmark" title="Permalink to bash 找不到 adb">
+                                       bash 找不到 adb
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/android.html">android</a>
+
+    on 2014-08-25
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/adb.html">adb</a>
+        <a href="http://twmht.github.io/blog/tag/android.html">android</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>解決方法如下。</p>
+<div class="highlight"><pre>sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+</pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/android/adb_not_found.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/others/compileVIM.html" rel="bookmark" title="Permalink to 手動 compile vim">
+                                       手動 compile vim
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-08-25
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/vim.html">vim</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p><a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source">參考</a></p>
+<p>先安裝以下這些 dependency。</p>
+<div class="highlight"><pre>sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev <span class="se">\</span>
+libgtk2.0-dev libatk1.0-dev libbonoboui2-dev <span class="se">\</span>
+libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
+</pre></div>
+
+
+<p>移除系統的 vim。</p>
+<div class="highlight"><pre>sudo apt-get purge vim vim-runtime gvim vim-tiny vim-common vim-gui-common
+</pre></div>
+
+
+<p>如果系統有安裝 <code>pythonbrew</code>，建議先把它關掉，同時把相關的 <code>.bashrc</code>的設定註解掉。</p>
+<p>在下<code>./configure</code>時，會讀取 cache，其中的 <code>python path</code> 一定要是系統目錄的，這樣編譯才會正常。通常如果有裝<code>pythonbrew ...</code></p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/others/compileVIM.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/others/gitCloneSubmodules.html" rel="bookmark" title="Permalink to clone submodule">
+                                       clone submodule
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-08-25
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>連同 project 一同 clone 下來：</p>
+<div class="highlight"><pre>git clone --recursive git://github.com/foo/bar.git
+</pre></div>
+
+
+<p>假設 project 已經存在:</p>
+<div class="highlight"><pre>git submodule update --init --recursive
+</pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/others/gitCloneSubmodules.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/others/preventUpdate.html" rel="bookmark" title="Permalink to 避免更新特定套件">
                                        避免更新特定套件
                                     </a>
                                 </h1>
@@ -93,7 +215,7 @@
 
     in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
 
-    on 2014-07-24
+    on 2014-08-25
 
         |
         tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
@@ -128,7 +250,7 @@ sudo apt-mark unhold vim
 <p>如下，</p>
 <div class="highlight"><pre>sudo aptitude hold ...</pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/preventUpdate.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/others/preventUpdate.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -138,7 +260,54 @@ sudo apt-mark unhold vim
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/settingLocales.html" rel="bookmark" title="Permalink to 設定 locale">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/others/removePackage.html" rel="bookmark" title="Permalink to 完整移除 package">
+                                       完整移除 package
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-08-25
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p><a href="http://blog.lyhdev.com/2013/01/ubuntu-linux-apt-get.html">參考</a></p>
+<p>在 ubuntu 中，利用 dpkg -l 可以看到套件的狀態。</p>
+<p>總共有三個欄位。</p>
+<div class="highlight"><pre><span class="nv">Desired</span><span class="o">=</span>Unknown/Install/Remove/Purge/Hold                                     
+| <span class="nv">Status</span><span class="o">=</span>Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?<span class="o">=(</span>none<span class="o">)</span>/Reinst-required <span class="o">(</span>Status,Err: <span class="nv">uppercase</span><span class="o">=</span>bad<span class="o">)</span>
+</pre></div>
+
+
+<p>第一個欄位為 desired package state ("selection state")。</p>
+<ul>
+<li>u ... unknown</li>
+<li>i ... install</li>
+<li>r ... remove/deinstall</li>
+<li>p ... purge (remove including config files ...</li></ul>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/others/removePackage.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/2014/08/others/settingLocales.html" rel="bookmark" title="Permalink to 設定 locale">
                                        設定 locale
                                     </a>
                                 </h1>
@@ -151,7 +320,7 @@ sudo apt-mark unhold vim
 
     in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
 
-    on 2014-07-16
+    on 2014-08-25
 
         |
         tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
@@ -181,7 +350,7 @@ sudo apt-mark unhold vim
 <span class="k">  </span>en_SG.UTF-8... <span class="k">done</span>
 <span class="k">  </span>en_US ...</pre></div>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/settingLocales.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/08/others/settingLocales.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -191,8 +360,8 @@ sudo apt-mark unhold vim
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/compileVIM.html" rel="bookmark" title="Permalink to 手動 compile vim">
-                                       手動 compile vim
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/linux/multiBoot.html" rel="bookmark" title="Permalink to 同時燒錄多個作業系統">
+                                       同時燒錄多個作業系統
                                     </a>
                                 </h1>
                             </header>
@@ -202,33 +371,28 @@ sudo apt-mark unhold vim
         by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
     </address>
 
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+    in <a href="http://twmht.github.io/blog/category/linux.html">linux</a>
 
-    on 2014-07-16
+    on 2014-07-09
 
         |
-        tags:         <a href="http://twmht.github.io/blog/tag/vim.html">vim</a>
+        tags:         <a href="http://twmht.github.io/blog/tag/linux.html">linux</a>
 
 
 
     
-</footer><!-- /.post-info -->                                <p><a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source">參考</a></p>
-<p>先安裝以下這些 dependency。</p>
-<div class="highlight"><pre>sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev <span class="se">\</span>
-libgtk2.0-dev libatk1.0-dev libbonoboui2-dev <span class="se">\</span>
-libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
+</footer><!-- /.post-info -->                                <p><a href="http://www.pendrivelinux.com/yumi-multiboot-usb-creator/">參考</a></p>
+<p>如果想要在安裝作業系統的時候，可以一次從多個作業系統來選擇，也就是把多個作業系統同時燒錄在隨身碟裡面，這是可以做到的。</p>
+<p>首先必須先下載 <code>YUMI</code>。</p>
+<p>然後</p>
+<div class="highlight"><pre>YUMI.gambs
 </pre></div>
 
 
-<p>移除系統的 vim。</p>
-<div class="highlight"><pre>sudo apt-get purge vim vim-runtime gvim vim-tiny vim-common vim-gui-common
-</pre></div>
-
-
-<p>如果系統有安裝 <code>pythonbrew</code>，建議先把它關掉，同時把相關的 <code>.bashrc</code>的設定註解掉。</p>
-<p>在下<code>./configure</code>時，會讀取 cache，其中的 <code>python path</code> 一定要是系統目錄的，這樣編譯才會正常。通常如果有裝<code>pythonbrew ...</code></p>
+<p>即可啟動 YUMI 這支程式。</p>
+<p>接下來選擇要燒錄的 iso 檔即可。</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/compileVIM.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/linux/multiBoot.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -238,8 +402,8 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/android/adb_not_found.html" rel="bookmark" title="Permalink to bash 找不到 adb">
-                                       bash 找不到 adb
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html" rel="bookmark" title="Permalink to 判斷 USB 的分割區">
+                                       判斷 USB 的分割區
                                     </a>
                                 </h1>
                             </header>
@@ -249,22 +413,19 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
         by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
     </address>
 
-    in <a href="http://twmht.github.io/blog/category/android.html">android</a>
+    in <a href="http://twmht.github.io/blog/category/linux.html">linux</a>
 
-    on 2014-07-16
+    on 2014-07-09
 
         |
-        tags:         <a href="http://twmht.github.io/blog/tag/adb.html">adb</a>
-        <a href="http://twmht.github.io/blog/tag/android.html">android</a>
+        tags:         <a href="http://twmht.github.io/blog/tag/linux.html">linux</a>
 
 
 
     
-</footer><!-- /.post-info -->                                <p>解決方法如下。</p>
-<div class="highlight"><pre>sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
-</pre></div>
+</footer><!-- /.post-info -->                                <p><a href="http://unix.stackexchange.com/questions/60299/how-to-determine-which-sd-is-usb">參考</a></p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/android/adb_not_found.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -274,8 +435,8 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/removePackage.html" rel="bookmark" title="Permalink to 完整移除 package">
-                                       完整移除 package
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/multipleJava.html" rel="bookmark" title="Permalink to 快速更換 java 的預設路徑">
+                                       快速更換 java 的預設路徑
                                     </a>
                                 </h1>
                             </header>
@@ -287,31 +448,23 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
 
     in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
 
-    on 2014-07-16
+    on 2014-07-08
 
         |
-        tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
+        tags:         <a href="http://twmht.github.io/blog/tag/java.html">java</a>
 
 
 
     
-</footer><!-- /.post-info -->                                <p><a href="http://blog.lyhdev.com/2013/01/ubuntu-linux-apt-get.html">參考</a></p>
-<p>在 ubuntu 中，利用 dpkg -l 可以看到套件的狀態。</p>
-<p>總共有三個欄位。</p>
-<div class="highlight"><pre><span class="nv">Desired</span><span class="o">=</span>Unknown/Install/Remove/Purge/Hold                                     
-| <span class="nv">Status</span><span class="o">=</span>Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
-|/ Err?<span class="o">=(</span>none<span class="o">)</span>/Reinst-required <span class="o">(</span>Status,Err: <span class="nv">uppercase</span><span class="o">=</span>bad<span class="o">)</span>
+</footer><!-- /.post-info -->                                <p>在安裝多個版本的 java 的情況下，如果想要快速切換系統預設的版本的話，可以這樣做。</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">update</span><span class="o">-</span><span class="n">alternatives</span> <span class="o">--</span><span class="n">config</span> <span class="n">java</span>
+<span class="n">sudo</span> <span class="n">update</span><span class="o">-</span><span class="n">alternatives</span> <span class="o">--</span><span class="n">config</span> <span class="n">javac</span>
 </pre></div>
 
 
-<p>第一個欄位為 desired package state ("selection state")。</p>
-<ul>
-<li>u ... unknown</li>
-<li>i ... install</li>
-<li>r ... remove/deinstall</li>
-<li>p ... purge (remove including config files ...</li></ul>
+<p>這樣會建立一個 <code>/etc/alternatives/java(javac)</code> 的 symbolic link。</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/removePackage.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/multipleJava.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -321,8 +474,8 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/gitCloneSubmodules.html" rel="bookmark" title="Permalink to clone submodule">
-                                       clone submodule
+                                    <a href="http://twmht.github.io/blog/posts/2014/07/multithread/activeObject.html" rel="bookmark" title="Permalink to Active Object Pattern -- 接受非同步訊息的主動的物件">
+                                       Active Object Pattern -- 接受非同步訊息的主動的物件
                                     </a>
                                 </h1>
                             </header>
@@ -332,205 +485,19 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
         by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
     </address>
 
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
 
-    on 2014-07-16
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>連同 project 一同 clone 下來：</p>
-<div class="highlight"><pre>git clone --recursive git://github.com/foo/bar.git
-</pre></div>
-
-
-<p>假設 project 已經存在:</p>
-<div class="highlight"><pre>git submodule update --init --recursive
-</pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/gitCloneSubmodules.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/Eclipse.html" rel="bookmark" title="Permalink to Eclipse的設定">
-                                       Eclipse的設定
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
-
-    on 2014-07-14
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a>
-        <a href="http://twmht.github.io/blog/tag/theme.html">theme</a>
-
-
-
-    
-</footer><!-- /.post-info -->                                <h2>修改Eclipse預設的Editor Theme及IDE theme</h2>
-<p><font color=red>首先是Editor theme。</font></p>
-<p>Install new software-&gt;add-&gt;http://eclipse-color-theme.github.com/update</p>
-<p>Name打Editor Theme。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance-&gt;Editor Theme選擇要的Theme。</p>
-<p><font color=red> 接下來是IDE theme。 </font></p>
-<p>下載<a href="http://rogerdudler.github.io/eclipse-ui-themes/">Dark Juno</a>。</p>
-<p>解壓縮後將jar file放到Eclipse底下的dropins 資料夾內。</p>
-<p>接著到preferences-&gt;General-&gt;Appearance選擇Dark Juno。</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/Eclipse.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/design-pattern/FactoryMethod.html" rel="bookmark" title="Permalink to Factory Method Pattern -- 建立物件個體可交給子類別">
-                                       Factory Method Pattern -- 建立物件個體可交給子類別
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-07-14
+    on 2014-07-06
 
 
 
 
     
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>把 Template Method Pattern 應用在建立物件個體上面。</p>
-<h3>如何設計</h3>
-<p>在父類別規定物件個體的建立方法，但並沒有深入到較具體的類別。所有具體的完整內容都放在子類別。根據這個原則，我們可以大致分成產生物件個體的大綱和實際產生物件個體的類別兩方面。</p>
-<h3>程式範例</h3>
-<p>建立一個生產身份證的 factory。Product 類別和 Factory 類別屬於 framework 這個 package。負責建立產生物件個體大綱。</p>
-<p>IDCard 類別和 IDCardFactory 類別則處理實際的內容，屬於 idcard 這個 package。</p>
-<script src="https://gist.github.com/twmht/bb3f738c08ff7891be19.js"></script>
-
-<h4>Product (產品) 參與者</h4>
-<p>框架的部份。這個抽象類別是規定此 Pattern 所產生的物件個體應有的介面，具體內容則由子類別的 ConcreteProduct 規定。例如 Product 類別。</p>
-<h4>Creater (生產者) 參與者</h4>
-<p>框架的部份。這是產生 Product ...</p>
+</footer><!-- /.post-info -->                                <p>active object 是指自己<strong>擁有獨立的執行緒的物件</strong>，而且它還可以從外部接收非同步的訊息。</p>
+<h3>範例程式</h3>
+<script src="https://gist.github.com/twmht/aa74ad2abc34be9f482e.js"></script>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/design-pattern/FactoryMethod.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/addFont.html" rel="bookmark" title="Permalink to 如何在ubuntu中加入新的字型">
-                                       如何在ubuntu中加入新的字型
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
-
-    on 2014-07-14
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a>
-        <a href="http://twmht.github.io/blog/tag/font.html">font</a>
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>在ubuntu上面安裝字型的話，有三種方式，假設現在要安裝myfont.ttf。</p>
-<ul>
-<li>
-<p>使用gnome-font-viewer </p>
-<div class="highlight"><pre>sudo gnome-font-viewer myfont.ttf
-</pre></div>
-
-
-</li>
-<li>
-<p>直接在myfont.ttf上面點兩下直接安裝。</p>
-</li>
-<li>
-<p>適合一次安裝大量字型檔</p>
-<div class="highlight"><pre><span class="nb">cd</span> /usr/local/share/fonts/truetype <span class="c">#如果是open type font(otf)的話，資料夾名稱是opentype</span>
-sudo mkdir myfonts <span class="o">&amp;&amp;</span> <span class="nb">cd </span>myfonts
-cp /path/to/fonts/*.ttf ./
-sudo chown root *.ttf <span class="c">#可能不需要</span>
-<span class="nb">fc</span>-cache
-</pre></div>
-
-
-</li>
-</ul>
-<p>可以在<a href="http://www.exljbris.com/fontin.html">這邊</a>下載到字型。</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/addFont.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/07/others/backupmysql.html" rel="bookmark" title="Permalink to 如何備份mysql database">
-                                       如何備份mysql database
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
-<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
-</pre></div>
-
-
-<p>到新的環境中如何重新載入library.sql呢？</p>
-<div class="highlight"><pre>mysql -u root -p &lt; library.sql
-</pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/others/backupmysql.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/07/multithread/activeObject.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -538,7 +505,7 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
                     </li>
                     </ol><!-- /#posts-list -->
 <p class="paginator">
-    Page 1 / 12
+    Page 1 / 13
         <a href="http://twmht.github.io/blog/index2.html">&raquo;</a>
 </p>
                 </section><!-- /#content -->
@@ -576,21 +543,22 @@ sudo chown root *.ttf <span class="c">#可能不需要</span>
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

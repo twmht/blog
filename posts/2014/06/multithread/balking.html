@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Balking Pattern"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/2014/06/multithread/balking.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/2014/06/multithread/balking.html" />
+
+    <title>Balking Pattern | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/2014/06/multithread/balking.html" rel="bookmark"
+             title="Permalink to Balking Pattern">Balking Pattern</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
+
+    on 2014-06-29
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>如果現在不需要做這個動作，就直接return，Balking Pattern一般來說不會進入wait set，而是直接放棄不做。</p>
+<p>換句話說，不一定要執行。</p>
+<p>現在來寫一個在文書處理器上面經常提供的<font color=blue>自動儲存功能</font></p>
+<p>ServerThread會不斷地去儲存資料，而ClientThread則會不斷地修改資料並且儲存資料。</p>
+<p><font color=red> 當發現資料已經有儲存的時候，就不重複儲存，直接離開。</font></p>
+<p>表示資料的類別，Data.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Writer</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Data</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>  <span class="c1">// 儲存時的檔名</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>         <span class="c1">// 資料的內容</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span><span class="o">;</span>        <span class="c1">// 修改後的內容還沒儲存的話，值為true</span>
+
+    <span class="kd">public</span> <span class="nf">Data</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">,</span> <span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">changed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 修改資料內容</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">change</span><span class="o">(</span><span class="n">String</span> <span class="n">newContent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">newContent</span><span class="o">;</span>
+        <span class="n">changed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 若資料有修改，就儲存到檔案裡</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">changed</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//如果已經儲存過了，直接離開</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">doSave</span><span class="o">();</span>
+        <span class="n">changed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 實際將資料儲存到檔案裡用的方法</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doSave</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; calls doSave, content = &quot;</span> <span class="o">+</span> <span class="n">content</span><span class="o">);</span>
+        <span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+        <span class="n">writer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>用來定期儲存資料的ServerThread類別，ServerThread.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SaverThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Data</span> <span class="n">data</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">SaverThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Data</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">data</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>            <span class="c1">// 儲存資料</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>     <span class="c1">// 休息約1秒</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>用來修改以及儲存資料的ChangerThread類別,ChangerThread.java</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChangerThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Data</span> <span class="n">data</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nf">ChangerThread</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Data</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="kc">true</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">data</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="s">&quot;No.&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>             <span class="c1">// 修改資料</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">));</span> <span class="c1">// 模擬去做別的事</span>
+                <span class="n">data</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>                        <span class="c1">// 明確地要求存檔</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Data</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Data</span><span class="o">(</span><span class="s">&quot;data.txt&quot;</span><span class="o">,</span> <span class="s">&quot;(empty)&quot;</span><span class="o">);</span>
+        <span class="k">new</span> <span class="nf">ChangerThread</span><span class="o">(</span><span class="s">&quot;ChangerThread&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">new</span> <span class="nf">SaverThread</span><span class="o">(</span><span class="s">&quot;SaverThread&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3>gardede timed的實作</h3>
+<p>除了balk離開或者是等待條件成立為止(Guarded Suspension Pattern)，還有一種折衷的作法，也就是等待一段的時間，如果條件還是不成立，就balk離開。</p>
+<p>將timeout視為取消的一種，TimeoutException.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeoutException</span> <span class="kd">extends</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">TimeoutException</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>具有Timeout的host類別。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">timeout</span><span class="o">;</span> <span class="c1">// timeout值</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">ready</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// 如果可以執行方法的話則為true</span>
+
+    <span class="kd">public</span> <span class="nf">Host</span><span class="o">(</span><span class="kt">long</span> <span class="n">timeout</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">timeout</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 更改狀態</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">setExecutable</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">on</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ready</span> <span class="o">=</span> <span class="n">on</span><span class="o">;</span>
+        <span class="n">notifyAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 評斷狀態後執行之</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span><span class="o">,</span> <span class="n">TimeoutException</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> <span class="c1">// 開始時刻</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">ready</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">long</span> <span class="n">now</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> <span class="c1">// 現在時刻</span>
+            <span class="kt">long</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">timeout</span> <span class="o">-</span> <span class="o">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">start</span><span class="o">);</span> <span class="c1">// 剩下的等待時間</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">rest</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//等待時間已經到了，表示timeout</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">TimeoutException</span><span class="o">(</span><span class="s">&quot;now - start = &quot;</span> <span class="o">+</span> <span class="o">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;, timeout = &quot;</span> <span class="o">+</span> <span class="n">timeout</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="c1">//在wait set中等待rest時間之後，回來取得鎖定。</span>
+            <span class="n">wait</span><span class="o">(</span><span class="n">rest</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">doExecute</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 實際的處理動作</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doExecute</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; calls doExecute&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Main.java</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//timeout設定為10秒</span>
+        <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;execute BEGIN&quot;</span><span class="o">);</span>
+            <span class="n">host</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">TimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>因為故意都沒有改變ready的狀態，所以一定會發生timeout。</p>
+<h3>所有參與者</h3>
+<h4>GuardedObject 參與者</h4>
+<p>與 Guarded Suspension Pattern 不同，當防衛條件不成立時，就不執行實際動作，而直接離開。</p>
+<p>在程式範例中，Data 類別就是 GuardedObject 參與者。save 方法與 change 方法則分別是 guardedMethod 與 stateChangingMethod。</p>
+<p>範例程式的防衛條件是<b>changed 欄位的值為 true</b>。</p>
+<h3>重點整理</h3>
+<h4>何時使用</h4>
+<p>什麼情況下，我們會想在動作前 balk 呢？</p>
+<h5>不需要刻意去執行的時候</h5>
+<p>範例程式中，當 content 欄位的內容沒有改變，就在 save 方法裡 balk 住了。</p>
+<p>balk 的原因是 content 的內容已經寫在檔案裡了，沒有必要大費工夫再去寫一次。</p>
+<p>像這樣<b>不需要刻意去執行</b>，就可以使用 Balking Pattern，在這裡 balk 的原因，是為了提高程式的執行效率。</p>
+<h5>不想等待防衛條件成立時</h5>
+<p>Balking Pattern 的特徵是<b>不等待</b>。當防衛條件不成立時，就馬上離開，進入下一個工作。</p>
+<h5>防衛條件只有第一次成立時</h5>
+<p>例如底下的 Something 類別，在這裡先用 initialized 欄位來表示是否已經初始化。呼叫 init 方法時，會先去檢查 initialized 欄位。</p>
+<p>當 initialized 欄位的值為 true 時，表示已經初始化了，所以就直接 return 離開（就是 balk，設計成 throw 出例外也可以）。</p>
+<p>當 initialized 欄位為 false 時，以 doInit 方法進行實際的初始化，接下來就設定 initialized 為 true，表示初始化動作已經處理完了（這相當於沒有 stateChangingMethod 方法的情況）</p>
+<p>這種例子經常出現在實體的初始化及終結處理等<b>無法執行兩次以上的動作</b>中。</p>
+<p>像 Something 類別的 initialized 這種<b>狀態只會變化一次的變數</b>，我們有時候稱為 latch。這個 latch，只有一鎖上就不會再打開了。</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Something</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">initialized</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//防衛條件不成立之後，就絕對不會再次成立</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">initialized</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">doInit</span><span class="o">();</span>
+        <span class="n">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doInit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 實際的初始化動作</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h4>表達 balk 結果的方式</h4>
+<p>在 guardedMethod 裡因為 balk 而離開時，我們可用下面幾種方式來表示 balk 的結果。</p>
+<h5>忽略</h5>
+<p>最簡單的方法，就是不通知呼叫端 balk 的發生。在範例程式中就是採用這種方式。</p>
+<h5>傳回值</h5>
+<p>以 boolean 型別的傳回值表示 balk 的發生。例如傳回 ture 就是沒有 balk，而有正常處理目的的動作;傳回 false 則表示發生 balk，目前動作沒有進行。
+若是傳回參考型別的方法，也可以傳回 null 來表示 balk 的發生。</p>
+<h5>例外</h5>
+<p>也可以使用例外來表達 balk 的發生。這時，balk 時就不是從方法 return 出來，而是從方法 throw 出例外。</p>
+<h4>timeout</h4>
+<p>這是一個折衷方法，等待一段時間之後再離開。稱為 guraded timed 或是 timeout</p>
+<h4>什麼時候結束 wait</h4>
+<div class="highlight"><pre><span class="c1">//指定 timeout 時間約 1 秒</span>
+<span class="n">obj</span><span class="o">.</span><span class="na">wait</span><span class="o">(</span><span class="mi">1000</span><span class="o">)</span>
+</pre></div>
+
+
+<p>執行這個敘述時，執行緒會進入 obj 的等待區暫停，並且釋放 obj 的鎖定。只有發生下面的情況，才會從等待區離開：</p>
+<ol>
+<li>當 notify 被呼叫時</li>
+<li>當 notifyAll 被呼叫時</li>
+<li>當 interrupt 被呼叫時</li>
+<li>發生 timeout 時</li>
+</ol>
+<p>我們無法分辨到底是因為哪一種情況而離開。</p>
+<p>guraded timed 程式範例如下。
+<script src="https://gist.github.com/twmht/fce951d0f945fbba10d7.js"></script></p>
+<h3>問題</h3>
+<h4>1.在程式範例中，無法清楚看到 balk 的動作，請在程式加入偵錯輸出，使 balk 的動作可以明顯得知。請故意刪除 save 的 synchronized，測試是否會出現多餘的檔案操作。為了使多餘的檔案操作更容易發生，加入 sleep 也可以。</h4>
+<p>加入偵錯輸出:
+<script src="https://gist.github.com/twmht/05756219c6e66da6490b.js"></script></p>
+<p>故意刪除 save 的 synchronized:
+<script src="https://gist.github.com/twmht/a27c225be7257d322ad1.js"></script></p>
+<h4>2.嘗試改寫 Guarded Suspension Pattern 的範例程式中出現的 RequestQueue 類別，讓他可以檢查死結的發生。發經過 30 秒還沒有滿足防衛條件時，請讓他丟出 LivenessException。</h4>
+<p>到 Guarded 條件被滿足為止的休息時間約為 30 秒。
+<script src="https://gist.github.com/twmht/90de5da494b6d761cc3e.js"></script></p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
