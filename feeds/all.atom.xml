@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-08-25T14:03:53+08:00</updated><entry><title>bash 找不到 adb</title><link href="http://twmht.github.io/blog/posts/2014/08/android/adb_not_found.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/android/adb_not_found.html</id><summary type="html">&lt;p&gt;解決方法如下。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/all.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-08-25T16:58:53+08:00</updated><entry><title>同時燒錄多個作業系統</title><link href="http://twmht.github.io/blog/posts/2014/08/linux/multiBoot.html" rel="alternate"></link><updated>2014-08-25T16:58:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/linux/multiBoot.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.pendrivelinux.com/yumi-multiboot-usb-creator/"&gt;參考&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果想要在安裝 linux 作業系統的時候，可以一次從多個作業系統來選擇，也就是把多個作業系統同時燒錄在隨身碟裡面，這是可以做到的。目前有多個軟體可以做到。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下載 &lt;code&gt;YUMI&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然後&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;YUMI.gambs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;即可啟動 YUMI 這支程式。&lt;/p&gt;
+&lt;p&gt;接下來選擇要燒錄的 iso 檔即可。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下載 &lt;a href="http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/#more-3827"&gt;UUI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="linux"></category></entry><entry><title>bash 找不到 adb</title><link href="http://twmht.github.io/blog/posts/2014/08/android/adb_not_found.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/android/adb_not_found.html</id><summary type="html">&lt;p&gt;解決方法如下。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="adb"></category><category term="android"></category></entry><entry><title>手動 compile vim</title><link href="http://twmht.github.io/blog/posts/2014/08/others/compileVIM.html" rel="alternate"></link><updated>2014-08-25T14:03:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/others/compileVIM.html</id><summary type="html">&lt;p&gt;&lt;a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source"&gt;參考&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;先安裝以下這些 dependency。&lt;/p&gt;
@@ -138,16 +152,7 @@ Generation complete.
 
 &lt;p&gt;接著設定系統的 locale&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo update-locale &lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;en_US.UTF-8
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>同時燒錄多個作業系統</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/multiBoot.html" rel="alternate"></link><updated>2014-07-09T17:44:02+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/multiBoot.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.pendrivelinux.com/yumi-multiboot-usb-creator/"&gt;參考&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;如果想要在安裝作業系統的時候，可以一次從多個作業系統來選擇，也就是把多個作業系統同時燒錄在隨身碟裡面，這是可以做到的。&lt;/p&gt;
-&lt;p&gt;首先必須先下載 &lt;code&gt;YUMI&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;然後&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;YUMI.gambs
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;即可啟動 YUMI 這支程式。&lt;/p&gt;
-&lt;p&gt;接下來選擇要燒錄的 iso 檔即可。&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>判斷 USB 的分割區</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html" rel="alternate"></link><updated>2014-07-09T17:26:03+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/checkUSB.html</id><summary type="html">&lt;p&gt;&lt;a href="http://unix.stackexchange.com/questions/60299/how-to-determine-which-sd-is-usb"&gt;參考&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>快速更換 java 的預設路徑</title><link href="http://twmht.github.io/blog/posts/2014/07/others/multipleJava.html" rel="alternate"></link><updated>2014-07-08T15:43:08+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-08:posts/2014/07/others/multipleJava.html</id><summary type="html">&lt;p&gt;在安裝多個版本的 java 的情況下，如果想要快速切換系統預設的版本的話，可以這樣做。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="ubuntu"></category></entry><entry><title>判斷 USB 的分割區</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html" rel="alternate"></link><updated>2014-07-09T17:26:03+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/checkUSB.html</id><summary type="html">&lt;p&gt;&lt;a href="http://unix.stackexchange.com/questions/60299/how-to-determine-which-sd-is-usb"&gt;參考&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>快速更換 java 的預設路徑</title><link href="http://twmht.github.io/blog/posts/2014/07/others/multipleJava.html" rel="alternate"></link><updated>2014-07-08T15:43:08+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-08:posts/2014/07/others/multipleJava.html</id><summary type="html">&lt;p&gt;在安裝多個版本的 java 的情況下，如果想要快速切換系統預設的版本的話，可以這樣做。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;alternatives&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;java&lt;/span&gt;
 &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;alternatives&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;javac&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

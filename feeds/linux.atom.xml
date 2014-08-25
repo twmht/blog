@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/linux.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-07-09T17:44:02+08:00</updated><entry><title>同時燒錄多個作業系統</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/multiBoot.html" rel="alternate"></link><updated>2014-07-09T17:44:02+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/multiBoot.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.pendrivelinux.com/yumi-multiboot-usb-creator/"&gt;參考&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;如果想要在安裝作業系統的時候，可以一次從多個作業系統來選擇，也就是把多個作業系統同時燒錄在隨身碟裡面，這是可以做到的。&lt;/p&gt;
-&lt;p&gt;首先必須先下載 &lt;code&gt;YUMI&lt;/code&gt;。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>技術筆記</title><link href="http://twmht.github.io/blog/" rel="alternate"></link><link href="http://twmht.github.io/blog/feeds/linux.atom.xml" rel="self"></link><id>http://twmht.github.io/blog/</id><updated>2014-08-25T16:58:53+08:00</updated><entry><title>同時燒錄多個作業系統</title><link href="http://twmht.github.io/blog/posts/2014/08/linux/multiBoot.html" rel="alternate"></link><updated>2014-08-25T16:58:53+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-08-25:posts/2014/08/linux/multiBoot.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.pendrivelinux.com/yumi-multiboot-usb-creator/"&gt;參考&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果想要在安裝 linux 作業系統的時候，可以一次從多個作業系統來選擇，也就是把多個作業系統同時燒錄在隨身碟裡面，這是可以做到的。目前有多個軟體可以做到。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下載 &lt;code&gt;YUMI&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;然後&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;YUMI.gambs
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;即可啟動 YUMI 這支程式。&lt;/p&gt;
-&lt;p&gt;接下來選擇要燒錄的 iso 檔即可。&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>判斷 USB 的分割區</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html" rel="alternate"></link><updated>2014-07-09T17:26:03+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/checkUSB.html</id><summary type="html">&lt;p&gt;&lt;a href="http://unix.stackexchange.com/questions/60299/how-to-determine-which-sd-is-usb"&gt;參考&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry></feed>
+&lt;p&gt;接下來選擇要燒錄的 iso 檔即可。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下載 &lt;a href="http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/#more-3827"&gt;UUI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="linux"></category></entry><entry><title>判斷 USB 的分割區</title><link href="http://twmht.github.io/blog/posts/2014/07/linux/checkUSB.html" rel="alternate"></link><updated>2014-07-09T17:26:03+08:00</updated><author><name>twmht</name></author><id>tag:twmht.github.io/blog,2014-07-09:posts/2014/07/linux/checkUSB.html</id><summary type="html">&lt;p&gt;&lt;a href="http://unix.stackexchange.com/questions/60299/how-to-determine-which-sd-is-usb"&gt;參考&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry></feed>
