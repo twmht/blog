@@ -18,8 +18,8 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 THEME = 'pelican-theme/pelican-fresh'
 GOOGLE_CUSTOM_SEARCH = '011100128719699788018:4mb0t5kqbse'
-
-
+LOAD_CONTENT_CACHE = True
+CHECK_MODIFIED_METHOD = 'mtime'
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),
           ('pygments', 'http://pygments.org/docs/lexers/'),
