@@ -1,0 +1,3 @@
+[submodule "pelican-theme/pelican-fresh"]
+	path = pelican-theme/pelican-fresh
+	url = git@github.com:twmht/pelican-fresh.git
