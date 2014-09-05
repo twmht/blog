@@ -11,7 +11,7 @@ TIMEZONE = 'Asia/Taipei'
 
 DEFAULT_LANG = u'en'
 DEFAULT_DATE = 'fs'
-
+SLUGIFY_SOURCE = 'basename'
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -36,8 +36,8 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
-ARTICLE_URL = 'posts/{date:%Y}/{date:%m}/{category}/{slug}.html'
-ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%m}/{category}/{slug}.html'
+ARTICLE_URL = 'posts/{category}/{slug}.html'
+ARTICLE_SAVE_AS = 'posts/{category}/{slug}.html'
 STATIC_PATHS = ['images', 'pdf','extra/favicon.ico']
 EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'},
