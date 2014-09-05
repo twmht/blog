@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="twmht" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="用macro的技巧"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/cc/macro.html"/>
+    <meta property="og:site_name" content="技術筆記"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/cc/macro.html" />
+
+    <title>用macro的技巧 | 技術筆記</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://twmht.github.io/blog/theme/css/main.css" />
+    <link href="http://twmht.github.io/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="技術筆記 Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="http://twmht.github.io/blog/">技術筆記 </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="http://twmht.github.io/blog/category/acm.html">ACM</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/javascript.html">javascript</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
+                        </ul>
+
+<script>
+  (function() {
+    var cx = '011100128719699788018:4mb0t5kqbse';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div id="google-custom-search" class="nav">
+    <gcse:search></gcse:search>
+</div>
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/cc/macro.html" rel="bookmark"
+             title="Permalink to 用macro的技巧">用macro的技巧</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>關於macro的介紹，有一個還不錯的<a href="http://www.cprogramming.com/tutorial/cpreprocessor.html">網站</a>。</p>
+<p>在debug的時候很常用printf來debug，並且會註明這是哪一個變數名稱，用macro可以很容易作到。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)  printf(&quot;%s: %s\n&quot;, #var, var)</span>
+<span class="c1">//也可以這樣</span>
+<span class="cp">#define PRINT_TOKEN(token) printf(#token &quot; is %d&quot;, token)</span>
+<span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaa&quot;</span><span class="p">;</span>
+<span class="c1">//s: aaa</span>
+<span class="n">print_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//a is 5</span>
+<span class="n">PRINT_TOKEN</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果想要一次印出多個變數，可以這樣做。</p>
+<div class="highlight"><pre><span class="cp">#define print_var(var)     do {         printf(&quot;%s: %s\n&quot;, #var, var);     } while (0)</span>
+<span class="cp">#define print_three_var(var) do { \</span>
+<span class="cp">         print_var(var); \</span>
+<span class="cp">         print_var(var##2); \</span>
+<span class="cp">         print_var(var##3); \</span>
+<span class="cp">     } while (0)</span>
+<span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">s2</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">s3</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="n">print_three_var</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="c1">//印出s: 10</span>
+<span class="c1">//    s2: 20</span>
+<span class="c1">//    s3 :30</span>
+</pre></div>
+
+
+<p>也可以印出struct裡面的變數。</p>
+<div class="highlight"><pre><span class="cp">#define BUILD_FIELD(field) my_struct.inner_struct.union_a.##field</span>
+<span class="c1">//會被展開成</span>
+<span class="n">my_struct</span><span class="p">.</span><span class="n">inner_struct</span><span class="p">.</span><span class="n">union_a</span><span class="p">.</span><span class="n">field1</span>
+</pre></div>
+
+
+<p>使用macro會有一些陷阱</p>
+<div class="highlight"><pre><span class="cp">#define MULT(x, y) x * y</span>
+<span class="cp">#define ADD_FIVE(a) (a) + 5</span>
+<span class="n">MULT</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//會被展開成1+1*2+2，結果不對。</span>
+<span class="n">ADD_FIVE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span> <span class="c1">//會被展開成(3)+5*3，結果不對。</span>
+</pre></div>
+
+
+<p>上述的結果有誤，可以改成</p>
+<div class="highlight"><pre><span class="cp">#define MULT(x,y) (x)*(y)</span>
+<span class="cp">#define ADD_FIVE(a) ((a) + 5)</span>
+<span class="n">MULT</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//會被展開成(1+1)*(2+2)，結果正確。</span>
+<span class="n">ADD_FIVE</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span> <span class="c1">//會被展開成((3)+5)*3，結果正確。</span>
+</pre></div>
+
+
+<p>經驗法則是最好每個element都把它包起來。</p>
+<p>一個SWAP的trick。</p>
+<div class="highlight"><pre><span class="c1">//可以試著驗證看看</span>
+<span class="cp">#define SWAP(a, b)  do {a ^= b; b ^= a; a ^= b; } while(0)</span><span class="c1">//最好把它包起來，不然的話會很容易不小心把後兩句給排除掉。加上do while是為了有分號。</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="k">else</span>
+    <span class="nf">SWAP</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+
+
+<p>注意不要搭配side-effect服用，像這樣。</p>
+<div class="highlight"><pre><span class="cp">#define MAX(a, b) ((a) &lt; (b) ? (b) : (a))</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">//因為macro是直接展開，並不是x++,y++做完之後才展開。</span>
+<span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="n">x</span><span class="o">++</span><span class="p">,</span> <span class="n">y</span><span class="o">++</span><span class="p">);</span>
+<span class="c1">//所以會變成int z = (x++ &lt; y++ ? y++ : x++)</span>
+</pre></div>
+
+
+<p>如果不想寫多行的話要怎麼做?</p>
+<div class="highlight"><pre><span class="c1">//用一個slash表示接到下一行</span>
+<span class="cp">#define SWAP(a, b)  {                   \</span>
+<span class="cp">                    a ^= b;         \</span>
+<span class="cp">                    b ^= a;         \ </span>
+                    <span class="n">a</span> <span class="o">^=</span> <span class="n">b</span><span class="p">;</span>         \
+                <span class="p">}</span>
+</pre></div>
+
+
+<p>其它還有，</p>
+<div class="highlight"><pre><span class="cp">#ifndef __cplusplus</span>
+<span class="c1">//這個指令將&quot;中斷編譯&quot;過程並返回一個參數中定義的出錯資訊</span>
+<span class="cp">#error A C++ compiler is required</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<p>若是想要取消macro呢?</p>
+<div class="highlight"><pre><span class="cp">#define MAX_WIDTH 100</span>
+<span class="kt">char</span> <span class="n">str1</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 200</span>
+<span class="kt">char</span> <span class="n">str2</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
+</pre></div>
+
+
+<p>一個較為複雜的例子，</p>
+<div class="highlight"><pre><span class="cp">#if MAX_WIDTH&gt;200</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 200</span>
+<span class="cp">#elif MAX_WIDTH&lt;50</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 50</span>
+<span class="cp">#else</span>
+<span class="cp">#undef MAX_WIDTH</span>
+<span class="cp">#define MAX_WIDTH 100</span>
+<span class="cp">#endif</span>
+<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="n">MAX_WIDTH</span><span class="p">];</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

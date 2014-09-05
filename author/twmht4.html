@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="SHORTCUT ICON" href="http://twmht.github.io/blog/favicon.ico">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="author" content="twmht" />
     <meta name="robots" content="index, follow"/>
@@ -48,6 +47,7 @@
                             <li ><a href="http://twmht.github.io/blog/category/android.html">android</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/cc.html">C/C++</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a></li>
+                            <li ><a href="http://twmht.github.io/blog/category/javascript.html">javascript</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
@@ -82,8 +82,175 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html" rel="bookmark" title="Permalink to Lubuntu 底下設定雙螢幕">
-                                       Lubuntu 底下設定雙螢幕
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/observer.html" rel="bookmark" title="Permalink to Observer Pattern">
+                                       Observer Pattern
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>observer是觀察的人，也就是觀察者的意思。
+當被Observer Pattern列入觀察名單的狀態發生變化，就會通知觀察者。在寫一些跟狀態變化有關的處理時，Observer Pattern是很好用的工具。</p>
+<h3>如何設計</h3>
+<p>重點在於設計Observer Interface以及有具體實作的Observer類別。另外，也需要設計被觀察者。</p>
+<h3>程式範例</h3>
+<p>觀察者觀察產生多個數值的物件，然後輸出該值，輸出方式因觀察者而異。在這個範例中，有用數字來輸出的觀察者以及用長條圖來輸出的觀察者。</p>
+<p>在 Observer Interface 中，呼叫 update 方法的是產生數值的 NumberGenerator ( generator 是 "產生器" "產生設備" 的意思)。update 方法是 NumberGenerator 用來告訴 Observer 說 "我的內容已經更新過了，請你也更新你的輸出內容" 的方法。</p>
+<script src="https://gist.github.com/twmht/3fd90157d2327707922e.js"></script>
+
+<h4>Subject (被觀察者) 參與者</h4>
+<p>表示被觀察的一方。Subject 參與者具有登錄或刪除 Observer 參與者的方法 ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/observer.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/prototype.html" rel="bookmark" title="Permalink to Prototype Pattern -- 複製建立物件個體">
+                                       Prototype Pattern -- 複製建立物件個體
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>如果利用 new 建立物件個體時，都必須指定類別名稱。但有時候會需要不靠指定類別名稱的方式就能產生物件個體，此時不是利用類別建立物件個體，而是複製物件個體另建一個新物件個體，通常發生在以下的情況：</p>
+<ol>
+<li>
+<p>種類過多無法整成類別時: 
+若需處理的物件種類太多，如果要一個個設定成不同的類別，需要產生大量的原始檔。</p>
+</li>
+<li>
+<p>不容易利用類別產生物件個體時:
+該物件個體的產生過程太複雜，很難利用類別來建立。假設現在有一個物件個體是使用者在圖形編輯軟體下利用滑鼠操作而產生。要想以程式來產生這樣一個原本是使用者操作所建立的物件個體，其實不容易。如果是在已經有一個以使用者操作的方式產生的物件個體，還想再建立一個相同物件個體的情形時，應該先把已產生的物件個體暫時儲存起來，等到需要產生時再複製即可。</p>
+</li>
+</ol>
+<p>3.希望把框架和所產生的物件個體分開時:
+希望讓產生物件個體時的框架不會只存在在某些特殊類別時。遇到這種情形時，就不能沿用指定類別名稱產生物件個體的作法，應該預先把用來當作<strong>雛型</strong>的物件個體登錄進去，再以複製已登錄物件個體的方式來產生物件個體。</p>
+<p>從一個現有的物件個體建立另外一個新物件個體有點像是到麵包店指著玻璃櫃的某種甜點，跟老闆說<strong>我要這個</strong>的感覺。雖然不知道甜點叫什麼名字，也不知道這種甜點的作法，但只要一指眼前的甜點，還是可以買到跟<strong>這個</strong>相同的東西。</p>
+<h3>如何設計</h3>
+<p>不是利用類別產生物件個體，而是從一個物件個體產生出另外一個新物件個體。</p>
+<h3>程式範例</h3>
+<p>為字串設計外框。</p>
+<script src="https://gist.github.com/twmht/515d53540f78886bdebb.js"></script>
+
+<h4>Prototype 參與者</h4>
+<p>Prototype ...</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/prototype.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/proxy.html" rel="bookmark" title="Permalink to Proxy Pattern">
+                                       Proxy Pattern
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>proxy就是代理人的意思，不需要本人親自去做的事情，就交給代理人去做。代理人是代替忙到無法自己動手的本人去處理工作。</p>
+<h3>如何設計</h3>
+<p>代理人以及本人都是物件。</p>
+<h3>程式範例</h3>
+<p>這次的範例是一個把字串輸出到畫面上的列表機。由 Main 類別產生 PrinterProxy 類別的物件個體。 該物件命名為 Alice，並將此名稱輸出到畫面上。 然後改名為Bob， 且輸出該新名稱。 在命名和取得名稱的階段都還沒有產生真正的 Printer 類別(就是本人個體)，命名和取得名稱的部份由 PrinterProxy 代理執行，<strong>最後呼叫 print 方法進入真正執行列印的階段，才由 PrinterProxy 類別產生 Printer 類別的物件個體</strong>。</p>
+<p>PrinterProxy 以及 Printer 類別要一視同仁，故須定義 Printable Interface。</p>
+<p>這個程式範例的前提要件是產生 Printer 類別的物件個體會花很多時間。 為了表現出費時的感覺，所以從建構子故意呼叫 heavyJob 方法。</p>
+<script src="https://gist.github.com/twmht/1672d63393eb403671f0.js"></script>
+
+<h4>Subject 參與者 ...</h4>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/proxy.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/python/pythonbrew.html" rel="bookmark" title="Permalink to 安裝 pythonbrew">
+                                       安裝 pythonbrew
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/python.html">Python</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <script src="https://gist.github.com/twmht/10984610.js"></script>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/python/pythonbrew.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/others/showgit.html" rel="bookmark" title="Permalink to 在 bash shell 中顯示 git branch">
+                                       在 bash shell 中顯示 git branch
                                     </a>
                                 </h1>
                             </header>
@@ -95,22 +262,19 @@
 
     in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/bash.html">bash</a>
+        <a href="http://twmht.github.io/blog/tag/git.html">git</a>
 
 
 
     
-</footer><!-- /.post-info -->                                <p>以下是 lubuntu 的設定方式。</p>
-<p>如果想進入桌面之後就執行，必須要去修改<code>.config/lxsession/Lubuntu/autostart</code>。</p>
-<p>加入</p>
-<div class="highlight"><pre>@xrandr --auto --output VGA-1 --right-of DVI-I-1
-</pre></div>
-
-
-<p>接著會在<code>.config/autostart/lxrandr-autostart.desktop</code>看到相關設定。</p>
+</footer><!-- /.post-info -->                                <p>加到 <code>.bashrc</code> 即可。</p>
+<script src="https://gist.github.com/twmht/e95f0495053bc6a1a7c5.js"></script>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/others/dual_monitor.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/others/showgit.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -120,7 +284,144 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/state.html" rel="bookmark" title="Permalink to State Pattern">
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/singleton.html" rel="bookmark" title="Permalink to Singleton Pattern -- 唯一的物件個體">
+                                       Singleton Pattern -- 唯一的物件個體
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
+<p>通常我們在啟動程式時，就會產生許多物件個體。拿代表字串的 java.lang.String 類別物件個體來說，每個字串都會相對產生一個，所以如果某個程式內含 1000 個字串，就會產生 1000 個物件個體。</p>
+<p>不過，有時候難免會有 <strong>讓這個類別的物件個體只產生一個</strong> 的需要，像是用程式來表現在程式中絕對是獨一無二的某個部份。好比說，表現電腦的類別或是表現視窗系統的類別等等就是最經典的例子。</p>
+<h3>如何設計</h3>
+<p>Singleton 是指只有一個元素的集合，就是因為它只會有一個物件個體。</p>
+<h3>程式範例</h3>
+<p>設計一個只有一個物件個體的類別。</p>
+<script src="https://gist.github.com/twmht/3339031996aa824bc3c4.js"></script>
+
+<h4>Singleton 參與者</h4>
+<p>Singleton Pattern 只出現一個 Singleton 參與者。 Singleton 的參與者具有 static 方法可取得唯一的物件個體。這個方法永遠都會傳回同一個物件個體。</p>
+<h3>優點</h3>
+<p>在很多情況下，如果有一個以上的物件個體時，由於物件個體彼此之間的影響，可能會發展成出乎意料的 bug。Singleton Pattern 確保程式設計師不會不小心多產生物件。</p>
+<h3>問題 ...</h3>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/singleton.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/others/skypemic.html" rel="bookmark" title="Permalink to 解決ubuntu上面麥克風沒聲音的問題">
+                                       解決ubuntu上面麥克風沒聲音的問題
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>在ubuntu上面使用skype的話，有時候會發生麥克風沒有聲音的問題。
+這時候可以使用</p>
+<div class="highlight"><pre>alsamixer
+</pre></div>
+
+
+<p>或者是</p>
+<div class="highlight"><pre>gnome-alsamixer
+</pre></div>
+
+
+<p>來調整麥克風的聲音。
+如果再不行的話，就使用</p>
+<div class="highlight"><pre>gstreamer-properties
+</pre></div>
+
+
+<p>調整input或者是output。</p>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/others/skypemic.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/others/squid_proxy.html" rel="bookmark" title="Permalink to 利用 squid 及 pam module 建立 proxy server">
+                                       利用 squid 及 pam module 建立 proxy server
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>以下是 squid3 的設定方式</p>
+<ul>
+<li>
+<p>首先修改 <code>/etc/squid3/squid.conf</code>，找到下面這幾行，把註解取消掉，有些則是要自行加入。</p>
+<p>在 auth_param section 中:</p>
+<div class="highlight"><pre>auth_param basic program /usr/lib/squid/pam_auth
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+</pre></div>
+
+
+<p>在 acl section 中：</p>
+<div class="highlight"><pre>acl pam proxy_auth REQUIRED
+acl password proxy_auth REQUIRED ...</pre></div></li></ul>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/others/squid_proxy.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/state.html" rel="bookmark" title="Permalink to State Pattern">
                                        State Pattern
                                     </a>
                                 </h1>
@@ -133,7 +434,7 @@
 
     in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -167,7 +468,7 @@
 <h4>ConcreteState 參與者</h4>
 <p>ConcreteState ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/state.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/state.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -177,7 +478,7 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/strategy.html" rel="bookmark" title="Permalink to Strategy Pattern -- 把演算法則整個換掉">
+                                    <a href="http://twmht.github.io/blog/posts/design-pattern/strategy.html" rel="bookmark" title="Permalink to Strategy Pattern -- 把演算法則整個換掉">
                                        Strategy Pattern -- 把演算法則整個換掉
                                     </a>
                                 </h1>
@@ -190,7 +491,7 @@
 
     in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
 
-    on 2014-06-29
+    on 2014-07-14
 
 
 
@@ -215,323 +516,7 @@
 <h4>Context (文法) 參與者</h4>
 <p>利用 Strategy ...</p>
                                 <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/strategy.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/templateMethod.html" rel="bookmark" title="Permalink to Template Method Pattern -- 實際處理交給子類別">
-                                       Template Method Pattern -- 實際處理交給子類別
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>就像在塑膠版上挖空，然後用色筆塗滿挖空的部份，所表現出來的是固定的字型，但顏色卻因所使用的色筆顏色而異。所挖空的部份我們稱為 Template。</p>
-<h3>如何設計</h3>
-<p>將作為 Template 的方法定義在父類別，而方法的定義中則使用到抽象方法。因此如果只看父類別部份的程式，根本不知道到底結果會是怎樣的處理內容，最多只能了解該如何呼叫抽象方法而已。</p>
-<p>實際實作抽象方法的是子類別。要在子類別實作方法，才能決定具體的處理動作。理論上，如果在不同的子類別執行不同的實作，應該就能發展出不同的處理內容。不過，無論在哪個子類別執行任何一種實作，處理的大致流程都還是要依照父類別所制定的方法。</p>
-<p>像這樣在<strong>在父類別指定大綱並且在子類別規定具體內容</strong>，就稱為 Template Method Pattern。</p>
-<h3>程式範例</h3>
-<p>輸出字串，同樣流程的display，卻有不同的輸出方式(字串或字元)。</p>
-<script src="https://gist.github.com/twmht/b29a5df581fcd2090243.js"></script>
-
-<h4>AbstractClass (抽象類別) 參與者</h4>
-<p>AbstractClass 實作範本方法，還有宣告 Template Method 所使用的抽象方法。這個抽象方法則由子類別 ConcreteClass 負責實作。例如 AbstractClass 類別 ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/templateMethod.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/visitor.html" rel="bookmark" title="Permalink to Visitor Pattern -- 在結構中穿梭還同時做事">
-                                       Visitor Pattern -- 在結構中穿梭還同時做事
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>資料結構裡儲存了很多個元素，假設現在要對所有元素進行一項 <strong>處理</strong>。那麼，這項 <strong>處理</strong> 的程式碼應該寫在哪裡？以常理來判斷，應該要寫在表示資料結構的類別裡面，不過如果這項 <strong>處理</strong> 的動作不只一個的話，該怎麼辦? 每次要做新處理的時候，就必須修改資料結構的類別。</p>
-<h3>如何設計</h3>
-<p>Visitor Pattern 把 <strong>資料結構</strong> 和 <strong>處理</strong> 兩者分開，另外寫一個表示在資料結構內穿梭來去的主體 <strong>訪客</strong> 的類別，然後把處理交給這個類別來進行。如此一來，如果想追加新的處理動作時，只要再建立一個新的訪客即可。而在資料結構這邊，也只要能接受來敲門的訪客就能完成動作。</p>
-<h3>程式範例</h3>
-<p>這個程式是訪客穿梭在由檔案和目錄組成的資料結構內，以列印檔案總覽。</p>
-<script src="https://gist.github.com/twmht/4ff936559e5bf100a3d1.js"></script>
-
-<h4>Visitor (訪客) 參與者</h4>
-<p>Visitor 是對每個資料結構中的具體元素 (ConcreteAcceptor) 宣告 <strong>已經去找過XXXX</strong> 的 visit(XXXX) 方法。visit(XXXX ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/visitor.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/FactoryMethod.html" rel="bookmark" title="Permalink to Factory Method Pattern -- 建立物件個體可交給子類別">
-                                       Factory Method Pattern -- 建立物件個體可交給子類別
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>把 Template Method Pattern 應用在建立物件個體上面。</p>
-<h3>如何設計</h3>
-<p>在父類別規定物件個體的建立方法，但並沒有深入到較具體的類別。所有具體的完整內容都放在子類別。根據這個原則，我們可以大致分成產生物件個體的大綱和實際產生物件個體的類別兩方面。</p>
-<h3>程式範例</h3>
-<p>建立一個生產身份證的 factory。Product 類別和 Factory 類別屬於 framework 這個 package。負責建立產生物件個體大綱。</p>
-<p>IDCard 類別和 IDCardFactory 類別則處理實際的內容，屬於 idcard 這個 package。</p>
-<script src="https://gist.github.com/twmht/bb3f738c08ff7891be19.js"></script>
-
-<h4>Product (產品) 參與者</h4>
-<p>框架的部份。這個抽象類別是規定此 Pattern 所產生的物件個體應有的介面，具體內容則由子類別的 ConcreteProduct 規定。例如 Product 類別。</p>
-<h4>Creater (生產者) 參與者</h4>
-<p>框架的部份。這是產生 Product ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/FactoryMethod.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/multithread/Introduction.html" rel="bookmark" title="Permalink to Introduction to Multithread">
-                                       Introduction to Multithread
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>講到多執行緒時，我們常常在講concurrent(並行)與parallel(平行)，在單核的情況下，只會出現concurrent，因為concurrent表示的是一段時間只會有一個執行緒在動作;但是在雙核以上的情況下，則會出現parallel的情形，表示同一段時間可能會有多個執行緒在動作。</p>
-<h2>不管是concurrent或者是parallel，都要考慮到thread-safe的問題。</h2>
-<p>一般來說，在java中可以透過兩種方式建立thread。</p>
-<ul>
-<li>
-<p>繼承Thread類別，建立PrintThread.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>Main.java</p>
-<div class="highlight"><pre><span class="kd">public ...</span></pre></div></li></ul>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/multithread/Introduction.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/abstractFactory.html" rel="bookmark" title="Permalink to Abstract Factory Pattern -- 把相關零件組合成產品">
-                                       Abstract Factory Pattern -- 把相關零件組合成產品
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>所謂的<strong>抽象</strong>，意思是指<strong>不考慮要如何具體進行實作</strong>，只注意介面的部份。抽象工廠把各種抽象零件組合成產品。</p>
-<h3>如何設計</h3>
-<p>處理的重點是在<strong>介面</strong>而不是零件的具體實作。只利用介面就能把零件組合成產品。</p>
-<h3>程式範例</h3>
-<p>將一個階層結構的相關網站鏈結做成HTML檔。</p>
-<p>包含下列三個 package 的類別群組:</p>
-<ul>
-<li>factory --- 含抽象工廠、零件和產品</li>
-<li>含 Main 的預設package</li>
-<li>listfactory --- 含具體工廠、零件和產品</li>
-</ul>
-<script src="https://gist.github.com/twmht/c98ac2b197d3c3ed7a48.js"></script>
-
-<h4>AbstractProduct 參與者</h4>
-<p>AbstractProduct 規定由 AbstractFactory 所產生的抽象零件及產品的介面。例如 Link、Tray 和 Page 類別。</p>
-<h4>AbstractFactory 參與者</h4>
-<p>AbstractFactory 規定用來產生 AbstractProduct 的物件個體的介面。例如 Factory 類別。</p>
-<h4>Client 參與者</h4>
-<p>Client ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/abstractFactory.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/design-pattern/adapter.html" rel="bookmark" title="Permalink to Adapter Pattern -- 換個包裝再度利用">
-                                       Adapter Pattern -- 換個包裝再度利用
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-06-29
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>例如將直流電換成交流電，轉換器的功能是介入既有內容和需要結果之間，作為溝通的橋樑。</p>
-<p>如果既有內容無法直接利用時，通常需要先轉換成必要的型態後再使用。具有填平<strong>既有內容</strong>和<strong>需要結果</strong>兩者間的<strong>落差</strong>就是 <strong>Adapter Pattern</strong>。</p>
-<h3>如何設計</h3>
-<p>設計wrapper，將既有內容包裝之後，重新再利用。</p>
-<h3>程式範例(繼承)</h3>
-<p>改變輸出字串的外框，採用繼承。</p>
-<script src="https://gist.github.com/twmht/3576c41a962cb0ef2671.js"></script>
-
-<h3>程式範例(委讓)</h3>
-<p>改變輸出字串的外框，採用委讓。</p>
-<script src="https://gist.github.com/twmht/d89785e518eab0bf410e.js"></script>
-
-<h4>Target (對象) 參與者</h4>
-<p>決定現在需要什麼方法的參與者，例如筆記型電腦必須要有直流電才能動。例如 Print 介面。</p>
-<h4>Client 參與者</h4>
-<p>利用 Target 的方法來做事的參與者，例如有直流電 12V 才能用的比較型電腦。例如 Main 類別。</p>
-<h4>Adaptee (被動符合) 參與者</h4>
-<p>具有既有方法的參與者 ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/design-pattern/adapter.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html" rel="bookmark" title="Permalink to adb devices 顯示 no permissions">
-                                       adb devices 顯示 no permissions
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/android.html">android</a>
-
-    on 2014-06-29
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/adb.html">adb</a>
-        <a href="http://twmht.github.io/blog/tag/android.html">android</a>
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>解決方法如下，這使得任何使用 adb 的使用者都是以 root 的權限來使用：</p>
-<div class="highlight"><pre>sudo chown root:root adb
-sudo chmod a+x adb
-sudo chmod a+s adb
-adb <span class="nb">kill</span>-server
-adb start-server
-</pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/2014/06/android/adb_permission.html">Read more...</a>
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/strategy.html">Read more...</a>
                                 </p>
                             </div><!-- /.entry-content -->
                             <hr/>
@@ -578,22 +563,25 @@ adb start-server
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
-                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->
