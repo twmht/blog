@@ -82,6 +82,59 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/python/multiprocessing_map.html" rel="bookmark" title="Permalink to multiprocessing with map">
+                                       multiprocessing with map
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/python.html">Python</a>
+
+    on 2014-07-14
+
+        |
+        tags:         <a href="http://twmht.github.io/blog/tag/python.html">python</a>
+        <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
+
+
+
+    
+</footer><!-- /.post-info -->                                <p><a href="https://medium.com/building-things-on-the-internet/parallelism-in-one-line-40e9b2b36148">參考</a></p>
+<p>一般來說，會利用 Producer/Consumer 來處理 Multithread。</p>
+<div class="highlight"><pre><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Standard Producer/Consumer Threading Pattern</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">time</span> 
+<span class="kn">import</span> <span class="nn">threading</span> 
+<span class="kn">import</span> <span class="nn">Queue</span>
+
+<span class="k">class</span> <span class="nc">Consumer</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span> 
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">queue</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span> 
+            <span class="c"># queue.get() blocks the current thread until </span>
+            <span class="c"># an item is retrieved. </span>
+            <span class="n">msg ...</span></pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/python/multiprocessing_map.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
                                     <a href="http://twmht.github.io/blog/posts/design-pattern/observer.html" rel="bookmark" title="Permalink to Observer Pattern">
                                        Observer Pattern
                                     </a>
@@ -474,54 +527,6 @@ acl password proxy_auth REQUIRED ...</pre></div></li></ul>
                             <hr/>
                         </article>
                     </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/design-pattern/strategy.html" rel="bookmark" title="Permalink to Strategy Pattern -- 把演算法則整個換掉">
-                                       Strategy Pattern -- 把演算法則整個換掉
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/design-pattern.html">Design Pattern</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <h3>用的時間點</h3>
-<p>strategy 是 "戰略" 的意思，泛指與敵方對峙時的作戰策略以及解決問題的方法等。在程式設計裡，不妨把它視為 "運算法則"。</p>
-<h3>如何設計</h3>
-<p>任何一種程式都是為了解決問題而撰寫出來，解決問題時需要實作一些特定的運算法則。在 Strategy Pattern 之下，可以更換實作運算法則的部份而且不留痕跡。切換整個運算法則，簡化改採其它方法來解決同樣問題的動作。</p>
-<h3>程式範例</h3>
-<p>設計電腦遊戲 "剪刀石頭布"。猜拳時的設略有兩種方法。</p>
-<ul>
-<li>猜贏之後繼續出同樣的招式 (WinningStrategy)。</li>
-<li>從上一次出的招式，以機率分配方式求出下一個招式的機率 (ProbStrategy)。</li>
-</ul>
-<script src="https://gist.github.com/twmht/93e49c329294c68aa552.js"></script>
-
-<h4>Strategy 參與者</h4>
-<p>規定使用戰略之介面的參與者。例如 Strategy 介面。</p>
-<h4>ConcreteStrategy 參與者</h4>
-<p>實作 Strategy 參與者之介面的參與者。這裡會實際編寫有關具體戰略的程式。例如 WinningStrategy 類別和 ProbStrategy 類別。</p>
-<h4>Context (文法) 參與者</h4>
-<p>利用 Strategy ...</p>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/design-pattern/strategy.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
                     </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/author/twmht3.html">&laquo;</a>
@@ -563,25 +568,25 @@ acl password proxy_auth REQUIRED ...</pre></div></li></ul>
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
                      <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
-                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

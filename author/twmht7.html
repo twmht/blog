@@ -82,6 +82,56 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/cc/queue.html" rel="bookmark" title="Permalink to queue實作">
+                                       queue實作
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/cc.html">C/C++</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>用Array實作queue。</p>
+<div class="highlight"><pre><span class="cp">#ifndef QUEUE_H</span>
+<span class="cp">#define QUEUE_H</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Queue</span><span class="p">{</span>
+    <span class="nl">public:</span>
+    <span class="n">Queue</span><span class="p">()</span><span class="o">:</span><span class="n">capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">){</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this ...</span></pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/cc/queue.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
                                     <a href="http://twmht.github.io/blog/posts/cc/sort.html" rel="bookmark" title="Permalink to sorting">
                                        sorting
                                     </a>
@@ -481,57 +531,6 @@ Stack.h</p>
                             <hr/>
                         </article>
                     </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/multithread/guarded-suspension.html" rel="bookmark" title="Permalink to Guarded Suspension Pattern -- 要等到我準備好喔">
-                                       Guarded Suspension Pattern -- 要等到我準備好喔
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a>
-
-    on 2014-07-14
-
-
-
-
-    
-</footer><!-- /.post-info -->                                <p>當光靠synchronized已經沒有辦法保護shared resource的時候，通常表示存取shared resource的時候需要條件，這時候就要設計Guarded Suspension Pattern。</p>
-<p>最常見的例子是client端以及server端的溝通，client端會不斷地送request給server，而server會不停地去收request，假設我們用queue去儲存request，那麼server就不能在queue為empty的時候去接收request，這個就是<font color=blue>存取的條件</font>---<font color = red>queue不能是empty</font>。</p>
-<p>Request.java</p>
-<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Request</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="nf">Request</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;[ Request &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot; ]&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>RequestQueue.java，採用LinkedList來存放Request</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
-<span class="kd">public ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/multithread/guarded-suspension.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
                     </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/author/twmht6.html">&laquo;</a>
@@ -573,25 +572,25 @@ Stack.h</p>
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
                      <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
-                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

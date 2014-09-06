@@ -82,6 +82,44 @@
                         <article>
                             <header>
                                 <h1 class="entry-title">
+                                    <a href="http://twmht.github.io/blog/posts/others/backupmysql.html" rel="bookmark" title="Permalink to 如何備份mysql database">
+                                       如何備份mysql database
+                                    </a>
+                                </h1>
+                            </header>
+                            <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-07-14
+
+
+
+
+    
+</footer><!-- /.post-info -->                                <p>有時候換環境的時候，會想要連同資料庫一起移動過去，假設要備份一個database叫做library。</p>
+<div class="highlight"><pre>mysqldump -u root -p --databases library &gt; library.sql
+</pre></div>
+
+
+<p>到新的環境中如何重新載入library.sql呢？</p>
+<div class="highlight"><pre>mysql -u root -p &lt; library.sql
+</pre></div>
+                                <p class="readmore">
+                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/others/backupmysql.html">Read more...</a>
+                                </p>
+                            </div><!-- /.entry-content -->
+                            <hr/>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <header>
+                                <h1 class="entry-title">
                                     <a href="http://twmht.github.io/blog/posts/others/dual_monitor.html" rel="bookmark" title="Permalink to Lubuntu 底下設定雙螢幕">
                                        Lubuntu 底下設定雙螢幕
                                     </a>
@@ -484,59 +522,6 @@ sudo apt-get install phpmyadmin
                             <hr/>
                         </article>
                     </li>
-                    <li>
-                        <article>
-                            <header>
-                                <h1 class="entry-title">
-                                    <a href="http://twmht.github.io/blog/posts/python/multiprocessing_map.html" rel="bookmark" title="Permalink to multiprocessing with map">
-                                       multiprocessing with map
-                                    </a>
-                                </h1>
-                            </header>
-                            <div class="entry-content">
-<footer class="post-info">
-    <address class="vcard author">
-        by <a class="url fn" href="http://twmht.github.io/blog/author/twmht.html">twmht</a>
-    </address>
-
-    in <a href="http://twmht.github.io/blog/category/python.html">Python</a>
-
-    on 2014-07-14
-
-        |
-        tags:         <a href="http://twmht.github.io/blog/tag/python.html">python</a>
-        <a href="http://twmht.github.io/blog/tag/thread.html">thread</a>
-
-
-
-    
-</footer><!-- /.post-info -->                                <p><a href="https://medium.com/building-things-on-the-internet/parallelism-in-one-line-40e9b2b36148">參考</a></p>
-<p>一般來說，會利用 Producer/Consumer 來處理 Multithread。</p>
-<div class="highlight"><pre><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Standard Producer/Consumer Threading Pattern</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">time</span> 
-<span class="kn">import</span> <span class="nn">threading</span> 
-<span class="kn">import</span> <span class="nn">Queue</span>
-
-<span class="k">class</span> <span class="nc">Consumer</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span> 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span> 
-        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">queue</span>
-
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span> 
-            <span class="c"># queue.get() blocks the current thread until </span>
-            <span class="c"># an item is retrieved. </span>
-            <span class="n">msg ...</span></pre></div>
-                                <p class="readmore">
-                                    <a class="btn btn-small btn-info" href="http://twmht.github.io/blog/posts/python/multiprocessing_map.html">Read more...</a>
-                                </p>
-                            </div><!-- /.entry-content -->
-                            <hr/>
-                        </article>
-                    </li>
                     </ol><!-- /#posts-list -->
 <p class="paginator">
         <a href="http://twmht.github.io/blog/author/twmht2.html">&laquo;</a>
@@ -578,25 +563,25 @@ sudo apt-get install phpmyadmin
             <div>
                 <h2>Tags</h2>
                 <ul id="cloud">
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
-                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
-                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
                      <li class="tag-2"><a href="http://twmht.github.io/blog/tag/eclipse.html">eclipse</a></li>
                      <li class="tag-0"><a href="http://twmht.github.io/blog/tag/thread.html">thread</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/python.html">python</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
-                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
-                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/vim.html">vim</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/android.html">android</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/git.html">git</a></li>
                      <li class="tag-4"><a href="http://twmht.github.io/blog/tag/latex.html">latex</a></li>
+                     <li class="tag-1"><a href="http://twmht.github.io/blog/tag/ubuntu.html">ubuntu</a></li>
+                     <li class="tag-0"><a href="http://twmht.github.io/blog/tag/java.html">java</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/bash.html">bash</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/linux.html">linux</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/theme.html">theme</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/javascript.html">javascript</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/font.html">font</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/encoding.html">encoding</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/make.html">make</a></li>
+                     <li class="tag-2"><a href="http://twmht.github.io/blog/tag/adb.html">adb</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/css.html">css</a></li>
+                     <li class="tag-4"><a href="http://twmht.github.io/blog/tag/texstudio.html">texstudio</a></li>
                 </ul>
              </div>
 <!-- /.Tags -->

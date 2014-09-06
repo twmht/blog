@@ -5,14 +5,14 @@
     <meta name="author" content="twmht" />
     <meta name="robots" content="index, follow"/>
 
-    <meta property="og:title" content="技術筆記"/>
-    <meta property="og:url" content="http://twmht.github.io/blog"/>
+    <meta property="og:title" content="Merge 多個 commit 成為一個 commit"/>
+    <meta property="og:url" content="http://twmht.github.io/blog/posts/others/gitRebase.html"/>
     <meta property="og:site_name" content="技術筆記"/>
-    <meta property="og:type" content="website"/>
+    <meta property="og:type" content="article"/>
 
-    <link rel="canonical" href="http://twmht.github.io/blog" />
+    <link rel="canonical" href="http://twmht.github.io/blog/posts/others/gitRebase.html" />
 
-    <title>技術筆記 - Authors</title>
+    <title>Merge 多個 commit 成為一個 commit | 技術筆記</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
@@ -50,7 +50,7 @@
                             <li ><a href="http://twmht.github.io/blog/category/javascript.html">javascript</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/linux.html">linux</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/multithread.html">Multithread</a></li>
-                            <li ><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
+                            <li class="active"><a href="http://twmht.github.io/blog/category/others.html">Others</a></li>
                             <li ><a href="http://twmht.github.io/blog/category/python.html">Python</a></li>
                         </ul>
 
@@ -75,7 +75,43 @@
     <div class="row-fluid">
         <div class="span10 offset1">
             <div class="row-fluid">
-    <h1>Authors on 技術筆記</h1>        <li><a href="http://twmht.github.io/blog/author/twmht.html">twmht</a> (129)</li>
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="http://twmht.github.io/blog/posts/others/gitRebase.html" rel="bookmark"
+             title="Permalink to Merge 多個 commit 成為一個 commit">Merge 多個 commit 成為一個 commit</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="http://twmht.github.io/blog/http://twmht.github.io">twmht</a>
+    </address>
+
+    in <a href="http://twmht.github.io/blog/category/others.html">Others</a>
+
+    on 2014-09-06
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p><a href="http://stackoverflow.com/questions/2563632/how-can-i-merge-two-commits-into-one">參考</a></p>
+<p>假設有兩個 commit (順序分別是先 a 後 b )要合併在一起</p>
+<div class="highlight"><pre>git rebase -i
+</pre></div>
+
+
+<p>此時把最新的 commit (也就是b) 標記為 s(squash)，然後存檔，接著會跳出 commit message 讓你修改，此時只保留一個 changeID 即可。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
             </div>
         </div>
     </div>
